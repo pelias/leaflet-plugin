@@ -1,0 +1,123 @@
+.pelias-input {
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-color: white;
+  background-repeat: no-repeat;
+  background-image: url("img/search.png");
+  background-size: 26px;
+  border: none;
+  padding: 0;
+  text-indent: 6px;
+  font-size: 14px;
+  height: auto;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  width: 100%;
+  background-position: right center;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.pelias-control {
+  width: 26px;
+  height: 26px;
+  -webkit-transition: width .1s, height .1s;
+  -moz-transition: width .1s, height .1s;
+  -ms-transition: width .1s, height .1s;
+  -o-transition: width .1s, height .1s;
+  transition: width .1s, height .1s;
+}
+
+.pelias-control.pelias-expanded {
+  width:250px;
+  height:35px;
+}
+
+.pelias-control.pelias-expanded .pelias-input {
+  height:35px;
+}
+
+.pelias-expanded,
+.leaflet-touch .pelias-expanded {
+  width: 250px;
+}
+
+.pelias-input.pelias-loading {
+  background-image: url("img/loading.gif");
+  background-size: 26px;
+}
+
+@media only screen and (min--moz-device-pixel-ratio: 2),
+only screen and (-o-min-device-pixel-ratio: 2/1),
+only screen and (-webkit-min-device-pixel-ratio: 2),
+only screen and (min-device-pixel-ratio: 2) {
+  .pelias-input {
+    background-image: url("img/search@2x.png");
+  }
+  .pelias-input.pelias-loading {
+    background-image: url("img/loading@2x.gif");
+  }
+}
+
+.pelias-input:focus {
+  outline: none;
+  cursor: text;
+}
+
+.pelias-input::-ms-clear {
+    display: none;
+}
+
+.pelias-results {
+  width: 100%;
+  position: absolute;
+  top: 26px;
+  left: 0;
+  margin-top: 10px;
+  overflow: auto;
+  display: none;
+}
+.pelias-list + .pelias-header {
+  border-top: 1px solid #d5d5d5;
+}
+
+.pelias-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.pelias-results .pelias-result {
+  font-size: 13px;
+  padding: 7px;
+  background: white;
+  border-top: 1px solid #f1f1f1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+
+.pelias-results .pelias-result:first-child {
+  border: none;
+}
+
+.pelias-results .pelias-result.pelias-selected,
+.pelias-results .pelias-result:hover {
+  background: #d4645c;
+  border-color: #d4645c;
+  color:#fff;
+}
+
+/* styles when positioned on right */
+
+.leaflet-right .pelias-results {
+  left: auto;
+  right: 0;
+}
+
+.leaflet-right .pelias-input {
+  left: auto;
+  right: 0;
+}
