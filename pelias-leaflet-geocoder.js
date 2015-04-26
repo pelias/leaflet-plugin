@@ -109,8 +109,11 @@ L.Control.Geocoder = L.Control.extend({
   },
 
   search: function(input) {
+    L.DomUtil.addClass(this._input, 'pelias-loading');
+
     AJAX.request(this.options.url, {input: input}, function(err, results) {
       if (results && results.features) {
+        L.DomUtil.removeClass(this._input, 'pelias-loading');
         this.showResults(results.features);
       }
     }, this);
@@ -295,6 +298,9 @@ L.Control.Geocoder = L.Control.extend({
         });
 
     L.DomEvent.disableClickPropagation(this._container);
+    if (map.attributionControl) {
+      map.attributionControl.addAttribution('Geocoding by <a href=\'http://mapzen.com/pelias\'>Pelias</a>');
+    }
     return container;
   }
 });
