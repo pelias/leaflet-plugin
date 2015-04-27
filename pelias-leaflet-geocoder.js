@@ -3,96 +3,6 @@ This adds a geocoder powered by pelias to a leaflet map
 TODO: Better comments
 */
 
-var AJAX = {
-  serialize: function(params) {
-    var data = '';
-
-    for (var key in params){
-      if(params.hasOwnProperty(key)){
-        var param = params[key];
-        var type = param.toString();
-        var value;
-
-        if(data.length){
-          data += '&';
-        }
-
-        switch(type) {
-          case '[object Array]':
-            value = (param[0].toString() === '[object Object]') ? JSON.stringify(param) : param.join(',');
-            break;
-          case '[object Object]':
-            value = JSON.stringify(param);
-            break;
-          case '[object Date]':
-            value = param.valueOf();
-            break;
-          default:
-            value = param;
-            break;
-        }
-
-        data += encodeURIComponent(key) + '=' + encodeURIComponent(value);
-      }
-    }
-
-    return data;
-  },
-  http_request: function(callback, context){
-    var httpRequest = new XMLHttpRequest();
-
-    httpRequest.onerror = function(e) {
-      httpRequest.onreadystatechange = L.Util.falseFn;
-
-      callback.call(context, {
-        error: {
-          code: 500,
-          message: 'XMLHttpRequest Error'
-        }
-      }, null);
-    };
-
-    httpRequest.onreadystatechange = function(){
-      var response;
-      var error;
-
-      if (httpRequest.readyState === 4) {
-        try {
-          response = JSON.parse(httpRequest.responseText);
-        } catch(e) {
-          response = null;
-          error = {
-            code: 500,
-            message: 'Parse Error'
-          };
-        }
-
-        if (!error && response.error) {
-          error = response.error;
-          response = null;
-        }
-
-        httpRequest.onerror = L.Util.falseFn;
-
-        callback.call(context, error, response);
-      }
-    };
-
-    return httpRequest;
-  },
-  request: function(url, params, callback, context) {
-    var paramString   = this.serialize(params);
-    var httpRequest   = this.http_request(callback, context);
-    
-    // TODO check for maximum length for a GET req 
-    // TODO alternatively POST if GET cannot be done
-    // TODO fallback to JSONP if CORS isnt supported
-    httpRequest.open('GET', url + '?' + paramString);
-    httpRequest.send(null);
-  }
-}
-
-
 L.Control.Geocoder = L.Control.extend({
   options: {
     position: 'topleft',
@@ -316,6 +226,96 @@ L.Control.Geocoder = L.Control.extend({
     return container;
   }
 });
+
+
+var AJAX = {
+  serialize: function(params) {
+    var data = '';
+
+    for (var key in params){
+      if(params.hasOwnProperty(key)){
+        var param = params[key];
+        var type = param.toString();
+        var value;
+
+        if(data.length){
+          data += '&';
+        }
+
+        switch(type) {
+          case '[object Array]':
+            value = (param[0].toString() === '[object Object]') ? JSON.stringify(param) : param.join(',');
+            break;
+          case '[object Object]':
+            value = JSON.stringify(param);
+            break;
+          case '[object Date]':
+            value = param.valueOf();
+            break;
+          default:
+            value = param;
+            break;
+        }
+
+        data += encodeURIComponent(key) + '=' + encodeURIComponent(value);
+      }
+    }
+
+    return data;
+  },
+  http_request: function(callback, context){
+    var httpRequest = new XMLHttpRequest();
+
+    httpRequest.onerror = function(e) {
+      httpRequest.onreadystatechange = L.Util.falseFn;
+
+      callback.call(context, {
+        error: {
+          code: 500,
+          message: 'XMLHttpRequest Error'
+        }
+      }, null);
+    };
+
+    httpRequest.onreadystatechange = function(){
+      var response;
+      var error;
+
+      if (httpRequest.readyState === 4) {
+        try {
+          response = JSON.parse(httpRequest.responseText);
+        } catch(e) {
+          response = null;
+          error = {
+            code: 500,
+            message: 'Parse Error'
+          };
+        }
+
+        if (!error && response.error) {
+          error = response.error;
+          response = null;
+        }
+
+        httpRequest.onerror = L.Util.falseFn;
+
+        callback.call(context, error, response);
+      }
+    };
+
+    return httpRequest;
+  },
+  request: function(url, params, callback, context) {
+    var paramString   = this.serialize(params);
+    var httpRequest   = this.http_request(callback, context);
+    
+    // TODO check for maximum length for a GET req 
+    // TODO alternatively POST if GET cannot be done
+    // TODO fallback to JSONP if CORS isnt supported
+    httpRequest.open('GET', url + '?' + paramString);
+    httpRequest.send(null);
+  }
+}
 
 L.control.geocoder = function (options) {
   return new L.Control.Geocoder(options);
