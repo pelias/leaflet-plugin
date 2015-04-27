@@ -1,7 +1,7 @@
 /*
-This adds a geocoder powered by pelias to a leaflet map
-TODO: Better comments
-*/
+ * This adds a geocoder powered by pelias to a leaflet map
+ * TODO: Better comments
+ */
 
 L.Control.Geocoder = L.Control.extend({
   options: {
@@ -227,7 +227,16 @@ L.Control.Geocoder = L.Control.extend({
   }
 });
 
+L.control.geocoder = function (options) {
+  return new L.Control.Geocoder(options);
+};
 
+/* 
+ * AJAX Utitity function (implements basic HTTP get)
+ * TODO check for maximum length for a GET req 
+ * TODO alternatively POST if GET cannot be done
+ * TODO fallback to JSONP if CORS isnt supported
+ */
 var AJAX = {
   serialize: function(params) {
     var data = '';
@@ -309,14 +318,7 @@ var AJAX = {
     var paramString   = this.serialize(params);
     var httpRequest   = this.http_request(callback, context);
     
-    // TODO check for maximum length for a GET req 
-    // TODO alternatively POST if GET cannot be done
-    // TODO fallback to JSONP if CORS isnt supported
     httpRequest.open('GET', url + '?' + paramString);
     httpRequest.send(null);
   }
 }
-
-L.control.geocoder = function (options) {
-  return new L.Control.Geocoder(options);
-};
