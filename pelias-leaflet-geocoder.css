@@ -78,9 +78,6 @@ only screen and (min-device-pixel-ratio: 2) {
   overflow: auto;
   display: none;
 }
-.pelias-list + .pelias-header {
-  border-top: 1px solid #d5d5d5;
-}
 
 .pelias-list {
   list-style: none;
@@ -120,37 +117,4 @@ only screen and (min-device-pixel-ratio: 2) {
 .leaflet-right .pelias-input {
   left: auto;
   right: 0;
-}
-
-.leaflet-touch .pelias {
-  width: 30px;
-  height: 30px;
-}
-
-.leaflet-touch .pelias.pelias-expanded {
-  width: 200px;
-}
-
-.leaflet-touch .pelias-input {
-  height: 30px;
-  line-height: 30px;
-  background-size: 30px;
-}
-
-.leaflet-touch .pelias-results {
-  top: 30px;
-}
-
-.leaflet-oldie .pelias-input {
-  width: 28px;
-  height: 28px;
-}
-
-.leaflet-oldie .pelias-expanded .pelias-input {
-  width: auto;
-}
-
-.leaflet-oldie .pelias-input,
-.leaflet-oldie .pelias-results {
-  border: 1px solid #999;
 }
