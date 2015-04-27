@@ -31,7 +31,10 @@ L.Control.Geocoder = L.Control.extend({
     } 
 
     var bbox_center  = bbox.getCenter();
-    params.bbox = bbox.toBBoxString();
+    // TODO: Once https://github.com/pelias/api/pull/117 is resolved,
+    // uncomment the following line :)
+    // params.bbox = bbox.toBBoxString();
+    params.bbox = bbox.getSouth() + ',' + bbox.getWest() + ',' + bbox.getNorth() + ',' + bbox.getEast();
     params.lat  = bbox_center.lat;
     params.lon  = bbox_center.lng;
     return params;
