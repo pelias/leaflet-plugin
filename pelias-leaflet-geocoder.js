@@ -97,7 +97,7 @@ L.Control.Geocoder = L.Control.extend({
   options: {
     position: 'topleft',
     icon: 'glyphicon-th-list glyphicon',
-    url: '//pelias.mapzen.com/search',
+    url: '//pelias.mapzen.com/',
     placeholder: 'Search',
     title: 'Search'
   },
@@ -109,9 +109,22 @@ L.Control.Geocoder = L.Control.extend({
   },
 
   search: function(input) {
+    var url = this.options.url + '/search';
     L.DomUtil.addClass(this._input, 'pelias-loading');
 
-    AJAX.request(this.options.url, {input: input}, function(err, results) {
+    AJAX.request(url, {input: input}, function(err, results) {
+      if (results && results.features) {
+        L.DomUtil.removeClass(this._input, 'pelias-loading');
+        this.showResults(results.features);
+      }
+    }, this);
+  },
+
+  suggest: function(input, geo) {
+    var url = this.options.url + '/suggest';
+    L.DomUtil.addClass(this._input, 'pelias-loading');
+
+    AJAX.request(url, {input: input, lat:geo.lat, lon:geo.lng}, function(err, results) {
       if (results && results.features) {
         L.DomUtil.removeClass(this._input, 'pelias-loading');
         this.showResults(results.features);
@@ -137,12 +150,6 @@ L.Control.Geocoder = L.Control.extend({
       result_item.coords = feature.geometry.coordinates; 
       result_item.innerHTML = feature.properties.text;
     });
-
-    // feeling lucky
-    var first_result = results_container.querySelectorAll('.' + 'pelias-result')[0];
-    if (first_result) {
-      L.DomUtil.addClass(first_result, 'pelias-selected');
-    }
   },
 
   removeMarkers: function() {
@@ -220,8 +227,9 @@ L.Control.Geocoder = L.Control.extend({
                 this.showMarker(selected.innerHTML, selected['coords']);
                 this.clear();
               } else {
-                // TODO show all points on the map and adjust bounds to extents bbox
-                L.DomUtil.addClass(list[0], 'pelias-selected');
+                // perform a full text search on enter
+                var text = (e.target || e.srcElement).value;
+                this.search(text);
               }
               L.DomEvent.preventDefault(e);
               break;
@@ -276,7 +284,11 @@ L.Control.Geocoder = L.Control.extend({
           if(key !== 13 && key !== 38 && key !== 40){
             if(this._input.value !== this._lastValue){
               this._lastValue = this._input.value;
-              this.search(text);
+              // TODO make geo context optional (with completion suggester v2)
+              // /suggest while typing requires lat/lon
+              // https://github.com/elasticsearch/elasticsearch/issues/6444
+              // https://github.com/elastic/elasticsearch/issues/10746
+              this.suggest(text, this._map.getCenter());
             }
           }
         }, 50, this), this)
