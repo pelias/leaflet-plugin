@@ -7,9 +7,10 @@ L.Control.Geocoder = L.Control.extend({
   options: {
     position: 'topleft',
     icon: 'glyphicon-th-list glyphicon',
-    url: '//pelias.mapzen.com/',
+    url: '//pelias.mapzen.com',
     placeholder: 'Search',
-    title: 'Search'
+    title: 'Search',
+    bbox: false
   },
 
   initialize: function (options) {
@@ -18,11 +19,35 @@ L.Control.Geocoder = L.Control.extend({
     this.markers = [];
   },
 
+  getBoundingBoxParam: function (params) {
+    var bbox= this.options.bbox;
+    
+    if ( !bbox ) {
+      return params;
+    }
+    
+    if ( (typeof bbox !== 'object') || !bbox.isValid() ) {
+      bbox = this._map.getBounds();
+    } 
+
+    var bbox_center  = bbox.getCenter();
+    params.bbox = bbox.toBBoxString();
+    params.lat  = bbox_center.lat;
+    params.lon  = bbox_center.lng;
+    return params;
+  },
+
   search: function(input) {
     var url = this.options.url + '/search';
+    var params = {
+      input: input
+    };
+
+    params = this.getBoundingBoxParam( params );
+
     L.DomUtil.addClass(this._input, 'pelias-loading');
 
-    AJAX.request(url, {input: input}, function(err, results) {
+    AJAX.request(url, params, function(err, results) {
       if (results && results.features) {
         L.DomUtil.removeClass(this._input, 'pelias-loading');
         this.showResults(results.features);
@@ -30,11 +55,25 @@ L.Control.Geocoder = L.Control.extend({
     }, this);
   },
 
-  suggest: function(input, geo) {
+  suggest: function(input) {
     var url = this.options.url + '/suggest';
+    
+    // TODO make geo context optional (with completion suggester v2)
+    // /suggest while typing requires lat/lon
+    // https://github.com/elasticsearch/elasticsearch/issues/6444
+    // https://github.com/elastic/elasticsearch/issues/10746
+    var geo = this._map.getCenter();
+
+    var params = {
+      input: input,
+      lat: geo.lat,
+      lon: geo.lng
+    };
+    params = this.getBoundingBoxParam( params );
+
     L.DomUtil.addClass(this._input, 'pelias-loading');
 
-    AJAX.request(url, {input: input, lat:geo.lat, lon:geo.lng}, function(err, results) {
+    AJAX.request(url, params, function(err, results) {
       if (results && results.features) {
         L.DomUtil.removeClass(this._input, 'pelias-loading');
         this.showResults(results.features);
@@ -194,11 +233,7 @@ L.Control.Geocoder = L.Control.extend({
           if(key !== 13 && key !== 38 && key !== 40){
             if(this._input.value !== this._lastValue){
               this._lastValue = this._input.value;
-              // TODO make geo context optional (with completion suggester v2)
-              // /suggest while typing requires lat/lon
-              // https://github.com/elasticsearch/elasticsearch/issues/6444
-              // https://github.com/elastic/elasticsearch/issues/10746
-              this.suggest(text, this._map.getCenter());
+              this.suggest(text);
             }
           }
         }, 50, this), this)
