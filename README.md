@@ -39,10 +39,16 @@ L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 L.control.geocoder().addTo(map);
 
 // Taking just the center of the map (lat/lon) into account
-L.control.geocoder({latlon:true, placeholder: 'Search (from the center/latlon)'}).addTo(map);
+L.control.geocoder({
+  latlon:true, 
+  placeholder: 'Search (from the center/latlon)'
+}).addTo(map);
 
 // Taking just the bounding box of the map view into account
-L.control.geocoder({bbox:true, placeholder: 'Search (within map\'s view/bbox)'}).addTo(map);
+L.control.geocoder({
+  bbox:true, 
+  placeholder: 'Search (within map\'s view/bbox)'
+}).addTo(map);
 
 ```
 
