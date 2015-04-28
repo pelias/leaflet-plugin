@@ -103,6 +103,10 @@ L.Control.Geocoder = L.Control.extend({
   callPelias: function(endpoint, params) {
     params = this.getBoundingBoxParam( params );
     params = this.getLatLonParam( params );
+    
+    // Since we always use properties.text we dont need the details
+    // See https://github.com/pelias/api/releases/tag/1.2.0
+    params.details = false;
 
     L.DomUtil.addClass(this._input, 'pelias-loading');
 
