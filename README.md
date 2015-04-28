@@ -31,27 +31,42 @@ L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
 ```
 
-**Step 3**: Add geocoder powered by pelias!
+**Step 3**: Add a custom geocoder
 
 ```javascript
 
 // Minimal
 L.control.geocoder().addTo(map);
 
+// Searching nearby [50.5, 30.5]
+L.control.geocoder({
+  latlon:[50.5, 30.5], // this can also written as {lat:50.5,lon:30.5} or L.latLng(50.5, 30.5)
+  placeholder: 'Search nearby [50.5, 30.5]'
+}).addTo(map);
+
 // Taking just the center of the map (lat/lon) into account
 L.control.geocoder({
   latlon:true, 
-  placeholder: 'Search (from the center/latlon)'
+  placeholder: 'Search nearby (from the center/latlon)'
+}).addTo(map);
+
+// Searching within a bounding box
+var southWest = L.latLng(40.712, -74.227),
+    northEast = L.latLng(40.774, -74.125),
+    bounds = L.latLngBounds(southWest, northEast);
+
+L.control.geocoder({
+  bbox:bounds, 
+  placeholder: 'Search within the bounds' //map\'s view/bbox
 }).addTo(map);
 
 // Taking just the bounding box of the map view into account
 L.control.geocoder({
   bbox:true, 
-  placeholder: 'Search (within map\'s view/bbox)'
+  placeholder: 'Search within the bounds' //map\'s view/bbox
 }).addTo(map);
 
 ```
 
-## Options
+**Step 4**: Rejoice! 
 
-Coming soon...

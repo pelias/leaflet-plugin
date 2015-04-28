@@ -57,27 +57,19 @@ L.Control.Geocoder = L.Control.extend({
       return params;
     }
     
-    var type = typeof latlon;
-
-    switch(type) {
-      case 'array':
-        // TODO Check for array size, throw errors if invalid lat/lon
-        params.lat = latlon[0];
-        params.lon = latlon[1];
-        break;
-      case 'object':
-        // TODO Check for valid L.LatLng Object or Object thats in the form of {lat:..,lon:..}
-        // TODO Check for valid lat/lon values, Error handling
-        params.lat = latlon.lat;
-        params.lon = latlon.lng ? latlon.lng : latlon.lon;
-        break;
-      default:
-        latlon = this._map.getCenter();
-        params.lat = latlon.lat;
-        params.lon = latlon.lng;
-        break;
-    } 
-
+    if (latlon.constructor === Array) {
+      // TODO Check for array size, throw errors if invalid lat/lon
+      params.lat = latlon[0];
+      params.lon = latlon[1];
+    } else if (typeof latlon !== 'object') {
+      // fallback to the map's center L.latLng()
+      latlon = this._map.getCenter();
+    } else {
+      // TODO Check for valid L.LatLng Object or Object thats in the form of {lat:..,lon:..}
+      // TODO Check for valid lat/lon values, Error handling
+      params.lat = latlon.lat;
+      params.lon = latlon.lng ? latlon.lng : latlon.lon;
+    }
     return params;
   },
 
