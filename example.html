@@ -35,7 +35,14 @@
             noWrap: true
         }).addTo(map);
 
+        // Minimal
         L.control.geocoder().addTo(map);
+        
+        // Taking just the center of the map (lat/lon) into account
+        // L.control.geocoder({latlon:true, placeholder: 'Search (from the center/latlon)'}).addTo(map);
+
+        // Taking just the bounding box of the map view into account
+        // L.control.geocoder({bbox:true, placeholder: 'Search (within map\'s view/bbox)'}).addTo(map);
 
         /* Adding a script block to post message to the parent container (think iframed demos) */
         window.addEventListener("hashchange",function(){parent.postMessage(window.location.hash, "*")});
