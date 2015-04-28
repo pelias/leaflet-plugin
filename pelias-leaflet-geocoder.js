@@ -6,11 +6,12 @@
 L.Control.Geocoder = L.Control.extend({
   options: {
     position: 'topleft',
-    icon: 'glyphicon-th-list glyphicon',
+    attribution: 'Geocoding by <a href=\'http://mapzen.com/pelias\'>Pelias</a>',
     url: '//pelias.mapzen.com',
     placeholder: 'Search',
     title: 'Search',
-    bbox: false
+    bbox: false,
+    latlon: null
   },
 
   initialize: function (options) {
@@ -40,22 +41,53 @@ L.Control.Geocoder = L.Control.extend({
     return params;
   },
 
+  getLatLonParam: function (params) {
+    /*
+     * this.options.latlon can be one of the following
+     * [50, 30] //Array
+     * {lon: 30, lat: 50} //Object
+     * {lat: 50, lng: 30} //Object
+     * L.latLng(50, 30) //Object
+     * true //Boolean - take the map center
+     * false //Boolean - No latlon to be considered
+    */
+    var latlon= this.options.latlon;
+    
+    if ( !latlon ) {
+      return params;
+    }
+    
+    var type = typeof latlon;
+
+    switch(type) {
+      case 'array':
+        // TODO Check for array size, throw errors if invalid lat/lon
+        params.lat = latlon[0];
+        params.lon = latlon[1];
+        break;
+      case 'object':
+        // TODO Check for valid L.LatLng Object or Object thats in the form of {lat:..,lon:..}
+        // TODO Check for valid lat/lon values, Error handling
+        params.lat = latlon.lat;
+        params.lon = latlon.lng ? latlon.lng : latlon.lon;
+        break;
+      default:
+        latlon = this._map.getCenter();
+        params.lat = latlon.lat;
+        params.lon = latlon.lng;
+        break;
+    } 
+
+    return params;
+  },
+
   search: function(input) {
     var url = this.options.url + '/search';
     var params = {
       input: input
     };
 
-    params = this.getBoundingBoxParam( params );
-
-    L.DomUtil.addClass(this._input, 'pelias-loading');
-
-    AJAX.request(url, params, function(err, results) {
-      if (results && results.features) {
-        L.DomUtil.removeClass(this._input, 'pelias-loading');
-        this.showResults(results.features);
-      }
-    }, this);
+    this.callPelias(url, params);
   },
 
   suggest: function(input) {
@@ -72,11 +104,17 @@ L.Control.Geocoder = L.Control.extend({
       lat: geo.lat,
       lon: geo.lng
     };
+    
+    this.callPelias(url, params);
+  },
+
+  callPelias: function(endpoint, params) {
     params = this.getBoundingBoxParam( params );
+    params = this.getLatLonParam( params );
 
     L.DomUtil.addClass(this._input, 'pelias-loading');
 
-    AJAX.request(url, params, function(err, results) {
+    AJAX.request(endpoint, params, function(err, results) {
       if (results && results.features) {
         L.DomUtil.removeClass(this._input, 'pelias-loading');
         this.showResults(results.features);
@@ -259,9 +297,13 @@ L.Control.Geocoder = L.Control.extend({
 
     L.DomEvent.disableClickPropagation(this._container);
     if (map.attributionControl) {
-      map.attributionControl.addAttribution('Geocoding by <a href=\'http://mapzen.com/pelias\'>Pelias</a>');
+      map.attributionControl.addAttribution(this.options.attribution);
     }
     return container;
+  },
+
+  onRemove: function (map) {
+    map.attributionControl.removeAttribution(this.options.attribution);
   }
 });
 
