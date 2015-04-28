@@ -57,7 +57,7 @@ var southWest = L.latLng(40.712, -74.227),
 
 L.control.geocoder({
   bbox:bounds, 
-  placeholder: 'Search within the bounds' //map\'s view/bbox
+  placeholder: 'Search within ' + bounds.toBBoxString() //given bbox
 }).addTo(map);
 
 // Taking just the bounding box of the map view into account
