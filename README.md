@@ -75,19 +75,19 @@ L.control.geocoder({
 // Address Geocoder: search only (street) address layers
 L.control.geocoder({
   layers: 'address', 
-  placeholder: 'Coarse Geocoder'
+  placeholder: 'Address Geocoder'
 }).addTo(map);
 
 // POI Geocoder: search only points of interests
 L.control.geocoder({
   layers: 'poi', 
-  placeholder: 'Coarse Geocoder'
+  placeholder: 'POI Geocoder'
 }).addTo(map);
 
 // Street level Geocoder: search only poi and street addresses
 L.control.geocoder({
   layers: 'poi,address', 
-  placeholder: 'Coarse Geocoder'
+  placeholder: 'Street Geocoder'
 }).addTo(map);
 
 ```
