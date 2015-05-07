@@ -11,13 +11,25 @@ L.Control.Geocoder = L.Control.extend({
     placeholder: 'Search',
     title: 'Search',
     bbox: false,
-    latlon: null
+    latlon: null,
+    layers: 'poi,admin,address'
   },
 
   initialize: function (options) {
     L.Util.setOptions(this, options);
     this.marker;
     this.markers = [];
+  },
+
+  getLayers: function (params) {
+    var layers = this.options.layers;
+
+    if ( !layers ) {
+      return params;
+    }
+
+    params.layers = layers;
+    return params;
   },
 
   getBoundingBoxParam: function (params) {
@@ -100,6 +112,7 @@ L.Control.Geocoder = L.Control.extend({
   callPelias: function(endpoint, params) {
     params = this.getBoundingBoxParam( params );
     params = this.getLatLonParam( params );
+    params = this.getLayers( params );
     
     // Since we always use properties.text we dont need the details
     // See https://github.com/pelias/api/releases/tag/1.2.0

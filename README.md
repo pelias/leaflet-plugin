@@ -66,6 +66,30 @@ L.control.geocoder({
   placeholder: 'Search within the bounds' //map\'s view/bbox
 }).addTo(map);
 
+// Coarse Geocoder: search only admin layers
+L.control.geocoder({
+  layers: 'admin', 
+  placeholder: 'Coarse Geocoder'
+}).addTo(map);
+
+// Address Geocoder: search only (street) address layers
+L.control.geocoder({
+  layers: 'address', 
+  placeholder: 'Coarse Geocoder'
+}).addTo(map);
+
+// POI Geocoder: search only points of interests
+L.control.geocoder({
+  layers: 'poi', 
+  placeholder: 'Coarse Geocoder'
+}).addTo(map);
+
+// Street level Geocoder: search only poi and street addresses
+L.control.geocoder({
+  layers: 'poi,address', 
+  placeholder: 'Coarse Geocoder'
+}).addTo(map);
+
 ```
 
 **Step 4**: Rejoice! 
