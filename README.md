@@ -4,7 +4,9 @@ A plugin that adds the ability to search (geocode) a leaflet powered map.
 
 ## Requirements
 
-Works well with ```leaflet-0.7.3```. Should work with the latest version of leaflet as well. If not, please log an issue
+Works well with ```leaflet-0.7.3```, ```leaflet-0.8-dev```. 
+
+Should work with the latest version of leaflet as well. If not, please log an issue
 
 ## Demo
 

@@ -19,6 +19,8 @@ L.Control.Geocoder = L.Control.extend({
     L.Util.setOptions(this, options);
     this.marker;
     this.markers = [];
+
+    this.throttle = L.Util.throttle ? L.Util.throttle : L.Util.limitExecByInterval;
   },
 
   getLayers: function (params) {
@@ -264,7 +266,7 @@ L.Control.Geocoder = L.Control.extend({
               break;
           } 
         }, this)
-      .on(this._input, 'keyup', L.Util.limitExecByInterval(function(e){
+      .on(this._input, 'keyup', this.throttle(function(e){
           var key = e.which || e.keyCode;
           var text = (e.target || e.srcElement).value;
 
