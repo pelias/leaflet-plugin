@@ -13,8 +13,8 @@ L.Control.Geocoder = L.Control.extend({
     bbox: false,
     latlon: null,
     layers: 'poi,admin,address',
-    point_icon: '/img/point_icon.png',
-    polygon_icon: '/img/polygon_icon.png'
+    point_icon: 'img/point_icon.png',
+    polygon_icon: 'img/polygon_icon.png'
   },
 
   initialize: function (options) {
