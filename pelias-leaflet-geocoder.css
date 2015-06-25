@@ -13,8 +13,9 @@
   height: auto;
   padding-top: 5px;
   padding-bottom: 5px;
+  padding-left:20px;
   width: 100%;
-  background-position: right center;
+  background-position: left center;
   cursor: pointer;
   box-sizing: border-box;
 }
@@ -36,6 +37,7 @@
 
 .pelias-control.pelias-expanded .pelias-input {
   height:35px;
+  background-image: url("img/search_blue.png");
 }
 
 .pelias-expanded,
@@ -43,9 +45,18 @@
   width: 250px;
 }
 
-.pelias-input.pelias-loading {
+.pelias-control.pelias-expanded .pelias-input.pelias-loading {
   background-image: url("img/loading.gif");
   background-size: 26px;
+}
+
+img.layer_icon {
+  width: 15px;
+  vertical-align: middle;
+}
+
+span.layer_icon_container {
+  margin-right: 5px;
 }
 
 @media only screen and (min--moz-device-pixel-ratio: 2),
@@ -102,9 +113,8 @@ only screen and (min-device-pixel-ratio: 2) {
 
 .pelias-results .pelias-result.pelias-selected,
 .pelias-results .pelias-result:hover {
-  background: #d4645c;
-  border-color: #d4645c;
-  color:#fff;
+  background: #B2E3E7;
+  border-color: #B2E3E7;
 }
 
 /* styles when positioned on right */

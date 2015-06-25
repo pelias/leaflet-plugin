@@ -12,7 +12,9 @@ L.Control.Geocoder = L.Control.extend({
     title: 'Search',
     bbox: false,
     latlon: null,
-    layers: 'poi,admin,address'
+    layers: 'poi,admin,address',
+    point_icon: '/img/point_icon.png',
+    polygon_icon: '/img/polygon_icon.png'
   },
 
   initialize: function (options) {
@@ -129,9 +131,39 @@ L.Control.Geocoder = L.Control.extend({
       }
     }, this);
   },
+  
+  highlight: function( text, focus ){
+    var r = RegExp( '('+ focus + ')', 'gi' );
+    return text.replace( r, '<strong>$1</strong>' );
+  },
+
+  getMeta: function( type ) {
+    var point_icon = this.options.point_icon;
+    var polygon_icon = this.options.polygon_icon;
+
+    if( type.match('geoname') ){
+      return { icon: point_icon, title: 'source: geonames'};
+    } else if( type.match('osm') || 
+               type.match('osmway')  || 
+               type.match('osmnode') || 
+               type.match('osmaddress')){
+      return { icon: point_icon, title: 'source: openstreetmap'};
+    } else if( type.match('admin0') || 
+               type.match('admin1') || 
+               type.match('admin2') || 
+               type.match('locality') ||
+               type.match('neighborhood') || 
+               type.match('local_admin') ){
+      return { icon: polygon_icon, title: 'source: quattroshapes'};
+    } else if( type.match('openaddresses') ){
+      return { icon: point_icon, title: 'source: openaddresses'};
+    }
+    return { icon: point_icon, title: 'source: default'};
+  },
 
   showResults: function(features) {
     var list;
+    var self = this; 
     var results_container = this._results;
     results_container.innerHTML = '';
     results_container.style.display = 'block';
@@ -144,9 +176,16 @@ L.Control.Geocoder = L.Control.extend({
       }
 
       var result_item = L.DomUtil.create('li', 'pelias-result', list);
+      var result_meta = self.getMeta(feature.properties.layer);
+
       result_item.layer  = feature.properties.layer;
       result_item.coords = feature.geometry.coordinates; 
-      result_item.innerHTML = feature.properties.text;
+
+      var layer_icon_con = L.DomUtil.create('span', 'layer_icon_container', result_item);
+      var layer_icon     = L.DomUtil.create('img', 'layer_icon', layer_icon_con);
+      layer_icon.src  = result_meta.icon;
+      layer_icon.title= result_meta.title;   
+      result_item.innerHTML += self.highlight(feature.properties.text, self._input.value);
     });
   },
 
@@ -171,12 +210,12 @@ L.Control.Geocoder = L.Control.extend({
 
   clear: function(){
     this._results.style.display = 'none';
-    this._results.innerHTML = '';
-    this._input.value = '';
-    this._input.placeholder = '';
-    this._input.blur();
+    // this._results.innerHTML = '';
+    // this._input.value = '';
+    // this._input.placeholder = '';
+    // this._input.blur();
 
-    L.DomUtil.removeClass(this._container, 'pelias-expanded');
+    // L.DomUtil.removeClass(this._container, 'pelias-expanded');
   },
 
   onAdd: function (map) {
@@ -197,6 +236,7 @@ L.Control.Geocoder = L.Control.extend({
     L.DomEvent
       .on(this._input, 'focus', function(e){
           this._input.placeholder = this.options.placeholder;
+          this._results.style.display = 'block';
           L.DomUtil.addClass(this._container, 'pelias-expanded');
         }, this)
       .on(this._container, 'click', function(e){
