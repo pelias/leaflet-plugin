@@ -209,14 +209,17 @@ L.Control.Geocoder = L.Control.extend({
     this.marker.openPopup();
   },
 
-  clear: function(){
+  clear: function(all){
     this._results.style.display = 'none';
-    // this._results.innerHTML = '';
-    // this._input.value = '';
-    // this._input.placeholder = '';
-    // this._input.blur();
-
-    // L.DomUtil.removeClass(this._container, 'pelias-expanded');
+    if (all) {
+      this._results.innerHTML = '';
+      this._input.value = '';
+      this._input.placeholder = '';
+      this._input.blur();
+      L.DomUtil.addClass(this._close, 'hidden');
+      L.DomUtil.removeClass(this._container, 'pelias-expanded');
+      this.removeMarkers();
+    }
   },
 
   onAdd: function (map) {
@@ -233,6 +236,9 @@ L.Control.Geocoder = L.Control.extend({
     this._input.title = this.options.title;
 
     this._results = L.DomUtil.create('div', 'pelias-results leaflet-bar', this._container);
+    this._close   = L.DomUtil.create('span', 'pelias-close hidden', this._container);
+    this._closeimg= L.DomUtil.create('img', 'close_icon', this._close);
+    this._closeimg.src = 'img/x.png';
 
     L.DomEvent
       .on(this._input, 'focus', function(e){
@@ -243,6 +249,10 @@ L.Control.Geocoder = L.Control.extend({
       .on(this._container, 'click', function(e){
           this._input.focus();
         }, this)
+      .on(this._close, 'click', function(e){
+          this.clear(true);
+          e.stopPropagation();
+      }, this)
       .on(this._input, 'blur', function(e){
           this.clear();
         }, this)
@@ -257,6 +267,12 @@ L.Control.Geocoder = L.Control.extend({
               self.showMarker(_selected.innerHTML, _selected['coords']);
             }
           };
+
+          if (this._input.value.length > 0) {
+            L.DomUtil.removeClass(this._close, 'hidden');
+          } else {
+            L.DomUtil.addClass(this._close, 'hidden');
+          }
 
           for (var i = 0; i < list.length; i++) {
             if(list[i] === selected){
