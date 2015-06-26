@@ -13,6 +13,7 @@ L.Control.Geocoder = L.Control.extend({
     bbox: false,
     latlon: null,
     layers: 'poi,admin,address',
+    pan_to_point: true, 
     point_icon: 'img/point_icon.png',
     polygon_icon: 'img/polygon_icon.png'
   },
@@ -249,6 +250,13 @@ L.Control.Geocoder = L.Control.extend({
           var list = this._results.querySelectorAll('.' + 'pelias-result');
           var selected = this._results.querySelectorAll('.' + 'pelias-selected')[0];
           var selectedPosition;
+          var self = this;
+          var pan_to_point = function(shouldPan) {
+            var _selected = self._results.querySelectorAll('.' + 'pelias-selected')[0];
+            if (_selected && shouldPan) {
+              self.showMarker(_selected.innerHTML, _selected['coords']);
+            }
+          };
 
           for (var i = 0; i < list.length; i++) {
             if(list[i] === selected){
@@ -284,6 +292,9 @@ L.Control.Geocoder = L.Control.extend({
               } else {
                 L.DomUtil.addClass(list[list.length-1], 'pelias-selected');
               }
+              
+              pan_to_point(this.options.pan_to_point);
+
               L.DomEvent.preventDefault(e);
               break;
             // 40 = down arrow
@@ -299,6 +310,9 @@ L.Control.Geocoder = L.Control.extend({
               } else {
                 L.DomUtil.addClass(list[0], 'pelias-selected');
               }
+
+              pan_to_point(this.options.pan_to_point);
+
               L.DomEvent.preventDefault(e);
               break;
             // all other keys

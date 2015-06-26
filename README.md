@@ -92,6 +92,18 @@ L.control.geocoder({
   placeholder: 'Street Geocoder'
 }).addTo(map);
 
+// Customizing icons
+L.control.geocoder({
+  point_icon: 'http://www.somewhereontheweb.com/download/img/point.png',
+  polygon_icon: 'https://cloud.com/polygon_icon.svg'
+}).addTo(map);
+
+// Configure if you want to zoom/pan to a point while browsing the results (up/down arrows)
+// pan_to_point set to true (by default)
+L.control.geocoder({
+  pan_to_point: true
+}).addTo(map);
+
 ```
 
 **Step 4**: Rejoice! 
