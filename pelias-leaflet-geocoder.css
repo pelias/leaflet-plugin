@@ -10,7 +10,7 @@
   padding: 0;
   text-indent: 6px;
   font-size: 14px;
-  height: auto;
+  height: 100%;
   padding-top: 5px;
   padding-bottom: 5px;
   padding-left:20px;
@@ -28,6 +28,16 @@
   -ms-transition: width .1s, height .1s;
   -o-transition: width .1s, height .1s;
   transition: width .1s, height .1s;
+}
+
+.leaflet-touch .pelias-control {
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+}
+
+.leaflet-touch .pelias-input {
+  background-size:30px;
 }
 
 .pelias-control.pelias-expanded {
