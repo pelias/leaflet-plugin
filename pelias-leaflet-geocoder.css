@@ -75,6 +75,12 @@ img.close_icon {
   display: none;
 }
 
+.leaflet-touch .pelias-input.leaflet-bar, .leaflet-touch .pelias-results.leaflet-bar {
+  box-shadow: none;
+  border-radius: 4px;
+  border: 0 none;
+}
+
 @media only screen and (min--moz-device-pixel-ratio: 2),
 only screen and (-o-min-device-pixel-ratio: 2/1),
 only screen and (-webkit-min-device-pixel-ratio: 2),
