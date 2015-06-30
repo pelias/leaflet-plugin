@@ -15,7 +15,9 @@ L.Control.Geocoder = L.Control.extend({
     layers: 'poi,admin,address',
     pan_to_point: true, 
     point_icon: 'img/point_icon.png',
-    polygon_icon: 'img/polygon_icon.png'
+    polygon_icon: 'img/polygon_icon.png',
+    full_width: window.innerWidth < 650,
+    hide_other_controls: window.innerWidth < 650
   },
 
   initialize: function (options) {
@@ -218,6 +220,12 @@ L.Control.Geocoder = L.Control.extend({
       this._input.blur();
       L.DomUtil.addClass(this._close, 'hidden');
       L.DomUtil.removeClass(this._container, 'pelias-expanded');
+      if (this.options.full_width) {
+        this._container.style.width = '';
+      }
+      if (this.options.hide_other_controls) {
+        L.DomUtil.removeClass(this._body, 'hide-other-controls');
+      }
       this.removeMarkers();
     }
   },
@@ -227,8 +235,7 @@ L.Control.Geocoder = L.Control.extend({
         'pelias-control leaflet-bar leaflet-control');
 
     var self = this;
-    this._layer = new L.LayerGroup();
-    this._layer.addTo(map);
+    this._body = document.body || document.getElementsByTagName('body')[0];
 
     this._container = container;
 
@@ -245,6 +252,12 @@ L.Control.Geocoder = L.Control.extend({
           this._input.placeholder = this.options.placeholder;
           this._results.style.display = 'block';
           L.DomUtil.addClass(this._container, 'pelias-expanded');
+          if (self.options.full_width) {
+            this._container.style.width = (window.innerWidth - 20) + 'px';
+          }
+          if (self.options.hide_other_controls) {
+            L.DomUtil.addClass(this._body, 'hide-other-controls');
+          }
         }, this)
       .on(this._container, 'click', function(e){
           this._input.focus();

@@ -30,6 +30,14 @@
   transition: width .1s, height .1s;
 }
 
+.hide-other-controls .leaflet-control {
+  display:none;
+}
+
+.hide-other-controls .leaflet-control.pelias-control {
+  display:block;
+}
+
 .leaflet-touch .pelias-control {
   width: 30px;
   height: 30px;

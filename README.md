@@ -100,9 +100,30 @@ L.control.geocoder({
 
 // Configure if you want to zoom/pan to a point while browsing the results (up/down arrows)
 // pan_to_point set to true (by default)
+// as per https://github.com/pelias/leaflet-geocoder/issues/6
 L.control.geocoder({
   pan_to_point: true
 }).addTo(map);
+
+// Setting full width on the search text box 
+// by default: true - on mobile/ any viewport of 650px and less
+// if viewport wider than 650px, its set to false 
+// and width is defined in the CSS (250px)
+// as per https://github.com/pelias/leaflet-geocoder/issues/7
+L.control.geocoder({
+    full_width: true
+}).addTo(map);
+
+// hide_other_controls
+// Configure if you want to hide other leaflet controls while performing search
+// by default hide_other_controls is set to true 
+// this is the default UX behavior for mobile devices 
+// or devices with small viewport (< 650px)
+// as per https://github.com/pelias/leaflet-geocoder/issues/7
+L.control.geocoder({
+    hide_other_controls: false
+}).addTo(map);
+
 
 ```
 
