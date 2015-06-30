@@ -104,10 +104,6 @@
         //     hide_other_controls: false
         // }).addTo(map);
         
-        L.control.geocoder({
-            viewport_width: 500
-        }).addTo(map);
-        
         /* Adding a script block to post message to the parent container (think iframed demos) */
         window.addEventListener("hashchange",function(){parent.postMessage(window.location.hash, "*")});
       </script>
