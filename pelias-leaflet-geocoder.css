@@ -10,11 +10,12 @@
   padding: 0;
   text-indent: 6px;
   font-size: 14px;
-  height: auto;
+  height: 100%;
   padding-top: 5px;
   padding-bottom: 5px;
+  padding-left:20px;
   width: 100%;
-  background-position: right center;
+  background-position: left center;
   cursor: pointer;
   box-sizing: border-box;
 }
@@ -29,6 +30,24 @@
   transition: width .1s, height .1s;
 }
 
+.hide-other-controls .leaflet-control {
+  display:none;
+}
+
+.hide-other-controls .leaflet-control.pelias-control {
+  display:block;
+}
+
+.leaflet-touch .pelias-control {
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+}
+
+.leaflet-touch .pelias-input {
+  background-size:30px;
+}
+
 .pelias-control.pelias-expanded {
   width:250px;
   height:35px;
@@ -36,6 +55,7 @@
 
 .pelias-control.pelias-expanded .pelias-input {
   height:35px;
+  background-image: url("img/search_blue.png");
 }
 
 .pelias-expanded,
@@ -43,9 +63,40 @@
   width: 250px;
 }
 
-.pelias-input.pelias-loading {
+.pelias-control.pelias-expanded .pelias-input.pelias-loading {
   background-image: url("img/loading.gif");
   background-size: 26px;
+}
+
+img.layer_icon {
+  width: 15px;
+  vertical-align: middle;
+}
+
+span.layer_icon_container {
+  margin-right: 5px;
+}
+
+span.pelias-close {
+  position: absolute;
+  right: 5px;
+  top: 7px;
+  z-index:2;
+  cursor: pointer;
+}
+
+img.close_icon {
+  width: 20px;
+}
+
+.hidden {
+  display: none;
+}
+
+.leaflet-touch .pelias-input.leaflet-bar, .leaflet-touch .pelias-results.leaflet-bar {
+  box-shadow: none;
+  border-radius: 4px;
+  border: 0 none;
 }
 
 @media only screen and (min--moz-device-pixel-ratio: 2),
@@ -102,9 +153,8 @@ only screen and (min-device-pixel-ratio: 2) {
 
 .pelias-results .pelias-result.pelias-selected,
 .pelias-results .pelias-result:hover {
-  background: #d4645c;
-  border-color: #d4645c;
-  color:#fff;
+  background: #B2E3E7;
+  border-color: #B2E3E7;
 }
 
 /* styles when positioned on right */

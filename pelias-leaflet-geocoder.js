@@ -12,7 +12,12 @@ L.Control.Geocoder = L.Control.extend({
     title: 'Search',
     bbox: false,
     latlon: null,
-    layers: 'poi,admin,address'
+    layers: 'poi,admin,address',
+    pan_to_point: true, 
+    point_icon: 'img/point_icon.png',
+    polygon_icon: 'img/polygon_icon.png',
+    full_width: window.innerWidth < 650,
+    hide_other_controls: window.innerWidth < 650
   },
 
   initialize: function (options) {
@@ -129,9 +134,39 @@ L.Control.Geocoder = L.Control.extend({
       }
     }, this);
   },
+  
+  highlight: function( text, focus ){
+    var r = RegExp( '('+ focus + ')', 'gi' );
+    return text.replace( r, '<strong>$1</strong>' );
+  },
+
+  getMeta: function( type ) {
+    var point_icon = this.options.point_icon;
+    var polygon_icon = this.options.polygon_icon;
+
+    if( type.match('geoname') ){
+      return { icon: point_icon, title: 'source: geonames'};
+    } else if( type.match('osm') || 
+               type.match('osmway')  || 
+               type.match('osmnode') || 
+               type.match('osmaddress')){
+      return { icon: point_icon, title: 'source: openstreetmap'};
+    } else if( type.match('admin0') || 
+               type.match('admin1') || 
+               type.match('admin2') || 
+               type.match('locality') ||
+               type.match('neighborhood') || 
+               type.match('local_admin') ){
+      return { icon: polygon_icon, title: 'source: quattroshapes'};
+    } else if( type.match('openaddresses') ){
+      return { icon: point_icon, title: 'source: openaddresses'};
+    }
+    return { icon: point_icon, title: 'source: default'};
+  },
 
   showResults: function(features) {
     var list;
+    var self = this; 
     var results_container = this._results;
     results_container.innerHTML = '';
     results_container.style.display = 'block';
@@ -144,9 +179,16 @@ L.Control.Geocoder = L.Control.extend({
       }
 
       var result_item = L.DomUtil.create('li', 'pelias-result', list);
+      var result_meta = self.getMeta(feature.properties.layer);
+
       result_item.layer  = feature.properties.layer;
       result_item.coords = feature.geometry.coordinates; 
-      result_item.innerHTML = feature.properties.text;
+
+      var layer_icon_con = L.DomUtil.create('span', 'layer_icon_container', result_item);
+      var layer_icon     = L.DomUtil.create('img', 'layer_icon', layer_icon_con);
+      layer_icon.src  = result_meta.icon;
+      layer_icon.title= result_meta.title;   
+      result_item.innerHTML += self.highlight(feature.properties.text, self._input.value);
     });
   },
 
@@ -169,14 +211,23 @@ L.Control.Geocoder = L.Control.extend({
     this.marker.openPopup();
   },
 
-  clear: function(){
+  clear: function(all){
     this._results.style.display = 'none';
-    this._results.innerHTML = '';
-    this._input.value = '';
-    this._input.placeholder = '';
-    this._input.blur();
-
-    L.DomUtil.removeClass(this._container, 'pelias-expanded');
+    if (all) {
+      this._results.innerHTML = '';
+      this._input.value = '';
+      this._input.placeholder = '';
+      this._input.blur();
+      L.DomUtil.addClass(this._close, 'hidden');
+      L.DomUtil.removeClass(this._container, 'pelias-expanded');
+      if (this.options.full_width) {
+        this._container.style.width = '';
+      }
+      if (this.options.hide_other_controls) {
+        L.DomUtil.removeClass(this._body, 'hide-other-controls');
+      }
+      this.removeMarkers();
+    }
   },
 
   onAdd: function (map) {
@@ -184,8 +235,7 @@ L.Control.Geocoder = L.Control.extend({
         'pelias-control leaflet-bar leaflet-control');
 
     var self = this;
-    this._layer = new L.LayerGroup();
-    this._layer.addTo(map);
+    this._body = document.body || document.getElementsByTagName('body')[0];
 
     this._container = container;
 
@@ -193,15 +243,29 @@ L.Control.Geocoder = L.Control.extend({
     this._input.title = this.options.title;
 
     this._results = L.DomUtil.create('div', 'pelias-results leaflet-bar', this._container);
+    this._close   = L.DomUtil.create('span', 'pelias-close hidden', this._container);
+    this._closeimg= L.DomUtil.create('img', 'close_icon', this._close);
+    this._closeimg.src = 'img/x.png';
 
     L.DomEvent
       .on(this._input, 'focus', function(e){
           this._input.placeholder = this.options.placeholder;
+          this._results.style.display = 'block';
           L.DomUtil.addClass(this._container, 'pelias-expanded');
+          if (self.options.full_width) {
+            this._container.style.width = (window.innerWidth - 20) + 'px';
+          }
+          if (self.options.hide_other_controls) {
+            L.DomUtil.addClass(this._body, 'hide-other-controls');
+          }
         }, this)
       .on(this._container, 'click', function(e){
           this._input.focus();
         }, this)
+      .on(this._close, 'click', function(e){
+          this.clear(true);
+          e.stopPropagation();
+      }, this)
       .on(this._input, 'blur', function(e){
           this.clear();
         }, this)
@@ -209,6 +273,19 @@ L.Control.Geocoder = L.Control.extend({
           var list = this._results.querySelectorAll('.' + 'pelias-result');
           var selected = this._results.querySelectorAll('.' + 'pelias-selected')[0];
           var selectedPosition;
+          var self = this;
+          var pan_to_point = function(shouldPan) {
+            var _selected = self._results.querySelectorAll('.' + 'pelias-selected')[0];
+            if (_selected && shouldPan) {
+              self.showMarker(_selected.innerHTML, _selected['coords']);
+            }
+          };
+
+          if (this._input.value.length > 0) {
+            L.DomUtil.removeClass(this._close, 'hidden');
+          } else {
+            L.DomUtil.addClass(this._close, 'hidden');
+          }
 
           for (var i = 0; i < list.length; i++) {
             if(list[i] === selected){
@@ -244,6 +321,9 @@ L.Control.Geocoder = L.Control.extend({
               } else {
                 L.DomUtil.addClass(list[list.length-1], 'pelias-selected');
               }
+              
+              pan_to_point(this.options.pan_to_point);
+
               L.DomEvent.preventDefault(e);
               break;
             // 40 = down arrow
@@ -259,6 +339,9 @@ L.Control.Geocoder = L.Control.extend({
               } else {
                 L.DomUtil.addClass(list[0], 'pelias-selected');
               }
+
+              pan_to_point(this.options.pan_to_point);
+
               L.DomEvent.preventDefault(e);
               break;
             // all other keys

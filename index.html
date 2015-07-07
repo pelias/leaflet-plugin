@@ -37,7 +37,7 @@
 
         // Minimal
         L.control.geocoder().addTo(map);
-        
+
         // Searching nearby [50.5, 30.5]
         // L.control.geocoder({
         //   latlon:[50.5, 30.5], // this can also written as {lat:50.5,lon:30.5} or L.latLng(50.5, 30.5)
@@ -71,7 +71,39 @@
         //   layers: 'admin', 
         //   placeholder: 'Coarse Geocoder'
         // }).addTo(map);
+        
+        // Customizing icons
+        // L.control.geocoder({
+        //     point_icon: 'http://www.somewhereontheweb.com/download/img/point.png',
+        //     polygon_icon: 'https://cloud.com/polygon_icon.svg'
+        // }).addTo(map);
+        
+        // Configure if you want to zoom/pan to a point while browsing the results 
+        // (up/down arrows)
+        // pan_to_point set to true (by default)
+        // L.control.geocoder({
+        //     pan_to_point: true
+        // }).addTo(map);
 
+        // Setting full width on the search text box 
+        // by default: true - on mobile/ any viewport of 650px and less
+        // if viewport wider than 650px, its set to false 
+        // and width is defined in the CSS (250px)
+        // as per https://github.com/pelias/leaflet-geocoder/issues/7
+        // L.control.geocoder({
+        //     full_width: true
+        // }).addTo(map);
+
+        // hide_other_controls
+        // Configure if you want to hide other leaflet controls while performing search
+        // by default hide_other_controls is set to true 
+        // this is the default UX behavior for mobile devices 
+        // or devices with small viewport (< 650px)
+        // as per https://github.com/pelias/leaflet-geocoder/issues/7
+        // L.control.geocoder({
+        //     hide_other_controls: false
+        // }).addTo(map);
+        
         /* Adding a script block to post message to the parent container (think iframed demos) */
         window.addEventListener("hashchange",function(){parent.postMessage(window.location.hash, "*")});
       </script>
