@@ -109,6 +109,9 @@ only screen and (min-device-pixel-ratio: 2) {
   .pelias-input.pelias-loading {
     background-image: url("img/loading@2x.gif");
   }
+  .pelias-control.pelias-expanded .pelias-input {
+    background-image: url("img/search_blue@2x.png");
+  }
 }
 
 .pelias-input:focus {
