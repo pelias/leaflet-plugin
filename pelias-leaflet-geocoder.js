@@ -204,6 +204,10 @@ L.Control.Geocoder = L.Control.extend({
 
   clear: function(all){
     this._results.style.display = 'none';
+    if (this._input.value === '') {
+      this._input.placeholder = '';
+      L.DomUtil.removeClass(this._container, 'pelias-expanded');
+    }
     if (all) {
       this._results.innerHTML = '';
       this._input.value = '';
