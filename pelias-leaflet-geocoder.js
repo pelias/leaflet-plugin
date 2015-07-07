@@ -100,17 +100,8 @@ L.Control.Geocoder = L.Control.extend({
 
   suggest: function(input) {
     var url = this.options.url + '/suggest';
-    
-    // TODO make geo context optional (with completion suggester v2)
-    // /suggest while typing requires lat/lon
-    // https://github.com/elasticsearch/elasticsearch/issues/6444
-    // https://github.com/elastic/elasticsearch/issues/10746
-    var geo = this._map.getCenter();
-
     var params = {
-      input: input,
-      lat: geo.lat,
-      lon: geo.lng
+      input: input    
     };
     
     this.callPelias(url, params);
