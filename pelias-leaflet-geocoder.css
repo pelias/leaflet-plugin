@@ -7,7 +7,6 @@
   background-image: url("img/search.png");
   background-size: 26px;
   border: none;
-  padding: 0;
   text-indent: 6px;
   font-size: 14px;
   height: 100%;
@@ -50,11 +49,13 @@
 
 .pelias-control.pelias-expanded {
   width:250px;
-  height:35px;
+  height:44px;
+  padding-right: 30px;
 }
 
 .pelias-control.pelias-expanded .pelias-input {
-  height:35px;
+  height:44px;
+  padding-right: 30px;
   background-image: url("img/search_blue.png");
 }
 
@@ -80,7 +81,7 @@ span.layer_icon_container {
 span.pelias-close {
   position: absolute;
   right: 5px;
-  top: 7px;
+  top: 12px;
   z-index:2;
   cursor: pointer;
 }
@@ -126,7 +127,7 @@ only screen and (min-device-pixel-ratio: 2) {
 .pelias-results {
   width: 100%;
   position: absolute;
-  top: 26px;
+  top: 35px;
   left: 0;
   margin-top: 10px;
   overflow: auto;

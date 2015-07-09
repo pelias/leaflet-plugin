@@ -202,19 +202,25 @@ L.Control.Geocoder = L.Control.extend({
     this.marker.openPopup();
   },
 
-  clear: function(all){
+  clear: function(text){
+    var selected = this._results.querySelectorAll('.' + 'pelias-selected')[0];
     this._results.style.display = 'none';
+    if (selected) {
+      this._input.value = selected.innerText;
+    }
+    this._input.blur();
     if (this._input.value === '') {
       this._input.placeholder = '';
-      L.DomUtil.removeClass(this._container, 'pelias-expanded');
-    }
-    if (all) {
-      this._results.innerHTML = '';
-      this._input.value = '';
-      this._input.placeholder = '';
-      this._input.blur();
       L.DomUtil.addClass(this._close, 'hidden');
       L.DomUtil.removeClass(this._container, 'pelias-expanded');
+    }
+    if (text) {
+      this._results.innerHTML = '';
+      this._input.value = '';
+      // this._input.placeholder = this.options.placeholder;
+      // this._input.blur();
+      // L.DomUtil.addClass(this._close, 'hidden');
+      // L.DomUtil.removeClass(this._container, 'pelias-expanded');
       if (this.options.full_width) {
         this._container.style.width = '';
       }
@@ -222,6 +228,7 @@ L.Control.Geocoder = L.Control.extend({
         L.DomUtil.removeClass(this._body, 'hide-other-controls');
       }
       this.removeMarkers();
+      this._input.focus();
     }
   },
 
@@ -365,10 +372,16 @@ L.Control.Geocoder = L.Control.extend({
           }
         }, 50, this), this)
       .on(this._results, 'mousedown', function(e){
+          L.DomEvent.preventDefault(e);
+          var _selected = this._results.querySelectorAll('.' + 'pelias-selected')[0];
+          if (_selected) {
+            L.DomUtil.removeClass(_selected, 'pelias-selected');
+          }
+
           var selected = e.target;
+          L.DomUtil.addClass(selected, 'pelias-selected');
           this.showMarker(selected.innerHTML, selected['coords']);
           this.clear();
-          L.DomEvent.preventDefault(e);
         }, this)
       .on(this._results, 'mouseover', function(e){
           if(map.scrollWheelZoom.enabled() && map.options.scrollWheelZoom){
