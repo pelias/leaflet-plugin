@@ -17,7 +17,8 @@ L.Control.Geocoder = L.Control.extend({
     point_icon: 'img/point_icon.png',
     polygon_icon: 'img/polygon_icon.png',
     full_width: window.innerWidth < 650,
-    hide_other_controls: window.innerWidth < 650
+    hide_other_controls: window.innerWidth < 650,
+    drop_pin: true
   },
 
   initialize: function (options) {
@@ -184,10 +185,12 @@ L.Control.Geocoder = L.Control.extend({
   },
 
   removeMarkers: function() {
-    for (i=0; i<this.markers.length; i++) {
-      this._map.removeLayer(this.markers[i]);
+    if (this.options.drop_pin) {
+      for (i=0; i<this.markers.length; i++) {
+        this._map.removeLayer(this.markers[i]);
+      }
+      this.markers = [];
     }
-    this.markers = [];
   },
 
   showMarker: function(text, coords) {
@@ -196,10 +199,12 @@ L.Control.Geocoder = L.Control.extend({
     var geo = [coords[1], coords[0]];
     this._map.setView( geo, this._map.getZoom() || 8 );
     
-    this.marker = new L.marker(geo).bindPopup(text);
-    this._map.addLayer(this.marker);
-    this.markers.push(this.marker);
-    this.marker.openPopup();
+    if (this.options.drop_pin) {
+      this.marker = new L.marker(geo).bindPopup(text);
+      this._map.addLayer(this.marker);
+      this.markers.push(this.marker);
+      this.marker.openPopup();
+    }
   },
 
   clear: function(text){

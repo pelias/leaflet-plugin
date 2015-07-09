@@ -124,6 +124,12 @@ L.control.geocoder({
     hide_other_controls: false
 }).addTo(map);
 
+// Configure if you want to drop a pin for a search results or not
+// by default - this is set to true
+// as per https://github.com/pelias/leaflet-geocoder/issues/7
+L.control.geocoder({
+    drop_pin: false
+}).addTo(map);
 
 ```
 
