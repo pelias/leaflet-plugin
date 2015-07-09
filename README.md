@@ -131,6 +131,14 @@ L.control.geocoder({
     drop_pin: false
 }).addTo(map);
 
+// Ability to collapse to a button instead of a expanded text box
+// by default - this is set to true
+// by default - the text box shows up instead of the button
+// as per https://github.com/pelias/leaflet-geocoder/issues/7
+L.control.geocoder({
+    expanded: false
+}).addTo(map);
+
 ```
 
 **Step 4**: Rejoice! 

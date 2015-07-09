@@ -36,7 +36,7 @@
         }).addTo(map);
 
         // Minimal
-        L.control.geocoder().addTo(map);
+        // L.control.geocoder().addTo(map);
 
         // Searching nearby [50.5, 30.5]
         // L.control.geocoder({
@@ -110,6 +110,15 @@
         // as per https://github.com/pelias/leaflet-geocoder/issues/7
         // L.control.geocoder({
         //     drop_pin: false
+        // }).addTo(map);
+
+        // expanded
+        // Ability to collapse to a button instead of a expanded text box
+        // by default - this is set to true
+        // by default - the text box shows up instead of the button
+        // as per https://github.com/pelias/leaflet-geocoder/issues/7
+        // L.control.geocoder({
+        //     expanded: false
         // }).addTo(map);
         
         /* Adding a script block to post message to the parent container (think iframed demos) */

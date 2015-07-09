@@ -18,7 +18,8 @@ L.Control.Geocoder = L.Control.extend({
     polygon_icon: 'img/polygon_icon.png',
     full_width: window.innerWidth < 650,
     hide_other_controls: window.innerWidth < 650,
-    drop_pin: true
+    drop_pin: true,
+    expanded: true
   },
 
   initialize: function (options) {
@@ -211,7 +212,7 @@ L.Control.Geocoder = L.Control.extend({
     var selected = this._results.querySelectorAll('.' + 'pelias-selected')[0];
     var self = this;
     var clearMobile = function() {
-      if (self.options.full_width) {
+      if (self.options.full_width && !self.options.expanded) {
         self._container.style.width = '';
       }
       if (self.options.hide_other_controls) {
@@ -225,9 +226,11 @@ L.Control.Geocoder = L.Control.extend({
     }
     this._input.blur();
     if (this._input.value === '') {
-      this._input.placeholder = '';
+      this._input.placeholder = this.options.placeholder;;
       L.DomUtil.addClass(this._close, 'hidden');
-      L.DomUtil.removeClass(this._container, 'pelias-expanded');
+      if (!this.options.expanded) {
+        L.DomUtil.removeClass(this._container, 'pelias-expanded');
+      }
       clearMobile();
     }
 
@@ -261,11 +264,21 @@ L.Control.Geocoder = L.Control.extend({
     this._closeimg= L.DomUtil.create('img', 'close_icon', this._close);
     this._closeimg.src = 'img/x.png';
 
+    if (this.options.expanded) {
+      L.DomUtil.addClass(this._container, 'pelias-expanded');
+      this._input.placeholder = this.options.placeholder;
+      if (this.options.full_width) {
+        this._container.style.width = (window.innerWidth - 50) + 'px';
+      }
+    }
+
     L.DomEvent
       .on(this._input, 'focus', function(e){
           this._input.placeholder = this.options.placeholder;
           this._results.style.display = 'block';
-          L.DomUtil.addClass(this._container, 'pelias-expanded');
+          if (!this.options.expanded) {
+            L.DomUtil.addClass(this._container, 'pelias-expanded');
+          }
           if (self.options.full_width) {
             this._container.style.width = (window.innerWidth - 50) + 'px';
           }
