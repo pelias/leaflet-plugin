@@ -379,6 +379,19 @@ L.Control.Geocoder = L.Control.extend({
           }
 
           var selected = e.target;
+          var findParent = function() {
+            if (!L.DomUtil.hasClass(selected, 'pelias-result')) {
+              selected = selected.parentElement;
+              findParent();
+            }
+            return selected
+          };
+          
+          // click event can be registered on the child nodes 
+          // that does not have the required coords prop
+          // so its important to find the parent. 
+          findParent();
+
           L.DomUtil.addClass(selected, 'pelias-selected');
           this.showMarker(selected.innerHTML, selected['coords']);
           this.clear();
