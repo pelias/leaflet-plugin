@@ -209,6 +209,16 @@ L.Control.Geocoder = L.Control.extend({
 
   clear: function(text){
     var selected = this._results.querySelectorAll('.' + 'pelias-selected')[0];
+    var self = this;
+    var clearMobile = function() {
+      if (self.options.full_width) {
+        self._container.style.width = '';
+      }
+      if (self.options.hide_other_controls) {
+        L.DomUtil.removeClass(self._body, 'hide-other-controls');
+      }
+    };
+
     this._results.style.display = 'none';
     if (selected) {
       this._input.value = selected.innerText;
@@ -218,7 +228,9 @@ L.Control.Geocoder = L.Control.extend({
       this._input.placeholder = '';
       L.DomUtil.addClass(this._close, 'hidden');
       L.DomUtil.removeClass(this._container, 'pelias-expanded');
+      clearMobile();
     }
+
     if (text) {
       this._results.innerHTML = '';
       this._input.value = '';
@@ -226,13 +238,8 @@ L.Control.Geocoder = L.Control.extend({
       // this._input.blur();
       // L.DomUtil.addClass(this._close, 'hidden');
       // L.DomUtil.removeClass(this._container, 'pelias-expanded');
-      if (this.options.full_width) {
-        this._container.style.width = '';
-      }
-      if (this.options.hide_other_controls) {
-        L.DomUtil.removeClass(this._body, 'hide-other-controls');
-      }
       this.removeMarkers();
+      clearMobile();
       this._input.focus();
     }
   },
@@ -260,7 +267,7 @@ L.Control.Geocoder = L.Control.extend({
           this._results.style.display = 'block';
           L.DomUtil.addClass(this._container, 'pelias-expanded');
           if (self.options.full_width) {
-            this._container.style.width = (window.innerWidth - 20) + 'px';
+            this._container.style.width = (window.innerWidth - 50) + 'px';
           }
           if (self.options.hide_other_controls) {
             L.DomUtil.addClass(this._body, 'hide-other-controls');
