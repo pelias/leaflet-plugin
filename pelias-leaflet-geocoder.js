@@ -17,7 +17,7 @@ L.Control.Geocoder = L.Control.extend({
     point_icon: 'img/point_icon.png',
     polygon_icon: 'img/polygon_icon.png',
     full_width: window.innerWidth < 650,
-    hide_other_controls: window.innerWidth < 650,
+    hide_other_controls: false,
     drop_pin: true,
     expanded: true
   },

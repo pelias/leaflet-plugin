@@ -26,7 +26,9 @@
       <div id="map"></div>
 
       <script type="text/javascript">
-        var map = L.map('map').setView([40.7259, -73.9805], 12);
+        var map = L.map('map', {
+            zoomControl: false
+        }).setView([40.7259, -73.9805], 12);
 
         L.tileLayer('http://{s}.tiles.mapbox.com/v3/randyme.i0568680/{z}/{x}/{y}.png', {
             attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
@@ -96,12 +98,10 @@
 
         // hide_other_controls
         // Configure if you want to hide other leaflet controls while performing search
-        // by default hide_other_controls is set to true 
-        // this is the default UX behavior for mobile devices 
-        // or devices with small viewport (< 650px)
+        // by default hide_other_controls is set to false 
         // as per https://github.com/pelias/leaflet-geocoder/issues/7
         // L.control.geocoder({
-        //     hide_other_controls: false
+        //     hide_other_controls: true
         // }).addTo(map);
 
         // drop_pin
@@ -121,6 +121,13 @@
         //     expanded: false
         // }).addTo(map);
         
+        // L.control.geocoder({
+        //     expanded: false,
+        //     drop_pin: false,
+        //     position: 'topright',
+        //     placeholder: 'not expanded and no pins dropped'
+        // }).addTo(map);
+
         /* Adding a script block to post message to the parent container (think iframed demos) */
         window.addEventListener("hashchange",function(){parent.postMessage(window.location.hash, "*")});
       </script>
