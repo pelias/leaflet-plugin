@@ -222,7 +222,7 @@ L.Control.Geocoder = L.Control.extend({
 
     this._results.style.display = 'none';
     if (selected) {
-      this._input.value = selected.innerText;
+      this._input.value = selected.innerText || selected.textContent;
     }
     this._input.blur();
     if (this._input.value === '') {
