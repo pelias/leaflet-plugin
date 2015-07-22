@@ -6,14 +6,14 @@
 L.Control.Geocoder = L.Control.extend({
   options: {
     position: 'topleft',
-    attribution: 'Geocoding by <a href=\'http://mapzen.com/pelias\'>Pelias</a>',
+    attribution: 'Geocoding by <a href=\'https://mapzen.com/pelias\'>Pelias</a>',
     url: '//pelias.mapzen.com',
     placeholder: 'Search',
     title: 'Search',
     bbox: false,
     latlon: null,
     layers: 'poi,admin,address',
-    pan_to_point: true, 
+    pan_to_point: true,
     point_icon: 'img/point_icon.png',
     polygon_icon: 'img/polygon_icon.png',
     full_width: window.innerWidth < 650,
@@ -43,14 +43,14 @@ L.Control.Geocoder = L.Control.extend({
 
   getBoundingBoxParam: function (params) {
     var bbox= this.options.bbox;
-    
+
     if ( !bbox ) {
       return params;
     }
-    
+
     if ( (typeof bbox !== 'object') || !bbox.isValid() ) {
       bbox = this._map.getBounds();
-    } 
+    }
 
     var bbox_center  = bbox.getCenter();
     params.bbox = bbox.toBBoxString();
@@ -70,11 +70,11 @@ L.Control.Geocoder = L.Control.extend({
      * false //Boolean - No latlon to be considered
     */
     var latlon= this.options.latlon;
-    
+
     if ( !latlon ) {
       return params;
     }
-    
+
     if (latlon.constructor === Array) {
       // TODO Check for array size, throw errors if invalid lat/lon
       params.lat = latlon[0];
@@ -103,9 +103,9 @@ L.Control.Geocoder = L.Control.extend({
   suggest: function(input) {
     var url = this.options.url + '/suggest';
     var params = {
-      input: input    
+      input: input
     };
-    
+
     this.callPelias(url, params);
   },
 
@@ -113,7 +113,7 @@ L.Control.Geocoder = L.Control.extend({
     params = this.getBoundingBoxParam( params );
     params = this.getLatLonParam( params );
     params = this.getLayers( params );
-    
+
     // Since we always use properties.text we dont need the details
     // See https://github.com/pelias/api/releases/tag/1.2.0
     params.details = false;
@@ -127,7 +127,7 @@ L.Control.Geocoder = L.Control.extend({
       }
     }, this);
   },
-  
+
   highlight: function( text, focus ){
     var r = RegExp( '('+ focus + ')', 'gi' );
     return text.replace( r, '<strong>$1</strong>' );
@@ -139,16 +139,16 @@ L.Control.Geocoder = L.Control.extend({
 
     if( type.match('geoname') ){
       return { icon: point_icon, title: 'source: geonames'};
-    } else if( type.match('osm') || 
-               type.match('osmway')  || 
-               type.match('osmnode') || 
+    } else if( type.match('osm') ||
+               type.match('osmway')  ||
+               type.match('osmnode') ||
                type.match('osmaddress')){
       return { icon: point_icon, title: 'source: openstreetmap'};
-    } else if( type.match('admin0') || 
-               type.match('admin1') || 
-               type.match('admin2') || 
+    } else if( type.match('admin0') ||
+               type.match('admin1') ||
+               type.match('admin2') ||
                type.match('locality') ||
-               type.match('neighborhood') || 
+               type.match('neighborhood') ||
                type.match('local_admin') ){
       return { icon: polygon_icon, title: 'source: quattroshapes'};
     } else if( type.match('openaddresses') ){
@@ -159,13 +159,13 @@ L.Control.Geocoder = L.Control.extend({
 
   showResults: function(features) {
     var list;
-    var self = this; 
+    var self = this;
     var results_container = this._results;
     results_container.innerHTML = '';
     results_container.style.display = 'block';
     // manage result box height
     results_container.style.maxHeight = (this._map.getSize().y - results_container.offsetTop - this._container.offsetTop - 10) + 'px';
-    
+
     features.forEach( function( feature ){
       if(!list) {
         list = L.DomUtil.create('ul', 'pelias-list', results_container);
@@ -175,12 +175,12 @@ L.Control.Geocoder = L.Control.extend({
       var result_meta = self.getMeta(feature.properties.layer);
 
       result_item.layer  = feature.properties.layer;
-      result_item.coords = feature.geometry.coordinates; 
+      result_item.coords = feature.geometry.coordinates;
 
       var layer_icon_con = L.DomUtil.create('span', 'layer_icon_container', result_item);
       var layer_icon     = L.DomUtil.create('img', 'layer_icon', layer_icon_con);
       layer_icon.src  = result_meta.icon;
-      layer_icon.title= result_meta.title;   
+      layer_icon.title= result_meta.title;
       result_item.innerHTML += self.highlight(feature.properties.text, self._input.value);
     });
   },
@@ -199,7 +199,7 @@ L.Control.Geocoder = L.Control.extend({
 
     var geo = [coords[1], coords[0]];
     this._map.setView( geo, this._map.getZoom() || 8 );
-    
+
     if (this.options.drop_pin) {
       this.marker = new L.marker(geo).bindPopup(text);
       this._map.addLayer(this.marker);
@@ -348,7 +348,7 @@ L.Control.Geocoder = L.Control.extend({
               } else {
                 L.DomUtil.addClass(list[list.length-1], 'pelias-selected');
               }
-              
+
               pan_to_point(this.options.pan_to_point);
 
               L.DomEvent.preventDefault(e);
@@ -372,9 +372,9 @@ L.Control.Geocoder = L.Control.extend({
               L.DomEvent.preventDefault(e);
               break;
             // all other keys
-            default: 
+            default:
               break;
-          } 
+          }
         }, this)
       .on(this._input, 'keyup', this.throttle(function(e){
           var key = e.which || e.keyCode;
@@ -411,10 +411,10 @@ L.Control.Geocoder = L.Control.extend({
             }
             return selected
           };
-          
-          // click event can be registered on the child nodes 
+
+          // click event can be registered on the child nodes
           // that does not have the required coords prop
-          // so its important to find the parent. 
+          // so its important to find the parent.
           findParent();
 
           L.DomUtil.addClass(selected, 'pelias-selected');
@@ -448,9 +448,9 @@ L.control.geocoder = function (options) {
   return new L.Control.Geocoder(options);
 };
 
-/* 
+/*
  * AJAX Utitity function (implements basic HTTP get)
- * TODO check for maximum length for a GET req 
+ * TODO check for maximum length for a GET req
  * TODO alternatively POST if GET cannot be done
  * TODO fallback to JSONP if CORS isnt supported
  */
@@ -534,7 +534,7 @@ var AJAX = {
   request: function(url, params, callback, context) {
     var paramString   = this.serialize(params);
     var httpRequest   = this.http_request(callback, context);
-    
+
     httpRequest.open('GET', url + '?' + paramString);
     httpRequest.send(null);
   }
