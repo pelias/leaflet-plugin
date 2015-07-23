@@ -2,14 +2,14 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Pelias Demo</title>
+    <title>Pelias Geocoder Leaflet Plugin</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
 
     <!-- Load Leaflet from their CDN -->
-    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css" />
     <link rel="stylesheet" href="pelias-leaflet-geocoder.css" />
-    <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet-src.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script>
     <style>
       #map {
         position: fixed;
@@ -20,7 +20,7 @@
       }
     </style>
     <script src="pelias-leaflet-geocoder.js"></script>
-    
+
   </head>
   <body>
       <div id="map"></div>
@@ -28,8 +28,8 @@
       <script type="text/javascript">
         var map = L.map('map').setView([40.7259, -73.9805], 12);
 
-        L.tileLayer('http://{s}.tiles.mapbox.com/v3/randyme.i0568680/{z}/{x}/{y}.png', {
-            attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+        L.tileLayer('//{s}.tiles.mapbox.com/v3/randyme.i0568680/{z}/{x}/{y}.png', {
+            attribution: 'Map data &copy; <a href="https://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
             maxZoom: 18,
             minZoom: 3,
             noWrap: true
@@ -46,7 +46,7 @@
 
         // Taking just the center of the map (lat/lon) into account
         // L.control.geocoder({
-        //   latlon:true, 
+        //   latlon:true,
         //   placeholder: 'Search nearby (from the center/latlon)'
         // }).addTo(map);
 
@@ -56,38 +56,38 @@
         //     bounds = L.latLngBounds(southWest, northEast);
 
         // L.control.geocoder({
-        //   bbox:bounds, 
+        //   bbox:bounds,
         //   placeholder: 'Search within ' + bounds.toBBoxString() //map\'s view/bbox
         // }).addTo(map);
 
         // Taking just the bounding box of the map view into account
         // L.control.geocoder({
-        //   bbox:true, 
+        //   bbox:true,
         //   placeholder: 'Search within the bounds' //map\'s view/bbox
         // }).addTo(map);
 
         // Query just the admin layers
         // L.control.geocoder({
-        //   layers: 'admin', 
+        //   layers: 'admin',
         //   placeholder: 'Coarse Geocoder'
         // }).addTo(map);
-        
+
         // Customizing icons
         // L.control.geocoder({
         //     point_icon: 'http://www.somewhereontheweb.com/download/img/point.png',
         //     polygon_icon: 'https://cloud.com/polygon_icon.svg'
         // }).addTo(map);
-        
-        // Configure if you want to zoom/pan to a point while browsing the results 
+
+        // Configure if you want to zoom/pan to a point while browsing the results
         // (up/down arrows)
         // pan_to_point set to true (by default)
         // L.control.geocoder({
         //     pan_to_point: true
         // }).addTo(map);
 
-        // Setting full width on the search text box 
+        // Setting full width on the search text box
         // by default: true - on mobile/ any viewport of 650px and less
-        // if viewport wider than 650px, its set to false 
+        // if viewport wider than 650px, its set to false
         // and width is defined in the CSS (250px)
         // as per https://github.com/pelias/leaflet-geocoder/issues/7
         // L.control.geocoder({
@@ -96,7 +96,7 @@
 
         // hide_other_controls
         // Configure if you want to hide other leaflet controls while performing search
-        // by default hide_other_controls is set to false 
+        // by default hide_other_controls is set to false
         // as per https://github.com/pelias/leaflet-geocoder/issues/7
         // L.control.geocoder({
         //     hide_other_controls: true
@@ -118,7 +118,7 @@
         // L.control.geocoder({
         //     expanded: false
         // }).addTo(map);
-        
+
         // L.control.geocoder({
         //     expanded: false,
         //     drop_pin: false,

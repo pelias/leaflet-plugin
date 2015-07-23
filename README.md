@@ -4,7 +4,7 @@ A plugin that adds the ability to search (geocode) a leaflet powered map.
 
 ## Requirements
 
-Works well with ```leaflet-0.7.3```, ```leaflet-0.8-dev```. 
+Works well with ```leaflet-0.7.3```, ```leaflet-0.8-dev```.
 
 Should work with the latest version of leaflet as well. If not, please log an issue
 
@@ -17,10 +17,10 @@ Should work with the latest version of leaflet as well. If not, please log an is
 **Step 1**: Import the required leaflet javascript and css files
 
 ```html
-<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
-<link rel="stylesheet" href="http://rawgit.com/pelias/leaflet-geocoder/master/pelias-leaflet-geocoder.css" />
-<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet-src.js"></script>
-<script src="http://rawgit.com/pelias/leaflet-geocoder/master/pelias-leaflet-geocoder.js"></script>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css" />
+<link rel="stylesheet" href="//rawgit.com/pelias/leaflet-geocoder/master/pelias-leaflet-geocoder.css" />
+<script src="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script>
+<script src="//rawgit.com/pelias/leaflet-geocoder/master/pelias-leaflet-geocoder.js"></script>
 
 ```
 
@@ -48,7 +48,7 @@ L.control.geocoder({
 
 // Taking just the center of the map (lat/lon) into account
 L.control.geocoder({
-  latlon:true, 
+  latlon:true,
   placeholder: 'Search nearby (from the center/latlon)'
 }).addTo(map);
 
@@ -58,37 +58,37 @@ var southWest = L.latLng(40.712, -74.227),
     bounds = L.latLngBounds(southWest, northEast);
 
 L.control.geocoder({
-  bbox:bounds, 
+  bbox:bounds,
   placeholder: 'Search within ' + bounds.toBBoxString() //given bbox
 }).addTo(map);
 
 // Taking just the bounding box of the map view into account
 L.control.geocoder({
-  bbox:true, 
+  bbox:true,
   placeholder: 'Search within the bounds' //map\'s view/bbox
 }).addTo(map);
 
 // Coarse Geocoder: search only admin layers
 L.control.geocoder({
-  layers: 'admin', 
+  layers: 'admin',
   placeholder: 'Coarse Geocoder'
 }).addTo(map);
 
 // Address Geocoder: search only (street) address layers
 L.control.geocoder({
-  layers: 'address', 
+  layers: 'address',
   placeholder: 'Address Geocoder'
 }).addTo(map);
 
 // POI Geocoder: search only points of interests
 L.control.geocoder({
-  layers: 'poi', 
+  layers: 'poi',
   placeholder: 'POI Geocoder'
 }).addTo(map);
 
 // Street level Geocoder: search only poi and street addresses
 L.control.geocoder({
-  layers: 'poi,address', 
+  layers: 'poi,address',
   placeholder: 'Street Geocoder'
 }).addTo(map);
 
@@ -105,9 +105,9 @@ L.control.geocoder({
   pan_to_point: true
 }).addTo(map);
 
-// Setting full width on the search text box 
+// Setting full width on the search text box
 // by default: true - on mobile/ any viewport of 650px and less
-// if viewport wider than 650px, its set to false 
+// if viewport wider than 650px, its set to false
 // and width is defined in the CSS (250px)
 // as per https://github.com/pelias/leaflet-geocoder/issues/7
 L.control.geocoder({
@@ -116,7 +116,7 @@ L.control.geocoder({
 
 // hide_other_controls
 // Configure if you want to hide other leaflet controls while performing search
-// by default hide_other_controls is set to false 
+// by default hide_other_controls is set to false
 // as per https://github.com/pelias/leaflet-geocoder/issues/7
 L.control.geocoder({
     hide_other_controls: true
@@ -139,5 +139,4 @@ L.control.geocoder({
 
 ```
 
-**Step 4**: Rejoice! 
-
+**Step 4**: Rejoice!
