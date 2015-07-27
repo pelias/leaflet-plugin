@@ -1,6 +1,10 @@
-# Leaflet geocoder plugin
+Leaflet geocoder plugin
+========================
 
-A plugin that adds the ability to search (geocode) a leaflet powered map.
+A plugin that adds the ability to search (geocode) a leaflet powered map using the [Pelias Geocoder API](https://github.com/pelias/api).
+
+# :rotating_light: **Active development warning** :rotating_light:
+The Pelias API is in active development and has not been locked in yet. Endpoints and response payloads are subject to change without much warning. Please keep this in mind if you use this plugin for your projects.
 
 ## Requirements
 
