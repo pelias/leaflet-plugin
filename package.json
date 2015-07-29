@@ -1,0 +1,33 @@
+{
+  "name": "leaflet-geocoder",
+  "version": "0.0.3",
+  "description": "Leaflet plugin that adds ability to search (geocode) using the Pelias Geocoder API.",
+  "main": "dist/pelias-leaflet-geocoder.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pelias/leaflet-geocoder.git"
+  },
+  "keywords": [
+    "leaflet",
+    "plugin",
+    "search",
+    "geocoder",
+    "pelias",
+    "mapzen"
+  ],
+  "author": [
+    "Harish Krishna",
+    "Lou Huang <lou@mapzen.com>"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pelias/leaflet-geocoder/issues"
+  },
+  "homepage": "https://github.com/pelias/leaflet-geocoder"
+}
