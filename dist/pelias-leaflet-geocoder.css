@@ -7,12 +7,13 @@
   background-image: url("img/search.png");
   background-size: 26px;
   border: none;
+  border-radius: 4px;
   text-indent: 6px;
   font-size: 14px;
   height: 100%;
   padding-top: 5px;
   padding-bottom: 5px;
-  padding-left:20px;
+  padding-left: 20px;
   width: 100%;
   background-position: left center;
   cursor: pointer;
@@ -44,17 +45,17 @@
 }
 
 .leaflet-touch .pelias-input {
-  background-size:30px;
+  background-size: 30px;
 }
 
 .pelias-control.pelias-expanded {
-  width:250px;
-  height:44px;
+  width: 250px;
+  height: 44px;
   padding-right: 30px;
 }
 
 .pelias-control.pelias-expanded .pelias-input {
-  height:44px;
+  height: 44px;
   padding-right: 30px;
   background-image: url("img/search_blue.png");
 }
@@ -82,7 +83,7 @@ span.pelias-close {
   position: absolute;
   right: 5px;
   top: 12px;
-  z-index:2;
+  z-index: 2;
   cursor: pointer;
 }
 
@@ -157,8 +158,8 @@ only screen and (min-device-pixel-ratio: 2) {
 
 .pelias-results .pelias-result.pelias-selected,
 .pelias-results .pelias-result:hover {
-  background: #B2E3E7;
-  border-color: #B2E3E7;
+  background: #b2e3e7;
+  border-color: #b2e3e7;
 }
 
 /* styles when positioned on right */

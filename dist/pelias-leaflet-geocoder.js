@@ -20,6 +20,11 @@
 }(function (L) {
   'use strict';
 
+  // Alias L.Util.throttle for pre-v1.0 Leaflet
+  if (!L.Util.throttle) {
+    L.Util.throttle = L.Util.limitExecByInterval;
+  }
+
   L.Control.Geocoder = L.Control.extend({
     options: {
       position: 'topleft',
@@ -43,8 +48,6 @@
       L.Util.setOptions(this, options);
       this.marker;
       this.markers = [];
-
-      this.throttle = L.Util.throttle ? L.Util.throttle : L.Util.limitExecByInterval;
     },
 
     getLayers: function (params) {
@@ -273,7 +276,7 @@
 
       this._container = container;
 
-      this._input = L.DomUtil.create('input', 'pelias-input leaflet-bar', this._container);
+      this._input = L.DomUtil.create('input', 'pelias-input', this._container);
       this._input.title = this.options.title;
 
       this._results = L.DomUtil.create('div', 'pelias-results leaflet-bar', this._container);
@@ -393,7 +396,7 @@
                 break;
             }
           }, this)
-        .on(this._input, 'keyup', this.throttle(function(e){
+        .on(this._input, 'keyup', L.Util.throttle(function (e) {
             var key = e.which || e.keyCode;
             var text = (e.target || e.srcElement).value;
 
