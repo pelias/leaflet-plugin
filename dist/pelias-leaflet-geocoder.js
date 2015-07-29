@@ -280,9 +280,7 @@
       this._input.title = this.options.title;
 
       this._results = L.DomUtil.create('div', 'pelias-results leaflet-bar', this._container);
-      this._close   = L.DomUtil.create('span', 'pelias-close hidden', this._container);
-      this._closeimg= L.DomUtil.create('img', 'close_icon', this._close);
-      this._closeimg.src = 'img/x.png';
+      this._close = L.DomUtil.create('div', 'pelias-close hidden', this._container);
 
       if (this.options.expanded) {
         L.DomUtil.addClass(this._container, 'pelias-expanded');
