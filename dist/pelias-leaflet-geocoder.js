@@ -138,11 +138,11 @@
       // See https://github.com/pelias/api/releases/tag/1.2.0
       params.details = false;
 
-      L.DomUtil.addClass(this._input, 'pelias-loading');
+      L.DomUtil.addClass(this._input, 'leaflet-pelias-loading');
 
       AJAX.request(endpoint, params, function(err, results) {
         if (results && results.features) {
-          L.DomUtil.removeClass(this._input, 'pelias-loading');
+          L.DomUtil.removeClass(this._input, 'leaflet-pelias-loading');
           this.showResults(results.features);
         }
       }, this);
@@ -188,10 +188,10 @@
 
       features.forEach( function( feature ){
         if(!list) {
-          list = L.DomUtil.create('ul', 'pelias-list', results_container);
+          list = L.DomUtil.create('ul', 'leaflet-pelias-list', results_container);
         }
 
-        var result_item = L.DomUtil.create('li', 'pelias-result', list);
+        var result_item = L.DomUtil.create('li', 'leaflet-pelias-result', list);
         var result_meta = self.getMeta(feature.properties.layer);
 
         result_item.layer  = feature.properties.layer;
@@ -229,7 +229,7 @@
     },
 
     clear: function(text){
-      var selected = this._results.querySelectorAll('.' + 'pelias-selected')[0];
+      var selected = this._results.querySelectorAll('.' + 'leaflet-pelias-selected')[0];
       var self = this;
       var clearMobile = function() {
         if (self.options.full_width && !self.options.expanded) {
@@ -249,7 +249,7 @@
         this._input.placeholder = this.options.placeholder;;
         L.DomUtil.addClass(this._close, 'hidden');
         if (!this.options.expanded) {
-          L.DomUtil.removeClass(this._container, 'pelias-expanded');
+          L.DomUtil.removeClass(this._container, 'leaflet-pelias-expanded');
         }
         clearMobile();
       }
@@ -260,7 +260,7 @@
         // this._input.placeholder = this.options.placeholder;
         // this._input.blur();
         // L.DomUtil.addClass(this._close, 'hidden');
-        // L.DomUtil.removeClass(this._container, 'pelias-expanded');
+        // L.DomUtil.removeClass(this._container, 'leaflet-pelias-expanded');
         this.removeMarkers();
         clearMobile();
         this._input.focus();
@@ -269,21 +269,21 @@
 
     onAdd: function (map) {
       var container = L.DomUtil.create('div',
-          'pelias-control leaflet-bar leaflet-control');
+          'leaflet-pelias-control leaflet-bar leaflet-control');
 
       var self = this;
       this._body = document.body || document.getElementsByTagName('body')[0];
 
       this._container = container;
 
-      this._input = L.DomUtil.create('input', 'pelias-input', this._container);
+      this._input = L.DomUtil.create('input', 'leaflet-pelias-input', this._container);
       this._input.title = this.options.title;
 
-      this._results = L.DomUtil.create('div', 'pelias-results leaflet-bar', this._container);
-      this._close = L.DomUtil.create('div', 'pelias-close hidden', this._container);
+      this._results = L.DomUtil.create('div', 'leaflet-pelias-results leaflet-bar', this._container);
+      this._close = L.DomUtil.create('div', 'leaflet-pelias-close hidden', this._container);
 
       if (this.options.expanded) {
-        L.DomUtil.addClass(this._container, 'pelias-expanded');
+        L.DomUtil.addClass(this._container, 'leaflet-pelias-expanded');
         this._input.placeholder = this.options.placeholder;
         if (this.options.full_width) {
           this._container.style.width = (window.innerWidth - 50) + 'px';
@@ -295,7 +295,7 @@
             this._input.placeholder = this.options.placeholder;
             this._results.style.display = 'block';
             if (!this.options.expanded) {
-              L.DomUtil.addClass(this._container, 'pelias-expanded');
+              L.DomUtil.addClass(this._container, 'leaflet-pelias-expanded');
             }
             if (self.options.full_width) {
               this._container.style.width = (window.innerWidth - 50) + 'px';
@@ -315,12 +315,12 @@
             this.clear();
           }, this)
         .on(this._input, 'keydown', function(e){
-            var list = this._results.querySelectorAll('.' + 'pelias-result');
-            var selected = this._results.querySelectorAll('.' + 'pelias-selected')[0];
+            var list = this._results.querySelectorAll('.' + 'leaflet-pelias-result');
+            var selected = this._results.querySelectorAll('.' + 'leaflet-pelias-selected')[0];
             var selectedPosition;
             var self = this;
             var pan_to_point = function(shouldPan) {
-              var _selected = self._results.querySelectorAll('.' + 'pelias-selected')[0];
+              var _selected = self._results.querySelectorAll('.' + 'leaflet-pelias-selected')[0];
               if (_selected && shouldPan) {
                 self.showMarker(_selected.innerHTML, _selected['coords']);
               }
@@ -356,15 +356,15 @@
               // 38 = up arrow
               case 38:
                 if(selected){
-                  L.DomUtil.removeClass(selected, 'pelias-selected');
+                  L.DomUtil.removeClass(selected, 'leaflet-pelias-selected');
                 }
 
                 var previousItem = list[selectedPosition-1];
 
                 if(selected && previousItem) {
-                  L.DomUtil.addClass(previousItem, 'pelias-selected');
+                  L.DomUtil.addClass(previousItem, 'leaflet-pelias-selected');
                 } else {
-                  L.DomUtil.addClass(list[list.length-1], 'pelias-selected');
+                  L.DomUtil.addClass(list[list.length-1], 'leaflet-pelias-selected');
                 }
 
                 pan_to_point(this.options.pan_to_point);
@@ -374,15 +374,15 @@
               // 40 = down arrow
               case 40:
                 if(selected){
-                  L.DomUtil.removeClass(selected, 'pelias-selected');
+                  L.DomUtil.removeClass(selected, 'leaflet-pelias-selected');
                 }
 
                 var nextItem = list[selectedPosition+1];
 
                 if(selected && nextItem) {
-                  L.DomUtil.addClass(nextItem, 'pelias-selected');
+                  L.DomUtil.addClass(nextItem, 'leaflet-pelias-selected');
                 } else {
-                  L.DomUtil.addClass(list[0], 'pelias-selected');
+                  L.DomUtil.addClass(list[0], 'leaflet-pelias-selected');
                 }
 
                 pan_to_point(this.options.pan_to_point);
@@ -403,7 +403,7 @@
             if(text.length < 2 || key === 27) {
               this._results.innerHTML = '';
               this._results.style.display = 'none';
-              L.DomUtil.removeClass(this._input, 'pelias-loading');
+              L.DomUtil.removeClass(this._input, 'leaflet-pelias-loading');
               return;
             }
 
@@ -416,14 +416,14 @@
           }, 50, this), this)
         .on(this._results, 'mousedown', function(e){
             L.DomEvent.preventDefault(e);
-            var _selected = this._results.querySelectorAll('.' + 'pelias-selected')[0];
+            var _selected = this._results.querySelectorAll('.' + 'leaflet-pelias-selected')[0];
             if (_selected) {
-              L.DomUtil.removeClass(_selected, 'pelias-selected');
+              L.DomUtil.removeClass(_selected, 'leaflet-pelias-selected');
             }
 
             var selected = e.target;
             var findParent = function() {
-              if (!L.DomUtil.hasClass(selected, 'pelias-result')) {
+              if (!L.DomUtil.hasClass(selected, 'leaflet-pelias-result')) {
                 selected = selected.parentElement;
                 findParent();
               }
@@ -435,7 +435,7 @@
             // so its important to find the parent.
             findParent();
 
-            L.DomUtil.addClass(selected, 'pelias-selected');
+            L.DomUtil.addClass(selected, 'leaflet-pelias-selected');
             this.showMarker(selected.innerHTML, selected['coords']);
             this.clear();
           }, this)

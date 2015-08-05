@@ -1,4 +1,4 @@
-.pelias-input {
+.leaflet-pelias-input {
   position: absolute;
   left: 0;
   top: 0;
@@ -20,7 +20,7 @@
   box-sizing: border-box;
 }
 
-.pelias-control {
+.leaflet-pelias-control {
   width: 26px;
   height: 26px;
   -webkit-transition: width .1s, height .1s;
@@ -34,38 +34,38 @@
   display:none;
 }
 
-.hide-other-controls .leaflet-control.pelias-control {
+.hide-other-controls .leaflet-control.leaflet-pelias-control {
   display:block;
 }
 
-.leaflet-touch .pelias-control {
+.leaflet-touch .leaflet-pelias-control {
   width: 30px;
   height: 30px;
   line-height: 30px;
 }
 
-.leaflet-touch .pelias-input {
+.leaflet-touch .leaflet-pelias-input {
   background-size: 30px;
 }
 
-.pelias-control.pelias-expanded {
+.leaflet-pelias-control.leaflet-pelias-expanded {
   width: 250px;
   height: 44px;
   padding-right: 30px;
 }
 
-.pelias-control.pelias-expanded .pelias-input {
+.leaflet-pelias-control.leaflet-pelias-expanded .leaflet-pelias-input {
   height: 44px;
   padding-right: 30px;
   background-image: url("img/search_blue.png");
 }
 
-.pelias-expanded,
-.leaflet-touch .pelias-expanded {
+.leaflet-pelias-expanded,
+.leaflet-touch .leaflet-pelias-expanded {
   width: 250px;
 }
 
-.pelias-control.pelias-expanded .pelias-input.pelias-loading {
+.leaflet-pelias-control.leaflet-pelias-expanded .leaflet-pelias-input.leaflet-pelias-loading {
   background-image: url("img/loading.gif");
   background-size: 26px;
 }
@@ -79,7 +79,7 @@ span.layer_icon_container {
   margin-right: 5px;
 }
 
-.pelias-close {
+.leaflet-pelias-close {
   position: absolute;
   right: 5px;
   width: 16px;
@@ -95,7 +95,7 @@ span.layer_icon_container {
   display: none;
 }
 
-.leaflet-touch .pelias-input.leaflet-bar, .leaflet-touch .pelias-results.leaflet-bar {
+.leaflet-touch .leaflet-pelias-input.leaflet-bar, .leaflet-touch .leaflet-pelias-results.leaflet-bar {
   box-shadow: none;
   border-radius: 4px;
   border: 0 none;
@@ -105,27 +105,27 @@ span.layer_icon_container {
 only screen and (-o-min-device-pixel-ratio: 2/1),
 only screen and (-webkit-min-device-pixel-ratio: 2),
 only screen and (min-device-pixel-ratio: 2) {
-  .pelias-input {
+  .leaflet-pelias-input {
     background-image: url("img/search@2x.png");
   }
-  .pelias-input.pelias-loading {
+  .leaflet-pelias-input.leaflet-pelias-loading {
     background-image: url("img/loading@2x.gif");
   }
-  .pelias-control.pelias-expanded .pelias-input {
+  .leaflet-pelias-control.leaflet-pelias-expanded .leaflet-pelias-input {
     background-image: url("img/search_blue@2x.png");
   }
 }
 
-.pelias-input:focus {
+.leaflet-pelias-input:focus {
   outline: none;
   cursor: text;
 }
 
-.pelias-input::-ms-clear {
+.leaflet-pelias-input::-ms-clear {
     display: none;
 }
 
-.pelias-results {
+.leaflet-pelias-results {
   width: 100%;
   position: absolute;
   top: 35px;
@@ -135,13 +135,13 @@ only screen and (min-device-pixel-ratio: 2) {
   display: none;
 }
 
-.pelias-list {
+.leaflet-pelias-list {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-.pelias-results .pelias-result {
+.leaflet-pelias-results .leaflet-pelias-result {
   font-size: 13px;
   padding: 7px;
   background: white;
@@ -152,24 +152,24 @@ only screen and (min-device-pixel-ratio: 2) {
   cursor: pointer;
 }
 
-.pelias-results .pelias-result:first-child {
+.leaflet-pelias-results .leaflet-pelias-result:first-child {
   border: none;
 }
 
-.pelias-results .pelias-result.pelias-selected,
-.pelias-results .pelias-result:hover {
+.leaflet-pelias-results .leaflet-pelias-result.leaflet-pelias-selected,
+.leaflet-pelias-results .leaflet-pelias-result:hover {
   background: #b2e3e7;
   border-color: #b2e3e7;
 }
 
 /* styles when positioned on right */
 
-.leaflet-right .pelias-results {
+.leaflet-right .leaflet-pelias-results {
   left: auto;
   right: 0;
 }
 
-.leaflet-right .pelias-input {
+.leaflet-right .leaflet-pelias-input {
   left: auto;
   right: 0;
 }
