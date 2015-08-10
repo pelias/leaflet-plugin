@@ -138,11 +138,11 @@
       // See https://github.com/pelias/api/releases/tag/1.2.0
       params.details = false;
 
-      L.DomUtil.addClass(this._input, 'leaflet-pelias-loading');
+      L.DomUtil.addClass(this._search, 'leaflet-pelias-loading');
 
       AJAX.request(endpoint, params, function(err, results) {
         if (results && results.features) {
-          L.DomUtil.removeClass(this._input, 'leaflet-pelias-loading');
+          L.DomUtil.removeClass(this._search, 'leaflet-pelias-loading');
           this.showResults(results.features);
         }
       }, this);
@@ -279,6 +279,8 @@
       this._input = L.DomUtil.create('input', 'leaflet-pelias-input', this._container);
       this._input.title = this.options.title;
 
+      this._search = L.DomUtil.create('div', 'leaflet-pelias-search-icon', this._container);
+
       this._results = L.DomUtil.create('div', 'leaflet-pelias-results leaflet-bar', this._container);
       this._close = L.DomUtil.create('div', 'leaflet-pelias-close hidden', this._container);
       this._close.innerHTML = '×';
@@ -405,7 +407,7 @@
             if(text.length < 2 || key === 27) {
               this._results.innerHTML = '';
               this._results.style.display = 'none';
-              L.DomUtil.removeClass(this._input, 'leaflet-pelias-loading');
+              L.DomUtil.removeClass(this._search, 'leaflet-pelias-loading');
               return;
             }
 

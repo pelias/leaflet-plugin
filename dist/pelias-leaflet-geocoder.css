@@ -2,10 +2,6 @@
   position: absolute;
   left: 0;
   top: 0;
-  background-color: white;
-  background-repeat: no-repeat;
-  background-image: url("img/search.png");
-  background-size: 26px;
   border: none;
   border-radius: 4px;
   text-indent: 6px;
@@ -13,9 +9,8 @@
   height: 100%;
   padding-top: 5px;
   padding-bottom: 5px;
-  padding-left: 20px;
+  padding-left: 26px;
   width: 100%;
-  background-position: left center;
   cursor: pointer;
   box-sizing: border-box;
 }
@@ -57,7 +52,6 @@
 .leaflet-pelias-control.leaflet-pelias-expanded .leaflet-pelias-input {
   height: 44px;
   padding-right: 30px;
-  background-image: url("img/search_blue.png");
 }
 
 .leaflet-pelias-expanded,
@@ -65,10 +59,6 @@
   width: 250px;
 }
 
-.leaflet-pelias-control.leaflet-pelias-expanded .leaflet-pelias-input.leaflet-pelias-loading {
-  background-image: url("img/loading.gif");
-  background-size: 26px;
-}
 
 img.layer_icon {
   width: 15px;
@@ -102,18 +92,33 @@ span.layer_icon_container {
   border: 0 none;
 }
 
+.leaflet-pelias-search-icon {
+  position: absolute;
+  width: 30px;
+  height: 100%;
+  background-image: url('img/search.png');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 20px;
+}
+
+.leaflet-pelias-control.leaflet-pelias-expanded .leaflet-pelias-search-icon.leaflet-pelias-loading {
+  background-image: url('img/loading.gif');
+  background-size: 18px;
+}
+
 @media only screen and (min--moz-device-pixel-ratio: 2),
 only screen and (-o-min-device-pixel-ratio: 2/1),
 only screen and (-webkit-min-device-pixel-ratio: 2),
 only screen and (min-device-pixel-ratio: 2) {
-  .leaflet-pelias-input {
-    background-image: url("img/search@2x.png");
+  .leaflet-pelias-search-icon {
+    background-image: url('img/search@2x.png');
   }
-  .leaflet-pelias-input.leaflet-pelias-loading {
-    background-image: url("img/loading@2x.gif");
+  .leaflet-pelias-search-icon.leaflet-pelias-loading {
+    background-image: url('img/loading@2x.gif');
   }
-  .leaflet-pelias-control.leaflet-pelias-expanded .leaflet-pelias-input {
-    background-image: url("img/search_blue@2x.png");
+  .leaflet-pelias-control.leaflet-pelias-expanded .leaflet-pelias-search-icon {
+    background-image: url('img/search_blue@2x.png');
   }
 }
 
