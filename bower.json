@@ -1,5 +1,5 @@
 {
-  "name": "leaflet-geocoder",
+  "name": "pelias-leaflet-geocoder",
   "version": "0.0.3",
   "homepage": "https://github.com/pelias/leaflet-geocoder",
   "authors": [
