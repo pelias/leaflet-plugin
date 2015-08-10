@@ -281,6 +281,8 @@
 
       this._results = L.DomUtil.create('div', 'leaflet-pelias-results leaflet-bar', this._container);
       this._close = L.DomUtil.create('div', 'leaflet-pelias-close hidden', this._container);
+      this._close.innerHTML = '×';
+      this._close.title = 'Close';
 
       if (this.options.expanded) {
         L.DomUtil.addClass(this._container, 'leaflet-pelias-expanded');

@@ -81,13 +81,14 @@ span.layer_icon_container {
 
 .leaflet-pelias-close {
   position: absolute;
-  right: 5px;
-  width: 16px;
-  height: 100%;
-  background-image: url("img/x.png");
-  background-size: contain;
-  background-position: center center;
-  background-repeat: no-repeat;
+  right: 2px;
+  top: 50%;
+  margin-top: -13px;
+  width: 26px;
+  height: 26px;
+  line-height: 26px;
+  text-align: center;
+  font: bold 18px 'Lucida Console', Monaco, monospace;
   cursor: pointer;
 }
 
