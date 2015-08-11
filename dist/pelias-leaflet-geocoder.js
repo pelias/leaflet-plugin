@@ -243,7 +243,7 @@
         this._input.value = selected.innerText || selected.textContent;
       }
       this._input.blur();
-      if (this._input.value === '') {
+      if (this._input.value === '' && this._results.style.display !== 'none') {
         this._input.placeholder = this.options.placeholder;
         L.DomUtil.addClass(this._close, 'hidden');
         if (!this.options.expanded) {
