@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Adding Pelias geocoding to a Tangram map.</title>
+
+  <!-- Load Leaflet from CDN -->
+  <link rel="stylesheet" href="//cdn.leafletjs.com/leaflet-1.0.0-b1/leaflet.css">
+  <script src="//cdn.leafletjs.com/leaflet-1.0.0-b1/leaflet.js"></script>
+
+  <!-- Load Pelias geocoding plugin after Leaflet -->
+  <link rel="stylesheet" href="../dist/pelias-leaflet-geocoder.css">
+  <script src="../dist/pelias-leaflet-geocoder.js"></script>
+
+  <!-- Load Tangram -->
+  <script src="https://mapzen.com/tangram/tangram.min.js"></script>
+
+  <link rel="stylesheet" href="examples.css">
+</head>
+<body>
+  <div id="map"></div>
+  <script>
+    // Create a basic Leaflet map
+    var map = L.map('map').setView([40.7259, -73.9805], 12);
+
+    // Add Pelias geocoding plugin
+    L.control.geocoder().addTo(map);
+
+    // Add Tangram scene layer
+    // (Note: Tangram can also be initialized before the Pelias geocoder, if you choose.)
+    var layer = Tangram.leafletLayer({ scene: 'https://raw.githubusercontent.com/tangrams/simple-demo/gh-pages/scene.yaml' }).addTo(map);
+  </script>
+</body>
+</html>
