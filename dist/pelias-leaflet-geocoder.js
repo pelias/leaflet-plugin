@@ -39,7 +39,6 @@
       point_icon: 'img/point_icon.png',
       polygon_icon: 'img/polygon_icon.png',
       full_width: window.innerWidth < 650,
-      hide_other_controls: false,
       drop_pin: true,
       expanded: true
     },
@@ -228,15 +227,12 @@
       }
     },
 
-    clear: function(text){
+    clear: function (text) {
       var selected = this._results.querySelectorAll('.' + 'leaflet-pelias-selected')[0];
       var self = this;
-      var clearMobile = function() {
+      var clearMobile = function () {
         if (self.options.full_width && !self.options.expanded) {
           self._container.style.width = '';
-        }
-        if (self.options.hide_other_controls) {
-          L.DomUtil.removeClass(self._body, 'hide-other-controls');
         }
       };
 
@@ -246,7 +242,7 @@
       }
       this._input.blur();
       if (this._input.value === '') {
-        this._input.placeholder = this.options.placeholder;;
+        this._input.placeholder = this.options.placeholder;
         L.DomUtil.addClass(this._close, 'hidden');
         if (!this.options.expanded) {
           L.DomUtil.removeClass(this._container, 'leaflet-pelias-expanded');
@@ -303,9 +299,6 @@
             }
             if (self.options.full_width) {
               this._container.style.width = (window.innerWidth - 50) + 'px';
-            }
-            if (self.options.hide_other_controls) {
-              L.DomUtil.addClass(this._body, 'hide-other-controls');
             }
           }, this)
         .on(this._container, 'click', function(e){

@@ -25,14 +25,6 @@
   transition: width .1s, height .1s;
 }
 
-.hide-other-controls .leaflet-control {
-  display:none;
-}
-
-.hide-other-controls .leaflet-control.leaflet-pelias-control {
-  display:block;
-}
-
 .leaflet-touch .leaflet-pelias-control {
   width: 30px;
   height: 30px;
@@ -128,7 +120,7 @@ only screen and (min-device-pixel-ratio: 2) {
 }
 
 .leaflet-pelias-input::-ms-clear {
-    display: none;
+  display: none;
 }
 
 .leaflet-pelias-results {

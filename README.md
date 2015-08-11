@@ -118,14 +118,6 @@ L.control.geocoder({
     full_width: true
 }).addTo(map);
 
-// hide_other_controls
-// Configure if you want to hide other leaflet controls while performing search
-// by default hide_other_controls is set to false
-// as per https://github.com/pelias/leaflet-geocoder/issues/7
-L.control.geocoder({
-    hide_other_controls: true
-}).addTo(map);
-
 // Configure if you want to drop a pin for a search results or not
 // by default - this is set to true
 // as per https://github.com/pelias/leaflet-geocoder/issues/7
