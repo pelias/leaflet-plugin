@@ -29,5 +29,8 @@
   "bugs": {
     "url": "https://github.com/pelias/leaflet-geocoder/issues"
   },
-  "homepage": "https://github.com/pelias/leaflet-geocoder"
+  "homepage": "https://github.com/pelias/leaflet-geocoder",
+  "devDependencies": {
+    "semistandard": "^7.0.2"
+  }
 }
