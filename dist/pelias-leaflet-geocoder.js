@@ -20,6 +20,8 @@
 }(function (L) {
   'use strict';
 
+  var MINIMUM_INPUT_LENGTH_FOR_AUTOSUGGEST = 2;
+
   // Alias L.Util.throttle for pre-v1.0 Leaflet
   if (!L.Util.throttle) {
     L.Util.throttle = L.Util.limitExecByInterval;
@@ -395,20 +397,30 @@
               L.DomUtil.addClass(this._close, 'hidden');
             }
 
-            // minimum 3 characters for suggestions
+            // Ignore all further action if the keycode matches an arrow
+            // key (handled via keydown event)
+            if (key === 13 || key === 38 || key === 40) {
+              return;
+            }
+
             // keyCode 27 = esc key (esc should clear results)
-            if(text.length < 2 || key === 27) {
+            if (key === 27) {
+              // If input is blank or results have already been cleared
+              // (perhaps due to a previous 'esc') then pressing esc at
+              // this point will blur from input as well.
+              if (text.length === 0 || this._results.style.display === 'none') {
+                this._input.blur();
+              }
+              // Clears results
               this._results.innerHTML = '';
               this._results.style.display = 'none';
               L.DomUtil.removeClass(this._search, 'leaflet-pelias-loading');
               return;
             }
 
-            if(key !== 13 && key !== 38 && key !== 40){
-              if(this._input.value !== this._lastValue){
-                this._lastValue = this._input.value;
-                this.suggest(text);
-              }
+            if (text.length >= MINIMUM_INPUT_LENGTH_FOR_AUTOSUGGEST && this._input.value !== this._lastValue) {
+              this._lastValue = this._input.value;
+              this.suggest(text);
             }
           }, 50, this), this)
         .on(this._results, 'mousedown', function(e){
