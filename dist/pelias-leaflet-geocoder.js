@@ -255,7 +255,7 @@
         this._input.value = '';
         // this._input.placeholder = this.options.placeholder;
         // this._input.blur();
-        // L.DomUtil.addClass(this._close, 'hidden');
+        L.DomUtil.addClass(this._close, 'hidden');
         // L.DomUtil.removeClass(this._container, 'leaflet-pelias-expanded');
         this.removeMarkers();
         clearMobile();
@@ -323,12 +323,6 @@
               }
             };
 
-            if (this._input.value.length > 0) {
-              L.DomUtil.removeClass(this._close, 'hidden');
-            } else {
-              L.DomUtil.addClass(this._close, 'hidden');
-            }
-
             for (var i = 0; i < list.length; i++) {
               if(list[i] === selected){
                 selectedPosition = i;
@@ -394,6 +388,12 @@
         .on(this._input, 'keyup', L.Util.throttle(function (e) {
             var key = e.which || e.keyCode;
             var text = (e.target || e.srcElement).value;
+
+            if (this._input.value.length > 0) {
+              L.DomUtil.removeClass(this._close, 'hidden');
+            } else {
+              L.DomUtil.addClass(this._close, 'hidden');
+            }
 
             // minimum 3 characters for suggestions
             // keyCode 27 = esc key (esc should clear results)
