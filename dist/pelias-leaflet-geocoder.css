@@ -25,6 +25,11 @@
   transition: width .1s, height .1s;
 }
 
+/* For old IE, match other leaflet controls' appearance */
+.leaflet-oldie .leaflet-pelias-control {
+  border: 1px solid #999;
+}
+
 .leaflet-touch .leaflet-pelias-control {
   width: 30px;
   height: 30px;
@@ -91,7 +96,7 @@ span.layer_icon_container {
   background-image: url('img/search.png');
   background-repeat: no-repeat;
   background-position: center center;
-  background-size: 20px;
+  background-size: 16px;
 }
 
 .leaflet-pelias-control.leaflet-pelias-expanded .leaflet-pelias-search-icon.leaflet-pelias-loading {
@@ -108,9 +113,6 @@ only screen and (min-device-pixel-ratio: 2) {
   }
   .leaflet-pelias-search-icon.leaflet-pelias-loading {
     background-image: url('img/loading@2x.gif');
-  }
-  .leaflet-pelias-control.leaflet-pelias-expanded .leaflet-pelias-search-icon {
-    background-image: url('img/search_blue@2x.png');
   }
 }
 
