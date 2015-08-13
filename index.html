@@ -44,7 +44,10 @@
         var layer = Tangram.leafletLayer({ scene: 'https://raw.githubusercontent.com/tangrams/simple-demo/gh-pages/scene.yaml' }).addTo(map);
 
         // Minimal
-        L.control.geocoder().addTo(map);
+        L.control.geocoder({
+          pointIcon: 'dist/img/point_icon.png',
+          polygonIcon: 'dist/img/polygon_icon.png',
+        }).addTo(map);
 
         // Searching nearby [50.5, 30.5]
         // L.control.geocoder({
