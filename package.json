@@ -32,5 +32,8 @@
   "homepage": "https://github.com/pelias/leaflet-geocoder",
   "devDependencies": {
     "semistandard": "^7.0.2"
+  },
+  "semistandard": {
+    "globals": ["define", "XMLHttpRequest"]
   }
 }
