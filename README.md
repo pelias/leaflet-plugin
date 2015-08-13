@@ -98,15 +98,15 @@ L.control.geocoder({
 
 // Customizing icons
 L.control.geocoder({
-  point_icon: 'http://www.somewhereontheweb.com/download/img/point.png',
-  polygon_icon: 'https://cloud.com/polygon_icon.svg'
+  pointIcon: 'http://www.somewhereontheweb.com/download/img/point.png',
+  polygonIcon: 'https://cloud.com/polygon-icon.svg'
 }).addTo(map);
 
 // Configure if you want to zoom/pan to a point while browsing the results (up/down arrows)
-// pan_to_point set to true (by default)
+// panToPoint set to true (by default)
 // as per https://github.com/pelias/leaflet-geocoder/issues/6
 L.control.geocoder({
-  pan_to_point: true
+  panToPoint: true
 }).addTo(map);
 
 // Setting full width on the search text box
@@ -115,14 +115,14 @@ L.control.geocoder({
 // and width is defined in the CSS (250px)
 // as per https://github.com/pelias/leaflet-geocoder/issues/7
 L.control.geocoder({
-    full_width: true
+    fullWidth: true
 }).addTo(map);
 
 // Configure if you want to drop a pin for a search results or not
 // by default - this is set to true
 // as per https://github.com/pelias/leaflet-geocoder/issues/7
 L.control.geocoder({
-    drop_pin: false
+    dropPin: false
 }).addTo(map);
 
 // Ability to collapse to a button instead of a expanded text box

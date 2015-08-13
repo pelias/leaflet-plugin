@@ -37,11 +37,11 @@
       bbox: false,
       latlon: null,
       layers: 'poi,admin,address',
-      pan_to_point: true,
-      point_icon: 'img/point_icon.png',
-      polygon_icon: 'img/polygon_icon.png',
-      full_width: window.innerWidth < 650,
-      drop_pin: true,
+      panToPoint: true,
+      pointIcon: 'img/point_icon.png',
+      polygonIcon: 'img/polygon_icon.png',
+      fullWidth: window.innerWidth < 650,
+      dropPin: true,
       expanded: true
     },
 
@@ -155,27 +155,27 @@
     },
 
     getMeta: function( type ) {
-      var point_icon = this.options.point_icon;
-      var polygon_icon = this.options.polygon_icon;
+      var pointIcon = this.options.pointIcon;
+      var polygonIcon = this.options.polygonIcon;
 
       if( type.match('geoname') ){
-        return { icon: point_icon, title: 'source: geonames'};
+        return { icon: pointIcon, title: 'source: geonames'};
       } else if( type.match('osm') ||
                  type.match('osmway')  ||
                  type.match('osmnode') ||
                  type.match('osmaddress')){
-        return { icon: point_icon, title: 'source: openstreetmap'};
+        return { icon: pointIcon, title: 'source: openstreetmap'};
       } else if( type.match('admin0') ||
                  type.match('admin1') ||
                  type.match('admin2') ||
                  type.match('locality') ||
                  type.match('neighborhood') ||
                  type.match('local_admin') ){
-        return { icon: polygon_icon, title: 'source: quattroshapes'};
+        return { icon: polygonIcon, title: 'source: quattroshapes'};
       } else if( type.match('openaddresses') ){
-        return { icon: point_icon, title: 'source: openaddresses'};
+        return { icon: pointIcon, title: 'source: openaddresses'};
       }
-      return { icon: point_icon, title: 'source: default'};
+      return { icon: pointIcon, title: 'source: default'};
     },
 
     showResults: function(features) {
@@ -207,7 +207,7 @@
     },
 
     removeMarkers: function() {
-      if (this.options.drop_pin) {
+      if (this.options.dropPin) {
         for (var i = 0; i < this.markers.length; i++) {
           this._map.removeLayer(this.markers[i]);
         }
@@ -221,7 +221,7 @@
       var geo = [coords[1], coords[0]];
       this._map.setView( geo, this._map.getZoom() || 8 );
 
-      if (this.options.drop_pin) {
+      if (this.options.dropPin) {
         this.marker = new L.marker(geo).bindPopup(text);
         this._map.addLayer(this.marker);
         this.markers.push(this.marker);
@@ -233,7 +233,7 @@
       var selected = this._results.querySelectorAll('.' + 'leaflet-pelias-selected')[0];
       var self = this;
       var clearMobile = function () {
-        if (self.options.full_width && !self.options.expanded) {
+        if (self.options.fullWidth && !self.options.expanded) {
           self._container.style.width = '';
         }
       };
@@ -287,7 +287,7 @@
       if (this.options.expanded) {
         L.DomUtil.addClass(this._container, 'leaflet-pelias-expanded');
         this._input.placeholder = this.options.placeholder;
-        if (this.options.full_width) {
+        if (this.options.fullWidth) {
           this._container.style.width = (window.innerWidth - 50) + 'px';
         }
       }
@@ -299,7 +299,7 @@
             if (!this.options.expanded) {
               L.DomUtil.addClass(this._container, 'leaflet-pelias-expanded');
             }
-            if (self.options.full_width) {
+            if (self.options.fullWidth) {
               this._container.style.width = (window.innerWidth - 50) + 'px';
             }
           }, this)
@@ -318,7 +318,7 @@
             var selected = this._results.querySelectorAll('.' + 'leaflet-pelias-selected')[0];
             var selectedPosition;
             var self = this;
-            var pan_to_point = function(shouldPan) {
+            var panToPoint = function(shouldPan) {
               var _selected = self._results.querySelectorAll('.' + 'leaflet-pelias-selected')[0];
               if (_selected && shouldPan) {
                 self.showMarker(_selected.innerHTML, _selected['coords']);
@@ -360,7 +360,7 @@
                   L.DomUtil.addClass(list[list.length-1], 'leaflet-pelias-selected');
                 }
 
-                pan_to_point(this.options.pan_to_point);
+                panToPoint(this.options.panToPoint);
 
                 L.DomEvent.preventDefault(e);
                 break;
@@ -378,7 +378,7 @@
                   L.DomUtil.addClass(list[0], 'leaflet-pelias-selected');
                 }
 
-                pan_to_point(this.options.pan_to_point);
+                panToPoint(this.options.panToPoint);
 
                 L.DomEvent.preventDefault(e);
                 break;
