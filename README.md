@@ -16,7 +16,7 @@ Supports [Leaflet](https://github.com/Leaflet/Leaflet) **v0.7.3** and **v1.0.0-b
 
 ## Basic usage
 
-**Step 1**: Import the required Leaflet javascript and css files
+**Step 1:** Import the required Leaflet javascript and css files
 
 ```html
 <!-- Load Leaflet from CDN -->
@@ -28,15 +28,17 @@ Supports [Leaflet](https://github.com/Leaflet/Leaflet) **v0.7.3** and **v1.0.0-b
 <script src="pelias-leaflet-geocoder.js"></script>
 ```
 
-**Step 2**: Initialize your Leaflet map
+**Step 2:** Initialize your Leaflet map
 
 ```javascript
+// This is regular Leaflet; you should modify this for your needs.
 var map = L.map('map').setView([40.7259, -73.9805], 12);
-
 L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 ```
 
-**Step 3**: Add a custom geocoder
+**Step 3:** Add a custom geocoder
+
+Get a Pelias API key from the [Mapzen developers portal](http://mapzen.com/developers/). It's free!
 
 ```javascript
 L.control.geocoder('<your-api-key>').addTo(map);
