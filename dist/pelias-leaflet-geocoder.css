@@ -99,9 +99,8 @@ span.layer_icon_container {
   background-size: 16px;
 }
 
-.leaflet-pelias-control.leaflet-pelias-expanded .leaflet-pelias-search-icon.leaflet-pelias-loading {
+.leaflet-pelias-search-icon.leaflet-pelias-loading {
   background-image: url('img/loading.gif');
-  background-size: 18px;
 }
 
 @media only screen and (min--moz-device-pixel-ratio: 2),
