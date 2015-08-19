@@ -37,7 +37,7 @@
     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(map);
 
     // Add Pelias geocoding plugin
-    L.control.geocoder().addTo(map);
+    L.control.geocoder('pelias-api-key').addTo(map);
   </script>
 </body>
 </html>

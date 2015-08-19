@@ -21,17 +21,17 @@
     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(map);
 
     // Add Pelias geocoding plugin to top right
-    L.control.geocoder({
+    L.control.geocoder('pelias-api-key', {
       position: 'topright'
     }).addTo(map);
 
     // Add Pelias geocoding plugin to bottom left
-    L.control.geocoder({
+    L.control.geocoder('pelias-api-key', {
       position: 'bottomleft'
     }).addTo(map);
 
     // Add Pelias geocoding plugin to bottom right
-    L.control.geocoder({
+    L.control.geocoder('pelias-api-key', {
       position: 'bottomright'
     }).addTo(map);
   </script>

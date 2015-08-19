@@ -46,7 +46,13 @@
       expanded: true
     },
 
-    initialize: function (options) {
+    initialize: function (apiKey, options) {
+      if (!apiKey || typeof apiKey !== 'string') {
+        if (typeof options !== 'object') {
+          options = {};
+        }
+        options.placeholder = 'Please provide a Pelias API key.';
+      }
       L.Util.setOptions(this, options);
       this.marker;
       this.markers = [];
@@ -476,8 +482,8 @@
     }
   });
 
-  L.control.geocoder = function (options) {
-    return new L.Control.Geocoder(options);
+  L.control.geocoder = function (apiKey, options) {
+    return new L.Control.Geocoder(apiKey, options);
   };
 
   /*

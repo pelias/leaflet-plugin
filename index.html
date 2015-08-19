@@ -59,7 +59,7 @@
         var layer = Tangram.leafletLayer({ scene: 'https://raw.githubusercontent.com/tangrams/simple-demo/gh-pages/scene.yaml' }).addTo(map);
 
         // Minimal
-        L.control.geocoder({
+        L.control.geocoder('pelias-api-key', {
           pointIcon: 'dist/img/point_icon.png',
           polygonIcon: 'dist/img/polygon_icon.png',
         }).addTo(map);
