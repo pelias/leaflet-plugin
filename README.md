@@ -144,4 +144,10 @@ L.control.geocoder('<your-api-key>', {
     expanded: false
 }).addTo(map);
 
+// Changing attribution
+// By default, adds "Geocoding by Pelias" text with a link
+// You can remove this if you like, or change the text.
+L.control.geocoder('<your-api-key>', {
+  attribution: null
+}).addTo(map);
 ```
