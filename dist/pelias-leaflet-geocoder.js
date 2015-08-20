@@ -41,9 +41,9 @@
       panToPoint: true,
       pointIcon: 'img/point_icon.png',
       polygonIcon: 'img/polygon_icon.png',
-      fullWidth: window.innerWidth < 650,
+      fullWidth: false, //window.innerWidth < 650,
       markers: true,
-      expanded: true
+      expanded: false
     },
 
     initialize: function (apiKey, options) {

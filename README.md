@@ -53,13 +53,14 @@ You can optionally specify additional settings to the plugin by passing in an ob
 
 ### Query behavior
 
-Some options affect the Pelias query itself.
+Some options affect the Pelias query itself. These options use [Pelias API syntax](https://github.com/pelias/api) rather than Leaflet syntax (e.g. _bbox_ instead of _bounds_, _latlon_ instead of _latlng_), but can accept the equivalent Leaflet values.
 
 option      | description                               | default value
 ----------- | ----------------------------------------- | ---------------------
+**url** | _String._ Host endpoint for a Pelias-compatible API. | `'//pelias.mapzen.com'`
 **bbox** | _[Leaflet LatLngBounds object](http://leafletjs.com/reference.html#latlngbounds)_ or _Boolean_. If `true`, search is bounded by the current map view. You may also provide a custom bounding box in form of a LatLngBounds object. | `false`
 **latlon** | _[Leaflet LatLng object](http://leafletjs.com/reference.html#latlng)_ or _Boolean_. If `true`, search is biased to prioritize results near the center of the current view. You may also provide a custom LatLng value (in any of the [accepted Leaflet formats](http://leafletjs.com/reference.html#latlng)) to act as the center bias. | `false`
-**layers** | _String_ or _Array_. Layers to query. | `['poi', 'admin', 'address']`
+**layers** | _String_ or _Array_. Layers to query. Arrays will be serialized into a comma-delimited string value. | `'poi,admin,address'`
 
 ### Interaction behavior
 
@@ -67,9 +68,8 @@ These options affect the plugin's appearance and interaction behavior.
 
 option      | description                               | default value
 ----------- | ----------------------------------------- | ---------------------
-**position** | _String_. Corner in which to place the geocoder control. Values correspond to Leaflet.js [control positions](http://leafletjs.com/reference.html#control-positions) | `'topleft'`
+**position** | _String_. Corner in which to place the geocoder control. Values correspond to Leaflet [control positions](http://leafletjs.com/reference.html#control-positions) | `'topleft'`
 **attribution** | _String_. Attribution text to include for Pelias. | `'Geocoding by <a href=\'https://mapzen.com/pelias\'>Pelias</a>'`
-**url** | _String._ Host endpoint for a Pelias-compatible API. | `'//pelias.mapzen.com'`
 **placeholder** | _String_. Placeholder text to display in the search input box. | `'Search'`
 **title** | _String_. Tooltip text to display on the search icon. | `'Search'`
 **panToPoint** | _Boolean_. If `true`, selecting a search result pans the map to that location. | `true`
