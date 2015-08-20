@@ -305,7 +305,7 @@
         this._input.placeholder = this.options.placeholder;
       }
 
-      this._search = L.DomUtil.create('div', 'leaflet-pelias-search-icon', this._container);
+      this._search = L.DomUtil.create('a', 'leaflet-pelias-search-icon', this._container);
 
       this._results = L.DomUtil.create('div', 'leaflet-pelias-results leaflet-bar', this._container);
       this._close = L.DomUtil.create('div', 'leaflet-pelias-close hidden', this._container);
