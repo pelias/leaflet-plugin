@@ -47,7 +47,7 @@
     },
 
     initialize: function (apiKey, options) {
-      this.apiKey = apikey;
+      this.apiKey = apiKey;
       if (!apiKey || typeof apiKey !== 'string') {
         console.error('Please provide a Pelias API key.');
       }
@@ -119,6 +119,9 @@
     },
 
     search: function (input) {
+      // Prevent lack of input from sending a malformed query to Pelias
+      if (!input) return;
+
       var url = this.options.url + '/search';
       var params = {
         input: input
@@ -128,6 +131,9 @@
     },
 
     suggest: function (input) {
+      // Prevent lack of input from sending a malformed query to Pelias
+      if (!input) return;
+
       var url = this.options.url + '/suggest';
       var params = {
         input: input
@@ -250,13 +256,12 @@
         }
       };
 
-      this._results.style.display = 'none';
       if (selected) {
         this._input.value = selected.innerText || selected.textContent;
       }
+      this.clearResults();
       this._input.blur();
       if (this._input.value === '' && this._results.style.display !== 'none') {
-        this.setInputPlaceholder();
         L.DomUtil.addClass(this._close, 'hidden');
         if (!this.options.expanded) {
           L.DomUtil.removeClass(this._container, 'leaflet-pelias-expanded');
@@ -265,15 +270,22 @@
       }
 
       if (text) {
-        this._results.innerHTML = '';
         this._input.value = '';
-        // this.setInputPlaceholder();
         // this._input.blur();
         L.DomUtil.addClass(this._close, 'hidden');
         // L.DomUtil.removeClass(this._container, 'leaflet-pelias-expanded');
         this.removeMarkers();
         clearMobile();
         this._input.focus();
+      }
+    },
+
+    clearResults: function () {
+      // Hide results from view
+      this._results.style.display = 'none';
+      // Destroy contents if input has also cleared
+      if (this._input.value === '') {
+        this._results.innerHTML = '';
       }
     },
 
@@ -288,6 +300,10 @@
 
       this._input = L.DomUtil.create('input', 'leaflet-pelias-input', this._container);
       this._input.title = this.options.title;
+      // Only set if placeholder option is not null or falsy
+      if (this.options.placeholder) {
+        this._input.placeholder = this.options.placeholder;
+      }
 
       this._search = L.DomUtil.create('div', 'leaflet-pelias-search-icon', this._container);
 
@@ -298,7 +314,6 @@
 
       if (this.options.expanded) {
         L.DomUtil.addClass(this._container, 'leaflet-pelias-expanded');
-        this.setInputPlaceholder();
         if (this.options.fullWidth) {
           this._container.style.width = (window.innerWidth - 50) + 'px';
         }
@@ -306,8 +321,9 @@
 
       L.DomEvent
         .on(this._input, 'focus', function (e) {
-            this.setInputPlaceholder();
-            this._results.style.display = 'block';
+            if (this._input.value) {
+              this._results.style.display = 'block';
+            }
             if (!this.options.expanded) {
               L.DomUtil.addClass(this._container, 'leaflet-pelias-expanded');
             }
@@ -430,9 +446,14 @@
               return;
             }
 
-            if (text.length >= MINIMUM_INPUT_LENGTH_FOR_AUTOSUGGEST && this._input.value !== this._lastValue) {
+            if (this._input.value !== this._lastValue) {
               this._lastValue = this._input.value;
-              this.suggest(text);
+
+              if (text.length >= MINIMUM_INPUT_LENGTH_FOR_AUTOSUGGEST) {
+                this.suggest(text);
+              } else {
+                this.clearResults();
+              }
             }
           }, 50, this), this)
         .on(this._results, 'mousedown', function (e) {
@@ -480,16 +501,6 @@
 
     onRemove: function (map) {
       map.attributionControl.removeAttribution(this.options.attribution);
-    },
-
-    setInputPlaceholder: function (value) {
-      // Override placeholder value if provided
-      if (value) {
-        this._input.placeholder = value;
-      } else if (this.options.placeholder) {
-        // Only set if placeholder option is not null or falsy
-        this._input.placeholder = this.options.placeholder;
-      }
     }
   });
 
