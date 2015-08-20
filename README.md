@@ -16,7 +16,7 @@ Supports [Leaflet](https://github.com/Leaflet/Leaflet) **v0.7.3** and **v1.0.0-b
 
 ## Basic usage
 
-**Step 1:** Import the required Leaflet javascript and css files
+**Step 1:** Import the required Leaflet JavaScript and CSS files
 
 ```html
 <!-- Load Leaflet from CDN -->
@@ -31,7 +31,7 @@ Supports [Leaflet](https://github.com/Leaflet/Leaflet) **v0.7.3** and **v1.0.0-b
 **Step 2:** Initialize your Leaflet map
 
 ```javascript
-// This is regular Leaflet; you should modify this for your needs.
+// This is an example of Leaflet usage; you should modify this for your needs.
 var map = L.map('map').setView([40.7259, -73.9805], 12);
 L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 ```
@@ -49,7 +49,19 @@ L.control.geocoder('<your-api-key>').addTo(map);
 
 ## Customizing the plugin
 
-You can optionally specify additional settings to the plugin by passing in an object as a second argument to the `geocoder()` method. Here are a list all the valid settings and their default values.
+You can optionally specify additional settings to the plugin by passing in an object as a second argument to the `geocoder()` method, like so:
+
+```javascript
+var peliasOptions = {
+  bbox: true,
+  position: 'topright',
+  expanded: true
+}
+
+L.control.geocoder('<your-api-key>', peliasOptions).addTo(map);
+```
+
+Here are a list all the settings and their default values.
 
 ### Query behavior
 
