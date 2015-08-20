@@ -75,7 +75,7 @@ span.layer_icon_container {
   height: 26px;
   line-height: 26px;
   text-align: center;
-  font: bold 18px 'Lucida Console', Monaco, monospace;
+  font: normal 18px 'Lucida Console', Monaco, monospace;
   cursor: pointer;
 }
 

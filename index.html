@@ -34,17 +34,7 @@
 
       /* Swap out the image for search icon when the control is expanded */
       .leaflet-pelias-control.leaflet-pelias-expanded .leaflet-pelias-search-icon {
-        background-image: url('img/search_blue.png');
-      }
-
-      /* Use a Retina-friendly version on hi-dpi screens via a media query */
-      @media only screen and (min--moz-device-pixel-ratio: 2),
-      only screen and (-o-min-device-pixel-ratio: 2/1),
-      only screen and (-webkit-min-device-pixel-ratio: 2),
-      only screen and (min-device-pixel-ratio: 2) {
-        .leaflet-pelias-control.leaflet-pelias-expanded .leaflet-pelias-search-icon {
-          background-image: url('img/search_blue@2x.png');
-        }
+        background-image: url('examples/demo/search_blue.png');
       }
     </style>
   </head>
@@ -58,94 +48,18 @@
         // Add Tangram scene layer
         var layer = Tangram.leafletLayer({ scene: 'https://raw.githubusercontent.com/tangrams/simple-demo/gh-pages/scene.yaml' }).addTo(map);
 
-        // Minimal
         L.control.geocoder('pelias-api-key', {
           pointIcon: 'dist/img/point_icon.png',
           polygonIcon: 'dist/img/polygon_icon.png',
+          fullWidth: true,
+          expanded: false,
+          markers: true
         }).addTo(map);
 
-        // Searching nearby [50.5, 30.5]
-        // L.control.geocoder({
-        //   latlon:[50.5, 30.5], // this can also written as {lat:50.5,lon:30.5} or L.latLng(50.5, 30.5)
-        //   placeholder: 'Search nearby [50.5, 30.5]'
-        // }).addTo(map);
-
-        // Taking just the center of the map (lat/lon) into account
-        // L.control.geocoder({
-        //   latlon:true,
-        //   placeholder: 'Search nearby (from the center/latlon)'
-        // }).addTo(map);
-
-        // Searching within a bounding box
-        // var southWest = L.latLng(40.712, -74.227),
-        //     northEast = L.latLng(40.774, -74.125),
-        //     bounds = L.latLngBounds(southWest, northEast);
-
-        // L.control.geocoder({
-        //   bbox:bounds,
-        //   placeholder: 'Search within ' + bounds.toBBoxString() //map\'s view/bbox
-        // }).addTo(map);
-
-        // Taking just the bounding box of the map view into account
-        // L.control.geocoder({
-        //   bbox:true,
-        //   placeholder: 'Search within the bounds' //map\'s view/bbox
-        // }).addTo(map);
-
-        // Query just the admin layers
-        // L.control.geocoder({
-        //   layers: 'admin',
-        //   placeholder: 'Coarse Geocoder'
-        // }).addTo(map);
-
-        // Customizing icons
-        // L.control.geocoder({
-        //     pointIcon: 'http://www.somewhereontheweb.com/download/img/point.png',
-        //     polygonIcon: 'https://cloud.com/polygonIcon.svg'
-        // }).addTo(map);
-
-        // Configure if you want to zoom/pan to a point while browsing the results
-        // (up/down arrows)
-        // panToPoint set to true (by default)
-        // L.control.geocoder({
-        //     panToPoint: true
-        // }).addTo(map);
-
-        // Setting full width on the search text box
-        // by default: true - on mobile/ any viewport of 650px and less
-        // if viewport wider than 650px, its set to false
-        // and width is defined in the CSS (250px)
-        // as per https://github.com/pelias/leaflet-geocoder/issues/7
-        // L.control.geocoder({
-        //     fullWidth: true
-        // }).addTo(map);
-
-        // dropPin
-        // Configure if you want to drop a pin for a search results or not
-        // by default - this is set to true
-        // as per https://github.com/pelias/leaflet-geocoder/issues/7
-        // L.control.geocoder({
-        //     dropPin: false
-        // }).addTo(map);
-
-        // expanded
-        // Ability to collapse to a button instead of a expanded text box
-        // by default - this is set to true
-        // by default - the text box shows up instead of the button
-        // as per https://github.com/pelias/leaflet-geocoder/issues/7
-        // L.control.geocoder({
-        //     expanded: false
-        // }).addTo(map);
-
-        // L.control.geocoder({
-        //     expanded: false,
-        //     dropPin: false,
-        //     position: 'topright',
-        //     placeholder: 'not expanded and no pins dropped'
-        // }).addTo(map);
-
-        /* Adding a script block to post message to the parent container (think iframed demos) */
-        window.addEventListener("hashchange",function(){parent.postMessage(window.location.hash, "*")});
+        // Adding a script block to post message to the parent container (think iframed demos)
+        window.addEventListener('hashchange', function () {
+          parent.postMessage(window.location.hash, '*')
+        });
       </script>
   </body>
 </html>

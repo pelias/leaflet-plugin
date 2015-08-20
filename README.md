@@ -49,6 +49,37 @@ L.control.geocoder('<your-api-key>').addTo(map);
 
 ## Customizing the plugin
 
+You can optionally specify additional settings to the plugin by passing in an object as a second argument to the `geocoder()` method. Here are a list all the valid settings and their default values.
+
+### Query behavior
+
+Some options affect the Pelias query itself.
+
+option      | description                               | default value
+----------- | ----------------------------------------- | ---------------------
+**bbox** | _[Leaflet LatLngBounds object](http://leafletjs.com/reference.html#latlngbounds)_ or _Boolean_. If `true`, search is bounded by the current map view. You may also provide a custom bounding box in form of a LatLngBounds object. | `false`
+**latlon** | _[Leaflet LatLng object](http://leafletjs.com/reference.html#latlng)_ or _Boolean_. If `true`, search is biased to prioritize results near the center of the current view. You may also provide a custom LatLng value (in any of the [accepted Leaflet formats](http://leafletjs.com/reference.html#latlng)) to act as the center bias. | `false`
+**layers** | _String_ or _Array_. Layers to query. | `['poi', 'admin', 'address']`
+
+### Interaction behavior
+
+These options affect the plugin's appearance and interaction behavior.
+
+option      | description                               | default value
+----------- | ----------------------------------------- | ---------------------
+**position** | _String_. Corner in which to place the geocoder control. Values correspond to Leaflet.js [control positions](http://leafletjs.com/reference.html#control-positions) | `'topleft'`
+**attribution** | _String_. Attribution text to include for Pelias. | `'Geocoding by <a href=\'https://mapzen.com/pelias\'>Pelias</a>'`
+**url** | _String._ Host endpoint for a Pelias-compatible API. | `'//pelias.mapzen.com'`
+**placeholder** | _String_. Placeholder text to display in the search input box. | `'Search'`
+**title** | _String_. Tooltip text to display on the search icon. | `'Search'`
+**panToPoint** | _Boolean_. If `true`, selecting a search result pans the map to that location. | `true`
+**pointIcon** | _String_. Path to the image used to indicate a point result. | `'img/point_icon.png'`
+**polygonIcon** | _String_. Path to the image used to indicate a polygon result. | `'img/polygon_icon.png'`
+**markers** | _[Leaflet Marker options object](http://leafletjs.com/reference.html#marker-options)_ or _Boolean_. If `true`, search results drops Leaflet's default blue markers onto the map. You may customize this marker's appearance and behavior using Leaflet [marker options](http://leafletjs.com/reference.html#marker-options). | `true`
+**expanded** | _Boolean_. If `true`, the search input is always expanded. It does not collapse into a button-only state. | `false`
+
+### Examples
+
 ```javascript
 // Different position
 L.control.geocoder('<your-api-key>', {

@@ -37,12 +37,12 @@
       title: 'Search',
       bbox: false,
       latlon: null,
-      layers: 'poi,admin,address',
+      layers: ['poi', 'admin', 'address'],
       panToPoint: true,
       pointIcon: 'img/point_icon.png',
       polygonIcon: 'img/polygon_icon.png',
       fullWidth: window.innerWidth < 650,
-      dropPin: true,
+      markers: true,
       expanded: true
     },
 
@@ -218,7 +218,7 @@
     },
 
     removeMarkers: function () {
-      if (this.options.dropPin) {
+      if (this.options.markers) {
         for (var i = 0; i < this.markers.length; i++) {
           this._map.removeLayer(this.markers[i]);
         }
@@ -232,8 +232,10 @@
       var geo = [coords[1], coords[0]];
       this._map.setView(geo, this._map.getZoom() || 8);
 
-      if (this.options.dropPin) {
-        this.marker = new L.marker(geo).bindPopup(text); // eslint-disable-line new-cap
+      var markerOptions = (typeof this.options.markers === 'object') ? this.options.markers : {};
+
+      if (this.options.markers) {
+        this.marker = new L.marker(geo, markerOptions).bindPopup(text); // eslint-disable-line new-cap
         this._map.addLayer(this.marker);
         this.markers.push(this.marker);
         this.marker.openPopup();
