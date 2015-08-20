@@ -47,12 +47,11 @@
     },
 
     initialize: function (apiKey, options) {
+      this.apiKey = apikey;
       if (!apiKey || typeof apiKey !== 'string') {
-        if (typeof options !== 'object') {
-          options = {};
-        }
-        options.placeholder = 'Please provide a Pelias API key.';
+        console.error('Please provide a Pelias API key.');
       }
+
       L.Util.setOptions(this, options);
       this.marker;
       this.markers = [];
@@ -257,7 +256,7 @@
       }
       this._input.blur();
       if (this._input.value === '' && this._results.style.display !== 'none') {
-        this._input.placeholder = this.options.placeholder;
+        this.setInputPlaceholder();
         L.DomUtil.addClass(this._close, 'hidden');
         if (!this.options.expanded) {
           L.DomUtil.removeClass(this._container, 'leaflet-pelias-expanded');
@@ -268,7 +267,7 @@
       if (text) {
         this._results.innerHTML = '';
         this._input.value = '';
-        // this._input.placeholder = this.options.placeholder;
+        // this.setInputPlaceholder();
         // this._input.blur();
         L.DomUtil.addClass(this._close, 'hidden');
         // L.DomUtil.removeClass(this._container, 'leaflet-pelias-expanded');
@@ -299,7 +298,7 @@
 
       if (this.options.expanded) {
         L.DomUtil.addClass(this._container, 'leaflet-pelias-expanded');
-        this._input.placeholder = this.options.placeholder;
+        this.setInputPlaceholder();
         if (this.options.fullWidth) {
           this._container.style.width = (window.innerWidth - 50) + 'px';
         }
@@ -307,7 +306,7 @@
 
       L.DomEvent
         .on(this._input, 'focus', function (e) {
-            this._input.placeholder = this.options.placeholder;
+            this.setInputPlaceholder();
             this._results.style.display = 'block';
             if (!this.options.expanded) {
               L.DomUtil.addClass(this._container, 'leaflet-pelias-expanded');
@@ -481,6 +480,16 @@
 
     onRemove: function (map) {
       map.attributionControl.removeAttribution(this.options.attribution);
+    },
+
+    setInputPlaceholder: function (value) {
+      // Override placeholder value if provided
+      if (value) {
+        this._input.placeholder = value;
+      } else if (this.options.placeholder) {
+        // Only set if placeholder option is not null or falsy
+        this._input.placeholder = this.options.placeholder;
+      }
     }
   });
 

@@ -80,9 +80,9 @@ These options affect the plugin's appearance and interaction behavior.
 
 option      | description                               | default value
 ----------- | ----------------------------------------- | ---------------------
-**position** | _String_. Corner in which to place the geocoder control. Values correspond to Leaflet [control positions](http://leafletjs.com/reference.html#control-positions) | `'topleft'`
-**attribution** | _String_. Attribution text to include for Pelias. | `'Geocoding by <a href=\'https://mapzen.com/pelias\'>Pelias</a>'`
-**placeholder** | _String_. Placeholder text to display in the search input box. | `'Search'`
+**position** | _String_. Corner in which to place the geocoder control. Values correspond to Leaflet [control positions](http://leafletjs.com/reference.html#control-positions). | `'topleft'`
+**attribution** | _String_. Attribution text to include for Pelias. Set to blank or `null` to disable. | `'Geocoding by <a href=\'https://mapzen.com/pelias\'>Pelias</a>'`
+**placeholder** | _String_. Placeholder text to display in the search input box. Set to blank or `null` to disable. | `'Search'`
 **title** | _String_. Tooltip text to display on the search icon. | `'Search'`
 **panToPoint** | _Boolean_. If `true`, selecting a search result pans the map to that location. | `true`
 **pointIcon** | _String_. Path to the image used to indicate a point result. | `'img/point_icon.png'`
