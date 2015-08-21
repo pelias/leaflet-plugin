@@ -357,6 +357,10 @@
         }, this)
         .on(this._input, 'blur', function (e) {
           this.clear();
+
+          if (!this._input.value) {
+            this.collapse();
+          }
         }, this)
         .on(this._search, 'click', function (e) {
           // Toggles expanded state of container on click of search icon
