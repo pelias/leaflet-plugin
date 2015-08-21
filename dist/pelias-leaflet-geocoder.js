@@ -300,7 +300,7 @@
         // If fullWidth setting is a number, only expand if map container
         // is smaller than that breakpoint. Otherwise, clear width
         // Always ask map to invalidate and recalculate size first
-        map.invalidateSize();
+        this._map.invalidateSize();
         var mapWidth = this._map.getSize().x;
         if (typeof this.options.fullWidth === 'number' && mapWidth >= window.parseInt(this.options.fullWidth, 10)) {
           this.clearFullWidth();
