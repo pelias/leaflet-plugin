@@ -86,8 +86,13 @@ span.layer_icon_container {
   display: none;
 }
 
-.leaflet-touch .leaflet-pelias-input.leaflet-bar, .leaflet-touch .leaflet-pelias-results.leaflet-bar {
+.leaflet-touch .leaflet-pelias-input.leaflet-bar {
   border-radius: 4px;
+  border: 0 none;
+}
+
+.leaflet-touch .leaflet-pelias-results.leaflet-bar {
+  border-radius: 2px;
   border: 0 none;
 }
 

@@ -542,13 +542,8 @@
       // Collapse an empty input bar when user interacts with the map
       // Disabled if expanded is set to true
       if (!this.options.expanded) {
-        function onMapInteraction (event) {
-          if (!this._input.value) {
-            this.collapse();
-          }
-        }
-        L.DomEvent.on(this._map, 'mousedown', onMapInteraction, this);
-        L.DomEvent.on(this._map, 'touchstart', onMapInteraction, this);
+        L.DomEvent.on(this._map, 'mousedown', this._onMapInteraction, this);
+        L.DomEvent.on(this._map, 'touchstart', this._onMapInteraction, this);
       }
 
       L.DomEvent.disableClickPropagation(this._container);
@@ -556,6 +551,12 @@
         map.attributionControl.addAttribution(this.options.attribution);
       }
       return container;
+    },
+
+    _onMapInteraction: function (event) {
+      if (!this._input.value) {
+        this.collapse();
+      }
     },
 
     onRemove: function (map) {
