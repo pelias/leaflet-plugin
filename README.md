@@ -176,12 +176,11 @@ L.control.geocoder('<your-api-key>', {
 // by default - this is set to true
 // as per https://github.com/pelias/leaflet-geocoder/issues/7
 L.control.geocoder('<your-api-key>', {
-    dropPin: false
+    markers: false
 }).addTo(map);
 
 // Ability to collapse to a button instead of a expanded text box
-// by default - this is set to true
-// by default - the text box shows up instead of the button
+// by default - this is set to false
 // as per https://github.com/pelias/leaflet-geocoder/issues/7
 L.control.geocoder('<your-api-key>', {
     expanded: false

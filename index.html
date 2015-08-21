@@ -45,16 +45,17 @@
         var map = L.map('map').setView([40.7259, -73.9805], 12);
         var hash = new L.Hash(map);
 
-        // Add Tangram scene layer
-        var layer = Tangram.leafletLayer({ scene: 'https://raw.githubusercontent.com/tangrams/simple-demo/gh-pages/scene.yaml' }).addTo(map);
-
+        // Add geocoder
         L.control.geocoder('pelias-api-key', {
           pointIcon: 'dist/img/point_icon.png',
           polygonIcon: 'dist/img/polygon_icon.png',
           fullWidth: true,
-          expanded: false,
+          expanded: true,
           markers: true
         }).addTo(map);
+
+        // Add Tangram scene layer
+        var layer = Tangram.leafletLayer({ scene: 'https://raw.githubusercontent.com/tangrams/simple-demo/gh-pages/scene.yaml' }).addTo(map);
 
         // Adding a script block to post message to the parent container (think iframed demos)
         window.addEventListener('hashchange', function () {

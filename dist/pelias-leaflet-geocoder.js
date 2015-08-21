@@ -320,177 +320,198 @@
       }
 
       L.DomEvent
-        .on(this._input, 'focus', function (e) {
-            if (this._input.value) {
-              this._results.style.display = 'block';
-            }
-            if (!this.options.expanded) {
-              L.DomUtil.addClass(this._container, 'leaflet-pelias-expanded');
-            }
-            if (self.options.fullWidth) {
-              this._container.style.width = (window.innerWidth - 50) + 'px';
-            }
-          }, this)
         .on(this._container, 'click', function (e) {
-            this._input.focus();
-          }, this)
-        .on(this._close, 'click', function (e) {
-            this.clear(true);
-            e.stopPropagation();
-          }, this)
+          // Other listeners should call stopProgation() to
+          // prevent this from firing too greedily
+          this._input.focus();
+        }, this)
+        .on(this._input, 'focus', function (e) {
+          if (this._input.value) {
+            this._results.style.display = 'block';
+          }
+          if (self.options.fullWidth) {
+            this._container.style.width = (window.innerWidth - 50) + 'px';
+          }
+        }, this)
         .on(this._input, 'blur', function (e) {
-            this.clear();
-          }, this)
+          this.clear();
+        }, this)
+        .on(this._search, 'click', function (e) {
+          // Does not toggle if search bar is always expanded
+          if (this.options.expanded) {
+            return;
+          }
+
+          // Toggles expanded state of container on click of search icon
+          if (L.DomUtil.hasClass(this._container, 'leaflet-pelias-expanded')) {
+            L.DomUtil.removeClass(this._container, 'leaflet-pelias-expanded');
+            this._input.blur();
+          } else {
+            L.DomUtil.addClass(this._container, 'leaflet-pelias-expanded');
+            this._input.focus();
+          }
+
+          L.DomEvent.stopPropagation(e);
+        }, this)
+        .on(this._close, 'click', function (e) {
+          this.clear(true);
+          L.DomEvent.stopPropagation(e);
+        }, this)
         .on(this._input, 'keydown', function (e) {
-            var list = this._results.querySelectorAll('.' + 'leaflet-pelias-result');
-            var selected = this._results.querySelectorAll('.' + 'leaflet-pelias-selected')[0];
-            var selectedPosition;
-            var self = this;
-            var panToPoint = function (shouldPan) {
-              var _selected = self._results.querySelectorAll('.' + 'leaflet-pelias-selected')[0];
-              if (_selected && shouldPan) {
-                self.showMarker(_selected.innerHTML, _selected['coords']);
-              }
-            };
-
-            for (var i = 0; i < list.length; i++) {
-              if (list[i] === selected) {
-                selectedPosition = i;
-                break;
-              }
+          var list = this._results.querySelectorAll('.' + 'leaflet-pelias-result');
+          var selected = this._results.querySelectorAll('.' + 'leaflet-pelias-selected')[0];
+          var selectedPosition;
+          var self = this;
+          var panToPoint = function (shouldPan) {
+            var _selected = self._results.querySelectorAll('.' + 'leaflet-pelias-selected')[0];
+            if (_selected && shouldPan) {
+              self.showMarker(_selected.innerHTML, _selected['coords']);
             }
+          };
 
-            // TODO cleanup
-            switch (e.keyCode) {
-              // 13 = enter
-              case 13:
-                if (selected) {
-                  this.showMarker(selected.innerHTML, selected['coords']);
-                  this.clear();
-                } else {
-                  // perform a full text search on enter
-                  var text = (e.target || e.srcElement).value;
-                  this.search(text);
-                }
-                L.DomEvent.preventDefault(e);
-                break;
-              // 38 = up arrow
-              case 38:
-                if (selected) {
-                  L.DomUtil.removeClass(selected, 'leaflet-pelias-selected');
-                }
-
-                var previousItem = list[selectedPosition - 1];
-
-                if (selected && previousItem) {
-                  L.DomUtil.addClass(previousItem, 'leaflet-pelias-selected');
-                } else {
-                  L.DomUtil.addClass(list[list.length - 1], 'leaflet-pelias-selected');
-                }
-
-                panToPoint(this.options.panToPoint);
-
-                L.DomEvent.preventDefault(e);
-                break;
-              // 40 = down arrow
-              case 40:
-                if (selected) {
-                  L.DomUtil.removeClass(selected, 'leaflet-pelias-selected');
-                }
-
-                var nextItem = list[selectedPosition + 1];
-
-                if (selected && nextItem) {
-                  L.DomUtil.addClass(nextItem, 'leaflet-pelias-selected');
-                } else {
-                  L.DomUtil.addClass(list[0], 'leaflet-pelias-selected');
-                }
-
-                panToPoint(this.options.panToPoint);
-
-                L.DomEvent.preventDefault(e);
-                break;
-              // all other keys
-              default:
-                break;
+          for (var i = 0; i < list.length; i++) {
+            if (list[i] === selected) {
+              selectedPosition = i;
+              break;
             }
-          }, this)
-        .on(this._input, 'keyup', L.Util.throttle(function (e) {
-            var key = e.which || e.keyCode;
-            var text = (e.target || e.srcElement).value;
+          }
 
-            if (this._input.value.length > 0) {
-              L.DomUtil.removeClass(this._close, 'hidden');
-            } else {
-              L.DomUtil.addClass(this._close, 'hidden');
-            }
-
-            // Ignore all further action if the keycode matches an arrow
-            // key (handled via keydown event)
-            if (key === 13 || key === 38 || key === 40) {
-              return;
-            }
-
-            // keyCode 27 = esc key (esc should clear results)
-            if (key === 27) {
-              // If input is blank or results have already been cleared
-              // (perhaps due to a previous 'esc') then pressing esc at
-              // this point will blur from input as well.
-              if (text.length === 0 || this._results.style.display === 'none') {
-                this._input.blur();
-              }
-              // Clears results
-              this._results.innerHTML = '';
-              this._results.style.display = 'none';
-              L.DomUtil.removeClass(this._search, 'leaflet-pelias-loading');
-              return;
-            }
-
-            if (this._input.value !== this._lastValue) {
-              this._lastValue = this._input.value;
-
-              if (text.length >= MINIMUM_INPUT_LENGTH_FOR_AUTOSUGGEST) {
-                this.suggest(text);
+          // TODO cleanup
+          switch (e.keyCode) {
+            // 13 = enter
+            case 13:
+              if (selected) {
+                this.showMarker(selected.innerHTML, selected['coords']);
+                this.clear();
               } else {
+                // perform a full text search on enter
+                var text = (e.target || e.srcElement).value;
+                this.search(text);
+              }
+              L.DomEvent.preventDefault(e);
+              break;
+            // 38 = up arrow
+            case 38:
+              if (selected) {
+                L.DomUtil.removeClass(selected, 'leaflet-pelias-selected');
+              }
+
+              var previousItem = list[selectedPosition - 1];
+
+              if (selected && previousItem) {
+                L.DomUtil.addClass(previousItem, 'leaflet-pelias-selected');
+              } else {
+                L.DomUtil.addClass(list[list.length - 1], 'leaflet-pelias-selected');
+              }
+
+              panToPoint(this.options.panToPoint);
+
+              L.DomEvent.preventDefault(e);
+              break;
+            // 40 = down arrow
+            case 40:
+              if (selected) {
+                L.DomUtil.removeClass(selected, 'leaflet-pelias-selected');
+              }
+
+              var nextItem = list[selectedPosition + 1];
+
+              if (selected && nextItem) {
+                L.DomUtil.addClass(nextItem, 'leaflet-pelias-selected');
+              } else {
+                L.DomUtil.addClass(list[0], 'leaflet-pelias-selected');
+              }
+
+              panToPoint(this.options.panToPoint);
+
+              L.DomEvent.preventDefault(e);
+              break;
+            // all other keys
+            default:
+              break;
+          }
+        }, this)
+        .on(this._input, 'keyup', L.Util.throttle(function (e) {
+          var key = e.which || e.keyCode;
+          var text = (e.target || e.srcElement).value;
+
+          if (this._input.value.length > 0) {
+            L.DomUtil.removeClass(this._close, 'hidden');
+          } else {
+            L.DomUtil.addClass(this._close, 'hidden');
+          }
+
+          // Ignore all further action if the keycode matches an arrow
+          // key (handled via keydown event)
+          if (key === 13 || key === 38 || key === 40) {
+            return;
+          }
+
+          // keyCode 27 = esc key (esc should clear results)
+          if (key === 27) {
+            // If input is blank or results have already been cleared
+            // (perhaps due to a previous 'esc') then pressing esc at
+            // this point will blur from input as well.
+            if (text.length === 0 || this._results.style.display === 'none') {
+              this._input.blur();
+
+              if (!this.options.expanded && L.DomUtil.hasClass(this._container, 'leaflet-pelias-expanded')) {
+                L.DomUtil.removeClass(this._container, 'leaflet-pelias-expanded');
                 this.clearResults();
               }
             }
-          }, 50, this), this)
+            // Clears results
+            this._results.innerHTML = '';
+            this._results.style.display = 'none';
+            L.DomUtil.removeClass(this._search, 'leaflet-pelias-loading');
+            return;
+          }
+
+          if (this._input.value !== this._lastValue) {
+            this._lastValue = this._input.value;
+
+            if (text.length >= MINIMUM_INPUT_LENGTH_FOR_AUTOSUGGEST) {
+              this.suggest(text);
+            } else {
+              this.clearResults();
+            }
+          }
+        }, 50, this), this)
         .on(this._results, 'mousedown', function (e) {
-            L.DomEvent.preventDefault(e);
-            var _selected = this._results.querySelectorAll('.' + 'leaflet-pelias-selected')[0];
-            if (_selected) {
-              L.DomUtil.removeClass(_selected, 'leaflet-pelias-selected');
+          L.DomEvent.preventDefault(e);
+          var _selected = this._results.querySelectorAll('.' + 'leaflet-pelias-selected')[0];
+          if (_selected) {
+            L.DomUtil.removeClass(_selected, 'leaflet-pelias-selected');
+          }
+
+          var selected = e.target;
+          var findParent = function () {
+            if (!L.DomUtil.hasClass(selected, 'leaflet-pelias-result')) {
+              selected = selected.parentElement;
+              findParent();
             }
+            return selected;
+          };
 
-            var selected = e.target;
-            var findParent = function () {
-              if (!L.DomUtil.hasClass(selected, 'leaflet-pelias-result')) {
-                selected = selected.parentElement;
-                findParent();
-              }
-              return selected;
-            };
+          // click event can be registered on the child nodes
+          // that does not have the required coords prop
+          // so its important to find the parent.
+          findParent();
 
-            // click event can be registered on the child nodes
-            // that does not have the required coords prop
-            // so its important to find the parent.
-            findParent();
-
-            L.DomUtil.addClass(selected, 'leaflet-pelias-selected');
-            this.showMarker(selected.innerHTML, selected['coords']);
-            this.clear();
-          }, this)
+          L.DomUtil.addClass(selected, 'leaflet-pelias-selected');
+          this.showMarker(selected.innerHTML, selected['coords']);
+          this.clear();
+        }, this)
         .on(this._results, 'mouseover', function (e) {
-            if (map.scrollWheelZoom.enabled() && map.options.scrollWheelZoom) {
-              map.scrollWheelZoom.disable();
-            }
-          })
+          if (map.scrollWheelZoom.enabled() && map.options.scrollWheelZoom) {
+            map.scrollWheelZoom.disable();
+          }
+        })
         .on(this._results, 'mouseout', function (e) {
-            if (!map.scrollWheelZoom.enabled() && map.options.scrollWheelZoom) {
-              map.scrollWheelZoom.enable();
-            }
-          });
+          if (!map.scrollWheelZoom.enabled() && map.options.scrollWheelZoom) {
+            map.scrollWheelZoom.enable();
+          }
+        });
 
       L.DomEvent.disableClickPropagation(this._container);
       if (map.attributionControl) {

@@ -77,6 +77,10 @@ span.layer_icon_container {
   text-align: center;
   font: normal 18px 'Lucida Console', Monaco, monospace;
   cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .hidden {
