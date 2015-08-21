@@ -357,10 +357,6 @@
         }, this)
         .on(this._input, 'blur', function (e) {
           this.clear();
-
-          if (!this._input.value) {
-            this.collapse();
-          }
         }, this)
         .on(this._search, 'click', function (e) {
           // Toggles expanded state of container on click of search icon
@@ -534,12 +530,25 @@
           }
         });
 
+      // Recalculate width of the input bar when window resizes
       if (this.options.fullWidth) {
         L.DomEvent.on(window, 'resize', function (e) {
           if (L.DomUtil.hasClass(this._container, 'leaflet-pelias-expanded')) {
             this.setFullWidth();
           }
         }, this);
+      }
+
+      // Collapse an empty input bar when user interacts with the map
+      // Disabled if expanded is set to true
+      if (!this.options.expanded) {
+        function onMapInteraction (event) {
+          if (!this._input.value) {
+            this.collapse();
+          }
+        }
+        L.DomEvent.on(this._map, 'mousedown', onMapInteraction, this);
+        L.DomEvent.on(this._map, 'touchstart', onMapInteraction, this);
       }
 
       L.DomEvent.disableClickPropagation(this._container);
