@@ -196,9 +196,16 @@
     },
 
     showResults: function (features) {
+      // Exit function if there are no features
+      if (features.length === 0) {
+        return;
+      }
+
       var list;
       var self = this;
       var resultsContainer = this._results;
+
+      // Reset and display results container
       resultsContainer.innerHTML = '';
       resultsContainer.style.display = 'block';
       // manage result box height
@@ -250,7 +257,6 @@
 
     clear: function (text) {
       var selected = this._results.querySelectorAll('.' + 'leaflet-pelias-selected')[0];
-      var self = this;
 
       if (selected) {
         this._input.value = selected.innerText || selected.textContent;
@@ -321,7 +327,6 @@
       var container = L.DomUtil.create('div',
           'leaflet-pelias-control leaflet-bar leaflet-control');
 
-      var self = this;
       this._body = document.body || document.getElementsByTagName('body')[0];
 
       this._container = container;
