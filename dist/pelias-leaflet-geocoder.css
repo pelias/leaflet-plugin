@@ -157,7 +157,7 @@ only screen and (min-device-pixel-ratio: 2) {
 .leaflet-pelias-results .leaflet-pelias-result {
   font-size: 13px;
   padding: 7px;
-  background: white;
+  background-color: white;
   border-top: 1px solid #f1f1f1;
   white-space: nowrap;
   overflow: hidden;
@@ -169,9 +169,14 @@ only screen and (min-device-pixel-ratio: 2) {
   border: none;
 }
 
-.leaflet-pelias-results .leaflet-pelias-result.leaflet-pelias-selected,
 .leaflet-pelias-results .leaflet-pelias-result:hover {
-  background: #b2e3e7;
+  background-color: #d5f1f3;
+  border-color: #d5f1f3;
+}
+
+.leaflet-pelias-results .leaflet-pelias-result.leaflet-pelias-selected,
+.leaflet-pelias-results .leaflet-pelias-result.leaflet-pelias-selected:hover {
+  background-color: #b2e3e7;
   border-color: #b2e3e7;
 }
 
