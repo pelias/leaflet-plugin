@@ -87,7 +87,6 @@ span.layer_icon_container {
 }
 
 .leaflet-touch .leaflet-pelias-input.leaflet-bar, .leaflet-touch .leaflet-pelias-results.leaflet-bar {
-  box-shadow: none;
   border-radius: 4px;
   border: 0 none;
 }
@@ -138,11 +137,15 @@ only screen and (min-device-pixel-ratio: 2) {
 .leaflet-pelias-results {
   width: 100%;
   position: absolute;
-  top: 35px;
+  top: 40px;
   left: 0;
   margin-top: 10px;
   overflow: auto;
   display: none;
+}
+
+.leaflet-touch .leaflet-pelias-results {
+  box-shadow: 0 0 0 2px rgba(0,0,0,0.2);
 }
 
 .leaflet-pelias-list {
