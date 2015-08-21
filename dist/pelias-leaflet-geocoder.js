@@ -22,6 +22,7 @@
   'use strict';
 
   var MINIMUM_INPUT_LENGTH_FOR_AUTOSUGGEST = 2;
+  var FULL_WIDTH_MARGIN = 50; // in pixels
 
   // Alias L.Util.throttle for pre-v1.0 Leaflet
   if (!L.Util.throttle) {
@@ -41,7 +42,7 @@
       panToPoint: true,
       pointIcon: 'img/point_icon.png',
       polygonIcon: 'img/polygon_icon.png',
-      fullWidth: false, //window.innerWidth < 650,
+      fullWidth: 650,
       markers: true,
       expanded: false
     },
@@ -250,11 +251,6 @@
     clear: function (text) {
       var selected = this._results.querySelectorAll('.' + 'leaflet-pelias-selected')[0];
       var self = this;
-      var clearMobile = function () {
-        if (self.options.fullWidth && !self.options.expanded) {
-          self._container.style.width = '';
-        }
-      };
 
       if (selected) {
         this._input.value = selected.innerText || selected.textContent;
@@ -263,19 +259,13 @@
       this._input.blur();
       if (this._input.value === '' && this._results.style.display !== 'none') {
         L.DomUtil.addClass(this._close, 'hidden');
-        if (!this.options.expanded) {
-          L.DomUtil.removeClass(this._container, 'leaflet-pelias-expanded');
-        }
-        clearMobile();
+        this.collapse();
       }
 
       if (text) {
         this._input.value = '';
-        // this._input.blur();
         L.DomUtil.addClass(this._close, 'hidden');
-        // L.DomUtil.removeClass(this._container, 'leaflet-pelias-expanded');
         this.removeMarkers();
-        clearMobile();
         this._input.focus();
       }
     },
@@ -286,6 +276,44 @@
       // Destroy contents if input has also cleared
       if (this._input.value === '') {
         this._results.innerHTML = '';
+      }
+    },
+
+    expand: function () {
+      L.DomUtil.addClass(this._container, 'leaflet-pelias-expanded');
+      this.setFullWidth();
+    },
+
+    collapse: function () {
+      // Does not collapse if search bar is always expanded
+      if (this.options.expanded) {
+        return;
+      }
+
+      L.DomUtil.removeClass(this._container, 'leaflet-pelias-expanded');
+      this.clearFullWidth();
+    },
+
+    // Set full width of expanded input, if enabled
+    setFullWidth: function () {
+      if (this.options.fullWidth) {
+        // If fullWidth setting is a number, only expand if map container
+        // is smaller than that breakpoint. Otherwise, clear width
+        // Always ask map to invalidate and recalculate size first
+        map.invalidateSize();
+        var mapWidth = this._map.getSize().x;
+        if (typeof this.options.fullWidth === 'number' && mapWidth >= window.parseInt(this.options.fullWidth, 10)) {
+          this.clearFullWidth();
+          return;
+        }
+        this._container.style.width = (mapWidth - FULL_WIDTH_MARGIN) + 'px';
+      }
+    },
+
+    clearFullWidth: function () {
+      // Clear set width, if any
+      if (this.options.fullWidth) {
+        this._container.style.width = '';
       }
     },
 
@@ -313,10 +341,7 @@
       this._close.title = 'Close';
 
       if (this.options.expanded) {
-        L.DomUtil.addClass(this._container, 'leaflet-pelias-expanded');
-        if (this.options.fullWidth) {
-          this._container.style.width = (window.innerWidth - 50) + 'px';
-        }
+        this.expand();
       }
 
       L.DomEvent
@@ -329,25 +354,17 @@
           if (this._input.value) {
             this._results.style.display = 'block';
           }
-          if (self.options.fullWidth) {
-            this._container.style.width = (window.innerWidth - 50) + 'px';
-          }
         }, this)
         .on(this._input, 'blur', function (e) {
           this.clear();
         }, this)
         .on(this._search, 'click', function (e) {
-          // Does not toggle if search bar is always expanded
-          if (this.options.expanded) {
-            return;
-          }
-
           // Toggles expanded state of container on click of search icon
           if (L.DomUtil.hasClass(this._container, 'leaflet-pelias-expanded')) {
-            L.DomUtil.removeClass(this._container, 'leaflet-pelias-expanded');
+            this.collapse();
             this._input.blur();
           } else {
-            L.DomUtil.addClass(this._container, 'leaflet-pelias-expanded');
+            this.expand();
             this._input.focus();
           }
 
@@ -455,8 +472,8 @@
             if (text.length === 0 || this._results.style.display === 'none') {
               this._input.blur();
 
-              if (!this.options.expanded && L.DomUtil.hasClass(this._container, 'leaflet-pelias-expanded')) {
-                L.DomUtil.removeClass(this._container, 'leaflet-pelias-expanded');
+              if (L.DomUtil.hasClass(this._container, 'leaflet-pelias-expanded')) {
+                this.collapse();
                 this.clearResults();
               }
             }
@@ -512,6 +529,14 @@
             map.scrollWheelZoom.enable();
           }
         });
+
+      if (this.options.fullWidth) {
+        L.DomEvent.on(window, 'resize', function (e) {
+          if (L.DomUtil.hasClass(this._container, 'leaflet-pelias-expanded')) {
+            this.setFullWidth();
+          }
+        }, this);
+      }
 
       L.DomEvent.disableClickPropagation(this._container);
       if (map.attributionControl) {
