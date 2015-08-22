@@ -41,8 +41,8 @@
       latlon: null,
       layers: ['poi', 'admin', 'address'],
       panToPoint: true,
-      pointIcon: 'img/point_icon.png',
-      polygonIcon: 'img/polygon_icon.png',
+      pointIcon: 'images/point_icon.png',
+      polygonIcon: 'images/polygon_icon.png',
       fullWidth: 650,
       markers: true,
       expanded: false

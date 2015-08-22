@@ -100,7 +100,7 @@ span.layer_icon_container {
 .leaflet-pelias-search-icon {
   position: absolute;
   height: 100%;
-  background-image: url('img/search.png');
+  background-image: url('images/search.png');
   background-repeat: no-repeat;
   background-position: center center;
   background-size: 16px;
@@ -116,7 +116,7 @@ span.layer_icon_container {
 }
 
 .leaflet-pelias-search-icon.leaflet-pelias-loading {
-  background-image: url('img/loading.gif');
+  background-image: url('images/loading.gif');
 }
 
 @media only screen and (min--moz-device-pixel-ratio: 2),
@@ -124,10 +124,10 @@ only screen and (-o-min-device-pixel-ratio: 2/1),
 only screen and (-webkit-min-device-pixel-ratio: 2),
 only screen and (min-device-pixel-ratio: 2) {
   .leaflet-pelias-search-icon {
-    background-image: url('img/search@2x.png');
+    background-image: url('images/search@2x.png');
   }
   .leaflet-pelias-search-icon.leaflet-pelias-loading {
-    background-image: url('img/loading@2x.gif');
+    background-image: url('images/loading@2x.gif');
   }
 }
 

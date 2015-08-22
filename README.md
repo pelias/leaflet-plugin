@@ -85,8 +85,8 @@ option      | description                               | default value
 **placeholder** | _String_. Placeholder text to display in the search input box. Set to blank or `null` to disable. | `'Search'`
 **title** | _String_. Tooltip text to display on the search icon. | `'Search'`
 **panToPoint** | _Boolean_. If `true`, selecting a search result pans the map to that location. | `true`
-**pointIcon** | _String_. Path to the image used to indicate a point result. | `'img/point_icon.png'`
-**polygonIcon** | _String_. Path to the image used to indicate a polygon result. | `'img/polygon_icon.png'`
+**pointIcon** | _String_. Path to the image used to indicate a point result. | `'images/point_icon.png'`
+**polygonIcon** | _String_. Path to the image used to indicate a polygon result. | `'images/polygon_icon.png'`
 **markers** | _[Leaflet Marker options object](http://leafletjs.com/reference.html#marker-options)_ or _Boolean_. If `true`, search results drops Leaflet's default blue markers onto the map. You may customize this marker's appearance and behavior using Leaflet [marker options](http://leafletjs.com/reference.html#marker-options). | `true`
 **fullWidth** | _Integer_ or _Boolean_. If `true`, the input box will expand to take up the full width of the map container. If an integer breakpoint is provided, the full width applies only if the map container width is below this breakpoint. | `650`
 **expanded** | _Boolean_. If `true`, the search input is always expanded. It does not collapse into a button-only state. | `false`
