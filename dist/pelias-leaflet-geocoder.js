@@ -255,30 +255,35 @@
       }
     },
 
-    clear: function (text) {
+    setSelectedResult: function () {
       var selected = this._results.querySelectorAll('.' + 'leaflet-pelias-selected')[0];
 
       if (selected) {
         this._input.value = selected.innerText || selected.textContent;
       }
+    },
+
+    resetInput: function () {
+      this._input.value = '';
+      L.DomUtil.addClass(this._close, 'hidden');
+      this.removeMarkers();
+      this._input.focus();
+    },
+
+    // TODO: Refactor; this function does too many things
+    clear: function () {
       this.clearResults();
       this._input.blur();
       if (this._input.value === '' && this._results.style.display !== 'none') {
         L.DomUtil.addClass(this._close, 'hidden');
         this.collapse();
       }
-
-      if (text) {
-        this._input.value = '';
-        L.DomUtil.addClass(this._close, 'hidden');
-        this.removeMarkers();
-        this._input.focus();
-      }
     },
 
     clearResults: function () {
       // Hide results from view
       this._results.style.display = 'none';
+
       // Destroy contents if input has also cleared
       if (this._input.value === '') {
         this._results.innerHTML = '';
@@ -376,7 +381,7 @@
           L.DomEvent.stopPropagation(e);
         }, this)
         .on(this._close, 'click', function (e) {
-          this.clear(true);
+          this.resetInput();
           L.DomEvent.stopPropagation(e);
         }, this)
         .on(this._input, 'keydown', function (e) {
@@ -403,6 +408,7 @@
             // 13 = enter
             case 13:
               if (selected) {
+                this.setSelectedResult();
                 this.showMarker(selected.innerHTML, selected['coords']);
                 this.clear();
               } else {
@@ -521,6 +527,7 @@
           findParent();
 
           L.DomUtil.addClass(selected, 'leaflet-pelias-selected');
+          this.setSelectedResult();
           this.showMarker(selected.innerHTML, selected['coords']);
           this.clear();
         }, this)
