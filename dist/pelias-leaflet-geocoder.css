@@ -23,6 +23,7 @@
   -ms-transition: width .1s, height .1s;
   -o-transition: width .1s, height .1s;
   transition: width .1s, height .1s;
+  z-index: 8; /* place at one above .leaflet-control */
 }
 
 /* For old IE, match other leaflet controls' appearance */

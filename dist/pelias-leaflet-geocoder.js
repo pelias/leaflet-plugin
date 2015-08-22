@@ -23,6 +23,7 @@
 
   var MINIMUM_INPUT_LENGTH_FOR_AUTOSUGGEST = 2;
   var FULL_WIDTH_MARGIN = 50; // in pixels
+  var FULL_WIDTH_TOUCH_ADJUSTED_MARGIN = 4; // in pixels
 
   // Alias L.Util.throttle for pre-v1.0 Leaflet
   if (!L.Util.throttle) {
@@ -270,7 +271,7 @@
       this._input.focus();
     },
 
-    // TODO: Refactor; this function does too many things
+    // TODO: Refactor; this function previously did too many things
     clear: function () {
       this.clearResults();
       this._input.blur();
@@ -313,11 +314,13 @@
         // Always ask map to invalidate and recalculate size first
         this._map.invalidateSize();
         var mapWidth = this._map.getSize().x;
+        var touchAdjustment = L.DomUtil.hasClass(this._map._container, 'leaflet-touch');
+        var width = mapWidth - FULL_WIDTH_MARGIN - (touchAdjustment ? FULL_WIDTH_TOUCH_ADJUSTED_MARGIN : 0);
         if (typeof this.options.fullWidth === 'number' && mapWidth >= window.parseInt(this.options.fullWidth, 10)) {
           this.clearFullWidth();
           return;
         }
-        this._container.style.width = (mapWidth - FULL_WIDTH_MARGIN) + 'px';
+        this._container.style.width = width.toString() + 'px';
       }
     },
 
