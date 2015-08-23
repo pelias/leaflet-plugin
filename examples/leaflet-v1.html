@@ -27,7 +27,7 @@
     var hash = new L.Hash(map);
 
     // Add Pelias geocoding plugin
-    L.control.geocoder('pelias-api-key').addTo(map);
+    var geocoder = L.control.geocoder('pelias-api-key').addTo(map);
   </script>
 </body>
 </html>

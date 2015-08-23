@@ -29,7 +29,7 @@
     var hash = new L.Hash(map);
 
     // Add Pelias geocoding plugin
-    L.control.geocoder('pelias-api-key').addTo(map);
+    var geocoder = L.control.geocoder('pelias-api-key').addTo(map);
 
     // Add Tangram scene layer
     // (Note: Tangram can also be initialized before the Pelias geocoder, if you choose.)

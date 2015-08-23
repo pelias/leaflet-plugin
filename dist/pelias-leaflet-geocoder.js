@@ -50,9 +50,13 @@
 
     initialize: function (apiKey, options) {
       this.apiKey = apiKey;
+      /*
+      // TODO: apiKey may not be required if the
+      // a custom API endpoint did not require it
       if (!apiKey || typeof apiKey !== 'string') {
         console.error('Please provide a Pelias API key.');
       }
+      */
 
       L.Util.setOptions(this, options);
       this.marker;

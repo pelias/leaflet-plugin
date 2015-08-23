@@ -9,13 +9,11 @@ To use, install Node, then run the following commands in the project root:
 
 To check the code & run tests: run "jake test".
 */
-/* global jake, desc, task, build, complete */
-
-//var version = require('./src/Leaflet.js').version;
+/* global jake, desc, task, complete */
 
 function hint (msg, path) {
   return function () {
-    var command = 'node node_modules/.bin/semistandard ' + path + ' | node node_modules/.bin/snazzy';
+    var command = 'node node_modules/.bin/eslint ' + path;
     var done = function () {
       console.log('\tCheck passed.\n');
       complete();
@@ -62,9 +60,7 @@ function test (complete, fail) {
     testConfig.reporters = ['coverage'];
   }
 
-  console.log('Running tests...');
-
-  karma.server.start(testConfig, function (exitCode) {
+  var server = new karma.Server(testConfig, function (exitCode) {
     if (!exitCode) {
       console.log('\tTests ran successfully.\n');
       complete();
@@ -72,6 +68,9 @@ function test (complete, fail) {
       process.exit(exitCode);
     }
   });
+
+  console.log('Running tests...');
+  server.start();
 }
 
 desc('Check plugin JavaScript for errors with Semistandard');
@@ -82,7 +81,7 @@ task('lintspec', { async: true }, hint('Checking for specs & support JS errors..
 
 desc('Run PhantomJS tests');
 task('test', ['lint', 'lintspec'], { async: true }, function () {
-  //test(complete);
+  test(complete);
 });
 
 task('default', ['test']);

@@ -46,7 +46,7 @@
         var hash = new L.Hash(map);
 
         // Add geocoder
-        L.control.geocoder('pelias-api-key', {
+        var geocoder = L.control.geocoder('pelias-api-key', {
           pointIcon: 'dist/images/point_icon.png',
           polygonIcon: 'dist/images/polygon_icon.png',
           fullWidth: 650,
