@@ -1,18 +1,17 @@
 .leaflet-pelias-input {
+  box-sizing: border-box;
   position: absolute;
   left: 0;
   top: 0;
+  height: 100%;
+  width: 100%;
   border: none;
   border-radius: 4px;
+  padding-left: 26px;
   text-indent: 6px;
   font-size: 14px;
-  height: 100%;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  padding-left: 26px;
-  width: 100%;
+  background-color: transparent; /* Start transparent so it doesn't conflict with collapsed button style (IE8) */
   cursor: pointer;
-  box-sizing: border-box;
 }
 
 .leaflet-pelias-control {
@@ -31,30 +30,36 @@
   border: 1px solid #999;
 }
 
+/* Match touch styles in Leaflet v1 */
 .leaflet-touch .leaflet-pelias-control {
   width: 30px;
   height: 30px;
   line-height: 30px;
 }
 
+/* Expanded state in touch style, width is set elsewhere */
+.leaflet-touch .leaflet-pelias-control.leaflet-pelias-expanded {
+  height: 44px;
+  line-height: 44px;
+}
+
 .leaflet-touch .leaflet-pelias-input {
   background-size: 30px;
 }
 
-.leaflet-pelias-control.leaflet-pelias-expanded {
-  width: 250px;
+.leaflet-pelias-expanded {
+  width: 280px;
   height: 44px;
-  padding-right: 30px;
 }
 
-.leaflet-pelias-control.leaflet-pelias-expanded .leaflet-pelias-input {
-  height: 44px;
-  padding-right: 30px;
-}
+.leaflet-pelias-expanded .leaflet-pelias-input {
+  padding-right: 30px; /* Space for close button */
+  background-color: white; /* Only show background color when expanded */
 
-.leaflet-pelias-expanded,
-.leaflet-touch .leaflet-pelias-expanded {
-  width: 250px;
+  /* The properties below should be tweaked if height of .leaflet-pelias-expanded is changed */
+  padding-top: 5px;
+  padding-bottom: 5px;
+  line-height: 32px;
 }
 
 img.layer_icon {
@@ -83,7 +88,7 @@ span.layer_icon_container {
   user-select: none;
 }
 
-.hidden {
+.leaflet-pelias-hidden {
   display: none;
 }
 
@@ -154,10 +159,12 @@ only screen and (min-device-pixel-ratio: 2) {
 }
 
 .leaflet-top .leaflet-pelias-results {
+  /* This should be adjusted for proper positioning if height of .leaflet-pelias-expanded is changed */
   top: 40px;
 }
 
 .leaflet-bottom .leaflet-pelias-results {
+  /* This should be adjusted for proper positioning if height of .leaflet-pelias-expanded is changed */
   bottom: 52px;
 }
 

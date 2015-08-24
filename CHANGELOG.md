@@ -2,6 +2,7 @@
 ### Breaking changes
 - TODO: Pelias 1.0 API
 - An API key is required to use Mapzen's Pelias service. You can get a free API key from the [Mapzen developers portal](https://mapzen.com/developers/).
+- File and directory structure reworked in accordance to [Leaflet Plugin Authoring Guide](http://leafletjs.com/2013/06/28/leaflet-plugin-authoring-guide.html).
 - `hide_other_controls` is removed.
 - `drop_pin` is renamed to `markers`.
 - `expanded` now defaults to `false`. Please set it to `true` explicitly if that is your desired behavior.
@@ -11,10 +12,12 @@
 ### New features
 - Support for Bower and npm package install
 - Support module loading systems (e.g. CommonJS / AMD)
-- `markers` option can accept a Leaflet Marker options object for customizable markers.
-- `full_width` (renamed `fullWidth`) no longer hard codes a mobile breakpoint. It now accepts any integer to use as a breakpoint (default remains `650` pixels).
+- `markers` (formerly `drop_pin`) option can accept a Leaflet Marker options object for customizable markers.
+- `fullWidth` (formerly `full_width`) no longer hard codes a default mobile breakpoint. It now accepts any integer to use as a breakpoint (default remains `650` pixels). The plugin will also now resize the full-width of the input if the window size changes, which allows custom breakpoints to be meaningful for responsive design.
 - The plugin no longer attempts to "detect" a mobile environment. It relies on Leaflet's `leaflet-touch` state to alter behavior for touch-enabled environments.
 - There is now support for collapsed state of the input bar. Clicking the search icon toggles the expanded state of the input, if `expanded` is not `true`.
+- Improved documentation and examples.
+- Added code linting ([Semistandard](https://github.com/Flet/eslint-config-semistandard)) and tests.
 
 ### Bug fixes
 - If `fullWidth` is true, an expanded input box is now constrained to the width of the map container rather than the window.
@@ -24,7 +27,7 @@
 ### Styling
 - All styles have been revamped for better integration with Leaflet.
 - Search/loading icon is now a separate DOM element from the input box for easier customization.
-- Resize background images to appear at the correct size in <IE8.
+- Resize default background images to appear at the correct size in <IE8.
 
 ## v0.0.2
 

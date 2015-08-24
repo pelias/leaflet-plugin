@@ -22,7 +22,7 @@
   'use strict';
 
   var MINIMUM_INPUT_LENGTH_FOR_AUTOSUGGEST = 2;
-  var FULL_WIDTH_MARGIN = 50; // in pixels
+  var FULL_WIDTH_MARGIN = 20; // in pixels
   var FULL_WIDTH_TOUCH_ADJUSTED_MARGIN = 4; // in pixels
 
   // Alias L.Util.throttle for pre-v1.0 Leaflet
@@ -270,7 +270,7 @@
 
     resetInput: function () {
       this._input.value = '';
-      L.DomUtil.addClass(this._close, 'hidden');
+      L.DomUtil.addClass(this._close, 'leaflet-pelias-hidden');
       this.removeMarkers();
       this._input.focus();
     },
@@ -280,7 +280,7 @@
       this.clearResults();
       this._input.blur();
       if (this._input.value === '' && this._results.style.display !== 'none') {
-        L.DomUtil.addClass(this._close, 'hidden');
+        L.DomUtil.addClass(this._close, 'leaflet-pelias-hidden');
         this.collapse();
       }
     },
@@ -353,7 +353,7 @@
       this._search = L.DomUtil.create('a', 'leaflet-pelias-search-icon', this._container);
 
       this._results = L.DomUtil.create('div', 'leaflet-pelias-results leaflet-bar', this._container);
-      this._close = L.DomUtil.create('div', 'leaflet-pelias-close hidden', this._container);
+      this._close = L.DomUtil.create('div', 'leaflet-pelias-close leaflet-pelias-hidden', this._container);
       this._close.innerHTML = '×';
       this._close.title = 'Close';
 
@@ -471,9 +471,9 @@
           var text = (e.target || e.srcElement).value;
 
           if (this._input.value.length > 0) {
-            L.DomUtil.removeClass(this._close, 'hidden');
+            L.DomUtil.removeClass(this._close, 'leaflet-pelias-hidden');
           } else {
-            L.DomUtil.addClass(this._close, 'hidden');
+            L.DomUtil.addClass(this._close, 'leaflet-pelias-hidden');
           }
 
           // Ignore all further action if the keycode matches an arrow

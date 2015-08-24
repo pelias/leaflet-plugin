@@ -1,3 +1,5 @@
+[![David devDependencies](https://img.shields.io/david/dev/pelias/leaflet-geocoder/v1.0.0-alpha.svg?style=flat-square)](https://david-dm.org/pelias/leaflet-geocoder/v1.0.0-alpha#info=devDependencies)
+
 Leaflet geocoder plugin
 ========================
 
