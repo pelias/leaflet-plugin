@@ -376,6 +376,14 @@
           this.clear();
         }, this)
         .on(this._search, 'click', function (e) {
+          L.DomEvent.stopPropagation(e);
+
+          // If expanded option is true, just focus the input
+          if (this.options.expanded === true) {
+            this._input.focus();
+            return;
+          }
+
           // Toggles expanded state of container on click of search icon
           if (L.DomUtil.hasClass(this._container, 'leaflet-pelias-expanded')) {
             this.collapse();
@@ -384,8 +392,6 @@
             this.expand();
             this._input.focus();
           }
-
-          L.DomEvent.stopPropagation(e);
         }, this)
         .on(this._close, 'click', function (e) {
           this.resetInput();
