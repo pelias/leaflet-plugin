@@ -55,7 +55,10 @@
         }).addTo(map);
 
         // Add Tangram scene layer
-        var layer = Tangram.leafletLayer({ scene: 'https://raw.githubusercontent.com/tangrams/simple-demo/gh-pages/scene.yaml' }).addTo(map);
+        var layer = Tangram.leafletLayer({
+          scene: 'https://raw.githubusercontent.com/tangrams/multiverse/gh-pages/styles/blue-gray5.yaml',
+          attribution: 'Rendering by <a href="https://mapzen.com/tangram">Tangram</a> | &copy; OSM contributors | <a href="https://mapzen.com/">Mapzen</a>'
+        }).addTo(map);
 
         // Adding a script block to post message to the parent container (think iframed demos)
         window.addEventListener('hashchange', function () {
