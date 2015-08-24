@@ -37,8 +37,9 @@
   line-height: 30px;
 }
 
-/* Expanded state in touch style, width is set elsewhere */
+/* Expanded state in touch style, overrides touch style above */
 .leaflet-touch .leaflet-pelias-control.leaflet-pelias-expanded {
+  width: 280px;
   height: 44px;
   line-height: 44px;
 }
