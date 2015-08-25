@@ -30,6 +30,9 @@
     "url": "https://github.com/pelias/leaflet-geocoder/issues"
   },
   "homepage": "https://github.com/pelias/leaflet-geocoder",
+  "peerDependencies": {
+    "leaflet": "^0.7.x || >=1.0.0-beta.1"
+  },
   "devDependencies": {
     "eslint": "^1.2.1",
     "eslint-config-semistandard": "^5.0.0",
@@ -54,8 +57,5 @@
       "define",
       "XMLHttpRequest"
     ]
-  },
-  "dependencies": {
-    "leaflet": "^1.0.0-beta.1"
   }
 }
