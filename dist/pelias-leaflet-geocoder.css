@@ -89,7 +89,7 @@ span.layer_icon_container {
 }
 
 /* Vertical centering ghost element - IE8+ */
-.leaflet-pelias-close::before {
+.leaflet-pelias-close:before {
   content: '';
   display: inline-block;
   height: 100%;
