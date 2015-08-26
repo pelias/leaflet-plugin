@@ -2,7 +2,7 @@
 module.exports = function (config) {
 
   var files = [
-    // Test ependencies
+    // Test dependencies
     'node_modules/sinon/pkg/sinon.js',
     'node_modules/expect.js/index.js',
     'node_modules/happen/happen.js',
@@ -10,6 +10,7 @@ module.exports = function (config) {
     'node_modules/leaflet/dist/leaflet.js',
     // Geocoder plugin
     'dist/pelias-leaflet-geocoder.js',
+    { pattern: 'dist/pelias-leaflet-geocoder.css', included: false },
     // Tests
     'spec/suites/**/*.js',
     // Misc
