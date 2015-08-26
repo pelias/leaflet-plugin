@@ -227,6 +227,6 @@ var element = geocoder.getContainer();
 geocoder.removeFrom(map); // or geocoder.remove() in Leaflet v1
 ```
 
-### Accessing other geocoder internals
+### Accessing other plugin internals
 
-Properties and methods used internally by the geocoder are also available on the returned object. These are purposefully not private or obscured, but are also not publicly documented, since functionality may fluctuate without notice. Depending on usage and demand we will lock down and document internal properties and methods for general use. [Please let us know in the issues tracker](https://github.com/pelias/leaflet-geocoder/issues) if you have feedback.
+Properties and methods used internally by the geocoder are also available on the returned object. These are purposefully not private or obscured, but they are also not publicly documented right now, since functionality may fluctuate without notice. Depending on usage and demand we will lock down and document internal properties and methods for general use. [Please let us know in the issues tracker](https://github.com/pelias/leaflet-geocoder/issues) if you have feedback.
