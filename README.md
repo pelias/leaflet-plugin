@@ -193,3 +193,40 @@ L.control.geocoder('<your-api-key>', {
   attribution: null
 }).addTo(map);
 ```
+
+## Advanced usage
+
+### Alternate syntax
+
+You can initialize a geocoder with the `new` constructor. Notice that the class names are capitalized. This is what actually happens under the hood of `L.control.geocoder()`, so this syntax does not do anything different, but you may prefer it for stylistic reasons.
+
+```javascript
+new L.Control.Geocoder('<your-api-key>').addTo(map);
+```
+
+### Scripting with the plugin
+
+After initializing a geocoder you may store an instance of the geocoder object to a variable.
+
+```javascript
+var geocoder = L.control.geocoder('<your-api-key>');
+
+// or with `new` constructor
+var pelias = new L.Control.Geocoder('<your-api-key>');
+
+// later
+geocoder.addTo(map);
+```
+
+The plugin extends Leaflet's [Control](http://leafletjs.com/reference.html#control) class, so you may use any of those methods to modify plugin behavior in your script.
+
+```javascript
+// examples
+geocoder.setPosition('topright');
+var element = geocoder.getContainer();
+geocoder.removeFrom(map); // or geocoder.remove() in Leaflet v1
+```
+
+### Accessing other geocoder internals
+
+Properties and methods used internally by the geocoder are also available on the returned object. These are purposefully not private or obscured, but are also not publicly documented, since functionality may fluctuate without notice. Depending on usage and demand we will lock down and document internal properties and methods for general use. [Please let us know in the issues tracker](https://github.com/pelias/leaflet-geocoder/issues) if you have feedback.
