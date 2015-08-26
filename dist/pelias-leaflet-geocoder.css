@@ -73,20 +73,27 @@ span.layer_icon_container {
 }
 
 .leaflet-pelias-close {
+  display: table-cell;
   position: absolute;
   right: 2px;
-  top: 50%;
-  margin-top: -13px;
   width: 26px;
-  height: 26px;
-  line-height: 26px;
+  height: 100%;
   text-align: center;
-  font: normal 18px 'Lucida Console', Monaco, monospace;
+  vertical-align: middle;
+  font: normal 18px/26px 'Lucida Console', Monaco, monospace;
   cursor: pointer;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+}
+
+/* Vertical centering ghost element - IE8+ */
+.leaflet-pelias-close::before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
 }
 
 .leaflet-pelias-hidden {
