@@ -48,6 +48,10 @@ L.control.geocoder('<your-api-key>').addTo(map);
 
 **Step 4**: Rejoice!
 
+## Browser support
+
+The Pelias-Leaflet geocoder supports all Leaflet-supported browsers _except_ for Internet Explorer 7. The plugin makes a cross-domain request in Javascript to obtain search results, which is not supported in IE7 without JSONP. Pelias does not support API requets in JSONP.
+
 
 ## Customizing the plugin
 
