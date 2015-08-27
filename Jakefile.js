@@ -80,11 +80,11 @@ desc('Check specs & support JavaScript for errors with Semistandard');
 task('lintspec', { async: true }, hint('Checking for specs & support JS errors...', 'spec/suites/*.js *.js'));
 
 desc('Run PhantomJS tests');
-task('test', ['lint', 'lintspec'], { async: true }, function () {
+task('test', { async: true }, function () {
   test(complete);
 });
 
-task('default', ['test']);
+task('default', ['lint', 'lintspec', 'test']);
 
 jake.addListener('complete', function () {
   process.exit();

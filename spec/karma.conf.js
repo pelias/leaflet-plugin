@@ -10,7 +10,6 @@ module.exports = function (config) {
     'node_modules/leaflet/dist/leaflet.js',
     // Geocoder plugin
     'dist/pelias-leaflet-geocoder.js',
-    { pattern: 'dist/pelias-leaflet-geocoder.css', included: false },
     // Tests
     'spec/suites/**/*.js',
     // Misc
