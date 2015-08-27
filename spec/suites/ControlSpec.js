@@ -1,7 +1,7 @@
 describe('Control', function () {
   var map;
 
-  beforeEach(function () {
+  beforeEach('initialize map', function () {
     map = L.map(document.createElement('div'));
   });
 

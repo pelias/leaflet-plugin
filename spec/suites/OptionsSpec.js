@@ -2,7 +2,7 @@ describe('Options', function () {
   var map;
   var el;
 
-  beforeEach(function () {
+  beforeEach('initialize map', function () {
     el = document.createElement('div');
     // DOM needs to be visible: appended to the body and have dimensions
     // in order for .focus() to work properly
@@ -11,7 +11,7 @@ describe('Options', function () {
     map = L.map(el);
   });
 
-  afterEach(function () {
+  afterEach('destroy map', function () {
     document.body.removeChild(el);
   });
 
@@ -53,29 +53,119 @@ describe('Options', function () {
     });
   });
 
-  describe('expanded = true', function () {
-    var geocoder;
-    var options = {
-      expanded: true
-    };
-
-    beforeEach(function () {
-      geocoder = new L.Control.Geocoder(null, options);
+  describe('placeholder', function () {
+    it('should display custom placeholder text', function () {
+      var geocoder = new L.Control.Geocoder(null, { placeholder: 'a' });
       geocoder.addTo(map);
+      expect(geocoder._input.placeholder).to.be('a');
     });
 
-    it('should have the expanded state when added to the map', function () {
-      expect(geocoder.getContainer().classList.contains('leaflet-pelias-expanded')).to.be(true);
+    it('should have no placeholder text if empty string is assigned to it', function () {
+      var geocoder = new L.Control.Geocoder(null, { placeholder: '' });
+      geocoder.addTo(map);
+      expect(geocoder._input.placeholder).to.be('');
     });
 
-    it('should focus on the input when I click on search icon', function () {
-      happen.click(geocoder._search);
-      expect(document.activeElement.className).to.equal('leaflet-pelias-input');
+    it('should have no placeholder text if `null` is assigned to it', function () {
+      var geocoder = new L.Control.Geocoder(null, { placeholder: null });
+      geocoder.addTo(map);
+      expect(geocoder._input.placeholder).to.be('');
     });
 
-    it('should not lose the expanded state when I click the search icon', function () {
-      happen.click(geocoder._search);
-      expect(geocoder.getContainer().classList.contains('leaflet-pelias-expanded')).to.be(true);
+    it('should have no placeholder text if `undefined` is assigned to it', function () {
+      var geocoder = new L.Control.Geocoder(null, { placeholder: undefined });
+      geocoder.addTo(map);
+      expect(geocoder._input.placeholder).to.be('');
+    });
+  });
+
+  describe('title', function () {
+    it('should display custom title text', function () {
+      var geocoder = new L.Control.Geocoder(null, { title: 'a' });
+      geocoder.addTo(map);
+      expect(geocoder._input.title).to.be('a');
+    });
+
+    it('should have no title text if empty string is assigned to it', function () {
+      var geocoder = new L.Control.Geocoder(null, { title: '' });
+      geocoder.addTo(map);
+      expect(geocoder._input.title).to.be('');
+    });
+
+    it('should have no title text if `null` is assigned to it', function () {
+      var geocoder = new L.Control.Geocoder(null, { title: null });
+      geocoder.addTo(map);
+      expect(geocoder._input.title).to.be('');
+    });
+
+    it('should have no title text if `undefined` is assigned to it', function () {
+      var geocoder = new L.Control.Geocoder(null, { title: undefined });
+      geocoder.addTo(map);
+      expect(geocoder._input.title).to.be('');
+    });
+  });
+
+  describe('expanded', function () {
+    describe('when true', function () {
+      var geocoder;
+      var options = {
+        expanded: true
+      };
+
+      beforeEach(function () {
+        geocoder = new L.Control.Geocoder(null, options);
+        geocoder.addTo(map);
+      });
+
+      it('should be in the expanded state when added to the map', function () {
+        expect(geocoder.getContainer().classList.contains('leaflet-pelias-expanded')).to.be(true);
+      });
+
+      it('should focus on the input when I click on search icon', function () {
+        happen.click(geocoder._search);
+        expect(document.activeElement.className).to.equal('leaflet-pelias-input');
+      });
+
+      it('should not collapse when I click the search icon', function () {
+        happen.click(geocoder._search);
+        expect(geocoder.getContainer().classList.contains('leaflet-pelias-expanded')).to.be(true);
+      });
+    });
+
+    describe('when false', function () {
+      var geocoder;
+      var options = {
+        expanded: false
+      };
+
+      beforeEach(function () {
+        geocoder = new L.Control.Geocoder(null, options);
+        geocoder.addTo(map);
+      });
+
+      it('should be in the collapsed state when added to the map', function () {
+        expect(geocoder.getContainer().classList.contains('leaflet-pelias-expanded')).to.be(false);
+      });
+
+      it('should expand the input from a collapsed state, when I click on search icon', function () {
+        happen.click(geocoder._search);
+        expect(geocoder.getContainer().classList.contains('leaflet-pelias-expanded')).to.be(true);
+      });
+
+      it('should collapse the input when I click the search icon', function () {
+        happen.click(geocoder._search);
+        happen.click(geocoder._search);
+        expect(geocoder.getContainer().classList.contains('leaflet-pelias-expanded')).to.be(false);
+      });
+
+      it('should toggle betwen expanded / collapsed state properly when I click the search icon', function () {
+        var times = 5;
+        while (times > 0) {
+          happen.click(geocoder._search);
+          times--;
+        }
+        expect(geocoder.getContainer().classList.contains('leaflet-pelias-expanded')).to.be(true);
+      });
     });
   });
 });
