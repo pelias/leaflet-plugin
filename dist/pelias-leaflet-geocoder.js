@@ -341,18 +341,20 @@
           'leaflet-pelias-control leaflet-bar leaflet-control');
 
       this._body = document.body || document.getElementsByTagName('body')[0];
-
       this._container = container;
-
       this._input = L.DomUtil.create('input', 'leaflet-pelias-input', this._container);
-      this._input.title = this.options.title;
+
+      // Only set if title option is not null or falsy
+      if (this.options.title) {
+        this._input.title = this.options.title;
+      }
+
       // Only set if placeholder option is not null or falsy
       if (this.options.placeholder) {
         this._input.placeholder = this.options.placeholder;
       }
 
       this._search = L.DomUtil.create('a', 'leaflet-pelias-search-icon', this._container);
-
       this._results = L.DomUtil.create('div', 'leaflet-pelias-results leaflet-bar', this._container);
       this._close = L.DomUtil.create('div', 'leaflet-pelias-close leaflet-pelias-hidden', this._container);
       this._close.innerHTML = '×';
