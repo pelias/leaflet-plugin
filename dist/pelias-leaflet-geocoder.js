@@ -160,12 +160,13 @@
       L.DomUtil.addClass(this._search, 'leaflet-pelias-loading');
 
       AJAX.request(endpoint, params, function (err, results) {
+        L.DomUtil.removeClass(this._search, 'leaflet-pelias-loading');
+
         if (err) {
           throw new Error(err.message);
         }
 
         if (results && results.features) {
-          L.DomUtil.removeClass(this._search, 'leaflet-pelias-loading');
           this.showResults(results.features);
         }
       }, this);
