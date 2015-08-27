@@ -46,6 +46,7 @@
     "karma-coverage": "~0.5.0",
     "karma-firefox-launcher": "~0.1.6",
     "karma-mocha": "~0.2.0",
+    "karma-nyan-reporter": "^0.2.2",
     "karma-phantomjs-launcher": "^0.2.0",
     "karma-safari-launcher": "~0.1.1",
     "mocha": "~2.2.5",

@@ -27,6 +27,7 @@ module.exports = function (config) {
       'karma-chrome-launcher',
       'karma-safari-launcher',
       'karma-firefox-launcher',
+      'karma-nyan-reporter',
     ],
 
     // frameworks to use
@@ -38,7 +39,7 @@ module.exports = function (config) {
 
     // test results reporter to use
     // possible values: 'dots', 'progress', 'junit', 'growl', 'coverage'
-    reporters: ['dots'],
+    reporters: ['nyan'],
 
     // web server port
     port: 9876,
