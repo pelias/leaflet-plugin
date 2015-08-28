@@ -24,6 +24,7 @@
   var MINIMUM_INPUT_LENGTH_FOR_AUTOSUGGEST = 2;
   var FULL_WIDTH_MARGIN = 20; // in pixels
   var FULL_WIDTH_TOUCH_ADJUSTED_MARGIN = 4; // in pixels
+  var RESULTS_HEIGHT_MARGIN = 20; // in pixels
 
   // Alias L.Util.throttle for pre-v1.0 Leaflet
   if (!L.Util.throttle) {
@@ -215,14 +216,14 @@
       resultsContainer.innerHTML = '';
       resultsContainer.style.display = 'block';
       // manage result box height
-      resultsContainer.style.maxHeight = (this._map.getSize().y - resultsContainer.offsetTop - this._container.offsetTop - 10) + 'px';
+      resultsContainer.style.maxHeight = (this._map.getSize().y - resultsContainer.offsetTop - this._container.offsetTop - RESULTS_HEIGHT_MARGIN) + 'px';
+
+      if (!list) {
+        list = L.DomUtil.create('ul', 'leaflet-pelias-list', resultsContainer);
+      }
 
       for (var i = 0, j = features.length; i < j; i++) {
         var feature = features[i];
-
-        if (!list) {
-          list = L.DomUtil.create('ul', 'leaflet-pelias-list', resultsContainer);
-        }
 
         var resultItem = L.DomUtil.create('li', 'leaflet-pelias-result', list);
         var resultMeta = self.getMeta(feature.properties.layer);
