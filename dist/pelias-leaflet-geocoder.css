@@ -163,7 +163,6 @@ only screen and (min-device-pixel-ratio: 2) {
   width: 100%;
   position: absolute;
   left: 0;
-  margin-top: 10px;
   overflow: auto;
   display: none;
 }
@@ -174,12 +173,12 @@ only screen and (min-device-pixel-ratio: 2) {
 
 .leaflet-top .leaflet-pelias-results {
   /* This should be adjusted for proper positioning if height of .leaflet-pelias-expanded is changed */
-  top: 40px;
+  top: 50px;
 }
 
 .leaflet-bottom .leaflet-pelias-results {
   /* This should be adjusted for proper positioning if height of .leaflet-pelias-expanded is changed */
-  bottom: 52px;
+  bottom: 50px;
 }
 
 .leaflet-pelias-list {
