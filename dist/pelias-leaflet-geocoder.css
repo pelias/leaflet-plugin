@@ -128,6 +128,12 @@ span.layer_icon_container {
   height: 100%;
 }
 
+/* When expanded, search icon doesn't need right-side radii */
+.leaflet-pelias-expanded a.leaflet-pelias-search-icon {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
 .leaflet-pelias-search-icon.leaflet-pelias-loading {
   background-image: url('images/loading.gif');
 }
