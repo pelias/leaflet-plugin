@@ -724,7 +724,7 @@
 
         xdr.onerror = L.Util.falseFn;
         callback.call(context, error, response);
-      }
+      };
 
       return xdr;
     },
@@ -733,7 +733,7 @@
       var httpRequest = this.http_request(callback, context);
 
       httpRequest.open('GET', url + '?' + paramString);
-  
+
       setTimeout(function () {
         httpRequest.send(null);
       }, 0);
