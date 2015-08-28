@@ -23,7 +23,11 @@
     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(map);
 
     // Add Pelias geocoding plugin
-    var geocoder = L.control.geocoder('pelias-api-key').addTo(map);
+    var options = {
+      pointIcon: '../dist/images/point_icon.png',
+      polygonIcon: '../dist/images/polygon_icon.png',
+    }
+    var geocoder = L.control.geocoder('pelias-api-key', options).addTo(map);
   </script>
 </body>
 </html>

@@ -217,7 +217,9 @@
       // manage result box height
       resultsContainer.style.maxHeight = (this._map.getSize().y - resultsContainer.offsetTop - this._container.offsetTop - 10) + 'px';
 
-      features.forEach(function (feature) {
+      for (var i = 0, j = features.length; i < j; i++) {
+        var feature = features[i];
+
         if (!list) {
           list = L.DomUtil.create('ul', 'leaflet-pelias-list', resultsContainer);
         }
@@ -233,7 +235,7 @@
         layerIcon.src = resultMeta.icon;
         layerIcon.title = resultMeta.title;
         resultItem.innerHTML += self.highlight(feature.properties.text, self._input.value);
-      });
+      }
     },
 
     removeMarkers: function () {
@@ -638,10 +640,17 @@
       return data;
     },
     http_request: function (callback, context) {
-      var httpRequest = new XMLHttpRequest();
+      if (window.XDomainRequest) {
+        return this.xdr(callback, context);
+      } else {
+        return this.xhr(callback, context);
+      }
+    },
+    xhr: function (callback, context) {
+      var xhr = new XMLHttpRequest();
 
-      httpRequest.onerror = function (e) {
-        httpRequest.onreadystatechange = L.Util.falseFn;
+      xhr.onerror = function (e) {
+        xhr.onreadystatechange = L.Util.falseFn;
 
         callback.call(context, {
           error: {
@@ -651,14 +660,14 @@
         }, null);
       };
 
-      httpRequest.onreadystatechange = function () {
+      xhr.onreadystatechange = function () {
         var response;
         var error;
 
-        if (httpRequest.readyState === 4) {
+        if (xhr.readyState === 4) {
           try {
-            response = JSON.parse(httpRequest.responseText);
-          } catch(e) {
+            response = JSON.parse(xhr.responseText);
+          } catch (e) {
             response = null;
             error = {
               code: 500,
@@ -671,20 +680,62 @@
             response = null;
           }
 
-          httpRequest.onerror = L.Util.falseFn;
+          xhr.onerror = L.Util.falseFn;
 
           callback.call(context, error, response);
         }
       };
 
-      return httpRequest;
+      return xhr;
+    },
+    xdr: function (callback, context) {
+      var xdr = new window.XDomainRequest();
+
+      xdr.onerror = function (e) {
+        xdr.onload = L.Util.falseFn;
+
+        callback.call(context, {
+          error: {
+            code: 500,
+            message: 'XMLHttpRequest Error'
+          }
+        }, null);
+      };
+
+      xdr.onload = function () {
+        var response;
+        var error;
+
+        try {
+          response = JSON.parse(xdr.responseText);
+        } catch (e) {
+          response = null;
+          error = {
+            code: 500,
+            message: 'Parse Error'
+          };
+        }
+
+        if (!error && response.error) {
+          error = response.error;
+          response = null;
+        }
+
+        xdr.onerror = L.Util.falseFn;
+        callback.call(context, error, response);
+      }
+
+      return xdr;
     },
     request: function (url, params, callback, context) {
       var paramString = this.serialize(params);
       var httpRequest = this.http_request(callback, context);
 
       httpRequest.open('GET', url + '?' + paramString);
-      httpRequest.send(null);
+  
+      setTimeout(function () {
+        httpRequest.send(null);
+      }, 0);
     }
   };
 

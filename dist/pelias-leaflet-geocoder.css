@@ -171,6 +171,12 @@ only screen and (min-device-pixel-ratio: 2) {
   box-shadow: 0 0 0 2px rgba(0,0,0,0.2);
 }
 
+/* For old IE, match other leaflet controls' appearance */
+.leaflet-oldie .leaflet-pelias-results {
+  border: 1px solid #999;
+  left: -1px;
+}
+
 .leaflet-top .leaflet-pelias-results {
   /* This should be adjusted for proper positioning if height of .leaflet-pelias-expanded is changed */
   top: 50px;
