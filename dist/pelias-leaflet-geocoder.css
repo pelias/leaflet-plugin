@@ -10,13 +10,14 @@
   padding-left: 26px;
   text-indent: 6px;
   font-size: 14px;
-  background-color: transparent; /* Start transparent so it doesn't conflict with collapsed button style (IE8) */
+  background-color: transparent; /* Should inherit color from control */
   cursor: pointer;
 }
 
 .leaflet-pelias-control {
   width: 26px;
   height: 26px;
+  background-color: white;
   -webkit-transition: width .1s, height .1s;
   -moz-transition: width .1s, height .1s;
   -ms-transition: width .1s, height .1s;
@@ -55,7 +56,7 @@
 
 .leaflet-pelias-expanded .leaflet-pelias-input {
   padding-right: 30px; /* Space for close button */
-  background-color: white; /* Only show background color when expanded */
+  /*background-color: white; /* Only show background color when expanded */
 
   /* The properties below should be tweaked if height of .leaflet-pelias-expanded is changed */
   padding-top: 5px;
@@ -75,12 +76,14 @@ span.layer_icon_container {
 .leaflet-pelias-close {
   display: table-cell;
   position: absolute;
-  right: 2px;
+  right: 0;
   width: 26px;
   height: 100%;
+  padding-right: 2px;
   text-align: center;
   vertical-align: middle;
   font: normal 18px/26px 'Lucida Console', Monaco, monospace;
+  background-color: inherit; /* Masks input on IE8 */
   cursor: pointer;
   -webkit-user-select: none;
   -moz-user-select: none;
