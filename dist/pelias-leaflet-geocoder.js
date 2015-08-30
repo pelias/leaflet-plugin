@@ -358,10 +358,11 @@
       }
 
       this._search = L.DomUtil.create('a', 'leaflet-pelias-search-icon', this._container);
-      this._results = L.DomUtil.create('div', 'leaflet-pelias-results leaflet-bar', this._container);
       this._close = L.DomUtil.create('div', 'leaflet-pelias-close leaflet-pelias-hidden', this._container);
       this._close.innerHTML = '×';
       this._close.title = 'Close';
+
+      this._results = L.DomUtil.create('div', 'leaflet-pelias-results leaflet-bar', this._container);
 
       if (this.options.expanded) {
         this.expand();
@@ -440,6 +441,11 @@
               break;
             // 38 = up arrow
             case 38:
+              // Ignore key if there are no results or if list is not visible
+              if (!list || this._results.style.display === 'none') {
+                return
+              }
+
               if (selected) {
                 L.DomUtil.removeClass(selected, 'leaflet-pelias-selected');
               }
@@ -458,6 +464,11 @@
               break;
             // 40 = down arrow
             case 40:
+              // Ignore key if there are no results or if list is not visible
+              if (!list || this._results.style.display === 'none') {
+                return
+              }
+
               if (selected) {
                 L.DomUtil.removeClass(selected, 'leaflet-pelias-selected');
               }

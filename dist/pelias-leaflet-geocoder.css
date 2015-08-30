@@ -80,6 +80,8 @@ span.layer_icon_container {
   width: 26px;
   height: 100%;
   padding-right: 2px;
+  border-top-right-radius: 4px; /* Need to match input border radius if this has a solid background, overflow:hidden is not available; */
+  border-bottom-right-radius: 4px;
   text-align: center;
   vertical-align: middle;
   font: normal 18px/26px 'Lucida Console', Monaco, monospace;
