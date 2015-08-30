@@ -401,6 +401,7 @@
         }, this)
         .on(this._close, 'click', function (e) {
           this.resetInput();
+          this.clearResults();
           L.DomEvent.stopPropagation(e);
         }, this)
         .on(this._input, 'keydown', function (e) {
