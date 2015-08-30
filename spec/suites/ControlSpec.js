@@ -6,8 +6,14 @@ describe('Control', function () {
   });
 
   describe('#addTo', function () {
-    it('adds the geocoder control to the map', function () {
+    it('adds the geocoder control to the map if called with new', function () {
       var geocoder = new L.Control.Geocoder();
+      geocoder.addTo(map);
+      expect(map.getContainer().querySelector('.leaflet-pelias-control')).to.equal(geocoder.getContainer());
+    });
+
+    it('adds the geocoder control to the map if called as function', function () {
+      var geocoder = L.control.geocoder();
       geocoder.addTo(map);
       expect(map.getContainer().querySelector('.leaflet-pelias-control')).to.equal(geocoder.getContainer());
     });

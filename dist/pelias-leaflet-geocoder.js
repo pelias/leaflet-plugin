@@ -443,7 +443,7 @@
             case 38:
               // Ignore key if there are no results or if list is not visible
               if (!list || this._results.style.display === 'none') {
-                return
+                return;
               }
 
               if (selected) {
@@ -466,7 +466,7 @@
             case 40:
               // Ignore key if there are no results or if list is not visible
               if (!list || this._results.style.display === 'none') {
-                return
+                return;
               }
 
               if (selected) {

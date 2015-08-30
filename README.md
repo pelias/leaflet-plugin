@@ -203,7 +203,7 @@ L.control.geocoder('<your-api-key>', {
 
 ### Alternate syntax
 
-You can initialize a geocoder with the `new` constructor. Notice that the class names are capitalized. This is what actually happens under the hood of `L.control.geocoder()`, so this syntax does not do anything different, but you may prefer it for stylistic reasons.
+You can initialize a geocoder with the `new` keyword. Notice that the class names are capitalized. This is what actually happens under the hood of `L.control.geocoder()`, so this syntax does not do anything different, but you may prefer it for clarity or stylistic reasons.
 
 ```javascript
 new L.Control.Geocoder('<your-api-key>').addTo(map);
@@ -216,7 +216,7 @@ After initializing a geocoder you may store an instance of the geocoder object t
 ```javascript
 var geocoder = L.control.geocoder('<your-api-key>');
 
-// or with `new` constructor
+// or with `new` keyword
 var pelias = new L.Control.Geocoder('<your-api-key>');
 
 // later
