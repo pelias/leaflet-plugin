@@ -46,7 +46,8 @@
       polygonIcon: 'images/polygon_icon.png',
       fullWidth: 650,
       markers: true,
-      expanded: false
+      expanded: false,
+      autosuggest: true
     },
 
     initialize: function (apiKey, options) {
@@ -393,9 +394,13 @@
 
           // Toggles expanded state of container on click of search icon
           if (L.DomUtil.hasClass(this._container, 'leaflet-pelias-expanded')) {
+            L.DomUtil.addClass(this._close, 'leaflet-pelias-hidden');
             this.collapse();
             this._input.blur();
           } else {
+            if (this._input.value.length > 0) {
+              L.DomUtil.removeClass(this._close, 'leaflet-pelias-hidden');
+            }
             this.expand();
             this._input.focus();
           }
@@ -529,7 +534,7 @@
           if (this._input.value !== this._lastValue) {
             this._lastValue = this._input.value;
 
-            if (text.length >= MINIMUM_INPUT_LENGTH_FOR_AUTOSUGGEST) {
+            if (text.length >= MINIMUM_INPUT_LENGTH_FOR_AUTOSUGGEST && this.options.autosuggest === true) {
               this.suggest(text);
             } else {
               this.clearResults();
