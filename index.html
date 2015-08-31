@@ -32,8 +32,13 @@
         display: none;
       }
 
+      .leaflet-pelias-expanded,
+      .leaflet-touch .leaflet-pelias-control.leaflet-pelias-expanded {
+        width: 400px;
+      }
+
       /* Swap out the image for search icon when the control is expanded */
-      .leaflet-pelias-control.leaflet-pelias-expanded .leaflet-pelias-search-icon {
+      .leaflet-pelias-control.leaflet-pelias-expanded .leaflet-pelias-search-icon:not(.leaflet-pelias-loading) {
         background-image: url('examples/demo/search_blue.png');
       }
     </style>
@@ -53,6 +58,10 @@
           expanded: true,
           markers: true
         }).addTo(map);
+
+        // Re-sort control order so that geocoder is on top
+        var geocoderEl = geocoder._container;
+        geocoderEl.parentNode.insertBefore(geocoderEl, geocoderEl.parentNode.childNodes[0]);
 
         // Add Tangram scene layer
         var layer = Tangram.leafletLayer({
