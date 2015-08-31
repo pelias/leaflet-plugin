@@ -380,7 +380,10 @@
             this._results.style.display = 'block';
           }
         }, this)
-        .on(this._input, 'blur', function (e) {
+        .on(this._map, 'click', function (e) {
+          // Does what you might expect a _input.blur() listener might do,
+          // but since that would fire for any reason (e.g. clicking a result)
+          // what you really want is to blur from the control by listening to clicks on the map
           this.clear();
         }, this)
         .on(this._search, 'click', function (e) {
@@ -495,7 +498,7 @@
               break;
           }
         }, this)
-        .on(this._input, 'keyup', L.Util.throttle(function (e) {
+        .on(this._input, 'keyup', function (e) {
           var key = e.which || e.keyCode;
           var text = (e.target || e.srcElement).value;
 
@@ -531,24 +534,29 @@
             return;
           }
 
+          // Throttle the suggestion request
+          var suggest = L.Util.throttle(this.suggest, 300, this);
+
           if (this._input.value !== this._lastValue) {
             this._lastValue = this._input.value;
 
             if (text.length >= MINIMUM_INPUT_LENGTH_FOR_AUTOSUGGEST && this.options.autosuggest === true) {
-              this.suggest(text);
+              suggest(text);
             } else {
               this.clearResults();
             }
           }
-        }, 50, this), this)
-        .on(this._results, 'mousedown', function (e) {
+        }, this)
+        .on(this._results, 'click', function (e) {
           L.DomEvent.preventDefault(e);
+          L.DomEvent.stopPropagation(e);
+
           var _selected = this._results.querySelectorAll('.' + 'leaflet-pelias-selected')[0];
           if (_selected) {
             L.DomUtil.removeClass(_selected, 'leaflet-pelias-selected');
           }
 
-          var selected = e.target;
+          var selected = e.target || e.srcElement; /* IE8 */
           var findParent = function () {
             if (!L.DomUtil.hasClass(selected, 'leaflet-pelias-result')) {
               selected = selected.parentElement;
