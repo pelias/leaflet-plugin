@@ -25,6 +25,7 @@
   var FULL_WIDTH_MARGIN = 20; // in pixels
   var FULL_WIDTH_TOUCH_ADJUSTED_MARGIN = 4; // in pixels
   var RESULTS_HEIGHT_MARGIN = 20; // in pixels
+  var API_RATE_LIMIT = 300; // in ms, throttled time between subsequent requests to API
 
   // Alias L.Util.throttle for pre-v1.0 Leaflet
   if (!L.Util.throttle) {
@@ -535,7 +536,8 @@
           }
 
           // Throttle the suggestion request
-          var suggest = L.Util.throttle(this.suggest, 300, this);
+          // TODO: Different throttle timings may be available at different types of service
+          var suggest = L.Util.throttle(this.suggest, API_RATE_LIMIT, this);
 
           if (this._input.value !== this._lastValue) {
             this._lastValue = this._input.value;
