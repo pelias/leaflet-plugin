@@ -52,16 +52,8 @@
     },
 
     initialize: function (apiKey, options) {
-      this.apiKey = apiKey;
-      /*
-      // TODO: apiKey may not be required if the
-      // a custom API endpoint did not require it
-      if (!apiKey || typeof apiKey !== 'string') {
-        console.error('Please provide a Pelias API key.');
-      }
-      */
-
       L.Util.setOptions(this, options);
+      this.apiKey = apiKey;
       this.marker;
       this.markers = [];
     },
@@ -233,10 +225,13 @@
         resultItem.layer = feature.properties.layer;
         resultItem.coords = feature.geometry.coordinates;
 
-        var layerIconContainer = L.DomUtil.create('span', 'layer_icon_container', resultItem);
-        var layerIcon = L.DomUtil.create('img', 'layer_icon', layerIconContainer);
-        layerIcon.src = resultMeta.icon;
-        layerIcon.title = resultMeta.title;
+        if (resultMeta.icon) {
+          var layerIconContainer = L.DomUtil.create('span', 'leaflet-pelias-layer-icon-container', resultItem);
+          var layerIcon = L.DomUtil.create('img', 'leaflet-pelias-layer-icon', layerIconContainer);
+          layerIcon.src = resultMeta.icon;
+          layerIcon.title = resultMeta.title;
+        }
+
         resultItem.innerHTML += self.highlight(feature.properties.text, self._input.value);
       }
     },
@@ -281,7 +276,7 @@
       this._input.focus();
     },
 
-    // TODO: Refactor; this function previously did too many things
+    // TODO: Rename?
     clear: function () {
       this.clearResults();
       this._input.blur();
@@ -630,7 +625,6 @@
    * AJAX Utitity function (implements basic HTTP get)
    * TODO check for maximum length for a GET req
    * TODO alternatively POST if GET cannot be done
-   * TODO fallback to JSONP if CORS isnt supported
    */
   var AJAX = {
     serialize: function (params) {

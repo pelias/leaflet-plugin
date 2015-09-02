@@ -64,12 +64,12 @@
   line-height: 32px;
 }
 
-img.layer_icon {
+img.leaflet-pelias-layer-icon {
   width: 15px;
   vertical-align: middle;
 }
 
-span.layer_icon_container {
+span.leaflet-pelias-layer-icon-container {
   margin-right: 5px;
 }
 

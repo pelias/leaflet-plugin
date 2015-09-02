@@ -27,7 +27,11 @@
     var hash = new L.Hash(map);
 
     // Add Pelias geocoding plugin
-    var geocoder = L.control.geocoder('pelias-api-key').addTo(map);
+    var options = {
+      pointIcon: '../dist/images/point_icon.png',
+      polygonIcon: '../dist/images/polygon_icon.png',
+    }
+    var geocoder = L.control.geocoder('pelias-api-key', options).addTo(map);
   </script>
 </body>
 </html>
