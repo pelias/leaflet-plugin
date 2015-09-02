@@ -1,3 +1,7 @@
+before(function () {
+  console.log('Leaflet version: ' + L.version);
+});
+
 describe('Control', function () {
   var map;
 
