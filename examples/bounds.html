@@ -19,23 +19,16 @@
   <div id="map"></div>
   <script>
     // Create a basic Leaflet map
-    var map = L.map('map').setView([52.5270, 13.4124], 13);
+    var map = L.map('map').setView([40.7259, -73.9805], 12);
     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(map);
 
-    // Add Pelias geocoding plugin to top right
-    var geocoder1 = L.control.geocoder('pelias-api-key', {
-      position: 'topright'
-    }).addTo(map);
-
-    // Add Pelias geocoding plugin to bottom left
-    var geocoder2 = L.control.geocoder('pelias-api-key', {
-      position: 'bottomleft'
-    }).addTo(map);
-
-    // Add Pelias geocoding plugin to bottom right
-    var geocoder3 = L.control.geocoder('pelias-api-key', {
-      position: 'bottomright'
-    }).addTo(map);
+    // Add Pelias geocoding plugin
+    var options = {
+      pointIcon: '../dist/images/point_icon.png',
+      polygonIcon: '../dist/images/polygon_icon.png',
+      bbox: true
+    }
+    var geocoder = L.control.geocoder('pelias-api-key', options).addTo(map);
   </script>
 </body>
 </html>
