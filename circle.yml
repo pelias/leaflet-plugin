@@ -5,4 +5,5 @@ machine:
 dependencies:
   pre:
     - npm install -g jake
+  post:
     - npm install leaflet@^1.0.0-beta.1
