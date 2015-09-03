@@ -32,3 +32,17 @@ var geocoder = new L.Control.Geocoder('<pelias-api-key>').addTo(map);
 // geocoder._container is a reference to the geocoder's DOM element.
 geocoder._container.parentNode.insertBefore(geocoder._container, geocoder._container.parentNode.childNodes[0]);
 ```
+
+## Using geocoder plugin with mapbox.js
+
+You may choose to use the Pelias plugin with [Mapbox.js](https://www.mapbox.com/mapbox.js/). It is based on Leaflet, so the plugin works well with it too. The only difference is that Mapbox.js provides slightly different styling. By adding this custom CSS snippet you can make the Pelias plugin match Mapbox.js styling.
+
+```css
+.leaflet-pelias-control:not(.leaflet-pelias-expanded),
+.leaflet-touch .leaflet-pelias-control:not(.leaflet-pelias-expanded) {
+  width: 28px;
+  height: 28px;
+}
+```
+
+This was tested on Mapbox.js v2.2.2.
