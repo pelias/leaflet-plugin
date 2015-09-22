@@ -324,6 +324,7 @@
 
       L.DomUtil.removeClass(this._container, 'leaflet-pelias-expanded');
       this.clearFullWidth();
+      this.clearResults();
     },
 
     // Set full width of expanded input, if enabled
