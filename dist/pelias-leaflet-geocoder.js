@@ -71,7 +71,6 @@
 
     getBoundingBoxParam: function (params) {
       var bounds = this.options.bounds;
-      var viewport = {};
 
       if (!bounds) {
         return params;
@@ -708,7 +707,7 @@
         if (xhr.readyState === 4) {
           // Handle all non-200 responses first
           if (xhr.status !== 200) {
-            var error = {
+            error = {
               code: xhr.status,
               message: xhr.statusText
             };
@@ -748,7 +747,7 @@
         var error = {
           code: 500,
           message: 'XMLHttpRequest Error'
-        }
+        };
         callback.call(context, error, null);
       };
 
