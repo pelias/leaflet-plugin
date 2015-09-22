@@ -4,6 +4,7 @@
     <title>Pelias Geocoder Leaflet Plugin</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
+    <script src="examples/modernizr.js"></script>
 
     <!-- Load Leaflet from CDN -->
     <link rel="stylesheet" href="//cdn.leafletjs.com/leaflet-1.0.0-b1/leaflet.css">
@@ -20,6 +21,10 @@
     <script src="./dist/pelias-leaflet-geocoder.js"></script>
 
     <style>
+      html, body {
+        overflow: hidden;
+      }
+
       #map {
         position: fixed;
         top: 0;
@@ -41,38 +46,70 @@
       .leaflet-pelias-control.leaflet-pelias-expanded .leaflet-pelias-search-icon:not(.leaflet-pelias-loading) {
         background-image: url('examples/demo/search_blue.png');
       }
+
+      .no-webgl-message {
+        display: none;
+      }
+
+      html.no-webgl .no-webgl-message{
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        box-sizing: border-box;
+        z-index: 1001; /* Ensures visibility in IE8 */
+        padding: 10px;
+        font-family: sans-serif;
+        background-color: lightyellow;
+        border-bottom: 1px solid gold;
+      }
     </style>
   </head>
   <body>
-      <div id="map"></div>
+    <div id="message" class="no-webgl-message">Your browser cannot display the map on this page. <a href="./examples/">Try this one instead.</a></div>
+    <div id="map"></div>
 
-      <script type="text/javascript">
-        var map = L.map('map').setView([40.7259, -73.9805], 12);
-        var hash = new L.Hash(map);
+    <script type="text/javascript">
+      var map = L.map('map').setView([40.7259, -73.9805], 12);
+      var hash = new L.Hash(map);
 
-        // Add geocoder
-        var geocoder = L.control.geocoder('search-MKZrG6M', {
-          pointIcon: 'dist/images/point_icon.png',
-          polygonIcon: 'dist/images/polygon_icon.png',
-          fullWidth: 650,
-          expanded: true,
-          markers: true
-        }).addTo(map);
+      // Add geocoder
+      var geocoder = L.control.geocoder('search-MKZrG6M', {
+        pointIcon: 'dist/images/point_icon.png',
+        polygonIcon: 'dist/images/polygon_icon.png',
+        fullWidth: 650,
+        expanded: true,
+        markers: true
+      }).addTo(map);
 
-        // Re-sort control order so that geocoder is on top
-        var geocoderEl = geocoder._container;
-        geocoderEl.parentNode.insertBefore(geocoderEl, geocoderEl.parentNode.childNodes[0]);
+      // Re-sort control order so that geocoder is on top
+      var geocoderEl = geocoder._container;
+      geocoderEl.parentNode.insertBefore(geocoderEl, geocoderEl.parentNode.childNodes[0]);
 
-        // Add Tangram scene layer
-        var layer = Tangram.leafletLayer({
-          scene: 'https://raw.githubusercontent.com/tangrams/multiverse/gh-pages/styles/blue-gray5.yaml',
-          attribution: 'Rendering by <a href="https://mapzen.com/tangram">Tangram</a> | &copy; OSM contributors | <a href="https://mapzen.com/">Mapzen</a>'
-        }).addTo(map);
+      // Add Tangram scene layer
+      var layer = Tangram.leafletLayer({
+        scene: 'https://raw.githubusercontent.com/tangrams/multiverse/gh-pages/styles/blue-gray5.yaml',
+        attribution: 'Rendering by <a href="https://mapzen.com/tangram">Tangram</a> | &copy; OSM contributors | <a href="https://mapzen.com/">Mapzen</a>'
+      }).addTo(map);
 
-        // Adding a script block to post message to the parent container (think iframed demos)
-        window.addEventListener('hashchange', function () {
-          parent.postMessage(window.location.hash, '*')
-        });
-      </script>
+      // Adding a script block to post message to the parent container (think iframed demos)
+      window.addEventListener('hashchange', function () {
+        parent.postMessage(window.location.hash, '*')
+      });
+    </script>
+    <script type="text/javascript">
+      // Compatibility checks
+      (function () {
+        var messageEl = document.getElementById('message');
+        var mapEl = document.getElementById('map');
+        var height;
+        // This message box is displayed if Modernizr cannot detect WebGL support.
+        if (messageEl.style.display !== 'none') {
+          height = messageEl.getBoundingClientRect().bottom; // No .height in IE8, but top is assumed to be 0
+          mapEl.style.top = height.toString() + 'px';
+        }
+      })();
+    </script>
   </body>
 </html>
