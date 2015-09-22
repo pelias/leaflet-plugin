@@ -358,6 +358,7 @@
       this._body = document.body || document.getElementsByTagName('body')[0];
       this._container = container;
       this._input = L.DomUtil.create('input', 'leaflet-pelias-input', this._container);
+      this._input.spellcheck = false;
 
       // Only set if title option is not null or falsy
       if (this.options.title) {
