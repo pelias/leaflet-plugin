@@ -235,6 +235,12 @@ only screen and (min-device-pixel-ratio: 2) {
   border-color: #b2e3e7;
 }
 
+.leaflet-pelias-message {
+  font-size: 13px;
+  padding: 7px;
+  background-color: white;
+}
+
 /* styles when positioned on right */
 
 .leaflet-right .leaflet-pelias-results {

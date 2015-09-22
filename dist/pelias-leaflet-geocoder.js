@@ -81,20 +81,10 @@
         bounds = this._map.getBounds();
       }
 
-      viewport.min_lon = bounds.getWest();
-      viewport.min_lat = bounds.getSouth();
-      viewport.max_lon = bounds.getEast();
-      viewport.max_lat = bounds.getNorth();
-
-      if (!params.focus) {
-        params.focus = {};
-      }
-
-      if (!params.focus.viewport) {
-        params.focus.viewport = {};
-      }
-
-      params.focus.viewport = viewport;
+      params['boundary.rect.min_lon'] = bounds.getWest();
+      params['boundary.rect.min_lat'] = bounds.getSouth();
+      params['boundary.rect.max_lon'] = bounds.getEast();
+      params['boundary.rect.max_lat'] = bounds.getNorth();
 
       return params;
     },
@@ -110,7 +100,6 @@
        * false //Boolean - No latlng to be considered
       */
       var latlng = this.options.latlng;
-      var point = {};
 
       if (!latlng) {
         return params;
@@ -118,25 +107,19 @@
 
       if (latlng.constructor === Array) {
         // TODO Check for array size, throw errors if invalid lat/lon
-        point.lat = latlng[0];
-        point.lon = latlng[1];
+        params['focus.point.lat'] = latlng[0];
+        params['focus.point.lon'] = latlng[1];
       } else if (typeof latlng !== 'object') {
         // fallback to the map's center L.latLng()
         latlng = this._map.getCenter();
-        point.lat = latlng.lat;
-        point.lon = latlng.lng;
+        params['focus.point.lat'] = latlng.lat;
+        params['focus.point.lon'] = latlng.lng;
       } else {
         // TODO Check for valid L.LatLng Object or Object thats in the form of {lat:..,lon:..}
         // TODO Check for valid lat/lon values, Error handling
-        point.lat = latlng.lat;
-        point.lon = latlng.lng ? latlng.lng : latlng.lon;
+        params['focus.point.lat'] = latlng.lat;
+        params['focus.point.lon'] = latlng.lng ? latlng.lng : latlng.lon;
       }
-
-      if (!params.focus) {
-        params.focus = {};
-      }
-
-      params.focus.point = point;
 
       return params;
     },
@@ -181,7 +164,21 @@
         L.DomUtil.removeClass(this._search, 'leaflet-pelias-loading');
 
         if (err) {
-          throw new Error(err.message);
+          switch (err.code) {
+            case 429:
+              this.showMessage('There were too many requests. Try again in a second.');
+              break;
+            case 403:
+              this.showMessage('A valid API key is needed for this search feature.');
+              break;
+            case 500:
+              this.showMessage('The search service is not working right now. Please try again later.');
+              break;
+            // Note the status code is 0 if CORS is not enabled on the error response
+            default:
+              this.showMessage('The search service is having problems :-(');
+              break;
+          }
         }
 
         if (results && results.features) {
@@ -209,6 +206,7 @@
     showResults: function (features) {
       // Exit function if there are no features
       if (features.length === 0) {
+        this.showMessage('No results were found.');
         return;
       }
 
@@ -243,6 +241,17 @@
       }
     },
 
+    showMessage: function (text) {
+      var resultsContainer = this._results;
+
+      // Reset and display results container
+      resultsContainer.innerHTML = '';
+      resultsContainer.style.display = 'block';
+
+      var messageEl = L.DomUtil.create('div', 'leaflet-pelias-message', resultsContainer);
+      messageEl.textContent = text;
+    },
+
     removeMarkers: function () {
       if (this.options.markers) {
         for (var i = 0; i < this.markers.length; i++) {
@@ -269,7 +278,7 @@
     },
 
     setSelectedResult: function () {
-      var selected = this._results.querySelectorAll('.' + 'leaflet-pelias-selected')[0];
+      var selected = this._results.querySelectorAll('.leaflet-pelias-selected')[0];
 
       if (selected) {
         this._input.value = selected.innerText || selected.textContent;
@@ -417,12 +426,12 @@
           L.DomEvent.stopPropagation(e);
         }, this)
         .on(this._input, 'keydown', function (e) {
-          var list = this._results.querySelectorAll('.' + 'leaflet-pelias-result');
-          var selected = this._results.querySelectorAll('.' + 'leaflet-pelias-selected')[0];
+          var list = this._results.querySelectorAll('.leaflet-pelias-result');
+          var selected = this._results.querySelectorAll('.leaflet-pelias-selected')[0];
           var selectedPosition;
           var self = this;
           var panToPoint = function (shouldPan) {
-            var _selected = self._results.querySelectorAll('.' + 'leaflet-pelias-selected')[0];
+            var _selected = self._results.querySelectorAll('.leaflet-pelias-selected')[0];
             if (_selected && shouldPan) {
               self.showMarker(_selected.innerHTML, _selected['coords']);
             }
@@ -555,7 +564,7 @@
           L.DomEvent.preventDefault(e);
           L.DomEvent.stopPropagation(e);
 
-          var _selected = this._results.querySelectorAll('.' + 'leaflet-pelias-selected')[0];
+          var _selected = this._results.querySelectorAll('.leaflet-pelias-selected')[0];
           if (_selected) {
             L.DomUtil.removeClass(_selected, 'leaflet-pelias-selected');
           }
@@ -564,7 +573,9 @@
           var findParent = function () {
             if (!L.DomUtil.hasClass(selected, 'leaflet-pelias-result')) {
               selected = selected.parentElement;
-              findParent();
+              if (selected) {
+                findParent();
+              }
             }
             return selected;
           };
@@ -574,10 +585,14 @@
           // so its important to find the parent.
           findParent();
 
-          L.DomUtil.addClass(selected, 'leaflet-pelias-selected');
-          this.setSelectedResult();
-          this.showMarker(selected.innerHTML, selected['coords']);
-          this.clear();
+          // If nothing is selected, (e.g. it's a message, not a result),
+          // do nothing.
+          if (selected) {
+            L.DomUtil.addClass(selected, 'leaflet-pelias-selected');
+            this.setSelectedResult();
+            this.showMarker(selected.innerHTML, selected['coords']);
+            this.clear();
+          }
         }, this)
         .on(this._results, 'mouseover', function (e) {
           if (map.scrollWheelZoom.enabled() && map.options.scrollWheelZoom) {
@@ -629,9 +644,7 @@
   };
 
   /*
-   * AJAX Utitity function (implements basic HTTP get)
-   * TODO check for maximum length for a GET req
-   * TODO alternatively POST if GET cannot be done
+   * AJAX Utility function (implements basic HTTP get)
    */
   var AJAX = {
     serialize: function (params) {
@@ -680,13 +693,12 @@
 
       xhr.onerror = function (e) {
         xhr.onreadystatechange = L.Util.falseFn;
+        var error = {
+          code: xhr.status,
+          message: xhr.statusText
+        };
 
-        callback.call(context, {
-          error: {
-            code: 500,
-            message: 'XMLHttpRequest Error'
-          }
-        }, null);
+        callback.call(context, error, null);
       };
 
       xhr.onreadystatechange = function () {
@@ -694,26 +706,33 @@
         var error;
 
         if (xhr.readyState === 4) {
-          // TODO: Handle errors better, do not only assume 500
-          // Other common errors can be 403 (API key is bad), 429 (too many requests)
-          try {
-            response = JSON.parse(xhr.responseText);
-          } catch (e) {
-            response = null;
-            error = {
-              code: 500,
-              message: 'Parse Error'
+          // Handle all non-200 responses first
+          if (xhr.status !== 200) {
+            var error = {
+              code: xhr.status,
+              message: xhr.statusText
             };
+            callback.call(context, error, null);
+          } else {
+            try {
+              response = JSON.parse(xhr.responseText);
+            } catch (e) {
+              response = null;
+              error = {
+                code: 500,
+                message: 'Parse Error'
+              };
+            }
+
+            if (!error && response.error) {
+              error = response.error;
+              response = null;
+            }
+
+            xhr.onerror = L.Util.falseFn;
+
+            callback.call(context, error, response);
           }
-
-          if (!error && response.error) {
-            error = response.error;
-            response = null;
-          }
-
-          xhr.onerror = L.Util.falseFn;
-
-          callback.call(context, error, response);
         }
       };
 
@@ -725,14 +744,15 @@
       xdr.onerror = function (e) {
         xdr.onload = L.Util.falseFn;
 
-        callback.call(context, {
-          error: {
-            code: 500,
-            message: 'XMLHttpRequest Error'
-          }
-        }, null);
+        // XDRs have no access to actual status codes
+        var error = {
+          code: 500,
+          message: 'XMLHttpRequest Error'
+        }
+        callback.call(context, error, null);
       };
 
+      // XDRs have .onload instead of .onreadystatechange
       xdr.onload = function () {
         var response;
         var error;
