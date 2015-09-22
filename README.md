@@ -4,10 +4,7 @@
 Leaflet geocoder plugin
 ========================
 
-A plugin that adds the ability to search (geocode) a leaflet powered map using the [Pelias Geocoder API](https://github.com/pelias/api).
-
-# :rotating_light: **Active development warning** :rotating_light:
-The Pelias API is in active development and has not been locked in yet. Endpoints and response payloads are subject to change without much warning. Please keep this in mind if you use this plugin for your projects.
+A plugin that adds the ability to search (geocode) a Leaflet-powered map using the [Pelias Geocoder API](https://github.com/pelias/api).
 
 ## Requirements
 
@@ -41,7 +38,7 @@ L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
 **Step 3:** Add a custom geocoder
 
-Get a Pelias API key from the [Mapzen developers portal](http://mapzen.com/developers/). It's free!
+Get a Mapzen Search API key from the [Mapzen developers portal](http://mapzen.com/developers/). It's free!
 
 ```javascript
 L.control.geocoder('<your-api-key>').addTo(map);
@@ -59,26 +56,26 @@ The Pelias-Leaflet geocoder supports all Leaflet-supported browsers _except_ for
 You can optionally specify additional settings to the plugin by passing in an object as a second argument to the `geocoder()` method, like so:
 
 ```javascript
-var peliasOptions = {
-  bbox: true,
+var options = {
+  bounds: true,
   position: 'topright',
   expanded: true
 }
 
-L.control.geocoder('<your-api-key>', peliasOptions).addTo(map);
+L.control.geocoder('<your-api-key>', options).addTo(map);
 ```
 
 Here are a list all the settings and their default values.
 
 ### Query behavior
 
-Some options affect the Pelias query itself. These options use [Pelias API syntax](https://github.com/pelias/api) rather than Leaflet syntax (e.g. _bbox_ instead of _bounds_, _latlon_ instead of _latlng_), but can accept the equivalent Leaflet values.
+Some options affect the Pelias query itself.
 
 option      | description                               | default value
 ----------- | ----------------------------------------- | ---------------------
-**url** | _String._ Host endpoint for a Pelias-compatible API. | `'//pelias.mapzen.com'`
-**bbox** | _[Leaflet LatLngBounds object](http://leafletjs.com/reference.html#latlngbounds)_ or _Boolean_. If `true`, search is bounded by the current map view. You may also provide a custom bounding box in form of a LatLngBounds object. | `false`
-**latlon** | _[Leaflet LatLng object](http://leafletjs.com/reference.html#latlng)_ or _Boolean_. If `true`, search is biased to prioritize results near the center of the current view. You may also provide a custom LatLng value (in any of the [accepted Leaflet formats](http://leafletjs.com/reference.html#latlng)) to act as the center bias. | `false`
+**url** | _String._ Host endpoint for a Pelias-compatible search API. | `'//search.mapzen.com'`
+**bounds** | _[Leaflet LatLngBounds object](http://leafletjs.com/reference.html#latlngbounds)_ or _Boolean_. If `true`, search is bounded by the current map view. You may also provide a custom bounding box in form of a LatLngBounds object. | `false`
+**latlng** | _[Leaflet LatLng object](http://leafletjs.com/reference.html#latlng)_ or _Boolean_. If `true`, search is biased to prioritize results near the center of the current view. You may also provide a custom LatLng value (in any of the [accepted Leaflet formats](http://leafletjs.com/reference.html#latlng)) to act as the center bias. | `false`
 **layers** | _String_ or _Array_. Layers to query. Arrays will be serialized into a comma-delimited string value. | `'poi,admin,address'`
 
 ### Interaction behavior
@@ -109,14 +106,14 @@ L.control.geocoder('<your-api-key>', {
 
 // Searching nearby [50.5, 30.5]
 L.control.geocoder('<your-api-key>', {
-  latlon: [50.5, 30.5], // this can also written as {lat:50.5,lon:30.5} or L.latLng(50.5, 30.5)
+  latlng: [50.5, 30.5], // this can also written as {lat: 50.5, lon: 30.5} or L.latLng(50.5, 30.5)
   placeholder: 'Search nearby [50.5, 30.5]'
 }).addTo(map);
 
 // Taking just the center of the map (lat/lon) into account
 L.control.geocoder('<your-api-key>', {
-  latlon: true,
-  placeholder: 'Search nearby (from the center/latlon)'
+  latlng: true,
+  placeholder: 'Search nearby'
 }).addTo(map);
 
 // Searching within a bounding box
@@ -125,14 +122,14 @@ var northEast = L.latLng(40.774, -74.125);
 var bounds = L.latLngBounds(southWest, northEast);
 
 L.control.geocoder('<your-api-key>', {
-  bbox: bounds,
-  placeholder: 'Search within ' + bounds.toBBoxString() //given bbox
+  bounds: bounds,
+  placeholder: 'Search within ' + bounds.toBBoxString()
 }).addTo(map);
 
 // Taking just the bounding box of the map view into account
 L.control.geocoder('<your-api-key>', {
-  bbox: true,
-  placeholder: 'Search within the bounds' //map\'s view/bbox
+  bounds: true,
+  placeholder: 'Search within the bounds'
 }).addTo(map);
 
 // Coarse Geocoder: search only admin layers
@@ -175,21 +172,21 @@ L.control.geocoder('<your-api-key>', {
 // Setting full width on the search text box
 // by default: 650 (pixels)
 L.control.geocoder('<your-api-key>', {
-    fullWidth: true
+  fullWidth: true
 }).addTo(map);
 
 // Configure if you want to drop a pin for a search results or not
 // by default - this is set to true
 // as per https://github.com/pelias/leaflet-geocoder/issues/7
 L.control.geocoder('<your-api-key>', {
-    markers: false
+  markers: false
 }).addTo(map);
 
 // Ability to collapse to a button instead of a expanded text box
 // by default - this is set to false
 // as per https://github.com/pelias/leaflet-geocoder/issues/7
 L.control.geocoder('<your-api-key>', {
-    expanded: false
+  expanded: false
 }).addTo(map);
 
 // Changing attribution

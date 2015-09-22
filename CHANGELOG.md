@@ -1,10 +1,12 @@
 ## v1.0.0-alpha
 ### Breaking changes
-- TODO: Pelias 1.0 API
-- An API key is required to use Mapzen's Pelias service. You can get a free API key from the [Mapzen developers portal](https://mapzen.com/developers/).
+- The default endpoint is now Mapzen Search service, powered by Pelias v1.0.
+- An API key is required to use Mapzen Search service. You can get a free API key from the [Mapzen developers portal](https://mapzen.com/developers/).
 - File and directory structure reworked in accordance to [Leaflet Plugin Authoring Guide](http://leafletjs.com/2013/06/28/leaflet-plugin-authoring-guide.html).
 - `hide_other_controls` is removed.
 - `drop_pin` is renamed to `markers`.
+- `bbox` is renamed to `bounds` to match Leaflet terminology.
+- `latlon` is renamed to `latlng` to match Leaflet terminology.
 - `expanded` now defaults to `false`. Please set it to `true` explicitly if that is your desired behavior.
 - All options names that were previously snake_case are now camelCase.
 - CSS class names are now namespaced to `.leaflet-pelias-*` instead of `.pelias-*`. This may affect style overrides.

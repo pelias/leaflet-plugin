@@ -23,6 +23,12 @@
       width: 28px;
       height: 28px;
     }
+    .leaflet-pelias-results {
+      margin-left: -1px;
+      margin-right: 1px;
+      width: calc(100% + 2px);
+      margin-top: -4px;
+    }
   </style>
 </head>
 <body>
@@ -38,7 +44,7 @@
       pointIcon: '../dist/images/point_icon.png',
       polygonIcon: '../dist/images/polygon_icon.png',
     }
-    var geocoder = L.control.geocoder('pelias-api-key', options).addTo(map);
+    var geocoder = L.control.geocoder('search-MKZrG6M', options).addTo(map);
   </script>
 </body>
 </html>

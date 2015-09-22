@@ -36,11 +36,11 @@
     options: {
       position: 'topleft',
       attribution: 'Geocoding by <a href=\'https://mapzen.com/pelias\'>Pelias</a>',
-      url: '//pelias.mapzen.com',
+      url: '//search.mapzen.com',
       placeholder: 'Search',
       title: 'Search',
-      bbox: false,
-      latlon: null,
+      bounds: false,
+      latlng: null,
       layers: ['poi', 'admin', 'address'],
       panToPoint: true,
       pointIcon: 'images/point_icon.png',
@@ -70,52 +70,72 @@
     },
 
     getBoundingBoxParam: function (params) {
-      var bbox = this.options.bbox;
+      var bounds = this.options.bounds;
+      var viewport = {};
 
-      if (!bbox) {
+      if (!bounds) {
         return params;
       }
 
-      if ((typeof bbox !== 'object') || !bbox.isValid()) {
-        bbox = this._map.getBounds();
+      if ((typeof bounds !== 'object') || !bounds.isValid()) {
+        bounds = this._map.getBounds();
       }
 
-      var bboxCenter = bbox.getCenter();
-      params.bbox = bbox.toBBoxString();
-      params.lat = bboxCenter.lat;
-      params.lon = bboxCenter.lng;
+      viewport.min_lon = bounds.getWest();
+      viewport.min_lat = bounds.getSouth();
+      viewport.max_lon = bounds.getEast();
+      viewport.max_lat = bounds.getNorth();
+
+      if (!params.focus) {
+        params.focus = {};
+      }
+
+      if (!params.focus.viewport) {
+        params.focus.viewport = {};
+      }
+
+      params.focus.viewport = viewport;
+
       return params;
     },
 
-    getLatLonParam: function (params) {
+    getLatlngParam: function (params) {
       /*
-       * this.options.latlon can be one of the following
+       * this.options.latlng can be one of the following
        * [50, 30] //Array
        * {lon: 30, lat: 50} //Object
        * {lat: 50, lng: 30} //Object
        * L.latLng(50, 30) //Object
        * true //Boolean - take the map center
-       * false //Boolean - No latlon to be considered
+       * false //Boolean - No latlng to be considered
       */
-      var latlon = this.options.latlon;
+      var latlng = this.options.latlng;
+      var point = {};
 
-      if (!latlon) {
+      if (!latlng) {
         return params;
       }
 
-      if (latlon.constructor === Array) {
+      if (latlng.constructor === Array) {
         // TODO Check for array size, throw errors if invalid lat/lon
-        params.lat = latlon[0];
-        params.lon = latlon[1];
-      } else if (typeof latlon !== 'object') {
+        point.lat = latlng[0];
+        point.lon = latlng[1];
+      } else if (typeof latlng !== 'object') {
         // fallback to the map's center L.latLng()
-        latlon = this._map.getCenter();
+        latlng = this._map.getCenter();
       } else {
         // TODO Check for valid L.LatLng Object or Object thats in the form of {lat:..,lon:..}
         // TODO Check for valid lat/lon values, Error handling
-        params.lat = latlon.lat;
-        params.lon = latlon.lng ? latlon.lng : latlon.lon;
+        point.lat = latlng.lat;
+        point.lon = latlng.lng ? latlng.lng : latlng.lon;
       }
+
+      if (!params.focus) {
+        params.focus = {};
+      }
+
+      params.focus.point = point;
+
       return params;
     },
 
@@ -123,9 +143,9 @@
       // Prevent lack of input from sending a malformed query to Pelias
       if (!input) return;
 
-      var url = this.options.url + '/search';
+      var url = this.options.url + '/v1/search';
       var params = {
-        input: input
+        text: input
       };
 
       this.callPelias(url, params);
@@ -135,9 +155,9 @@
       // Prevent lack of input from sending a malformed query to Pelias
       if (!input) return;
 
-      var url = this.options.url + '/suggest';
+      var url = this.options.url + '/v1/autocomplete';
       var params = {
-        input: input
+        text: input
       };
 
       this.callPelias(url, params);
@@ -145,12 +165,13 @@
 
     callPelias: function (endpoint, params) {
       params = this.getBoundingBoxParam(params);
-      params = this.getLatLonParam(params);
+      params = this.getLatlngParam(params);
       params = this.getLayers(params);
 
-      // Since we always use properties.text we dont need the details
-      // See https://github.com/pelias/api/releases/tag/1.2.0
-      params.details = false;
+      // Search API key
+      if (this.apiKey) {
+        params.api_key = this.apiKey;
+      }
 
       L.DomUtil.addClass(this._search, 'leaflet-pelias-loading');
 
@@ -232,7 +253,7 @@
           layerIcon.title = resultMeta.title;
         }
 
-        resultItem.innerHTML += self.highlight(feature.properties.text, self._input.value);
+        resultItem.innerHTML += self.highlight(feature.properties.label, self._input.value);
       }
     },
 
@@ -687,6 +708,8 @@
         var error;
 
         if (xhr.readyState === 4) {
+          // TODO: Handle errors better, do not only assume 500
+          // Other common errors can be 403 (API key is bad), 429 (too many requests)
           try {
             response = JSON.parse(xhr.responseText);
           } catch (e) {

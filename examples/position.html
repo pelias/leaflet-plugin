@@ -23,21 +23,21 @@
     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(map);
 
     // Add Pelias geocoding plugin to top right
-    var geocoder1 = L.control.geocoder('pelias-api-key', {
+    var geocoder1 = L.control.geocoder('search-MKZrG6M', {
       pointIcon: false,
       polygonIcon: false,
       position: 'topright'
     }).addTo(map);
 
     // Add Pelias geocoding plugin to bottom left
-    var geocoder2 = L.control.geocoder('pelias-api-key', {
+    var geocoder2 = L.control.geocoder('search-MKZrG6M', {
       pointIcon: false,
       polygonIcon: false,
       position: 'bottomleft'
     }).addTo(map);
 
     // Add Pelias geocoding plugin to bottom right
-    var geocoder3 = L.control.geocoder('pelias-api-key', {
+    var geocoder3 = L.control.geocoder('search-MKZrG6M', {
       pointIcon: false,
       polygonIcon: false,
       position: 'bottomright'
