@@ -16,7 +16,7 @@
 - Support module loading systems (e.g. CommonJS / AMD)
 - `markers` (formerly `drop_pin`) option can accept a Leaflet Marker options object for customizable markers.
 - `fullWidth` (formerly `full_width`) no longer hard codes a default mobile breakpoint. It now accepts any integer to use as a breakpoint (default remains `650` pixels). The plugin will also now resize the full-width of the input if the window size changes, which allows custom breakpoints to be meaningful for responsive design.
-- New `autosuggest` option allows customizing whether results are obtained on each keystroke or only after a user presses Enter. This can help reduce queries if you need to manage your API usage.
+- New `autocomplete` option allows customizing whether results are obtained on each keystroke or only after a user presses Enter. This can help reduce queries if you need to manage your API usage.
 - Support for IE8 and IE9.
 - The plugin no longer attempts to "detect" a mobile environment. It relies on Leaflet's `leaflet-touch` state to alter behavior for touch-enabled environments.
 - There is now support for collapsed state of the input bar. Clicking the search icon toggles the expanded state of the input, if `expanded` is not `true`.
@@ -31,7 +31,7 @@
 ### Styling
 - All styles have been revamped for better integration with Leaflet.
 - Search/loading icon is now a separate DOM element from the input box for easier customization.
-- Resize default background images to appear at the correct size in <IE8.
+- Resize default background images to appear at the correct size in IE8.
 
 ## v0.0.2
 

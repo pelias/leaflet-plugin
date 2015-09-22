@@ -21,7 +21,7 @@
 }(function (L) {
   'use strict';
 
-  var MINIMUM_INPUT_LENGTH_FOR_AUTOSUGGEST = 2;
+  var MINIMUM_INPUT_LENGTH_FOR_AUTOCOMPLETE = 2;
   var FULL_WIDTH_MARGIN = 20; // in pixels
   var FULL_WIDTH_TOUCH_ADJUSTED_MARGIN = 4; // in pixels
   var RESULTS_HEIGHT_MARGIN = 20; // in pixels
@@ -36,19 +36,19 @@
     options: {
       position: 'topleft',
       attribution: 'Geocoding by <a href=\'https://mapzen.com/pelias\'>Pelias</a>',
-      url: '//search.mapzen.com',
+      url: 'https://search.mapzen.com/v1',
       placeholder: 'Search',
       title: 'Search',
       bounds: false,
       latlng: null,
-      layers: ['poi', 'admin', 'address'],
+      layers: null,
       panToPoint: true,
       pointIcon: 'images/point_icon.png',
       polygonIcon: 'images/polygon_icon.png',
       fullWidth: 650,
       markers: true,
       expanded: false,
-      autosuggest: true
+      autocomplete: true
     },
 
     initialize: function (apiKey, options) {
@@ -123,6 +123,8 @@
       } else if (typeof latlng !== 'object') {
         // fallback to the map's center L.latLng()
         latlng = this._map.getCenter();
+        point.lat = latlng.lat;
+        point.lon = latlng.lng;
       } else {
         // TODO Check for valid L.LatLng Object or Object thats in the form of {lat:..,lon:..}
         // TODO Check for valid lat/lon values, Error handling
@@ -143,7 +145,7 @@
       // Prevent lack of input from sending a malformed query to Pelias
       if (!input) return;
 
-      var url = this.options.url + '/v1/search';
+      var url = this.options.url + '/search';
       var params = {
         text: input
       };
@@ -151,11 +153,11 @@
       this.callPelias(url, params);
     },
 
-    suggest: function (input) {
+    autocomplete: function (input) {
       // Prevent lack of input from sending a malformed query to Pelias
       if (!input) return;
 
-      var url = this.options.url + '/v1/autocomplete';
+      var url = this.options.url + '/autocomplete';
       var params = {
         text: input
       };
@@ -193,28 +195,15 @@
       return text.replace(r, '<strong>$1</strong>');
     },
 
-    getMeta: function (type) {
+    getIconType: function (layer) {
       var pointIcon = this.options.pointIcon;
       var polygonIcon = this.options.polygonIcon;
 
-      if (type.match('geoname')) {
-        return { icon: pointIcon, title: 'source: geonames' };
-      } else if (type.match('osm') ||
-                 type.match('osmway') ||
-                 type.match('osmnode') ||
-                 type.match('osmaddress')) {
-        return { icon: pointIcon, title: 'source: openstreetmap' };
-      } else if (type.match('admin0') ||
-                 type.match('admin1') ||
-                 type.match('admin2') ||
-                 type.match('locality') ||
-                 type.match('neighborhood') ||
-                 type.match('local_admin')) {
-        return { icon: polygonIcon, title: 'source: quattroshapes' };
-      } else if (type.match('openaddresses')) {
-        return { icon: pointIcon, title: 'source: openaddresses' };
+      if (layer.match('venue') || layer.match('address')) {
+        return pointIcon;
+      } else {
+        return polygonIcon;
       }
-      return { icon: pointIcon, title: 'source: default' };
     },
 
     showResults: function (features) {
@@ -224,7 +213,6 @@
       }
 
       var list;
-      var self = this;
       var resultsContainer = this._results;
 
       // Reset and display results container
@@ -241,19 +229,17 @@
         var feature = features[i];
 
         var resultItem = L.DomUtil.create('li', 'leaflet-pelias-result', list);
-        var resultMeta = self.getMeta(feature.properties.layer);
 
         resultItem.layer = feature.properties.layer;
         resultItem.coords = feature.geometry.coordinates;
 
-        if (resultMeta.icon) {
-          var layerIconContainer = L.DomUtil.create('span', 'leaflet-pelias-layer-icon-container', resultItem);
-          var layerIcon = L.DomUtil.create('img', 'leaflet-pelias-layer-icon', layerIconContainer);
-          layerIcon.src = resultMeta.icon;
-          layerIcon.title = resultMeta.title;
-        }
+        // Point or polygon icon
+        var layerIconContainer = L.DomUtil.create('span', 'leaflet-pelias-layer-icon-container', resultItem);
+        var layerIcon = L.DomUtil.create('img', 'leaflet-pelias-layer-icon', layerIconContainer);
+        layerIcon.src = this.getIconType(feature.properties.layer);
+        layerIcon.title = 'layer: ' + feature.properties.layer;
 
-        resultItem.innerHTML += self.highlight(feature.properties.label, self._input.value);
+        resultItem.innerHTML += this.highlight(feature.properties.label, this._input.value);
       }
     },
 
@@ -553,13 +539,13 @@
 
           // Throttle the suggestion request
           // TODO: Different throttle timings may be available at different types of service
-          var suggest = L.Util.throttle(this.suggest, API_RATE_LIMIT, this);
+          var autocomplete = L.Util.throttle(this.autocomplete, API_RATE_LIMIT, this);
 
           if (this._input.value !== this._lastValue) {
             this._lastValue = this._input.value;
 
-            if (text.length >= MINIMUM_INPUT_LENGTH_FOR_AUTOSUGGEST && this.options.autosuggest === true) {
-              suggest(text);
+            if (text.length >= MINIMUM_INPUT_LENGTH_FOR_AUTOCOMPLETE && this.options.autocomplete === true) {
+              autocomplete(text);
             } else {
               this.clearResults();
             }

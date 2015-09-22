@@ -73,10 +73,10 @@ Some options affect the Pelias query itself.
 
 option      | description                               | default value
 ----------- | ----------------------------------------- | ---------------------
-**url** | _String._ Host endpoint for a Pelias-compatible search API. | `'//search.mapzen.com'`
+**url** | _String._ Host endpoint for a Pelias-compatible search API. | `'https://search.mapzen.com/v1'`
 **bounds** | _[Leaflet LatLngBounds object](http://leafletjs.com/reference.html#latlngbounds)_ or _Boolean_. If `true`, search is bounded by the current map view. You may also provide a custom bounding box in form of a LatLngBounds object. | `false`
 **latlng** | _[Leaflet LatLng object](http://leafletjs.com/reference.html#latlng)_ or _Boolean_. If `true`, search is biased to prioritize results near the center of the current view. You may also provide a custom LatLng value (in any of the [accepted Leaflet formats](http://leafletjs.com/reference.html#latlng)) to act as the center bias. | `false`
-**layers** | _String_ or _Array_. Layers to query. Arrays will be serialized into a comma-delimited string value. | `'poi,admin,address'`
+**layers** | _String_ or _Array_. Layers to query (see documentation for more details). If not provided, results will come from all available layers. **NOTE:** layers is not available for the autocomplete query. | `null`
 
 ### Interaction behavior
 
@@ -94,7 +94,7 @@ option      | description                               | default value
 **markers** | _[Leaflet Marker options object](http://leafletjs.com/reference.html#marker-options)_ or _Boolean_. If `true`, search results drops Leaflet's default blue markers onto the map. You may customize this marker's appearance and behavior using Leaflet [marker options](http://leafletjs.com/reference.html#marker-options). | `true`
 **fullWidth** | _Integer_ or _Boolean_. If `true`, the input box will expand to take up the full width of the map container. If an integer breakpoint is provided, the full width applies only if the map container width is below this breakpoint. | `650`
 **expanded** | _Boolean_. If `true`, the search input is always expanded. It does not collapse into a button-only state. | `false`
-**autosuggest** | _Boolean_. If `true`, suggested results are fetched on each keystroke. If `false`, this is disabled and users must obtain results by pressing the Enter key after typing in their query. | `true`
+**autocomplete** | _Boolean_. If `true`, suggested results are fetched on each keystroke. If `false`, this is disabled and users must obtain results by pressing the Enter key after typing in their query. | `true`
 
 ### Examples
 
@@ -134,25 +134,25 @@ L.control.geocoder('<your-api-key>', {
 
 // Coarse Geocoder: search only admin layers
 L.control.geocoder('<your-api-key>', {
-  layers: 'admin',
-  placeholder: 'Coarse Geocoder'
+  layers: 'coarse',
+  placeholder: 'Coarse geocoder'
 }).addTo(map);
 
 // Address Geocoder: search only (street) address layers
 L.control.geocoder('<your-api-key>', {
   layers: 'address',
-  placeholder: 'Address Geocoder'
+  placeholder: 'Address geocoder'
 }).addTo(map);
 
 // POI Geocoder: search only points of interests
 L.control.geocoder('<your-api-key>', {
-  layers: 'poi',
-  placeholder: 'POI Geocoder'
+  layers: 'venue',
+  placeholder: 'Venues geocoder'
 }).addTo(map);
 
-// Street level Geocoder: search only poi and street addresses
+// Street level Geocoder: search only venue and street addresses
 L.control.geocoder('<your-api-key>', {
-  layers: 'poi,address',
+  layers: ['venue', 'address'],
   placeholder: 'Street Geocoder'
 }).addTo(map);
 
@@ -215,7 +215,7 @@ After initializing a geocoder you may store an instance of the geocoder object t
 var geocoder = L.control.geocoder('<your-api-key>');
 
 // or with `new` keyword
-var pelias = new L.Control.Geocoder('<your-api-key>');
+var geocoder = new L.Control.Geocoder('<your-api-key>');
 
 // later
 geocoder.addTo(map);
