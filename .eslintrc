@@ -1,0 +1,7 @@
+{
+  "extends": ["semistandard"],
+  "globals": {
+    "define": false,
+    "XMLHttpRequest": false
+  }
+}

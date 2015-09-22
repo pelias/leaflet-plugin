@@ -1,0 +1,29 @@
+html, body {
+  overflow: hidden;
+}
+
+#map {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.no-webgl-message {
+  display: none;
+}
+
+html.no-webgl .no-webgl-message{
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  box-sizing: border-box;
+  z-index: 1001; /* Ensures visibility in IE8 */
+  padding: 10px;
+  font-family: sans-serif;
+  background-color: lightyellow;
+  border-bottom: 1px solid gold;
+}

@@ -1,16 +1,30 @@
-
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Pelias Demo</title>
+    <title>Pelias Geocoder Leaflet Plugin</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
+    <script src="examples/modernizr.js"></script>
 
-    <!-- Load Leaflet from their CDN -->
-    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
-    <link rel="stylesheet" href="pelias-leaflet-geocoder.css" />
-    <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet-src.js"></script>
+    <!-- Load Leaflet from CDN -->
+    <link rel="stylesheet" href="//cdn.leafletjs.com/leaflet-1.0.0-b1/leaflet.css">
+    <script src="//cdn.leafletjs.com/leaflet-1.0.0-b1/leaflet.js"></script>
+
+    <!-- With leaflet-hash -->
+    <script src="https://s3.amazonaws.com/assets-staging.mapzen.com/ui/libraries/leaflet-hash/0.2.1/leaflet-hash.js"></script>
+
+    <!-- Load Tangram -->
+    <script src="https://mapzen.com/tangram/tangram.min.js"></script>
+
+    <!-- Load Pelias geocoding plugin after Leaflet -->
+    <link rel="stylesheet" href="./dist/pelias-leaflet-geocoder.css">
+    <script src="./dist/pelias-leaflet-geocoder.js"></script>
+
     <style>
+      html, body {
+        overflow: hidden;
+      }
+
       #map {
         position: fixed;
         top: 0;
@@ -18,116 +32,85 @@
         left: 0;
         right: 0;
       }
+
+      .leaflet-touch .leaflet-control-zoom {
+        display: none;
+      }
+
+      .leaflet-pelias-expanded,
+      .leaflet-touch .leaflet-pelias-control.leaflet-pelias-expanded {
+        width: 400px;
+      }
+
+      /* Swap out the image for search icon when the control is expanded */
+      .leaflet-pelias-control.leaflet-pelias-expanded .leaflet-pelias-search-icon:not(.leaflet-pelias-loading) {
+        background-image: url('examples/demo/search_blue.png');
+      }
+
+      .no-webgl-message {
+        display: none;
+      }
+
+      html.no-webgl .no-webgl-message{
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        box-sizing: border-box;
+        z-index: 1001; /* Ensures visibility in IE8 */
+        padding: 10px;
+        font-family: sans-serif;
+        background-color: lightyellow;
+        border-bottom: 1px solid gold;
+      }
     </style>
-    <script src="pelias-leaflet-geocoder.js"></script>
-    
   </head>
   <body>
-      <div id="map"></div>
+    <div id="message" class="no-webgl-message">Your browser cannot display the map on this page. <a href="./examples/">Try this one instead.</a></div>
+    <div id="map"></div>
 
-      <script type="text/javascript">
-        var map = L.map('map').setView([40.7259, -73.9805], 12);
+    <script type="text/javascript">
+      var map = L.map('map').setView([40.7259, -73.9805], 12);
+      var hash = new L.Hash(map);
 
-        L.tileLayer('http://{s}.tiles.mapbox.com/v3/randyme.i0568680/{z}/{x}/{y}.png', {
-            attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
-            maxZoom: 18,
-            minZoom: 3,
-            noWrap: true
-        }).addTo(map);
+      // Add geocoder
+      var geocoder = L.control.geocoder('search-MKZrG6M', {
+        pointIcon: 'dist/images/point_icon.png',
+        polygonIcon: 'dist/images/polygon_icon.png',
+        fullWidth: 650,
+        expanded: true,
+        markers: true,
+        latlng: true
+      }).addTo(map);
 
-        // Minimal
-        L.control.geocoder().addTo(map);
+      // Re-sort control order so that geocoder is on top
+      var geocoderEl = geocoder._container;
+      geocoderEl.parentNode.insertBefore(geocoderEl, geocoderEl.parentNode.childNodes[0]);
 
-        // Searching nearby [50.5, 30.5]
-        // L.control.geocoder({
-        //   latlon:[50.5, 30.5], // this can also written as {lat:50.5,lon:30.5} or L.latLng(50.5, 30.5)
-        //   placeholder: 'Search nearby [50.5, 30.5]'
-        // }).addTo(map);
+      // Add Tangram scene layer
+      var layer = Tangram.leafletLayer({
+        scene: 'https://raw.githubusercontent.com/tangrams/multiverse/gh-pages/styles/blue-gray5.yaml',
+        attribution: 'Rendering by <a href="https://mapzen.com/tangram">Tangram</a> | &copy; OSM contributors | <a href="https://mapzen.com/">Mapzen</a>'
+      }).addTo(map);
 
-        // Taking just the center of the map (lat/lon) into account
-        // L.control.geocoder({
-        //   latlon:true, 
-        //   placeholder: 'Search nearby (from the center/latlon)'
-        // }).addTo(map);
-
-        // Searching within a bounding box
-        // var southWest = L.latLng(40.712, -74.227),
-        //     northEast = L.latLng(40.774, -74.125),
-        //     bounds = L.latLngBounds(southWest, northEast);
-
-        // L.control.geocoder({
-        //   bbox:bounds, 
-        //   placeholder: 'Search within ' + bounds.toBBoxString() //map\'s view/bbox
-        // }).addTo(map);
-
-        // Taking just the bounding box of the map view into account
-        // L.control.geocoder({
-        //   bbox:true, 
-        //   placeholder: 'Search within the bounds' //map\'s view/bbox
-        // }).addTo(map);
-
-        // Query just the admin layers
-        // L.control.geocoder({
-        //   layers: 'admin', 
-        //   placeholder: 'Coarse Geocoder'
-        // }).addTo(map);
-        
-        // Customizing icons
-        // L.control.geocoder({
-        //     point_icon: 'http://www.somewhereontheweb.com/download/img/point.png',
-        //     polygon_icon: 'https://cloud.com/polygon_icon.svg'
-        // }).addTo(map);
-        
-        // Configure if you want to zoom/pan to a point while browsing the results 
-        // (up/down arrows)
-        // pan_to_point set to true (by default)
-        // L.control.geocoder({
-        //     pan_to_point: true
-        // }).addTo(map);
-
-        // Setting full width on the search text box 
-        // by default: true - on mobile/ any viewport of 650px and less
-        // if viewport wider than 650px, its set to false 
-        // and width is defined in the CSS (250px)
-        // as per https://github.com/pelias/leaflet-geocoder/issues/7
-        // L.control.geocoder({
-        //     full_width: true
-        // }).addTo(map);
-
-        // hide_other_controls
-        // Configure if you want to hide other leaflet controls while performing search
-        // by default hide_other_controls is set to false 
-        // as per https://github.com/pelias/leaflet-geocoder/issues/7
-        // L.control.geocoder({
-        //     hide_other_controls: true
-        // }).addTo(map);
-
-        // drop_pin
-        // Configure if you want to drop a pin for a search results or not
-        // by default - this is set to true
-        // as per https://github.com/pelias/leaflet-geocoder/issues/7
-        // L.control.geocoder({
-        //     drop_pin: false
-        // }).addTo(map);
-
-        // expanded
-        // Ability to collapse to a button instead of a expanded text box
-        // by default - this is set to true
-        // by default - the text box shows up instead of the button
-        // as per https://github.com/pelias/leaflet-geocoder/issues/7
-        // L.control.geocoder({
-        //     expanded: false
-        // }).addTo(map);
-        
-        // L.control.geocoder({
-        //     expanded: false,
-        //     drop_pin: false,
-        //     position: 'topright',
-        //     placeholder: 'not expanded and no pins dropped'
-        // }).addTo(map);
-
-        /* Adding a script block to post message to the parent container (think iframed demos) */
-        window.addEventListener("hashchange",function(){parent.postMessage(window.location.hash, "*")});
-      </script>
+      // Adding a script block to post message to the parent container (think iframed demos)
+      window.addEventListener('hashchange', function () {
+        parent.postMessage(window.location.hash, '*')
+      });
+    </script>
+    <script type="text/javascript">
+      // Compatibility checks
+      (function () {
+        var messageEl = document.getElementById('message');
+        var mapEl = document.getElementById('map');
+        var height;
+        // This message box is displayed if Modernizr cannot detect WebGL support.
+        if (messageEl.style.display !== 'none') {
+          height = messageEl.getBoundingClientRect().bottom; // No .height in IE8, but top is assumed to be 0
+          mapEl.style.top = height.toString() + 'px';
+        }
+      })();
+    </script>
   </body>
 </html>
