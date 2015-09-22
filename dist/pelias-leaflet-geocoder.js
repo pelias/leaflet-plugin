@@ -57,7 +57,7 @@
       // version, because XDomainRequest does not allow http-to-https requests
       // This is set first so it can always be overridden by the user
       if (window.XDomainRequest) {
-        this.options.url = '//search.mapzen.com/v1'
+        this.options.url = '//search.mapzen.com/v1';
       }
 
       // Now merge user-specified options
