@@ -52,6 +52,15 @@
     },
 
     initialize: function (apiKey, options) {
+      // For IE8 compatibility (if XDomainRequest is present),
+      // we set the default value of options.url to the protocol-relative
+      // version, because XDomainRequest does not allow http-to-https requests
+      // This is set first so it can always be overridden by the user
+      if (window.XDomainRequest) {
+        this.options.url = '//search.mapzen.com/v1';
+      }
+
+      // Now merge user-specified options
       L.Util.setOptions(this, options);
       this.apiKey = apiKey;
       this.marker;
@@ -324,6 +333,7 @@
 
       L.DomUtil.removeClass(this._container, 'leaflet-pelias-expanded');
       this.clearFullWidth();
+      this.clearResults();
     },
 
     // Set full width of expanded input, if enabled
