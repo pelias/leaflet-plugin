@@ -25,7 +25,7 @@
   var FULL_WIDTH_MARGIN = 20; // in pixels
   var FULL_WIDTH_TOUCH_ADJUSTED_MARGIN = 4; // in pixels
   var RESULTS_HEIGHT_MARGIN = 20; // in pixels
-  var API_RATE_LIMIT = 300; // in ms, throttled time between subsequent requests to API
+  var API_RATE_LIMIT = 166; // in ms, throttled time between subsequent requests to API
 
   // Alias L.Util.throttle for pre-v1.0 Leaflet
   if (!L.Util.throttle) {
@@ -233,7 +233,6 @@
 
       for (var i = 0, j = features.length; i < j; i++) {
         var feature = features[i];
-
         var resultItem = L.DomUtil.create('li', 'leaflet-pelias-result', list);
 
         resultItem.layer = feature.properties.layer;
@@ -245,7 +244,7 @@
         layerIcon.src = this.getIconType(feature.properties.layer);
         layerIcon.title = 'layer: ' + feature.properties.layer;
 
-        resultItem.innerHTML += this.highlight(feature.properties.label, this._input.value);
+        resultItem.innerHTML = this.highlight(feature.properties.label, this._input.value);
       }
     },
 
