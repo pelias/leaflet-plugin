@@ -233,7 +233,6 @@
 
       for (var i = 0, j = features.length; i < j; i++) {
         var feature = features[i];
-
         var resultItem = L.DomUtil.create('li', 'leaflet-pelias-result', list);
 
         resultItem.layer = feature.properties.layer;
@@ -245,7 +244,7 @@
         layerIcon.src = this.getIconType(feature.properties.layer);
         layerIcon.title = 'layer: ' + feature.properties.layer;
 
-        resultItem.innerHTML += this.highlight(feature.properties.label, this._input.value);
+        resultItem.innerHTML = this.highlight(feature.properties.label, this._input.value);
       }
     },
 
