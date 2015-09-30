@@ -20,8 +20,8 @@ Supports [Leaflet](https://github.com/Leaflet/Leaflet) **v0.7.3** (and higher) a
 
 ```html
 <!-- Load Leaflet from CDN -->
-<link rel="stylesheet" href="//cdn.leafletjs.com/leaflet-0.7.5/leaflet.css">
-<script src="//cdn.leafletjs.com/leaflet-0.7.5/leaflet.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.5/leaflet.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.5/leaflet.js"></script>
 
 <!-- Load Pelias geocoding plugin after Leaflet -->
 <link rel="stylesheet" href="pelias-leaflet-geocoder.css">
