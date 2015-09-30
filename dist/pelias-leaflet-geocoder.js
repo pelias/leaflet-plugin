@@ -25,12 +25,7 @@
   var FULL_WIDTH_MARGIN = 20; // in pixels
   var FULL_WIDTH_TOUCH_ADJUSTED_MARGIN = 4; // in pixels
   var RESULTS_HEIGHT_MARGIN = 20; // in pixels
-  var API_RATE_LIMIT = 166; // in ms, throttled time between subsequent requests to API
-
-  // Alias L.Util.throttle for pre-v1.0 Leaflet
-  if (!L.Util.throttle) {
-    L.Util.throttle = L.Util.limitExecByInterval;
-  }
+  var API_RATE_LIMIT = 250; // in ms, throttled time between subsequent requests to API
 
   L.Control.Geocoder = L.Control.extend({
     options: {
@@ -144,7 +139,7 @@
       this.callPelias(url, params);
     },
 
-    autocomplete: function (input) {
+    autocomplete: throttle(function (input) {
       // Prevent lack of input from sending a malformed query to Pelias
       if (!input) return;
 
@@ -154,7 +149,7 @@
       };
 
       this.callPelias(url, params);
-    },
+    }, API_RATE_LIMIT),
 
     // Timestamp of the last response which was successfully rendered to the UI.
     // The time represents when the request was *sent*, not when it was recieved.
@@ -568,15 +563,11 @@
             return;
           }
 
-          // Throttle the suggestion request
-          // TODO: Different throttle timings may be available at different types of service
-          var autocomplete = L.Util.throttle(this.autocomplete, API_RATE_LIMIT, this);
-
           if (this._input.value !== this._lastValue) {
             this._lastValue = this._input.value;
 
             if (text.length >= MINIMUM_INPUT_LENGTH_FOR_AUTOCOMPLETE && this.options.autocomplete === true) {
-              autocomplete(text);
+              this.autocomplete(text);
             } else {
               this.clearResults();
             }
@@ -811,4 +802,39 @@
       }, 0);
     }
   };
+
+  /*
+   * throttle Utility function (borrowed from underscore)
+   */
+  function throttle (func, wait, options) {
+    var context, args, result;
+    var timeout = null;
+    var previous = 0;
+    if (!options) options = {};
+    var later = function () {
+      previous = options.leading === false ? 0 : new Date().getTime();
+      timeout = null;
+      result = func.apply(context, args);
+      if (!timeout) context = args = null;
+    };
+    return function () {
+      var now = new Date().getTime();
+      if (!previous && options.leading === false) previous = now;
+      var remaining = wait - (now - previous);
+      context = this;
+      args = arguments;
+      if (remaining <= 0 || remaining > wait) {
+        if (timeout) {
+          clearTimeout(timeout);
+          timeout = null;
+        }
+        previous = now;
+        result = func.apply(context, args);
+        if (!timeout) context = args = null;
+      } else if (!timeout && options.trailing !== false) {
+        timeout = setTimeout(later, remaining);
+      }
+      return result;
+    };
+  }
 }));
