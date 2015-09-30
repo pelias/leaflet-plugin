@@ -156,6 +156,10 @@
       this.callPelias(url, params);
     },
 
+    // Timestamp of the last response which was successfully rendered to the UI.
+    // The time represents when the request was *sent*, not when it was recieved.
+    maxReqTimestampRendered: new Date().getTime(),
+
     callPelias: function (endpoint, params) {
       params = this.getBoundingBoxParam(params);
       params = this.getLatlngParam(params);
@@ -167,6 +171,9 @@
       }
 
       L.DomUtil.addClass(this._search, 'leaflet-pelias-loading');
+
+      // Track when the request began
+      var reqStartedAt = new Date().getTime();
 
       AJAX.request(endpoint, params, function (err, results) {
         L.DomUtil.removeClass(this._search, 'leaflet-pelias-loading');
@@ -190,7 +197,13 @@
         }
 
         if (results && results.features) {
-          this.showResults(results.features);
+          // Ignore requests that started before a request which has already
+          // been successfully rendered on to the UI.
+          if (this.maxReqTimestampRendered < reqStartedAt) {
+            this.maxReqTimestampRendered = reqStartedAt;
+            this.showResults(results.features);
+          }
+          // Else ignore the request, it is stale.
         }
       }, this);
     },
