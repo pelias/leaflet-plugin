@@ -21,7 +21,7 @@
 }(function (L) {
   'use strict';
 
-  var MINIMUM_INPUT_LENGTH_FOR_AUTOCOMPLETE = 2;
+  var MINIMUM_INPUT_LENGTH_FOR_AUTOCOMPLETE = 1;
   var FULL_WIDTH_MARGIN = 20; // in pixels
   var FULL_WIDTH_TOUCH_ADJUSTED_MARGIN = 4; // in pixels
   var RESULTS_HEIGHT_MARGIN = 20; // in pixels
