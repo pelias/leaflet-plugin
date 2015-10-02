@@ -4,7 +4,7 @@
 Leaflet geocoder plugin
 ========================
 
-A plugin that adds the ability to search (geocode) a Leaflet-powered map using the [Pelias Geocoder API](https://github.com/pelias/api).
+A plugin that adds the ability to search (geocode) a Leaflet-powered map using [Mapzen Search](https://mapzen.com/projects/search) or your own hosted version of the [Pelias Geocoder API](https://github.com/pelias/api).
 
 ## Requirements
 
@@ -48,7 +48,7 @@ L.control.geocoder('<your-api-key>').addTo(map);
 
 ## Browser support
 
-The Pelias-Leaflet geocoder supports all Leaflet-supported browsers _except_ for Internet Explorer 7. The plugin makes a cross-domain request in Javascript to obtain search results, which is not supported in IE7 without JSONP. Pelias does not support API requets in JSONP.
+The Pelias-Leaflet geocoder supports all Leaflet-supported browsers _except_ for Internet Explorer 7. The plugin makes a cross-domain request in Javascript to obtain search results, which is not supported in IE7 without JSONP. Mapzen Search does not support API requets in JSONP.
 
 
 ## Customizing the plugin
