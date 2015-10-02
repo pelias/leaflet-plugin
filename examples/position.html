@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Adding Pelias geocoding to a basic Leaflet map.</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
+
+  <!-- Load Leaflet from CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.5/leaflet.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.5/leaflet.js"></script>
+
+  <!-- Load Pelias geocoding plugin after Leaflet -->
+  <link rel="stylesheet" href="../dist/pelias-leaflet-geocoder.css">
+  <script src="../dist/pelias-leaflet-geocoder.js"></script>
+
+  <link rel="stylesheet" href="examples.css">
+</head>
+<body>
+  <div id="map"></div>
+  <script>
+    // Create a basic Leaflet map
+    var map = L.map('map').setView([52.5270, 13.4124], 13);
+    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(map);
+
+    // Add Pelias geocoding plugin to top right
+    var geocoder1 = L.control.geocoder('search-MKZrG6M', {
+      pointIcon: false,
+      polygonIcon: false,
+      position: 'topright'
+    }).addTo(map);
+
+    // Add Pelias geocoding plugin to bottom left
+    var geocoder2 = L.control.geocoder('search-MKZrG6M', {
+      pointIcon: false,
+      polygonIcon: false,
+      position: 'bottomleft'
+    }).addTo(map);
+
+    // Add Pelias geocoding plugin to bottom right
+    var geocoder3 = L.control.geocoder('search-MKZrG6M', {
+      pointIcon: false,
+      polygonIcon: false,
+      position: 'bottomright'
+    }).addTo(map);
+  </script>
+</body>
+</html>
