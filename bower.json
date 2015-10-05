@@ -1,6 +1,6 @@
 {
   "name": "pelias-leaflet-geocoder",
-  "version": "1.0.0-alpha",
+  "version": "1.0.0",
   "homepage": "https://github.com/pelias/leaflet-geocoder",
   "authors": [
     "Lou Huang <lou@mapzen.com>"
