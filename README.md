@@ -1,5 +1,5 @@
-[![CircleCI](https://img.shields.io/circleci/project/pelias/leaflet-geocoder/v1.0.0-alpha.svg?style=flat-square)](https://circleci.com/gh/pelias/leaflet-geocoder/tree/v1.0.0-alpha)
-[![David devDependencies](https://img.shields.io/david/dev/pelias/leaflet-geocoder/v1.0.0-alpha.svg?style=flat-square)](https://david-dm.org/pelias/leaflet-geocoder/v1.0.0-alpha#info=devDependencies)
+[![CircleCI](https://img.shields.io/circleci/project/pelias/leaflet-geocoder.svg?style=flat-square)](https://circleci.com/gh/pelias/leaflet-geocoder/)
+[![David devDependencies](https://img.shields.io/david/dev/pelias/leaflet-geocoder.svg?style=flat-square)](https://david-dm.org/pelias/leaflet-geocoder/#info=devDependencies)
 
 Leaflet geocoder plugin
 ========================
