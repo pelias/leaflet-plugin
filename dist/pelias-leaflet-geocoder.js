@@ -204,7 +204,7 @@
     },
 
     highlight: function (text, focus) {
-      var r = RegExp('(' + focus + ')', 'gi');
+      var r = RegExp('(' + escapeRegExp(focus) + ')', 'gi');
       return text.replace(r, '<strong>$1</strong>');
     },
 
@@ -836,5 +836,13 @@
       }
       return result;
     };
+  }
+
+  /*
+   * escaping a string for regex Utility function
+   * from https://stackoverflow.com/questions/3446170/escape-string-for-use-in-javascript-regex
+   */
+  function escapeRegExp (str) {
+    return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&');
   }
 }));
