@@ -1,3 +1,9 @@
+## v1.0.1
+
+- Fixed some inputs from being parsed as regex when highlighting results. [#25](https://github.com/pelias/leaflet-geocoder/issues/25)
+- DOCUMENTATION: Fixed badge links going to an old branch.
+- DEMO: Change base map style.
+
 ## v1.0.0
 
 ### Breaking changes
