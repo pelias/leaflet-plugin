@@ -246,11 +246,14 @@
         resultItem.layer = feature.properties.layer;
         resultItem.coords = feature.geometry.coordinates;
 
-        // Point or polygon icon
-        var layerIconContainer = L.DomUtil.create('span', 'leaflet-pelias-layer-icon-container', resultItem);
-        var layerIcon = L.DomUtil.create('img', 'leaflet-pelias-layer-icon', layerIconContainer);
-        layerIcon.src = this.getIconType(feature.properties.layer);
-        layerIcon.title = 'layer: ' + feature.properties.layer;
+        var iconSrc = this.getIconType(feature.properties.layer);
+        if (this.options.markers && iconSrc) {
+          // Point or polygon icon
+          var layerIconContainer = L.DomUtil.create('span', 'leaflet-pelias-layer-icon-container', resultItem);
+          var layerIcon = L.DomUtil.create('img', 'leaflet-pelias-layer-icon', layerIconContainer);
+          layerIcon.src = iconSrc;
+          layerIcon.title = 'layer: ' + feature.properties.layer;
+        }
 
         resultItem.innerHTML = this.highlight(feature.properties.label, this._input.value);
       }
