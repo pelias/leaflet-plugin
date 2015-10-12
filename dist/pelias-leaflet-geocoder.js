@@ -252,7 +252,9 @@
         layerIcon.src = this.getIconType(feature.properties.layer);
         layerIcon.title = 'layer: ' + feature.properties.layer;
 
-        resultItem.innerHTML = this.highlight(feature.properties.label, this._input.value);
+        if (this._input.value.length > 0) {
+          resultItem.innerHTML += this.highlight(feature.properties.label, this._input.value);
+        }
       }
     },
 
