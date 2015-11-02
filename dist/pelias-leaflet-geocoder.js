@@ -247,7 +247,7 @@
         resultItem.coords = feature.geometry.coordinates;
 
         var iconSrc = this.getIconType(feature.properties.layer);
-        if (this.options.markers && iconSrc) {
+        if (iconSrc) {
           // Point or polygon icon
           var layerIconContainer = L.DomUtil.create('span', 'leaflet-pelias-layer-icon-container', resultItem);
           var layerIcon = L.DomUtil.create('img', 'leaflet-pelias-layer-icon', layerIconContainer);
