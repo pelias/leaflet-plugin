@@ -20,7 +20,9 @@
   <script>
     // Create a basic Leaflet map
     var map = L.map('map').setView([40.7259, -73.9805], 12);
-    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(map);
+    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
+    }).addTo(map);
 
     // Add Pelias geocoding plugin
     var options = {
