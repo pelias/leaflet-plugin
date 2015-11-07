@@ -100,6 +100,11 @@
       window.addEventListener('hashchange', function () {
         parent.postMessage(window.location.hash, '*')
       });
+
+      // If iframed, disable scroll wheel
+      if (window.self !== window.top) {
+        map.scrollWheelZoom.disable();
+      }
     </script>
     <script type="text/javascript">
       // Compatibility checks
