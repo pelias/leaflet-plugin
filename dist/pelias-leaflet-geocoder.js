@@ -74,20 +74,42 @@
     },
 
     getBoundingBoxParam: function (params) {
+      /*
+       * this.options.bounds can be one of the following
+       * true //Boolean - take the map bounds
+       * false //Boolean - no bounds
+       * L.latLngBounds(...) //Object
+       * [[10, 10], [40, 60]] //Array
+      */
       var bounds = this.options.bounds;
 
+      // If falsy, bail
       if (!bounds) {
         return params;
       }
 
-      if ((typeof bounds !== 'object') || !bounds.isValid()) {
+      // If set to true, use map bounds
+      // If it is a valid L.LatLngBounds object, get its values
+      // If it is an array, try running it through L.LatLngBounds
+      if (bounds === true) {
         bounds = this._map.getBounds();
+        params = makeParamsFromLeaflet(params, bounds);
+      } else if (typeof bounds === 'object' && bounds.isValid && bounds.isValid()) {
+        params = makeParamsFromLeaflet(params, bounds);
+      } else if (typeof bounds === 'object' && bounds.length > 0) {
+        var latLngBounds = L.latLngBounds(bounds);
+        if (latLngBounds.isValid && latLngBounds.isValid()) {
+          params = makeParamsFromLeaflet(params, latLngBounds);
+        }
       }
 
-      params['boundary.rect.min_lon'] = bounds.getWest();
-      params['boundary.rect.min_lat'] = bounds.getSouth();
-      params['boundary.rect.max_lon'] = bounds.getEast();
-      params['boundary.rect.max_lat'] = bounds.getNorth();
+      function makeParamsFromLeaflet (params, latLngBounds) {
+        params['boundary.rect.min_lon'] = latLngBounds.getWest();
+        params['boundary.rect.min_lat'] = latLngBounds.getSouth();
+        params['boundary.rect.max_lon'] = latLngBounds.getEast();
+        params['boundary.rect.max_lat'] = latLngBounds.getNorth();
+        return params;
+      }
 
       return params;
     },
