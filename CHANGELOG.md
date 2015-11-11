@@ -1,3 +1,12 @@
+## v1.1.0
+
+- Added the ability for the `bounds` option to also accept rectangular bounds in simple Array form, which is expected of Leaflet methods that accept LatLngBounds objects.
+- Improved results list so that when a user is navigating the list with the keyboard, results that are not in view will scroll into view. [#34](https://github.com/pelias/leaflet-geocoder/issues/34)
+- Fixed falsy values on point and polygon icons not actually being disabled. (by [@bdon](https://github.com/bdon)) [#61](https://github.com/pelias/leaflet-geocoder/pull/61)
+- Fixed a bug where `scrollWheelZoom` is always enabled after some interactions with search results, if this option was previously disabled using `map.scrollWheelZoom.disable()`.
+- Fixed result list z-index ordering for Leaflet v1-beta.2.
+- Prevented result highlighting from inserting empty tags into the DOM when the input is blank.
+
 ## v1.0.1
 
 - Fixed some inputs from being parsed as regex when highlighting results. [#25](https://github.com/pelias/leaflet-geocoder/issues/25)
