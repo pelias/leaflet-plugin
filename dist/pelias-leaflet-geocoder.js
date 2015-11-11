@@ -481,6 +481,18 @@
             }
           };
 
+          var scrollSelectedResultIntoView = function () {
+            var _selected = self._results.querySelectorAll('.leaflet-pelias-selected')[0];
+            var _selectedRect = _selected.getBoundingClientRect();
+            var _resultsRect = self._results.getBoundingClientRect();
+            // Is the selected element not visible?
+            if (_selectedRect.bottom > _resultsRect.bottom) {
+              _selected.scrollIntoView(false);
+            } else if (_selectedRect.top < _resultsRect.top) {
+              _selected.scrollIntoView(true);
+            }
+          };
+
           for (var i = 0; i < list.length; i++) {
             if (list[i] === selected) {
               selectedPosition = i;
@@ -522,6 +534,7 @@
                 L.DomUtil.addClass(list[list.length - 1], 'leaflet-pelias-selected');
               }
 
+              scrollSelectedResultIntoView();
               panToPoint(this.options.panToPoint);
 
               L.DomEvent.preventDefault(e);
@@ -545,6 +558,7 @@
                 L.DomUtil.addClass(list[0], 'leaflet-pelias-selected');
               }
 
+              scrollSelectedResultIntoView();
               panToPoint(this.options.panToPoint);
 
               L.DomEvent.preventDefault(e);
