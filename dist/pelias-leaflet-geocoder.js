@@ -635,15 +635,19 @@
           }
         }, this)
         .on(this._results, 'mouseover', function (e) {
-          if (map.scrollWheelZoom.enabled() && map.options.scrollWheelZoom) {
+          // Prevent scrolling over results list from zooming the map, if enabled
+          this._scrollWheelZoomEnabled = map.scrollWheelZoom.enabled();
+          if (this._scrollWheelZoomEnabled) {
             map.scrollWheelZoom.disable();
           }
-        })
+        }, this)
         .on(this._results, 'mouseout', function (e) {
-          if (!map.scrollWheelZoom.enabled() && map.options.scrollWheelZoom) {
+          // Re-enable scroll wheel zoom (if previously enabled) after
+          // leaving the results box
+          if (this._scrollWheelZoomEnabled) {
             map.scrollWheelZoom.enable();
           }
-        });
+        }, this);
 
       // Recalculate width of the input bar when window resizes
       if (this.options.fullWidth) {
