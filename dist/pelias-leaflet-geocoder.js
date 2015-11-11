@@ -487,9 +487,9 @@
             var _resultsRect = self._results.getBoundingClientRect();
             // Is the selected element not visible?
             if (_selectedRect.bottom > _resultsRect.bottom) {
-              _selected.scrollIntoView(false);
+              self._results.scrollTop = _selected.offsetTop + _selected.offsetHeight - self._results.offsetHeight;
             } else if (_selectedRect.top < _resultsRect.top) {
-              _selected.scrollIntoView(true);
+              self._results.scrollTop = _selected.offsetTop;
             }
           };
 
