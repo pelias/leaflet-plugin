@@ -1,7 +1,7 @@
 {
   "name": "pelias-leaflet-geocoder",
   "version": "1.1.0",
-  "description": "Leaflet plugin that adds ability to search (geocode) using the Pelias Geocoder API.",
+  "description": "Leaflet plugin to search (geocode) using Mapzen Search or your own hosted version of the Pelias Geocoder API.",
   "main": "dist/pelias-leaflet-geocoder.js",
   "directories": {
     "example": "examples"
