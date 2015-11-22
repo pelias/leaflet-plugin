@@ -58,19 +58,16 @@ Tests are still a work in progress and coverage is low so just because tests pas
 100% compatibility yet.
 
 Our testing infrastructure is the same as Leaflet core. It uses [Node](http://nodejs.org/), and the [Jake](http://jakejs.com/) Javascript build tool.
-To set up the test system, install Node then run the following commands in the project root to install Jake:
+To set up the test system, install Node, then install project dependencies from npm into the project root:
 
 ```
-npm install -g jake
 npm install
 ```
 
-To run the tests from the command line,
-install [PhantomJS](http://phantomjs.org/) (and make sure it's in your `PATH`),
-then run:
+To run the tests from the command line:
 
 ```
-jake test
+npm test
 ```
 
 To run the tests in a browser manually, open `spec/index.html`.

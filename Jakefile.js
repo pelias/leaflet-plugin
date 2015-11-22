@@ -2,12 +2,14 @@
 Task runner for testing and linting scripts.
 Based off of Leaflet's own test suite.
 
-To use, install Node, then run the following commands in the project root:
+To use, install Node, then install project dependencies from the project root:
 
-    npm install -g jake
     npm install
 
-To check the code & run tests: run "jake test".
+To check the code & run tests:
+
+    npm test
+
 */
 /* global jake, desc, task, complete */
 
