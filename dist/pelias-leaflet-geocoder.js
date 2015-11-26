@@ -518,7 +518,7 @@
             // 38 = up arrow
             case 38:
               // Ignore key if there are no results or if list is not visible
-              if (!list || this._results.style.display === 'none') {
+              if (list.length === 0 || this._results.style.display === 'none') {
                 return;
               }
 
@@ -542,7 +542,7 @@
             // 40 = down arrow
             case 40:
               // Ignore key if there are no results or if list is not visible
-              if (!list || this._results.style.display === 'none') {
+              if (list.length === 0 || this._results.style.display === 'none') {
                 return;
               }
 
