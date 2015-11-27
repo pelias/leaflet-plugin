@@ -276,6 +276,10 @@
 
         resultItem.feature = feature;
         resultItem.layer = feature.properties.layer;
+
+        // Deprecated
+        // Use L.GeoJSON.coordsToLatLng(resultItem.feature.geometry.coordinates) instead
+        // This returns a L.LatLng object that can be used throughout Leaflet
         resultItem.coords = feature.geometry.coordinates;
 
         var iconSrc = this.getIconType(feature.properties.layer);
@@ -313,16 +317,14 @@
       }
     },
 
-    showMarker: function (text, coords) {
+    showMarker: function (text, latlng) {
       this.removeMarkers();
-
-      var geo = [coords[1], coords[0]];
-      this._map.setView(geo, this._map.getZoom() || 8);
+      this._map.setView(latlng, this._map.getZoom() || 8);
 
       var markerOptions = (typeof this.options.markers === 'object') ? this.options.markers : {};
 
       if (this.options.markers) {
-        this.marker = new L.marker(geo, markerOptions).bindPopup(text); // eslint-disable-line new-cap
+        this.marker = new L.marker(latlng, markerOptions).bindPopup(text); // eslint-disable-line new-cap
         this._map.addLayer(this.marker);
         this.markers.push(this.marker);
         this.marker.openPopup();
@@ -330,11 +332,12 @@
     },
 
     setSelectedResult: function (selected, originalEvent) {
+      var latlng = L.GeoJSON.coordsToLatLng(selected.feature.geometry.coordinates);
       this._input.value = selected.innerText || selected.textContent;
-      this.showMarker(selected.innerHTML, selected['coords']);
+      this.showMarker(selected.innerHTML, latlng);
       this.fire('select', {
         originalEvent: originalEvent,
-        latlng: L.latLng([selected['coords'][1], selected['coords'][0]]),
+        latlng: latlng,
         feature: selected.feature
       });
       this.clear();
@@ -491,7 +494,7 @@
           var panToPoint = function (shouldPan) {
             var _selected = self._results.querySelectorAll('.leaflet-pelias-selected')[0];
             if (_selected && shouldPan) {
-              self.showMarker(_selected.innerHTML, _selected['coords']);
+              self.showMarker(_selected.innerHTML, L.GeoJSON.coordsToLatLng(_selected.feature.geometry.coordinates));
             }
           };
 
@@ -546,7 +549,7 @@
               panToPoint(this.options.panToPoint);
               this.fire('highlight', {
                 originalEvent: e,
-                latlng: L.latLng([highlighted['coords'][1], highlighted['coords'][0]]),
+                latlng: L.GeoJSON.coordsToLatLng(highlighted.feature.geometry.coordinates),
                 feature: highlighted.feature
               });
 
@@ -571,7 +574,7 @@
               panToPoint(this.options.panToPoint);
               this.fire('highlight', {
                 originalEvent: e,
-                latlng: L.latLng([highlighted['coords'][1], highlighted['coords'][0]]),
+                latlng: L.GeoJSON.coordsToLatLng(highlighted.feature.geometry.coordinates),
                 feature: highlighted.feature
               });
 

@@ -51,6 +51,7 @@ describe('Events', function () {
     });
   });
 
+  // TODO: Have test results to use
   describe.skip('on `results`', function () {
     it('fires `results` after receiving results from /autocomplete', function () {
       // TODO
@@ -73,6 +74,23 @@ describe('Events', function () {
     it('fires `select` after selecting a result with a click', function () {
       // TODO
       // Test for properties on the event object
+    });
+  });
+
+  describe('on `reset`', function () {
+    it('fires `reset` when the input is reset', function () {
+      // Geocoder must be added to the map so that it can be "clicked"
+      var map = L.map(document.createElement('div'));
+      var geocoder = new L.Control.Geocoder();
+      var onReset = sinon.spy();
+
+      geocoder.addTo(map);
+      geocoder.on('reset', onReset);
+
+      happen.click(geocoder._close);
+
+      expect(onReset.called).to.be(true);
+      expect(onReset.callCount).to.be.lessThan(2);
     });
   });
 });

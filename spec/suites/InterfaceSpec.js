@@ -4,7 +4,8 @@ describe('Interface', function () {
 
   beforeEach('initialize map', function () {
     el = document.createElement('div');
-    // DOM needs to be visible
+    // DOM needs to be visible: appended to the body and have dimensions
+    // in order for .focus() to work properly
     el.style.cssText = 'position: absolute; left: 0; top: 0; width: 100%; height: 100%;';
     document.body.appendChild(el);
     map = L.map(el);
@@ -44,6 +45,7 @@ describe('Interface', function () {
     it('should reset input when clicked', function () {
       var geocoder = new L.Control.Geocoder();
       geocoder.addTo(map);
+
       // Simulates input action
       geocoder._input.focus();
       geocoder._input.value = 'sometext';
