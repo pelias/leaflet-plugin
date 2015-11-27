@@ -251,6 +251,8 @@ event         | description
 **highlight** | Fired when a result is highlighted by the up/down arrow keys.
 **reset**     | Fired when the geocoder is reset ("x" button is clicked).
 
+Here is [a demo of the events](http://pelias.github.io/leaflet-geocoder/examples/events.html).
+
 #### Getting data
 
 You can use events to provide additional functionality when certain things occur. Events are also the best way to get Mapzen Search result data out of the plugin so that your application can do other things with it.
