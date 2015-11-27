@@ -1,3 +1,7 @@
+## v1.2.0
+
+- **Added events.** The geocoder will fire `select`, `highlight`, `results`, and `reset` events which can be subscribed to. These allow applications to have additional functionality that respond to interactions with the plugin, and will also pass along relevant data (like address labels and latitude/longitude pairs) received from the geocoder. [See the README for more information.](https://github.com/pelias/leaflet-geocoder/blob/master/README.md#events)
+
 ## v1.1.0
 
 - Added the ability for the `bounds` option to also accept rectangular bounds in simple Array form, which is expected of Leaflet methods that accept LatLngBounds objects.

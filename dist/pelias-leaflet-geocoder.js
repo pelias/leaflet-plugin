@@ -28,6 +28,9 @@
   var API_RATE_LIMIT = 250; // in ms, throttled time between subsequent requests to API
 
   L.Control.Geocoder = L.Control.extend({
+
+    includes: L.Mixin.Events,
+
     options: {
       position: 'topleft',
       attribution: 'Geocoding by <a href=\'https://mapzen.com/pelias\'>Pelias</a>',
@@ -158,7 +161,7 @@
         text: input
       };
 
-      this.callPelias(url, params);
+      this.callPelias(url, params, 'search');
     },
 
     autocomplete: throttle(function (input) {
@@ -170,14 +173,14 @@
         text: input
       };
 
-      this.callPelias(url, params);
+      this.callPelias(url, params, 'autocomplete');
     }, API_RATE_LIMIT),
 
     // Timestamp of the last response which was successfully rendered to the UI.
     // The time represents when the request was *sent*, not when it was recieved.
     maxReqTimestampRendered: new Date().getTime(),
 
-    callPelias: function (endpoint, params) {
+    callPelias: function (endpoint, params, type) {
       params = this.getBoundingBoxParam(params);
       params = this.getLatlngParam(params);
       params = this.getLayers(params);
@@ -219,6 +222,12 @@
           if (this.maxReqTimestampRendered < reqStartedAt) {
             this.maxReqTimestampRendered = reqStartedAt;
             this.showResults(results.features);
+            this.fire('results', {
+              results: results,
+              endpoint: endpoint,
+              requestType: type,
+              params: params
+            });
           }
           // Else ignore the request, it is stale.
         }
@@ -265,6 +274,7 @@
         var feature = features[i];
         var resultItem = L.DomUtil.create('li', 'leaflet-pelias-result', list);
 
+        resultItem.feature = feature;
         resultItem.layer = feature.properties.layer;
         resultItem.coords = feature.geometry.coordinates;
 
@@ -319,12 +329,15 @@
       }
     },
 
-    setSelectedResult: function () {
-      var selected = this._results.querySelectorAll('.leaflet-pelias-selected')[0];
-
-      if (selected) {
-        this._input.value = selected.innerText || selected.textContent;
-      }
+    setSelectedResult: function (selected, originalEvent) {
+      this._input.value = selected.innerText || selected.textContent;
+      this.showMarker(selected.innerHTML, selected['coords']);
+      this.fire('select', {
+        originalEvent: originalEvent,
+        latlng: L.latLng([selected['coords'][1], selected['coords'][0]]),
+        feature: selected.feature
+      });
+      this.clear();
     },
 
     resetInput: function () {
@@ -332,6 +345,7 @@
       L.DomUtil.addClass(this._close, 'leaflet-pelias-hidden');
       this.removeMarkers();
       this._input.focus();
+      this.fire('reset');
     },
 
     // TODO: Rename?
@@ -505,9 +519,7 @@
             // 13 = enter
             case 13:
               if (selected) {
-                this.setSelectedResult();
-                this.showMarker(selected.innerHTML, selected['coords']);
-                this.clear();
+                this.setSelectedResult(selected, e);
               } else {
                 // perform a full text search on enter
                 var text = (e.target || e.srcElement).value;
@@ -527,15 +539,16 @@
               }
 
               var previousItem = list[selectedPosition - 1];
+              var highlighted = (selected && previousItem) ? previousItem : list[list.length - 1]; // eslint-disable-line no-redeclare
 
-              if (selected && previousItem) {
-                L.DomUtil.addClass(previousItem, 'leaflet-pelias-selected');
-              } else {
-                L.DomUtil.addClass(list[list.length - 1], 'leaflet-pelias-selected');
-              }
-
+              L.DomUtil.addClass(highlighted, 'leaflet-pelias-selected');
               scrollSelectedResultIntoView();
               panToPoint(this.options.panToPoint);
+              this.fire('highlight', {
+                originalEvent: e,
+                latlng: L.latLng([highlighted['coords'][1], highlighted['coords'][0]]),
+                feature: highlighted.feature
+              });
 
               L.DomEvent.preventDefault(e);
               break;
@@ -551,15 +564,16 @@
               }
 
               var nextItem = list[selectedPosition + 1];
+              var highlighted = (selected && nextItem) ? nextItem : list[0]; // eslint-disable-line no-redeclare
 
-              if (selected && nextItem) {
-                L.DomUtil.addClass(nextItem, 'leaflet-pelias-selected');
-              } else {
-                L.DomUtil.addClass(list[0], 'leaflet-pelias-selected');
-              }
-
+              L.DomUtil.addClass(highlighted, 'leaflet-pelias-selected');
               scrollSelectedResultIntoView();
               panToPoint(this.options.panToPoint);
+              this.fire('highlight', {
+                originalEvent: e,
+                latlng: L.latLng([highlighted['coords'][1], highlighted['coords'][0]]),
+                feature: highlighted.feature
+              });
 
               L.DomEvent.preventDefault(e);
               break;
@@ -643,9 +657,7 @@
           // do nothing.
           if (selected) {
             L.DomUtil.addClass(selected, 'leaflet-pelias-selected');
-            this.setSelectedResult();
-            this.showMarker(selected.innerHTML, selected['coords']);
-            this.clear();
+            this.setSelectedResult(selected, e);
           }
         }, this)
         .on(this._results, 'mouseover', function (e) {
