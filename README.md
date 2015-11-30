@@ -247,8 +247,11 @@ The following events are fired:
 event         | description
 ------------- | ---------------------------------------------------------------
 **results**   | Fired when search results are obtained.
+**error**     | Fired if an there was an error with a search request.
 **select**    | Fired when a result is actively selected from the results list (not just highlighted.)
 **highlight** | Fired when a result is highlighted by the up/down arrow keys.
+**expand**    | Fired when the geocoder is expanded.
+**collapse**  | Fired when the geocoder is collapsed.
 **reset**     | Fired when the geocoder is reset ("x" button is clicked).
 
 Here is [a demo of the events](http://pelias.github.io/leaflet-geocoder/examples/events.html).
@@ -257,7 +260,7 @@ Here is [a demo of the events](http://pelias.github.io/leaflet-geocoder/examples
 
 You can use events to provide additional functionality when certain things occur. Events are also the best way to get Mapzen Search result data out of the plugin so that your application can do other things with it.
 
-##### on `results`
+##### on `results` or `error`
 
 In addition to the [base event object](http://leafletjs.com/reference.html#event-objects) from Leaflet, the event object will contain these other useful properties:
 
@@ -267,6 +270,13 @@ property      | description
 **requestType** | A string, either `autocomplete` or `search`, depending on the request made.
 **params**    | An object containing the parameters that have been passed to the Mapzen Search request.
 **results**   | The [original response object](https://mapzen.com/documentation/search/response/) returned from Mapzen Search, including all feature geometries and properties.
+
+If there was an error with the request, the event object will contain the additional properties:
+
+property      | description
+------------- | ---------------------------------------------------------------
+**errorCode** | The HTTP status code received. [More information](https://mapzen.com/documentation/search/http-status-codes/).
+**errorMessage** | The error message string that the geocoder will display.
 
 ##### on `select` and `highlight`
 

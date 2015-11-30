@@ -93,4 +93,43 @@ describe('Events', function () {
       expect(onReset.callCount).to.be.lessThan(2);
     });
   });
+
+  describe('on `expand` and `collapse`', function () {
+    it('fires `expand` and `collapse`', function () {
+      // Geocoder must be added to the map so that it can be "clicked"
+      var map = L.map(document.createElement('div'));
+      var geocoder = new L.Control.Geocoder();
+      var onExpand = sinon.spy();
+      var onCollapse = sinon.spy();
+
+      geocoder.addTo(map);
+      geocoder.on('expand', onExpand);
+      geocoder.on('collapse', onCollapse);
+
+      happen.click(geocoder._search);
+      expect(onExpand.called).to.be(true);
+
+      happen.click(geocoder._search);
+      expect(onCollapse.called).to.be(true);
+
+      expect(onExpand.callCount).to.be.lessThan(2);
+      expect(onCollapse.callCount).to.be.lessThan(2);
+    });
+
+    it('does not fire if geocoder is always expanded', function () {
+      var map = L.map(document.createElement('div'));
+      var geocoder = new L.Control.Geocoder({ expanded: true });
+      var onExpand = sinon.spy();
+      var onCollapse = sinon.spy();
+
+      geocoder.addTo(map);
+      geocoder.on('expand', onExpand);
+      geocoder.on('collapse', onCollapse);
+
+      expect(onExpand.called).to.be(false);
+
+      happen.click(geocoder._search);
+      expect(onCollapse.called).to.be(false);
+    });
+  });
 });

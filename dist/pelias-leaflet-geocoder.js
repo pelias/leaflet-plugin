@@ -199,21 +199,42 @@
         L.DomUtil.removeClass(this._search, 'leaflet-pelias-loading');
 
         if (err) {
+          var errorMessage;
           switch (err.code) {
-            case 429:
-              this.showMessage('There were too many requests. Try again in a second.');
-              break;
+            // Error codes.
+            // https://mapzen.com/documentation/search/http-status-codes/
             case 403:
-              this.showMessage('A valid API key is needed for this search feature.');
+              errorMessage = 'A valid API key is needed for this search feature.';
+              break;
+            case 404:
+              errorMessage = 'The search service cannot be found. :-(';
+              break;
+            case 408:
+              errorMessage = 'The search service took too long to respond. Try again in a second.';
+              break;
+            case 429:
+              errorMessage = 'There were too many requests. Try again in a second.';
               break;
             case 500:
-              this.showMessage('The search service is not working right now. Please try again later.');
+              errorMessage = 'The search service is not working right now. Please try again later.';
+              break;
+            case 502:
+              errorMessage = 'Connection lost. Please try again later.';
               break;
             // Note the status code is 0 if CORS is not enabled on the error response
             default:
-              this.showMessage('The search service is having problems :-(');
+              errorMessage = 'The search service is having problems :-(';
               break;
           }
+          this.showMessage(errorMessage);
+          this.fire('error', {
+            results: results,
+            endpoint: endpoint,
+            requestType: type,
+            params: params,
+            errorCode: err.code,
+            errorMessage: errorMessage
+          });
         }
 
         if (results && results.features) {
@@ -374,6 +395,7 @@
     expand: function () {
       L.DomUtil.addClass(this._container, 'leaflet-pelias-expanded');
       this.setFullWidth();
+      this.fire('expand');
     },
 
     collapse: function () {
@@ -385,6 +407,7 @@
       L.DomUtil.removeClass(this._container, 'leaflet-pelias-expanded');
       this.clearFullWidth();
       this.clearResults();
+      this.fire('collapse');
     },
 
     // Set full width of expanded input, if enabled

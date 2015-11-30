@@ -51,12 +51,21 @@
       background-color: yellow;
     }
     code.results {
-      color: darkred;
-      background-color: whitesmoke;
+      background-color: brown;
+      color: white;
+    }
+    code.error {
+      background-color: red;
+      color: white;
     }
     code.reset {
-      color: white;
       background-color: red;
+      color: white;
+    }
+    code.expand,
+    code.collapse {
+      background-color: whitesmoke;
+      color: darkred;
     }
   </style>
 </head>
@@ -91,12 +100,27 @@
 
     geocoder.on('results', function (e) {
       console.log('results', e);
-      addLog('<p><code class="results">results</code> <span class="type">' + e.requestType + '</span> received!</p>');
+      addLog('<p><code class="results">results</code> <span class="type">' + e.requestType + '</span> results received!</p>');
+    });
+
+    geocoder.on('error', function (e) {
+      console.log('results', e);
+      addLog('<p><code class="error">error</code> Error code ' + e.errorCode + ': ' + e.errorMessage + '</p>');
     });
 
     geocoder.on('reset', function (e) {
       console.log('reset', e);
       addLog('<p><code class="resets">reset</code> Geocoder reset!</p>');
+    });
+
+    geocoder.on('expand', function (e) {
+      console.log('expand', e);
+      addLog('<p><code class="expand">expand</code> Geocoder expanded!</p>');
+    });
+
+    geocoder.on('collapse', function (e) {
+      console.log('collapse', e);
+      addLog('<p><code class="collapse">collapse</code> Geocoder collapsed!</p>');
     });
 
     function addLog (html) {
