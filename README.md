@@ -1,3 +1,4 @@
+[![npm version](https://img.shields.io/npm/v/pelias-leaflet-geocoder.svg?style=flat-square)](https://www.npmjs.com/package/pelias-leaflet-geocoder)
 [![CircleCI](https://img.shields.io/circleci/project/pelias/leaflet-geocoder.svg?style=flat-square)](https://circleci.com/gh/pelias/leaflet-geocoder/)
 [![David devDependencies](https://img.shields.io/david/dev/pelias/leaflet-geocoder.svg?style=flat-square)](https://david-dm.org/pelias/leaflet-geocoder/#info=devDependencies)
 [![Coverage Status](https://img.shields.io/coveralls/pelias/leaflet-geocoder.svg?style=flat-square)](https://coveralls.io/github/pelias/leaflet-geocoder?branch=master)
@@ -291,3 +292,12 @@ property      | description
 ### Accessing other plugin internals
 
 Properties and methods used internally by the geocoder are also available on the returned object. These are purposefully not private or obscured, but they are also not publicly documented right now, since functionality may fluctuate without notice. Depending on usage and demand we will lock down and document internal properties and methods for general use. [Please let us know in the issues tracker](https://github.com/pelias/leaflet-geocoder/issues) if you have feedback.
+
+## Projects using this plugin
+
+- [GeoTracer](http://geotracer.herokuapp.com/)
+- [Greenpoint-Williamsburg ToxiCity Map](http://clhenrick.github.io/greenpoint_williamsburg_toxicity_map/)
+- [what3emojis](http://what3emojis.com/map/)
+- [NYC Community Boards](http://louhuang.com/nyc-community-boards)
+
+Let us know if you have a project you'd like to share!
