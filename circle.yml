@@ -1,9 +1,13 @@
 machine:
   node:
-    version: 0.12.6
+    version: 4.2.2
 
 dependencies:
   pre:
     - npm install -g jake
   post:
     - npm install leaflet@^1.0.0-beta.2
+
+general:
+  artifacts:
+    - "./coverage"
