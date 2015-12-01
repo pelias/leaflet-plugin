@@ -1,5 +1,6 @@
 [![CircleCI](https://img.shields.io/circleci/project/pelias/leaflet-geocoder.svg?style=flat-square)](https://circleci.com/gh/pelias/leaflet-geocoder/)
 [![David devDependencies](https://img.shields.io/david/dev/pelias/leaflet-geocoder.svg?style=flat-square)](https://david-dm.org/pelias/leaflet-geocoder/#info=devDependencies)
+[![Coverage Status](https://img.shields.io/coveralls/pelias/leaflet-geocoder.svg?style=flat-square)](https://coveralls.io/github/pelias/leaflet-geocoder?branch=master)
 
 Leaflet geocoder plugin
 ========================

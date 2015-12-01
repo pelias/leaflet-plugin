@@ -23,6 +23,7 @@ module.exports = function (config) {
     plugins: [
       'karma-mocha',
       'karma-coverage',
+      'karma-coveralls',
       'karma-phantomjs-launcher',
       'karma-chrome-launcher',
       'karma-safari-launcher',
@@ -39,7 +40,7 @@ module.exports = function (config) {
 
     // test results reporter to use
     // possible values: 'dots', 'progress', 'junit', 'growl', 'coverage'
-    reporters: ['nyan', 'coverage'],
+    reporters: ['nyan', 'coverage', 'coveralls'],
 
     preprocessors: {
       // source files, that you wanna generate coverage for
