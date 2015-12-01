@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Adding events to geocoder.</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
+
+  <!-- Load Leaflet from CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>
+
+  <!-- Load Pelias geocoding plugin after Leaflet -->
+  <link rel="stylesheet" href="../dist/pelias-leaflet-geocoder.css">
+  <script src="../dist/pelias-leaflet-geocoder.js"></script>
+  <link rel="stylesheet" href="examples.css">
+  <style>
+    #events-log {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      bottom: 20px;
+      width: 300px;
+      padding: 10px;
+      overflow-x: hidden;
+      overflow-y: auto;
+      background-color: rgba(255,255,255,0.90);
+      font-family: sans-serif;
+      line-height: 1.4;
+      box-sizing: border-box;
+      box-shadow: 0 1px 5px rgba(0,0,0,0.35);
+      border-radius: 4px;
+    }
+    h1 {
+      margin-top: 0;
+    }
+    code {
+      background-color: #e1e1e1;
+      font-weight: bold;
+      padding: 2px 5px;
+      border-radius: 3px;
+    }
+    #events-log p:first-of-type {
+      padding-bottom: 10px;
+      border-bottom: 1px solid #e1e1e1;
+    }
+    code.select {
+      background-color: aliceblue;
+      color: blue;
+    }
+    code.highlight {
+      background-color: yellow;
+    }
+    code.results {
+      background-color: brown;
+      color: white;
+    }
+    code.error {
+      background-color: red;
+      color: white;
+    }
+    code.reset {
+      background-color: red;
+      color: white;
+    }
+    code.expand,
+    code.collapse {
+      background-color: whitesmoke;
+      color: darkred;
+    }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  <div id="events-log">
+    <h1>Events log</h1>
+    <p>Events will be logged here! Also, open the console to see a log of the event objects that are created.</p>
+  </div>
+  <script>
+    // Create a basic Leaflet map
+    var map = L.map('map').setView([40.7259, -73.9805], 12);
+    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(map);
+
+    var options = {
+      pointIcon: '../dist/images/point_icon.png',
+      polygonIcon: '../dist/images/polygon_icon.png'
+    };
+
+    var geocoder = L.control.geocoder('search-MKZrG6M', options).addTo(map);
+    var log = document.getElementById('events-log');
+
+    geocoder.on('select', function (e) {
+      console.log('highlight', e);
+      addLog('<p><code class="select">select</code> You’ve selected ' + e.feature.properties.label + ' located at ' + e.latlng.lat + ', ' + e.latlng.lng + '</p>');
+    });
+
+    geocoder.on('highlight', function (e) {
+      console.log('select', e);
+      addLog('<p><code class="highlight">highlight</code> You’ve highlighted ' + e.feature.properties.label + ' located at ' + e.latlng.lat + ', ' + e.latlng.lng + '</p>');
+    });
+
+    geocoder.on('results', function (e) {
+      console.log('results', e);
+      addLog('<p><code class="results">results</code> <span class="type">' + e.requestType + '</span> results received!</p>');
+    });
+
+    geocoder.on('error', function (e) {
+      console.log('results', e);
+      addLog('<p><code class="error">error</code> Error code ' + e.errorCode + ': ' + e.errorMessage + '</p>');
+    });
+
+    geocoder.on('reset', function (e) {
+      console.log('reset', e);
+      addLog('<p><code class="resets">reset</code> Geocoder reset!</p>');
+    });
+
+    geocoder.on('expand', function (e) {
+      console.log('expand', e);
+      addLog('<p><code class="expand">expand</code> Geocoder expanded!</p>');
+    });
+
+    geocoder.on('collapse', function (e) {
+      console.log('collapse', e);
+      addLog('<p><code class="collapse">collapse</code> Geocoder collapsed!</p>');
+    });
+
+    function addLog (html) {
+      log.innerHTML += html;
+      log.scrollTop = log.scrollHeight;
+    }
+  </script>
+</body>
+</html>

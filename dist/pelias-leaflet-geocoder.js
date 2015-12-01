@@ -28,6 +28,9 @@
   var API_RATE_LIMIT = 250; // in ms, throttled time between subsequent requests to API
 
   L.Control.Geocoder = L.Control.extend({
+
+    includes: L.Mixin.Events,
+
     options: {
       position: 'topleft',
       attribution: 'Geocoding by <a href=\'https://mapzen.com/pelias\'>Pelias</a>',
@@ -158,7 +161,7 @@
         text: input
       };
 
-      this.callPelias(url, params);
+      this.callPelias(url, params, 'search');
     },
 
     autocomplete: throttle(function (input) {
@@ -170,14 +173,14 @@
         text: input
       };
 
-      this.callPelias(url, params);
+      this.callPelias(url, params, 'autocomplete');
     }, API_RATE_LIMIT),
 
     // Timestamp of the last response which was successfully rendered to the UI.
     // The time represents when the request was *sent*, not when it was recieved.
     maxReqTimestampRendered: new Date().getTime(),
 
-    callPelias: function (endpoint, params) {
+    callPelias: function (endpoint, params, type) {
       params = this.getBoundingBoxParam(params);
       params = this.getLatlngParam(params);
       params = this.getLayers(params);
@@ -196,21 +199,42 @@
         L.DomUtil.removeClass(this._search, 'leaflet-pelias-loading');
 
         if (err) {
+          var errorMessage;
           switch (err.code) {
-            case 429:
-              this.showMessage('There were too many requests. Try again in a second.');
-              break;
+            // Error codes.
+            // https://mapzen.com/documentation/search/http-status-codes/
             case 403:
-              this.showMessage('A valid API key is needed for this search feature.');
+              errorMessage = 'A valid API key is needed for this search feature.';
+              break;
+            case 404:
+              errorMessage = 'The search service cannot be found. :-(';
+              break;
+            case 408:
+              errorMessage = 'The search service took too long to respond. Try again in a second.';
+              break;
+            case 429:
+              errorMessage = 'There were too many requests. Try again in a second.';
               break;
             case 500:
-              this.showMessage('The search service is not working right now. Please try again later.');
+              errorMessage = 'The search service is not working right now. Please try again later.';
+              break;
+            case 502:
+              errorMessage = 'Connection lost. Please try again later.';
               break;
             // Note the status code is 0 if CORS is not enabled on the error response
             default:
-              this.showMessage('The search service is having problems :-(');
+              errorMessage = 'The search service is having problems :-(';
               break;
           }
+          this.showMessage(errorMessage);
+          this.fire('error', {
+            results: results,
+            endpoint: endpoint,
+            requestType: type,
+            params: params,
+            errorCode: err.code,
+            errorMessage: errorMessage
+          });
         }
 
         if (results && results.features) {
@@ -219,6 +243,12 @@
           if (this.maxReqTimestampRendered < reqStartedAt) {
             this.maxReqTimestampRendered = reqStartedAt;
             this.showResults(results.features);
+            this.fire('results', {
+              results: results,
+              endpoint: endpoint,
+              requestType: type,
+              params: params
+            });
           }
           // Else ignore the request, it is stale.
         }
@@ -265,7 +295,12 @@
         var feature = features[i];
         var resultItem = L.DomUtil.create('li', 'leaflet-pelias-result', list);
 
+        resultItem.feature = feature;
         resultItem.layer = feature.properties.layer;
+
+        // Deprecated
+        // Use L.GeoJSON.coordsToLatLng(resultItem.feature.geometry.coordinates) instead
+        // This returns a L.LatLng object that can be used throughout Leaflet
         resultItem.coords = feature.geometry.coordinates;
 
         var iconSrc = this.getIconType(feature.properties.layer);
@@ -303,28 +338,30 @@
       }
     },
 
-    showMarker: function (text, coords) {
+    showMarker: function (text, latlng) {
       this.removeMarkers();
-
-      var geo = [coords[1], coords[0]];
-      this._map.setView(geo, this._map.getZoom() || 8);
+      this._map.setView(latlng, this._map.getZoom() || 8);
 
       var markerOptions = (typeof this.options.markers === 'object') ? this.options.markers : {};
 
       if (this.options.markers) {
-        this.marker = new L.marker(geo, markerOptions).bindPopup(text); // eslint-disable-line new-cap
+        this.marker = new L.marker(latlng, markerOptions).bindPopup(text); // eslint-disable-line new-cap
         this._map.addLayer(this.marker);
         this.markers.push(this.marker);
         this.marker.openPopup();
       }
     },
 
-    setSelectedResult: function () {
-      var selected = this._results.querySelectorAll('.leaflet-pelias-selected')[0];
-
-      if (selected) {
-        this._input.value = selected.innerText || selected.textContent;
-      }
+    setSelectedResult: function (selected, originalEvent) {
+      var latlng = L.GeoJSON.coordsToLatLng(selected.feature.geometry.coordinates);
+      this._input.value = selected.innerText || selected.textContent;
+      this.showMarker(selected.innerHTML, latlng);
+      this.fire('select', {
+        originalEvent: originalEvent,
+        latlng: latlng,
+        feature: selected.feature
+      });
+      this.clear();
     },
 
     resetInput: function () {
@@ -332,6 +369,7 @@
       L.DomUtil.addClass(this._close, 'leaflet-pelias-hidden');
       this.removeMarkers();
       this._input.focus();
+      this.fire('reset');
     },
 
     // TODO: Rename?
@@ -357,6 +395,7 @@
     expand: function () {
       L.DomUtil.addClass(this._container, 'leaflet-pelias-expanded');
       this.setFullWidth();
+      this.fire('expand');
     },
 
     collapse: function () {
@@ -368,6 +407,7 @@
       L.DomUtil.removeClass(this._container, 'leaflet-pelias-expanded');
       this.clearFullWidth();
       this.clearResults();
+      this.fire('collapse');
     },
 
     // Set full width of expanded input, if enabled
@@ -477,7 +517,7 @@
           var panToPoint = function (shouldPan) {
             var _selected = self._results.querySelectorAll('.leaflet-pelias-selected')[0];
             if (_selected && shouldPan) {
-              self.showMarker(_selected.innerHTML, _selected['coords']);
+              self.showMarker(_selected.innerHTML, L.GeoJSON.coordsToLatLng(_selected.feature.geometry.coordinates));
             }
           };
 
@@ -505,9 +545,7 @@
             // 13 = enter
             case 13:
               if (selected) {
-                this.setSelectedResult();
-                this.showMarker(selected.innerHTML, selected['coords']);
-                this.clear();
+                this.setSelectedResult(selected, e);
               } else {
                 // perform a full text search on enter
                 var text = (e.target || e.srcElement).value;
@@ -527,15 +565,16 @@
               }
 
               var previousItem = list[selectedPosition - 1];
+              var highlighted = (selected && previousItem) ? previousItem : list[list.length - 1]; // eslint-disable-line no-redeclare
 
-              if (selected && previousItem) {
-                L.DomUtil.addClass(previousItem, 'leaflet-pelias-selected');
-              } else {
-                L.DomUtil.addClass(list[list.length - 1], 'leaflet-pelias-selected');
-              }
-
+              L.DomUtil.addClass(highlighted, 'leaflet-pelias-selected');
               scrollSelectedResultIntoView();
               panToPoint(this.options.panToPoint);
+              this.fire('highlight', {
+                originalEvent: e,
+                latlng: L.GeoJSON.coordsToLatLng(highlighted.feature.geometry.coordinates),
+                feature: highlighted.feature
+              });
 
               L.DomEvent.preventDefault(e);
               break;
@@ -551,15 +590,16 @@
               }
 
               var nextItem = list[selectedPosition + 1];
+              var highlighted = (selected && nextItem) ? nextItem : list[0]; // eslint-disable-line no-redeclare
 
-              if (selected && nextItem) {
-                L.DomUtil.addClass(nextItem, 'leaflet-pelias-selected');
-              } else {
-                L.DomUtil.addClass(list[0], 'leaflet-pelias-selected');
-              }
-
+              L.DomUtil.addClass(highlighted, 'leaflet-pelias-selected');
               scrollSelectedResultIntoView();
               panToPoint(this.options.panToPoint);
+              this.fire('highlight', {
+                originalEvent: e,
+                latlng: L.GeoJSON.coordsToLatLng(highlighted.feature.geometry.coordinates),
+                feature: highlighted.feature
+              });
 
               L.DomEvent.preventDefault(e);
               break;
@@ -643,9 +683,7 @@
           // do nothing.
           if (selected) {
             L.DomUtil.addClass(selected, 'leaflet-pelias-selected');
-            this.setSelectedResult();
-            this.showMarker(selected.innerHTML, selected['coords']);
-            this.clear();
+            this.setSelectedResult(selected, e);
           }
         }, this)
         .on(this._results, 'mouseover', function (e) {

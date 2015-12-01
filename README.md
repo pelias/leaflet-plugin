@@ -48,7 +48,7 @@ L.control.geocoder('<your-api-key>').addTo(map);
 
 ## Browser support
 
-The Pelias-Leaflet geocoder supports all Leaflet-supported browsers _except_ for Internet Explorer 7. The plugin makes a cross-domain request in Javascript to obtain search results, which is not supported in IE7 without JSONP. Mapzen Search does not support API requets in JSONP.
+The Pelias-Leaflet geocoder supports all Leaflet-supported browsers _except_ for Internet Explorer 7. The plugin makes a cross-domain request in Javascript to obtain search results, which is not supported in IE7 without JSONP. Mapzen Search [does not support API requests in JSONP](https://mapzen.com/documentation/search/use-cors/#why-not-jsonp).
 
 
 ## Customizing the plugin
@@ -88,7 +88,7 @@ option      | description                               | default value
 **attribution** | _String_. Attribution text to include for Pelias. Set to blank or `null` to disable. | `'Geocoding by <a href=\'https://mapzen.com/pelias\'>Pelias</a>'`
 **placeholder** | _String_. Placeholder text to display in the search input box. Set to blank or `null` to disable. | `'Search'`
 **title** | _String_. Tooltip text to display on the search icon. Set to blank or `null` to disable. | `'Search'`
-**panToPoint** | _Boolean_. If `true`, selecting a search result pans the map to that location. | `true`
+**panToPoint** | _Boolean_. If `true`, highlighting a search result pans the map to that location. | `true`
 **pointIcon** | _String_. Path to the image used to indicate a point result. Set to a falsy value to disable. | `'images/point_icon.png'`
 **polygonIcon** | _String_. Path to the image used to indicate a polygon result. Set to a falsy value to disable. | `'images/polygon_icon.png'`
 **markers** | _[Leaflet Marker options object](http://leafletjs.com/reference.html#marker-options)_ or _Boolean_. If `true`, search results drops Leaflet's default blue markers onto the map. You may customize this marker's appearance and behavior using Leaflet [marker options](http://leafletjs.com/reference.html#marker-options). | `true`
@@ -229,6 +229,63 @@ geocoder.setPosition('topright');
 var element = geocoder.getContainer();
 geocoder.removeFrom(map); // or geocoder.remove() in Leaflet v1
 ```
+
+### Events
+
+The geocoder includes all of Leaflet's [events methods](http://leafletjs.com/reference.html#events) and adds additional events that you can subscribe to, so that you can customize what happens when users interact with the geocoder. When you instantiate a new geocoder, assign it to variable, as above, and then you can use the event methods to listen for the events that it's firing. For example:
+
+```javascript
+geocoder.on('select', function (e) {
+  console.log('You’ve selected', e.feature.properties.label);
+});
+```
+
+All of Leaflet's event methods are available, such as `on`, `off`, `once`, and so on. The exact syntax and how it behaves are inherited from the version of Leaflet you are plugging into, so there are slight differences between the 0.7.x version line and the 1.0.0 version line.
+
+The following events are fired:
+
+event         | description
+------------- | ---------------------------------------------------------------
+**results**   | Fired when search results are obtained.
+**error**     | Fired if there was an error with a search request.
+**select**    | Fired when a result is actively selected from the results list (not just highlighted.)
+**highlight** | Fired when a result is highlighted by the up/down arrow keys.
+**expand**    | Fired when the geocoder is expanded.
+**collapse**  | Fired when the geocoder is collapsed.
+**reset**     | Fired when the geocoder is reset ("x" button is clicked).
+
+Here is [a demo of the events](http://pelias.github.io/leaflet-geocoder/examples/events.html).
+
+#### Getting data
+
+You can use events to provide additional functionality when certain things occur. Events are also the best way to get Mapzen Search result data out of the plugin so that your application can do other things with it.
+
+##### on `results` or `error`
+
+In addition to the [base event object](http://leafletjs.com/reference.html#event-objects) from Leaflet, the event object will contain these other useful properties:
+
+property      | description
+------------- | ---------------------------------------------------------------
+**endpoint**  | A string of the Mapzen Search API endpoint that was called.
+**requestType** | A string, either `autocomplete` or `search`, depending on the request made.
+**params**    | An object containing the parameters that have been passed to the Mapzen Search request.
+**results**   | The [original response object](https://mapzen.com/documentation/search/response/) returned from Mapzen Search, including all feature geometries and properties.
+
+If there was an error with the request, the event object will contain the additional properties:
+
+property      | description
+------------- | ---------------------------------------------------------------
+**errorCode** | The HTTP status code received. [More information](https://mapzen.com/documentation/search/http-status-codes/).
+**errorMessage** | The error message string that the geocoder will display.
+
+##### on `select` and `highlight`
+
+property      | description
+------------- | ---------------------------------------------------------------
+**originalEvent** | The original event (mouse or keyboard) reported by the browser.
+**latlng**    | A [Leaflet LatLng](http://leafletjs.com/reference.html#latlng) object representing the coordinates of the result.
+**feature**   | The [GeoJSON feature object](https://mapzen.com/documentation/search/response/#list-of-features-returned) from Mapzen Search, including feature geometry and properties.
+
 
 ### Accessing other plugin internals
 
