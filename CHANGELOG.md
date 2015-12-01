@@ -1,8 +1,11 @@
-## v1.2.0
+## v1.2.0 (December 1, 2015)
 
-- **Added events.** The geocoder now fires the following events that can be subscribed to: `results`, `error`, `select`, `highlight`, `expand`, `collapse` and `reset`. These allow applications to respond to interactions with the plugin, and will also pass along relevant data (like address labels and latitude/longitude pairs) received from the geocoder. [See the README for more information.](https://github.com/pelias/leaflet-geocoder/blob/master/README.md#events)
+- **Added events.** The geocoder now fires the following events that can be subscribed to: `results`, `error`, `select`, `highlight`, `expand`, `collapse` and `reset`. These allow applications to respond to interactions with the plugin, and will also pass along relevant data (like address labels and latitude/longitude pairs) received from the geocoder. [See the README for more information.](https://github.com/pelias/leaflet-geocoder/blob/master/README.md#events) ([#40](https://github.com/pelias/leaflet-geocoder/issues/40), [#75](https://github.com/pelias/leaflet-geocoder/issues/75))
+- Simplified test procedure so that it no longer requires a global install of [`jake`](http://jakejs.com/) and tests can be run locally with a standard `npm test` command.
+- Fixed a bug where pressing the up and down keys will throw errors when the results list is empty.
+- DEMO: Update [Refill](https://github.com/tangrams/refill-style/) base map location.
 
-## v1.1.0
+## v1.1.0 (November 11, 2015)
 
 - Added the ability for the `bounds` option to also accept rectangular bounds in simple Array form, which is expected of Leaflet methods that accept LatLngBounds objects.
 - Improved results list so that when a user is navigating the list with the keyboard, results that are not in view will scroll into view. [#34](https://github.com/pelias/leaflet-geocoder/issues/34)
@@ -11,13 +14,13 @@
 - Fixed result list z-index ordering for Leaflet v1-beta.2.
 - Prevented result highlighting from inserting empty tags into the DOM when the input is blank.
 
-## v1.0.1
+## v1.0.1 (October 9, 2015)
 
 - Fixed some inputs from being parsed as regex when highlighting results. [#25](https://github.com/pelias/leaflet-geocoder/issues/25)
 - DOCUMENTATION: Fixed badge links going to an old branch.
 - DEMO: Change base map style.
 
-## v1.0.0
+## v1.0.0 (October 5, 2015)
 
 ### Breaking changes
 
