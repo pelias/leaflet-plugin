@@ -247,7 +247,7 @@ The following events are fired:
 event         | description
 ------------- | ---------------------------------------------------------------
 **results**   | Fired when search results are obtained.
-**error**     | Fired if an there was an error with a search request.
+**error**     | Fired if there was an error with a search request.
 **select**    | Fired when a result is actively selected from the results list (not just highlighted.)
 **highlight** | Fired when a result is highlighted by the up/down arrow keys.
 **expand**    | Fired when the geocoder is expanded.
