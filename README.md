@@ -10,7 +10,7 @@ A plugin that adds the ability to search (geocode) a Leaflet-powered map using [
 
 ## Requirements
 
-Supports [Leaflet](https://github.com/Leaflet/Leaflet) **v0.7.3** (and higher) and **v1.0.0-beta.1**. (Previous Leaflet versions may work, but these are not targeted.)
+Supports [Leaflet](https://github.com/Leaflet/Leaflet) **v0.7.3** (and higher) and **v1.0.0-beta.1** (and higher). (Previous Leaflet versions may work, but these are not targeted.) Browser support is IE8+, and for [more details, see below](https://github.com/pelias/leaflet-geocoder#browser-support).
 
 ## Demo
 
@@ -22,8 +22,8 @@ Supports [Leaflet](https://github.com/Leaflet/Leaflet) **v0.7.3** (and higher) a
 
 ```html
 <!-- Load Leaflet from CDN -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.5/leaflet.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.5/leaflet.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>
 
 <!-- Load Pelias geocoding plugin after Leaflet -->
 <link rel="stylesheet" href="pelias-leaflet-geocoder.css">
@@ -48,9 +48,9 @@ L.control.geocoder('<your-api-key>').addTo(map);
 
 **Step 4**: Rejoice!
 
-## Browser support
+### There is also a tutorial
 
-The Pelias-Leaflet geocoder supports all Leaflet-supported browsers _except_ for Internet Explorer 7. The plugin makes a cross-domain request in Javascript to obtain search results, which is not supported in IE7 without JSONP. Mapzen Search [does not support API requests in JSONP](https://mapzen.com/documentation/search/use-cors/#why-not-jsonp).
+It has much more detailed instructions and is very friendly for beginners. [Check it out here](https://mapzen.com/documentation/search/add-search-to-a-map/).
 
 
 ## Customizing the plugin
@@ -288,6 +288,9 @@ property      | description
 **latlng**    | A [Leaflet LatLng](http://leafletjs.com/reference.html#latlng) object representing the coordinates of the result.
 **feature**   | The [GeoJSON feature object](https://mapzen.com/documentation/search/response/#list-of-features-returned) from Mapzen Search, including feature geometry and properties.
 
+### Browser support
+
+The Pelias-Leaflet geocoder supports all Leaflet-supported browsers _except_ for Internet Explorer 7. The plugin makes a cross-domain request in Javascript to obtain search results, which is not supported in IE7 without JSONP. Mapzen Search [does not support API requests in JSONP](https://mapzen.com/documentation/search/use-cors/#why-not-jsonp).
 
 ### Accessing other plugin internals
 
