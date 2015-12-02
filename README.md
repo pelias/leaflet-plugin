@@ -3,8 +3,8 @@
 [![David devDependencies](https://img.shields.io/david/dev/pelias/leaflet-geocoder.svg?style=flat-square)](https://david-dm.org/pelias/leaflet-geocoder/#info=devDependencies)
 [![Coverage Status](https://img.shields.io/coveralls/pelias/leaflet-geocoder.svg?style=flat-square)](https://coveralls.io/github/pelias/leaflet-geocoder?branch=master)
 
-Leaflet geocoder plugin
-========================
+Leaflet + Mapzen Search geocoding plugin
+========================================
 
 A plugin that adds the ability to search (geocode) a Leaflet-powered map using [Mapzen Search](https://mapzen.com/projects/search) or your own hosted version of the [Pelias Geocoder API](https://github.com/pelias/api).
 
@@ -203,7 +203,7 @@ L.control.geocoder('<your-api-key>', {
 
 ### Alternate syntax
 
-You can initialize a geocoder with the `new` keyword. Notice that the class names are capitalized. This is what actually happens under the hood of `L.control.geocoder()`, so this syntax does not do anything different, but you may prefer it for clarity or stylistic reasons.
+You can instantiate a geocoder with the `new` keyword. Notice that the class names are capitalized. This is what actually happens under the hood of `L.control.geocoder()`, so this syntax does not do anything different, but you may prefer it for clarity or stylistic reasons.
 
 ```javascript
 new L.Control.Geocoder('<your-api-key>').addTo(map);
@@ -211,7 +211,7 @@ new L.Control.Geocoder('<your-api-key>').addTo(map);
 
 ### Scripting with the plugin
 
-After initializing a geocoder you may store an instance of the geocoder object to a variable.
+When instantiating a geocoder, you may assign it to a variable. This will allow you to use its methods later on.
 
 ```javascript
 var geocoder = L.control.geocoder('<your-api-key>');
