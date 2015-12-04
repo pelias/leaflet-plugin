@@ -418,8 +418,8 @@
         // Always ask map to invalidate and recalculate size first
         this._map.invalidateSize();
         var mapWidth = this._map.getSize().x;
-        var touchAdjustment = L.DomUtil.hasClass(this._map._container, 'leaflet-touch');
-        var width = mapWidth - FULL_WIDTH_MARGIN - (touchAdjustment ? FULL_WIDTH_TOUCH_ADJUSTED_MARGIN : 0);
+        var touchAdjustment = L.Browser.touch ? FULL_WIDTH_TOUCH_ADJUSTED_MARGIN : 0;
+        var width = mapWidth - FULL_WIDTH_MARGIN - touchAdjustment;
         if (typeof this.options.fullWidth === 'number' && mapWidth >= window.parseInt(this.options.fullWidth, 10)) {
           this.clearFullWidth();
           return;
