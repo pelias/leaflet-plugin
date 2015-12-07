@@ -1,3 +1,37 @@
+## v1.3.0 (December 7, 2015)
+
+### Project name change
+
+**This project is renamed to leaflet-geocoder-mapzen. Why did we do this?**
+
+This plugin was designed for "getting started" in mind: most users have signed up for API keys with [Mapzen Search](https://mapzen.com/projects/search) and want to put a geocoder UI on their map application with a minimal amount of hassle. In the interest of keeping a clear distinguishing line between Mapzen Search (the hosted service with an API key) and Pelias (the open-source geocoding engine) we felt that naming the project this way would be less confusing. And we wanted to do it earlier rather than later.
+
+This might qualify as a breaking change that would require a major version bump according to [Semantic Versioning](http://semver.org/), but, there wouldn't be any new features added. You could concievably think of this project as a fork and a separate project entirely, although the repository has actually changed ownership from Pelias to Mapzen to preserve things like issues and permissions.
+
+The original project located at https://github.com/pelias/leaflet-geocoder, and its corresponding npm package, **will be deprecated.** There are placeholders there now to preserve functionality and to redirect users to the new location, but in the future, we will delete it.
+
+To migrate from `pelias-leaflet-geocoder` to `leaflet-geocoder-mapzen`, here are the changes you should make (if they apply to your project):
+
+#### Installing the package
+
+- **If installing from npm,** update `package.json` to use the `leaflet-geocoder-mapzen` package instead of `pelias-leaflet-geocoder`.
+- **If installing from bower,** update `bower.json` to use the `leaflet-geocoder-mapzen` package instead of `pelias-leaflet-geocoder`.
+- **If the package is downloaded directly from GitHub,** update your scripts to refer to the repository at `github.com/mapzen/leaflet-geocoder` instead of `github.com/pelias/leaflet-geocoder`.
+
+#### Linking to plugin files
+
+**Filenames in the `dist/` folder have changed.** If you are `require()`ing the plugin (or a similar syntax), in a module loading system, filenames will be transparently passed through via `package.json`. But if you are linking to any of the files directly (like the stylesheet, for example), you'll need to update the filename references too.
+
+- **Rename:** `pelias-leaflet-geocoder.js` to `leaflet-geocoder-mapzen.js`
+- **Rename:** `pelias-leaflet-geocoder.css` to `leaflet-geocoder-mapzen.css`
+
+If you are referring to any hosted versions of these files, please update those links as well. (We have not encouraged this use case previously; better support will be announced in the future when the plugin can be hosted on a supported CDN.)
+
+#### What about class names?
+
+Despite the `pelias` prefix used throughout, updating class names now would probably be a headache for everyone. **So there are no changes to class names.** We may revisit this in an actual v2 of the plugin.
+
+
 ## v1.2.0 (December 1, 2015)
 
 - **Added events.** The geocoder now fires the following events that can be subscribed to: `results`, `error`, `select`, `highlight`, `expand`, `collapse` and `reset`. These allow applications to respond to interactions with the plugin, and will also pass along relevant data (like address labels and latitude/longitude pairs) received from the geocoder. [See the README for more information.](https://github.com/mapzen/leaflet-geocoder/blob/master/README.md#events) ([#40](https://github.com/mapzen/leaflet-geocoder/issues/40), [#75](https://github.com/mapzen/leaflet-geocoder/issues/75))
