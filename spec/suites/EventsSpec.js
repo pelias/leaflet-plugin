@@ -131,5 +131,33 @@ describe('Events', function () {
       happen.click(geocoder._search);
       expect(onCollapse.called).to.be(false);
     });
+
+    it('does not collapse if map is clicked and geocoder contains input', function () {
+      var map = L.map(document.createElement('div'));
+      var geocoder = new L.Control.Geocoder();
+      var onCollapse = sinon.spy();
+
+      geocoder.addTo(map);
+      geocoder.on('collapse', onCollapse);
+
+      // Simulates input
+      geocoder._input.value = 'a';
+
+      // Click the map
+      happen.click(map);
+      expect(onCollapse.called).to.be(false);
+    });
+
+    it('does not fire if map is clicked and geocoder is already collapsed', function () {
+      var map = L.map(document.createElement('div'));
+      var geocoder = new L.Control.Geocoder();
+      var onCollapse = sinon.spy();
+
+      geocoder.addTo(map);
+      geocoder.on('collapse', onCollapse);
+
+      happen.click(map);
+      expect(onCollapse.called).to.be(false);
+    });
   });
 });

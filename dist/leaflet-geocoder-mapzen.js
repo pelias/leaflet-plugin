@@ -725,7 +725,8 @@
     },
 
     _onMapInteraction: function (event) {
-      if (!this._input.value) {
+      // Only collapse if the input is clear, and is currently expanded.
+      if (!this._input.value && L.DomUtil.hasClass(this._container, 'leaflet-pelias-expanded')) {
         this.collapse();
       }
     },
