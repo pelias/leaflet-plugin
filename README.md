@@ -2,6 +2,7 @@
 [![CircleCI](https://img.shields.io/circleci/project/mapzen/leaflet-geocoder.svg?style=flat-square)](https://circleci.com/gh/mapzen/leaflet-geocoder/)
 [![David devDependencies](https://img.shields.io/david/dev/mapzen/leaflet-geocoder.svg?style=flat-square)](https://david-dm.org/mapzen/leaflet-geocoder/#info=devDependencies)
 [![Coverage Status](https://img.shields.io/coveralls/mapzen/leaflet-geocoder.svg?style=flat-square)](https://coveralls.io/github/mapzen/leaflet-geocoder?branch=master)
+[![Gitter chat](https://img.shields.io/gitter/room/pelias/pelias.svg?style=flat-square)](https://gitter.im/pelias/pelias)
 
 Leaflet + Mapzen Search geocoding plugin
 ========================================
