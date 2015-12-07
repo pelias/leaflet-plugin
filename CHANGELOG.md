@@ -1,6 +1,51 @@
+## v1.3.0 (December 7, 2015)
+
+### Project name change
+
+**This project is renamed to leaflet-geocoder-mapzen. Why did we do this?**
+
+This plugin was designed for "getting started" in mind. Most users have signed up for API keys with [Mapzen Search](https://mapzen.com/projects/search) and want to put a geocoder UI on their map application with a minimal amount of hassle. In the interest of keeping a clear distinguishing line between Mapzen Search (the hosted service with an API key) and Pelias (the open-source geocoding engine) we felt that naming the project this way would be less confusing. And we wanted to do it earlier rather than later.
+
+This might qualify as a breaking change that would require a major version bump according to [Semantic Versioning](http://semver.org/), but, there wouldn't be any new features added, so it would be a waste of a version number. You could think of this project as a fork or a separate project entirely, even though the repository has changed ownership to Mapzen to preserve things like issues and permissions.
+
+The original project located at https://github.com/pelias/leaflet-geocoder, and its corresponding npm and bower packages, **are now deprecated.** There are placeholders there now to preserve functionality and to redirect users, but in the future, we will delete it.
+
+To migrate from `pelias-leaflet-geocoder` to `leaflet-geocoder-mapzen`, here are the changes you should make (if they apply to your project):
+
+#### Installing the package
+
+- **If installing from npm,** update `package.json` to use the `leaflet-geocoder-mapzen` package instead of `pelias-leaflet-geocoder`.
+- **If installing from bower,** update `bower.json` to use the `leaflet-geocoder-mapzen` package instead of `pelias-leaflet-geocoder`.
+- **If the package is downloaded directly from GitHub,** update your scripts to refer to the repository at `github.com/mapzen/leaflet-geocoder` instead of `github.com/pelias/leaflet-geocoder`.
+
+#### Linking to plugin files
+
+**Filenames in the `dist/` folder have changed.** If you are `require()`ing the plugin (or a similar syntax), in a module loading system, filenames will be transparently passed through via `package.json`. But if you are linking to any of the files directly (like the stylesheet, for example), you'll need to update the filename references too.
+
+For example:
+
+```html
+<link rel="stylesheet" href="pelias-leaflet-geocoder.css">
+<script src="pelias-leaflet-geocoder.js"></script>
+```
+
+Becomes:
+
+```html
+<link rel="stylesheet" href="leaflet-geocoder-mapzen.css">
+<script src="leaflet-geocoder-mapzen.js"></script>
+```
+
+If you are referring to any hosted versions of these files, please update those links as well. (We have not encouraged this use case previously; better support will be announced in the future when the plugin can be hosted on a supported CDN.)
+
+#### What about class names?
+
+Despite the `pelias` prefix used throughout, updating class names now would probably be a headache for everyone. **So there are no changes to class names.** We may revisit this in v2 of the plugin.
+
+
 ## v1.2.0 (December 1, 2015)
 
-- **Added events.** The geocoder now fires the following events that can be subscribed to: `results`, `error`, `select`, `highlight`, `expand`, `collapse` and `reset`. These allow applications to respond to interactions with the plugin, and will also pass along relevant data (like address labels and latitude/longitude pairs) received from the geocoder. [See the README for more information.](https://github.com/pelias/leaflet-geocoder/blob/master/README.md#events) ([#40](https://github.com/pelias/leaflet-geocoder/issues/40), [#75](https://github.com/pelias/leaflet-geocoder/issues/75))
+- **Added events.** The geocoder now fires the following events that can be subscribed to: `results`, `error`, `select`, `highlight`, `expand`, `collapse` and `reset`. These allow applications to respond to interactions with the plugin, and will also pass along relevant data (like address labels and latitude/longitude pairs) received from the geocoder. [See the README for more information.](https://github.com/mapzen/leaflet-geocoder/blob/master/README.md#events) ([#40](https://github.com/mapzen/leaflet-geocoder/issues/40), [#75](https://github.com/mapzen/leaflet-geocoder/issues/75))
 - Simplified test procedure so that it no longer requires a global install of [`jake`](http://jakejs.com/) and tests can be run locally with a standard `npm test` command.
 - Fixed a bug where pressing the up and down keys will throw errors when the results list is empty.
 - DEMO: Update [Refill](https://github.com/tangrams/refill-style/) base map location.
@@ -8,15 +53,15 @@
 ## v1.1.0 (November 11, 2015)
 
 - Added the ability for the `bounds` option to also accept rectangular bounds in simple Array form, which is expected of Leaflet methods that accept LatLngBounds objects.
-- Improved results list so that when a user is navigating the list with the keyboard, results that are not in view will scroll into view. [#34](https://github.com/pelias/leaflet-geocoder/issues/34)
-- Fixed falsy values on point and polygon icons not actually being disabled. (by [@bdon](https://github.com/bdon)) [#61](https://github.com/pelias/leaflet-geocoder/pull/61)
+- Improved results list so that when a user is navigating the list with the keyboard, results that are not in view will scroll into view. [#34](https://github.com/mapzen/leaflet-geocoder/issues/34)
+- Fixed falsy values on point and polygon icons not actually being disabled. (by [@bdon](https://github.com/bdon)) [#61](https://github.com/mapzen/leaflet-geocoder/pull/61)
 - Fixed a bug where `scrollWheelZoom` is always enabled after some interactions with search results, if this option was previously disabled using `map.scrollWheelZoom.disable()`.
 - Fixed result list z-index ordering for Leaflet v1-beta.2.
 - Prevented result highlighting from inserting empty tags into the DOM when the input is blank.
 
 ## v1.0.1 (October 9, 2015)
 
-- Fixed some inputs from being parsed as regex when highlighting results. [#25](https://github.com/pelias/leaflet-geocoder/issues/25)
+- Fixed some inputs from being parsed as regex when highlighting results. [#25](https://github.com/mapzen/leaflet-geocoder/issues/25)
 - DOCUMENTATION: Fixed badge links going to an old branch.
 - DEMO: Change base map style.
 

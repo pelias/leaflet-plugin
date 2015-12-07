@@ -9,7 +9,7 @@ module.exports = function (config) {
     // Leaflet library
     'node_modules/leaflet/dist/leaflet.js',
     // Geocoder plugin
-    'dist/pelias-leaflet-geocoder.js',
+    'dist/leaflet-geocoder-mapzen.js',
     // Tests
     'spec/suites/**/*.js',
     // Misc

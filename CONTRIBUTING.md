@@ -3,7 +3,7 @@ Contributing
 
 ## Reporting bugs
 
-You can report bugs on the project's [issues tracker](https://github.com/pelias/leaflet-geocoder/issues).
+You can report bugs on the project's [issues tracker](https://github.com/mapzen/leaflet-geocoder/issues).
 
 Before filing an issue, please make sure that your bug is not caused by [Leaflet](http://leafletjs.com/)
 or your application code (e.g. passing incorrect arguments to methods, etc.).

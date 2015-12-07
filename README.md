@@ -1,7 +1,7 @@
-[![npm version](https://img.shields.io/npm/v/pelias-leaflet-geocoder.svg?style=flat-square)](https://www.npmjs.com/package/pelias-leaflet-geocoder)
-[![CircleCI](https://img.shields.io/circleci/project/pelias/leaflet-geocoder.svg?style=flat-square)](https://circleci.com/gh/pelias/leaflet-geocoder/)
-[![David devDependencies](https://img.shields.io/david/dev/pelias/leaflet-geocoder.svg?style=flat-square)](https://david-dm.org/pelias/leaflet-geocoder/#info=devDependencies)
-[![Coverage Status](https://img.shields.io/coveralls/pelias/leaflet-geocoder.svg?style=flat-square)](https://coveralls.io/github/pelias/leaflet-geocoder?branch=master)
+[![npm version](https://img.shields.io/npm/v/leaflet-geocoder-mapzen.svg?style=flat-square)](https://www.npmjs.com/package/leaflet-geocoder-mapzen)
+[![CircleCI](https://img.shields.io/circleci/project/mapzen/leaflet-geocoder.svg?style=flat-square)](https://circleci.com/gh/mapzen/leaflet-geocoder/)
+[![David devDependencies](https://img.shields.io/david/dev/mapzen/leaflet-geocoder.svg?style=flat-square)](https://david-dm.org/mapzen/leaflet-geocoder/#info=devDependencies)
+[![Coverage Status](https://img.shields.io/coveralls/mapzen/leaflet-geocoder.svg?style=flat-square)](https://coveralls.io/github/mapzen/leaflet-geocoder?branch=master)
 
 Leaflet + Mapzen Search geocoding plugin
 ========================================
@@ -10,11 +10,11 @@ A plugin that adds the ability to search (geocode) a Leaflet-powered map using [
 
 ## Requirements
 
-Supports [Leaflet](https://github.com/Leaflet/Leaflet) **v0.7.3** (and higher) and **v1.0.0-beta.1** (and higher). (Previous Leaflet versions may work, but these are not targeted.) Browser support is IE8+, and for [more details, see below](https://github.com/pelias/leaflet-geocoder#browser-support).
+Supports [Leaflet](https://github.com/Leaflet/Leaflet) **v0.7.3** (and higher) and **v1.0.0-beta.1** (and higher). (Previous Leaflet versions may work, but these are not targeted.) Browser support is IE8+, and for [more details, see below](https://github.com/mapzen/leaflet-geocoder#browser-support).
 
 ## Demo
 
-[Click here](http://pelias.github.io/leaflet-geocoder/)
+[Click here](http://mapzen.github.io/leaflet-geocoder/)
 
 ## Basic usage
 
@@ -25,9 +25,9 @@ Supports [Leaflet](https://github.com/Leaflet/Leaflet) **v0.7.3** (and higher) a
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>
 
-<!-- Load Pelias geocoding plugin after Leaflet -->
-<link rel="stylesheet" href="pelias-leaflet-geocoder.css">
-<script src="pelias-leaflet-geocoder.js"></script>
+<!-- Load geocoding plugin after Leaflet -->
+<link rel="stylesheet" href="leaflet-geocoder-mapzen.css">
+<script src="leaflet-geocoder-mapzen.js"></script>
 ```
 
 **Step 2:** Initialize your Leaflet map
@@ -71,7 +71,7 @@ Here are a list all the settings and their default values.
 
 ### Query behavior
 
-Some options affect the Pelias query itself.
+Some options affect the Mapzen Search / Pelias query itself.
 
 option      | description                               | default value
 ----------- | ----------------------------------------- | ---------------------
@@ -87,7 +87,7 @@ These options affect the plugin's appearance and interaction behavior.
 option      | description                               | default value
 ----------- | ----------------------------------------- | ---------------------
 **position** | _String_. Corner in which to place the geocoder control. Values correspond to Leaflet [control positions](http://leafletjs.com/reference.html#control-positions). | `'topleft'`
-**attribution** | _String_. Attribution text to include for Pelias. Set to blank or `null` to disable. | `'Geocoding by <a href=\'https://mapzen.com/pelias\'>Pelias</a>'`
+**attribution** | _String_. Attribution text to include. Set to blank or `null` to disable. | `'Geocoding by <a href=\'https://mapzen.com/projects/search/\'>Mapzen</a>'`
 **placeholder** | _String_. Placeholder text to display in the search input box. Set to blank or `null` to disable. | `'Search'`
 **title** | _String_. Tooltip text to display on the search icon. Set to blank or `null` to disable. | `'Search'`
 **panToPoint** | _Boolean_. If `true`, highlighting a search result pans the map to that location. | `true`
@@ -166,7 +166,7 @@ L.control.geocoder('<your-api-key>', {
 
 // Configure if you want to zoom/pan to a point while browsing the results (up/down arrows)
 // panToPoint set to true (by default)
-// as per https://github.com/pelias/leaflet-geocoder/issues/6
+// as per https://github.com/mapzen/leaflet-geocoder/issues/6
 L.control.geocoder('<your-api-key>', {
   panToPoint: true
 }).addTo(map);
@@ -179,20 +179,20 @@ L.control.geocoder('<your-api-key>', {
 
 // Configure if you want to drop a pin for a search results or not
 // by default - this is set to true
-// as per https://github.com/pelias/leaflet-geocoder/issues/7
+// as per https://github.com/mapzen/leaflet-geocoder/issues/7
 L.control.geocoder('<your-api-key>', {
   markers: false
 }).addTo(map);
 
 // Ability to collapse to a button instead of a expanded text box
 // by default - this is set to false
-// as per https://github.com/pelias/leaflet-geocoder/issues/7
+// as per https://github.com/mapzen/leaflet-geocoder/issues/7
 L.control.geocoder('<your-api-key>', {
   expanded: false
 }).addTo(map);
 
 // Changing attribution
-// By default, adds "Geocoding by Pelias" text with a link
+// By default, adds "Geocoding by Mapzen" text with a link
 // You can remove this if you like, or change the text.
 L.control.geocoder('<your-api-key>', {
   attribution: null
@@ -256,7 +256,7 @@ event         | description
 **collapse**  | Fired when the geocoder is collapsed.
 **reset**     | Fired when the geocoder is reset ("x" button is clicked).
 
-Here is [a demo of the events](http://pelias.github.io/leaflet-geocoder/examples/events.html).
+Here is [a demo of the events](http://mapzen.github.io/leaflet-geocoder/examples/events.html).
 
 #### Getting data
 
@@ -290,11 +290,15 @@ property      | description
 
 ### Browser support
 
-The Pelias-Leaflet geocoder supports all Leaflet-supported browsers _except_ for Internet Explorer 7. The plugin makes a cross-domain request in Javascript to obtain search results, which is not supported in IE7 without JSONP. Mapzen Search [does not support API requests in JSONP](https://mapzen.com/documentation/search/use-cors/#why-not-jsonp).
+This plugin supports all Leaflet-supported browsers _except_ for Internet Explorer 7. It makes a cross-domain request in Javascript to obtain search results, which is not supported in IE7 without JSONP. Mapzen Search [does not support API requests in JSONP](https://mapzen.com/documentation/search/use-cors/#why-not-jsonp).
+
+### Using a Pelias-compatible endpoint
+
+This project was renamed as of v1.3.0 to be more closely associated with [Mapzen Search](https://mapzen.com/projects/search), the hosted geocoding service provided by Mapzen that requires an API key. You can still point the geocoder at a different service running [Pelias](https://github.com/pelias/pelias), Mapzen's open-source geocoder, by changing the `url` option (see [Query behavior,](https://github.com/mapzen/leaflet-geocoder#query-behavior) above) to the desired endpoint. If an API key is not required, then the API key value to instantiate the geocoder can be set to `undefined` or `null`.
 
 ### Accessing other plugin internals
 
-Properties and methods used internally by the geocoder are also available on the returned object. These are purposefully not private or obscured, but they are also not publicly documented right now, since functionality may fluctuate without notice. Depending on usage and demand we will lock down and document internal properties and methods for general use. [Please let us know in the issues tracker](https://github.com/pelias/leaflet-geocoder/issues) if you have feedback.
+Properties and methods used internally by the geocoder are also available on the returned object. These are purposefully not private or obscured, but they are also not publicly documented right now, since functionality may fluctuate without notice. Depending on usage and demand we will lock down and document internal properties and methods for general use. [Please let us know in the issues tracker](https://github.com/mapzen/leaflet-geocoder/issues) if you have feedback.
 
 ## Projects using this plugin
 

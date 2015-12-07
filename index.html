@@ -19,8 +19,8 @@
     <script src="https://mapzen.com/tangram/tangram.min.js"></script>
 
     <!-- Load Pelias geocoding plugin after Leaflet -->
-    <link rel="stylesheet" href="./dist/pelias-leaflet-geocoder.css">
-    <script src="./dist/pelias-leaflet-geocoder.js"></script>
+    <link rel="stylesheet" href="./dist/leaflet-geocoder-mapzen.css">
+    <script src="./dist/leaflet-geocoder-mapzen.js"></script>
 
     <style>
       html, body {
@@ -97,7 +97,7 @@
       // Add Tangram scene layer
       var layer = Tangram.leafletLayer({
         scene: 'https://cdn.rawgit.com/tangrams/refill-style/ef1259dbbcd5f47ad3e8bed1a27c4fcab9676b3c/refill-style.yaml',
-        attribution: 'Rendering by <a href="https://mapzen.com/tangram">Tangram</a> | &copy; OSM contributors | <a href="https://mapzen.com/">Mapzen</a>'
+        attribution: 'Rendering by <a href="https://mapzen.com/tangram">Tangram</a> | &copy; OSM contributors'
       }).addTo(map);
 
       // Adding a script block to post message to the parent container (think iframed demos)
