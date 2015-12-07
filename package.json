@@ -1,8 +1,8 @@
 {
-  "name": "pelias-leaflet-geocoder",
-  "version": "1.2.0",
+  "name": "leaflet-geocoder-mapzen",
+  "version": "1.3.0",
   "description": "Leaflet plugin to search (geocode) using Mapzen Search or your own hosted version of the Pelias Geocoder API.",
-  "main": "dist/pelias-leaflet-geocoder.js",
+  "main": "dist/leaflet-geocoder-mapzen.js",
   "directories": {
     "example": "examples"
   },
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/pelias/leaflet-geocoder.git"
+    "url": "https://github.com/mapzen/leaflet-geocoder.git"
   },
   "keywords": [
     "leaflet",
@@ -27,9 +27,9 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/pelias/leaflet-geocoder/issues"
+    "url": "https://github.com/mapzen/leaflet-geocoder/issues"
   },
-  "homepage": "https://github.com/pelias/leaflet-geocoder",
+  "homepage": "https://github.com/mapzen/leaflet-geocoder",
   "peerDependencies": {
     "leaflet": "^0.7.x || >=1.0.0-beta.1"
   },

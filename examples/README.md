@@ -13,7 +13,7 @@ The first way is that you can initialize a map with the option `zoomControl: fal
 var map = L.map('map', { zoomControl: false });
 
 // Add your geocoder control
-L.control.geocoder('<pelias-api-key>').addTo(map);
+L.control.geocoder('<your-api-key>').addTo(map);
 
 // Add zoom control back
 L.control.zoom().addTo(map);
@@ -26,7 +26,7 @@ Alternatively you can add a map as normal and use JavaScript to re-order your DO
 var map = L.map('map');
 
 // Add your geocoder control
-var geocoder = new L.Control.Geocoder('<pelias-api-key>').addTo(map);
+var geocoder = new L.Control.Geocoder('<your-api-key>').addTo(map);
 
 // Re-sort control order so that geocoder is on top
 // geocoder._container is a reference to the geocoder's DOM element.

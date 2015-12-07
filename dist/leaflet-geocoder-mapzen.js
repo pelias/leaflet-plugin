@@ -33,7 +33,7 @@
 
     options: {
       position: 'topleft',
-      attribution: 'Geocoding by <a href=\'https://mapzen.com/pelias\'>Pelias</a>',
+      attribution: 'Geocoding by <a href=\'https://mapzen.com/projects/search/\'>Mapzen</a>',
       url: 'https://search.mapzen.com/v1',
       placeholder: 'Search',
       title: 'Search',
