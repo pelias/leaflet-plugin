@@ -20,7 +20,13 @@ To migrate from `pelias-leaflet-geocoder` to `leaflet-geocoder-mapzen`, here are
 
 #### Linking to plugin files
 
-**Filenames in the `dist/` folder have changed.** If you are `require()`ing the plugin (or a similar syntax), in a module loading system, filenames will be transparently passed through via `package.json`. But if you are linking to any of the files directly (like the stylesheet, for example), you'll need to update the filename references too.
+**Module loading systems**
+
+Since the package name has changed, you need to `require()` or `import` from the new package name.
+
+**Filenames in the `dist/` folder have changed.**
+
+If you are linking to any of the files directly (like the stylesheet, for example), you'll need to update the filename references.
 
 For example:
 
@@ -42,6 +48,9 @@ If you are referring to any hosted versions of these files, please update those 
 
 Despite the `pelias` prefix used throughout, updating class names now would probably be a headache for everyone. **So there are no changes to class names.** We may revisit this in v2 of the plugin.
 
+#### Miscellaneous
+
+Default attribution has been changed to "Geocoding by Mapzen" with a link to Mapzen Search.
 
 ## v1.2.0 (December 1, 2015)
 
