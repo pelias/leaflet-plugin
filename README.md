@@ -73,6 +73,8 @@ require('leaflet-geocoder-mapzen')
 // Now you can do step 2 and 3 from "Basic usage" instructions, above
 ```
 
+This plugin implements the [Universal Module Definition](https://github.com/umdjs/umd) so you can also use it in AMD and CommonJS environments.
+
 ## Customizing the plugin
 
 You can optionally specify additional settings to the plugin by passing in an object as a second argument to the `geocoder()` method, like so:
