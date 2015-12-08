@@ -53,6 +53,25 @@ L.control.geocoder('<your-api-key>').addTo(map);
 
 It has much more detailed instructions and is very friendly for beginners. [Check it out here](https://mapzen.com/documentation/search/add-search-to-a-map/).
 
+### Want this as a module?
+
+You can install with [npm](https://www.npmjs.com/):
+
+```sh
+npm install leaflet-geocoder-mapzen
+```
+
+And then import it in your module system. For instance, in [Browserify's node.js-like syntax](http://browserify.org/):
+
+```javascript
+// Require Leaflet first
+var L = require('leaflet')
+
+// Requiring the geocoder extends Leaflet automatically
+require('leaflet-geocoder-mapzen')
+
+// Now you can do step 2 and 3 from "Basic usage" instructions, above
+```
 
 ## Customizing the plugin
 
