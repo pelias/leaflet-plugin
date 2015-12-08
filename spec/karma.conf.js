@@ -12,8 +12,16 @@ module.exports = function (config) {
     'dist/leaflet-geocoder-mapzen.js',
     // Tests
     'spec/suites/**/*.js',
+    // Fixtures
+    { pattern: 'spec/fixtures/*',
+      watched: false,
+      included: false,
+      served: true },
     // Misc
-    { pattern: 'dist/images/*.png', included: false }
+    { pattern: 'dist/images/*.png',
+      watched: false,
+      included: false,
+      served: true }
   ];
 
   config.set({
@@ -37,6 +45,12 @@ module.exports = function (config) {
     // list of files / patterns to load in the browser
     files: files,
     exclude: [],
+
+    // serve fixtures from the same relative paths
+    proxies: {
+      '/fixtures/': '/base/spec/fixtures/',
+      '/images/': '/base/dist/images/'
+    },
 
     // test results reporter to use
     // possible values: 'dots', 'progress', 'junit', 'growl', 'coverage'

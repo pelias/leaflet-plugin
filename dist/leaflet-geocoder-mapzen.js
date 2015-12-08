@@ -278,7 +278,6 @@
         return;
       }
 
-      var list;
       var resultsContainer = this._results;
 
       // Reset and display results container
@@ -287,9 +286,7 @@
       // manage result box height
       resultsContainer.style.maxHeight = (this._map.getSize().y - resultsContainer.offsetTop - this._container.offsetTop - RESULTS_HEIGHT_MARGIN) + 'px';
 
-      if (!list) {
-        list = L.DomUtil.create('ul', 'leaflet-pelias-list', resultsContainer);
-      }
+      var list = L.DomUtil.create('ul', 'leaflet-pelias-list', resultsContainer);
 
       for (var i = 0, j = features.length; i < j; i++) {
         var feature = features[i];
