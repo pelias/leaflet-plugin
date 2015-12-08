@@ -33,7 +33,7 @@
 
     options: {
       position: 'topleft',
-      attribution: 'Geocoding by <a href=\'https://mapzen.com/projects/search/\'>Mapzen</a>',
+      attribution: 'Geocoding by <a href="https://mapzen.com/projects/search/">Mapzen</a>',
       url: 'https://search.mapzen.com/v1',
       placeholder: 'Search',
       title: 'Search',
@@ -99,7 +99,7 @@
         params = makeParamsFromLeaflet(params, bounds);
       } else if (typeof bounds === 'object' && bounds.isValid && bounds.isValid()) {
         params = makeParamsFromLeaflet(params, bounds);
-      } else if (typeof bounds === 'object' && bounds.length > 0) {
+      } else if (L.Util.isArray(bounds)) {
         var latLngBounds = L.latLngBounds(bounds);
         if (latLngBounds.isValid && latLngBounds.isValid()) {
           params = makeParamsFromLeaflet(params, latLngBounds);
