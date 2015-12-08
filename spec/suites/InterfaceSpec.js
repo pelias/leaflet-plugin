@@ -12,6 +12,7 @@ describe('Interface', function () {
   });
 
   afterEach('destroy map', function () {
+    map.remove();
     document.body.removeChild(el);
   });
 
