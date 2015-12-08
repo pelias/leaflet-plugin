@@ -77,10 +77,16 @@ describe('Results', function () {
       expect(el.querySelector('.leaflet-pelias-result').feature).to.be.an('object');
       expect(el.querySelector('.leaflet-pelias-result').textContent).to.be.a('string');
     });
+
+    it('highlights snippets of the text label with the query text', function () {
+      geocoder._input.value = 'french';
+      geocoder.showResults(results.features);
+
+      expect(el.querySelector('.leaflet-pelias-result').innerHTML).to.contain('<strong>French</strong>');
+    });
   });
 
   it('throws away stale results');
-  it('highlights snippets of the text label with the query text');
   it('highlights results when up or down arrow keys are pressed');
   it('selects a highlighted result when the enter key is pressed');
   it('selects a result when it is clicked on');
