@@ -131,6 +131,17 @@ describe('Options', function () {
         happen.click(geocoder._search);
         expect(geocoder.getContainer().classList.contains('leaflet-pelias-expanded')).to.be(true);
       });
+
+      it('should collapse if the .collapse() method is called', function () {
+        geocoder.collapse();
+        expect(geocoder.getContainer().classList.contains('leaflet-pelias-expanded')).to.be(false);
+      });
+
+      it('should expand again if .collapse() is called and then I click the search icon', function () {
+        geocoder.collapse();
+        happen.click(geocoder._search);
+        expect(geocoder.getContainer().classList.contains('leaflet-pelias-expanded')).to.be(true);
+      });
     });
 
     describe('when false', function () {

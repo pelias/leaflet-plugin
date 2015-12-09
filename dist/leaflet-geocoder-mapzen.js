@@ -482,20 +482,22 @@
         .on(this._search, 'click', function (e) {
           L.DomEvent.stopPropagation(e);
 
-          // If expanded option is true, just focus the input
-          if (this.options.expanded === true) {
-            this._input.focus();
-            return;
-          }
-
           // Toggles expanded state of container on click of search icon
           if (L.DomUtil.hasClass(this._container, 'leaflet-pelias-expanded')) {
-            L.DomUtil.addClass(this._close, 'leaflet-pelias-hidden');
-            if (!this.options.expanded) {
-              this.collapse();
+            // If expanded option is true, just focus the input
+            if (this.options.expanded === true) {
+              this._input.focus();
+              return;
+            } else {
+              // Otherwise, toggle to hidden state
+              L.DomUtil.addClass(this._close, 'leaflet-pelias-hidden');
+              if (!this.options.expanded) {
+                this.collapse();
+              }
+              this._input.blur();
             }
-            this._input.blur();
           } else {
+            // If not currently expanded, clicking here always expands it
             if (this._input.value.length > 0) {
               L.DomUtil.removeClass(this._close, 'leaflet-pelias-hidden');
             }
