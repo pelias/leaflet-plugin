@@ -58,9 +58,16 @@
         this.options.url = '//search.mapzen.com/v1';
       }
 
+      // If the apiKey is omitted entirely and the
+      // first parameter is actually the options
+      if (typeof apiKey === 'object' && !!apiKey) {
+        options = apiKey;
+      } else {
+        this.apiKey = apiKey;
+      }
+
       // Now merge user-specified options
       L.Util.setOptions(this, options);
-      this.apiKey = apiKey;
       this.marker;
       this.markers = [];
     },

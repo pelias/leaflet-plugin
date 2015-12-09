@@ -20,6 +20,44 @@ describe('Search options', function () {
     document.body.removeChild(el);
   }
 
+  // API keys
+  describe('api key', function () {
+    it('should accept an API key', function () {
+      var geocoder = new L.Control.Geocoder('search-xxxxxx', {});
+
+      expect(geocoder.apiKey).to.be('search-xxxxxx');
+      // TODO: check api key is on params
+    });
+
+    it('should not fail without an API key', function () {
+      var geocoder = new L.Control.Geocoder();
+
+      expect(geocoder.apiKey).to.not.be.ok();
+      // TODO: check api key is not on params
+    });
+
+    it('should not be set if API key is undefined', function () {
+      var geocoder = new L.Control.Geocoder(undefined, {});
+
+      expect(geocoder.apiKey).to.not.be.ok();
+      // TODO: check api key is not on params
+    });
+
+    it('should not be set if API key is null', function () {
+      var geocoder = new L.Control.Geocoder(null, {});
+
+      expect(geocoder.apiKey).to.not.be.ok();
+      // TODO: check api key is not on params
+    });
+
+    it('should still pick up options if the API key is parameter is omitted entirely', function () {
+      var geocoder = new L.Control.Geocoder({});
+
+      expect(geocoder.apiKey).to.not.be.ok();
+      // TODO: check api key is not on params
+    });
+  });
+
   // Tests return value of getBoundingBoxParam()
   describe('bounds', function () {
     it('should not set boundary.rect parameters by default', function () {
