@@ -375,7 +375,9 @@
       this._input.blur();
       if (this._input.value === '' && this._results.style.display !== 'none') {
         L.DomUtil.addClass(this._close, 'leaflet-pelias-hidden');
-        this.collapse();
+        if (!this.options.expanded) {
+          this.collapse();
+        }
       }
     },
 
@@ -396,11 +398,9 @@
     },
 
     collapse: function () {
-      // Does not collapse if search bar is always expanded
-      if (this.options.expanded) {
-        return;
-      }
-
+      // 'expanded' options check happens outside of this function now
+      // So it's now possible for a script to force-collapse a geocoder
+      // that otherwise defaults to the always-expanded state
       L.DomUtil.removeClass(this._container, 'leaflet-pelias-expanded');
       this.clearFullWidth();
       this.clearResults();
@@ -491,7 +491,9 @@
           // Toggles expanded state of container on click of search icon
           if (L.DomUtil.hasClass(this._container, 'leaflet-pelias-expanded')) {
             L.DomUtil.addClass(this._close, 'leaflet-pelias-hidden');
-            this.collapse();
+            if (!this.options.expanded) {
+              this.collapse();
+            }
             this._input.blur();
           } else {
             if (this._input.value.length > 0) {
@@ -630,7 +632,9 @@
               this._input.blur();
 
               if (L.DomUtil.hasClass(this._container, 'leaflet-pelias-expanded')) {
-                this.collapse();
+                if (!this.options.expanded) {
+                  this.collapse();
+                }
                 this.clearResults();
               }
             }
