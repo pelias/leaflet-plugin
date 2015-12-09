@@ -16,7 +16,16 @@ describe('Interface', function () {
     document.body.removeChild(el);
   });
 
-  describe('Close button', function () {
+  describe('Basic interactions', function () {
+    it('focuses on the input when I click on the geocoder', function () {
+      var geocoder = new L.Control.Geocoder();
+      geocoder.addTo(map);
+      happen.click(geocoder.getContainer());
+      expect(document.activeElement).to.be(geocoder._input);
+    });
+  });
+
+  describe('The × button', function () {
     it('should not be visible when control is first added', function () {
       var geocoder = new L.Control.Geocoder();
       geocoder.addTo(map);
@@ -58,5 +67,35 @@ describe('Interface', function () {
       expect(geocoder._results.style.display).to.be('none');
       expect(geocoder._results.innerHTML.length).to.be(0);
     });
+  });
+
+  describe('Interacting with results list', function () {
+    it.skip('does stuff when keydown', function () {
+      var geocoder = new L.Control.Geocoder();
+      geocoder.addTo(map);
+      happen.keydown(geocoder._input);
+      // TODO
+    });
+  });
+
+  describe('Actions that toggle expanded state', function () {
+    it('does not collapse if: map is clicked, and geocoder contains input', function () {
+      var geocoder = new L.Control.Geocoder();
+      var onCollapse = sinon.spy();
+
+      geocoder.addTo(map);
+      geocoder.on('collapse', onCollapse);
+
+      // Simulates input
+      geocoder.expand();
+      geocoder._input.value = 'a';
+
+      // Click the map
+      happen.click(map);
+      expect(onCollapse.called).to.be(false);
+      expect(geocoder.getContainer().classList.contains('leaflet-pelias-expanded')).to.be(true);
+    });
+
+    it('collapses if: map is panned, and a result is highlighted');
   });
 });

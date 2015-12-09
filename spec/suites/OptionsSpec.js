@@ -106,6 +106,18 @@ describe('Options', function () {
     });
   });
 
+  describe('layer icons', function () {
+    it('sets the point icon', function () {
+      var geocoder = new L.Control.Geocoder({ pointIcon: 'foo' });
+      expect(geocoder.options.pointIcon).to.be('foo');
+    });
+
+    it('sets the polygon icon', function () {
+      var geocoder = new L.Control.Geocoder({ polygonIcon: 'bar' });
+      expect(geocoder.options.polygonIcon).to.be('bar');
+    });
+  });
+
   describe('expanded', function () {
     describe('when true', function () {
       var geocoder;

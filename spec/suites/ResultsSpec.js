@@ -79,10 +79,61 @@ describe('Results', function () {
     });
 
     it('highlights snippets of the text label with the query text', function () {
-      geocoder._input.value = 'french';
-      geocoder.showResults(results.features);
+      // Test case insensitive matching
+      geocoder._input.value = 'foo';
+      geocoder.showResults([{
+        'properties': {
+          'layer': 'region',
+          'label': 'Foo, Bar'
+        },
+        'geometry': {
+          'coordinates': [0, 0]
+        }
+      }]);
 
-      expect(el.querySelector('.leaflet-pelias-result').innerHTML).to.contain('<strong>French</strong>');
+      expect(el.querySelector('.leaflet-pelias-result').innerHTML).to.contain('<strong>Foo</strong>');
+    });
+
+    describe('layer icons', function () {
+      it('gets the correct layer icon for layer `venue`', function () {
+        var icon = geocoder.getIconType('venue');
+        expect(icon).to.equal(geocoder.options.pointIcon);
+      });
+
+      it('gets the correct layer icon for layer `address`', function () {
+        var icon = geocoder.getIconType('address');
+        expect(icon).to.equal(geocoder.options.pointIcon);
+      });
+
+      it('gets the correct layer icon for layer `country`', function () {
+        var icon = geocoder.getIconType('country');
+        expect(icon).to.equal(geocoder.options.polygonIcon);
+      });
+
+      it('gets the correct layer icon for layer `region`', function () {
+        var icon = geocoder.getIconType('region');
+        expect(icon).to.equal(geocoder.options.polygonIcon);
+      });
+
+      it('gets the correct layer icon for layer `county`', function () {
+        var icon = geocoder.getIconType('county');
+        expect(icon).to.equal(geocoder.options.polygonIcon);
+      });
+
+      it('gets the correct layer icon for layer `locality`', function () {
+        var icon = geocoder.getIconType('locality');
+        expect(icon).to.equal(geocoder.options.polygonIcon);
+      });
+
+      it('gets the correct layer icon for layer `localadmin`', function () {
+        var icon = geocoder.getIconType('localadmin');
+        expect(icon).to.equal(geocoder.options.polygonIcon);
+      });
+
+      it('gets the correct layer icon for layer `neighbourhood`', function () {
+        var icon = geocoder.getIconType('neighbourhood');
+        expect(icon).to.equal(geocoder.options.polygonIcon);
+      });
     });
   });
 

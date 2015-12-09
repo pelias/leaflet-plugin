@@ -3,232 +3,240 @@
     "version": "0.1",
     "attribution": "https://search.mapzen.com/v1/attribution",
     "query": {
-      "text": "tahiti",
+      "text": "new york",
       "size": 10,
       "private": false,
-      "focus.point.lat": 52.321491189456374,
-      "focus.point.lon": 17.580013275146484
+      "focus.point.lat": 40.725925340669626,
+      "focus.point.lon": -73.98073196411133
     },
     "engine": {
       "name": "Pelias",
       "author": "Mapzen",
       "version": "1.0"
     },
-    "timestamp": 1449588031981
+    "timestamp": 1449699858273
   },
   "type": "FeatureCollection",
   "features": [{
     "type": "Feature",
     "properties": {
-      "id": "4033649",
-      "gid": "gn:venue:4033649",
-      "layer": "venue",
+      "id": "5128638",
+      "gid": "gn:region:5128638",
+      "layer": "region",
       "source": "gn",
-      "name": "Tahiti",
-      "country_a": "PYF",
-      "country": "French Polynesia",
-      "region": "Îles du Vent",
-      "confidence": 0.963,
-      "distance": 15993.601,
-      "label": "Tahiti, Îles du Vent, French Polynesia"
-    },
-    "geometry": {
-      "type": "Point",
-      "coordinates": [-149.42951, -17.6486]
-    }
-  }, {
-    "type": "Feature",
-    "properties": {
-      "id": "1251367532",
-      "gid": "osm:venue:1251367532",
-      "layer": "venue",
-      "source": "osm",
-      "name": "Tahiti",
-      "country_a": "FRA",
-      "country": "France",
-      "region": "Mayenne",
-      "county": "SAINT-AIGNAN-SUR-ROE",
-      "localadmin": "RENAZE",
-      "locality": "RenazÃ©",
-      "confidence": 0.721,
-      "distance": 1421.45,
-      "label": "Tahiti, RENAZE, France"
-    },
-    "geometry": {
-      "type": "Point",
-      "coordinates": [-1.058298, 47.79622]
-    }
-  }, {
-    "type": "Feature",
-    "properties": {
-      "id": "155938435",
-      "gid": "osm:venue:155938435",
-      "layer": "venue",
-      "source": "osm",
-      "name": "Tahiti",
-      "country_a": "ECU",
-      "country": "Ecuador",
-      "region": "Esmeraldas",
-      "confidence": 0.721,
-      "distance": 10437.158,
-      "label": "Tahiti, Esmeraldas, Ecuador"
-    },
-    "geometry": {
-      "type": "Point",
-      "coordinates": [-79.84878, 0.874138]
-    }
-  }, {
-    "type": "Feature",
-    "properties": {
-      "id": "176471259",
-      "gid": "osm:venue:176471259",
-      "layer": "venue",
-      "source": "osm",
-      "name": "Tahiti",
-      "confidence": 0.721,
-      "distance": 1626.27,
-      "label": "Tahiti"
-    },
-    "geometry": {
-      "type": "Point",
-      "coordinates": [-1.243542, 44.629509]
-    }
-  }, {
-    "type": "Feature",
-    "properties": {
-      "id": "1152145833",
-      "gid": "osm:venue:1152145833",
-      "layer": "venue",
-      "source": "osm",
-      "name": "Tahiti",
-      "country_a": "FRA",
-      "country": "France",
-      "region": "Haute-Garonne",
-      "county": "TOULOUSE",
-      "localadmin": "TOULOUSE",
-      "locality": "Toulouse",
-      "neighbourhood": "Montaudran",
-      "confidence": 0.721,
-      "distance": 1540.272,
-      "label": "Tahiti, TOULOUSE, France"
-    },
-    "geometry": {
-      "type": "Point",
-      "coordinates": [1.480687, 43.579942]
-    }
-  }, {
-    "type": "Feature",
-    "properties": {
-      "id": "2189216551",
-      "gid": "osm:venue:2189216551",
-      "layer": "venue",
-      "source": "osm",
-      "name": "Tahitis",
+      "name": "New York",
       "country_a": "USA",
       "country": "United States",
-      "region": "Oregon",
-      "region_a": "OR",
-      "county": "Jackson County",
-      "locality": "Shady Cove",
-      "confidence": 0.661,
-      "distance": 8820.932,
-      "label": "Tahitis, Shady Cove, OR"
+      "region": "New York",
+      "region_a": "NY",
+      "confidence": 0.942,
+      "distance": 282.347,
+      "label": "New York, NY"
     },
     "geometry": {
       "type": "Point",
-      "coordinates": [-122.817653, 42.595286]
+      "coordinates": [-75.4999, 43.00035]
     }
   }, {
     "type": "Feature",
     "properties": {
-      "id": "2147621",
-      "gid": "gn:venue:2147621",
-      "layer": "venue",
+      "id": "5128581",
+      "gid": "gn:locality:5128581",
+      "layer": "locality",
       "source": "gn",
-      "name": "Tahiti",
-      "country_a": "AUS",
-      "country": "Australia",
-      "region": "Queensland",
-      "county": "Fraser Coast",
-      "localadmin": "Tiaro",
-      "confidence": 0.721,
-      "distance": 15251.509,
-      "label": "Tahiti, Tiaro, Australia"
-    },
-    "geometry": {
-      "type": "Point",
-      "coordinates": [152.66667, -25.75]
-    }
-  }, {
-    "type": "Feature",
-    "properties": {
-      "id": "2189216549",
-      "gid": "osm:venue:2189216549",
-      "layer": "venue",
-      "source": "osm",
-      "name": "Tahitis",
+      "name": "New York City",
       "country_a": "USA",
       "country": "United States",
-      "region": "Oregon",
-      "region_a": "OR",
-      "county": "Jackson County",
-      "locality": "Shady Cove",
-      "confidence": 0.661,
-      "distance": 8820.932,
-      "label": "Tahitis, Shady Cove, OR"
+      "region": "New York",
+      "region_a": "NY",
+      "county": "New York County",
+      "localadmin": "Manhattan",
+      "locality": "New York",
+      "confidence": 0.88,
+      "distance": 2.494,
+      "label": "New York City, Manhattan, NY"
     },
     "geometry": {
       "type": "Point",
-      "coordinates": [-122.817653, 42.595286]
+      "coordinates": [-74.00597, 40.71427]
     }
   }, {
     "type": "Feature",
     "properties": {
-      "id": "1018349851",
-      "gid": "osm:venue:1018349851",
-      "layer": "venue",
-      "source": "osm",
-      "name": "Tahiti",
-      "housenumber": "51",
-      "street": "Königstraße",
-      "postalcode": "70173",
-      "country_a": "DEU",
-      "country": "Germany",
-      "region": "Baden-Württemberg",
-      "county": "Stuttgart",
-      "locality": "Stuttgart",
-      "neighbourhood": "Gablenberg",
-      "confidence": 0.721,
-      "distance": 713.899,
-      "label": "Tahiti, Stuttgart, Germany"
+      "id": "7163824",
+      "gid": "gn:neighbourhood:7163824",
+      "layer": "neighbourhood",
+      "source": "gn",
+      "name": "City of New York",
+      "country_a": "USA",
+      "country": "United States",
+      "region": "New York",
+      "region_a": "NY",
+      "county": "Kings County",
+      "localadmin": "Brooklyn",
+      "locality": "New York",
+      "neighbourhood": "Wingate",
+      "confidence": 0.88,
+      "distance": 7.764,
+      "label": "City of New York, Brooklyn, NY"
     },
     "geometry": {
       "type": "Point",
-      "coordinates": [9.175307, 48.773433]
+      "coordinates": [-73.93827, 40.66393]
     }
   }, {
     "type": "Feature",
     "properties": {
-      "id": "1152145856",
-      "gid": "osm:venue:1152145856",
-      "layer": "venue",
-      "source": "osm",
-      "name": "Tahiti",
-      "country_a": "FRA",
-      "country": "France",
-      "region": "Haute-Garonne",
-      "county": "TOULOUSE",
-      "localadmin": "TOULOUSE",
-      "locality": "Toulouse",
-      "neighbourhood": "Montaudran",
-      "confidence": 0.721,
-      "distance": 1540.246,
-      "label": "Tahiti, TOULOUSE, France"
+      "id": "5128594",
+      "gid": "gn:county:5128594",
+      "layer": "county",
+      "source": "gn",
+      "name": "New York County",
+      "country_a": "USA",
+      "country": "United States",
+      "region": "New York",
+      "region_a": "NY",
+      "county": "New York County",
+      "confidence": 0.672,
+      "distance": 5.447,
+      "label": "New York County, NY"
     },
     "geometry": {
       "type": "Point",
-      "coordinates": [1.481744, 43.579492]
+      "coordinates": [-73.96981, 40.77427]
+    }
+  }, {
+    "type": "Feature",
+    "properties": {
+      "id": "4620:adm1:us:usa:new_york",
+      "gid": "qs:region:4620:adm1:us:usa:new_york",
+      "layer": "region",
+      "source": "qs",
+      "name": "New York",
+      "country_a": "USA",
+      "country": "United States",
+      "region": "New York",
+      "region_a": "NY",
+      "confidence": 0.726,
+      "distance": 278.328,
+      "label": "New York, NY"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-75.5965380262893, 42.9212264452746]
+    }
+  }, {
+    "type": "Feature",
+    "properties": {
+      "id": "5115985",
+      "gid": "gn:neighbourhood:5115985",
+      "layer": "neighbourhood",
+      "source": "gn",
+      "name": "East New York",
+      "country_a": "USA",
+      "country": "United States",
+      "region": "New York",
+      "region_a": "NY",
+      "county": "Kings County",
+      "localadmin": "Brooklyn",
+      "locality": "New York",
+      "confidence": 0.66,
+      "distance": 10.596,
+      "label": "East New York, Brooklyn, NY"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-73.88236, 40.66677]
+    }
+  }, {
+    "type": "Feature",
+    "properties": {
+      "id": "14767:adm2:us:usa:new_york_county",
+      "gid": "qs:county:14767:adm2:us:usa:new_york_county",
+      "layer": "county",
+      "source": "qs",
+      "name": "New York County",
+      "country_a": "USA",
+      "country": "United States",
+      "region": "New York",
+      "region_a": "NY",
+      "county": "New York County",
+      "confidence": 0.66,
+      "distance": 5.448,
+      "label": "New York County, NY"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-73.9698112681886, 40.7742725323615]
+    }
+  }, {
+    "type": "Feature",
+    "properties": {
+      "id": "5106292",
+      "gid": "gn:locality:5106292",
+      "layer": "locality",
+      "source": "gn",
+      "name": "West New York",
+      "country_a": "USA",
+      "country": "United States",
+      "region": "New Jersey",
+      "region_a": "NJ",
+      "county": "Hudson County",
+      "localadmin": "West New York",
+      "locality": "West New York",
+      "confidence": 0.654,
+      "distance": 7.441,
+      "label": "West New York, Hudson County, NJ"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-74.01431, 40.78788]
+    }
+  }, {
+    "type": "Feature",
+    "properties": {
+      "id": "5106296",
+      "gid": "gn:neighbourhood:5106296",
+      "layer": "neighbourhood",
+      "source": "gn",
+      "name": "Town of West New York",
+      "country_a": "USA",
+      "country": "United States",
+      "region": "New Jersey",
+      "region_a": "NJ",
+      "county": "Hudson County",
+      "localadmin": "West New York",
+      "locality": "West New York",
+      "neighbourhood": "Ansonia",
+      "confidence": 0.65,
+      "distance": 7.059,
+      "label": "Town of West New York, West New York, NJ"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-74.00931, 40.78566]
+    }
+  }, {
+    "type": "Feature",
+    "properties": {
+      "id": "16829:locality:us:usa:new_york",
+      "gid": "qs:locality:16829:locality:us:usa:new_york",
+      "layer": "locality",
+      "source": "qs",
+      "name": "New York",
+      "country_a": "USA",
+      "country": "United States",
+      "region": "New York",
+      "region_a": "NY",
+      "county": "Kings County",
+      "confidence": 0.706,
+      "distance": 7.764,
+      "label": "New York, Kings County, NY"
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-73.9382709905741, 40.6639270805784]
     }
   }],
-  "bbox": [-149.42951, -25.75, 152.66667, 48.773433]
+  "bbox": [-75.5965380262893, 40.6639270805784, -73.88236, 43.00035]
 }
