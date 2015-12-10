@@ -1,16 +1,3 @@
-// Read sample results data
-function loadJSON (path, callback) {
-  var xobj = new XMLHttpRequest();
-  xobj.overrideMimeType('application/json');
-  xobj.open('GET', path, true);
-  xobj.onreadystatechange = function () {
-    if (xobj.readyState === 4 && xobj.status === 200) {
-      callback(xobj.responseText);
-    }
-  };
-  xobj.send(null);
-}
-
 describe('Results', function () {
   var el;
   var map;
@@ -138,7 +125,4 @@ describe('Results', function () {
   });
 
   it('throws away stale results');
-  it('highlights results when up or down arrow keys are pressed');
-  it('selects a highlighted result when the enter key is pressed');
-  it('selects a result when it is clicked on');
 });

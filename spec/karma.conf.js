@@ -10,6 +10,8 @@ module.exports = function (config) {
     'node_modules/leaflet/dist/leaflet.js',
     // Geocoder plugin
     'dist/leaflet-geocoder-mapzen.js',
+    // Helpers
+    'spec/helpers.js',
     // Tests
     'spec/suites/**/*.js',
     // Fixtures

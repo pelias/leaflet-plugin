@@ -1,17 +1,14 @@
 {
   "extends": ["semistandard"],
+  "env": {
+    "browser": true,
+    "mocha": true
+  },
   "globals": {
     "L": true,
-    "module": false,
-    "define": false,
     "expect": false,
-    "it": false,
-    "describe": false,
     "sinon": false,
     "happen": false,
-    "before": false,
-    "after": false,
-    "beforeEach": false,
-    "afterEach": false
+    "loadJSON": true
   }
 }
