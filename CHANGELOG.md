@@ -1,3 +1,13 @@
+## v1.4.0 (next)
+
+- **Now hosted by cdnjs!** [Link to project page](https://cdnjs.com/libraries/leaflet-geocoder-mapzen)
+- Added the ability to omit the first API key parameter when instantiating the geocoder, for custom API endpoints (running Pelias) that do not require an API key.
+- Improved and documented the geocoder's internal `.collapse()` and `.expand()` methods.
+- Fixed a bug where clicking on the map when the geocoder is already collapsed will continue to fire collapse events. [#83](https://github.com/mapzen/leaflet-geocoder/issues/83)
+- Optimized image sizes losslessly with optipng. (by [@PeterDaveHello](https://github.com/PeterDaveHello)) [#88](https://github.com/mapzen/leaflet-geocoder/pull/88)
+- Removed executable permissions from image files. (by [@PeterDaveHello](https://github.com/PeterDaveHello)) [#87](https://github.com/mapzen/leaflet-geocoder/pull/87)
+- Continued improving test coverage.
+
 ## v1.3.0 (December 7, 2015)
 
 ### Project name change

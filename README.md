@@ -9,17 +9,19 @@ Leaflet + Mapzen Search geocoding plugin
 
 A plugin that adds the ability to search (geocode) a Leaflet-powered map using [Mapzen Search](https://mapzen.com/projects/search) or your own hosted version of the [Pelias Geocoder API](https://github.com/pelias/api).
 
+## Demo
+
+[Click here](https://mapzen.github.io/leaflet-geocoder/)
+
 ## Requirements
 
 Supports [Leaflet](https://github.com/Leaflet/Leaflet) **v0.7.3** (and higher) and **v1.0.0-beta.1** (and higher). (Previous Leaflet versions may work, but these are not targeted.) Browser support is IE8+, and for [more details, see below](https://github.com/mapzen/leaflet-geocoder#browser-support).
 
-## Demo
-
-[Click here](http://mapzen.github.io/leaflet-geocoder/)
-
 ## Basic usage
 
 **Step 1:** Import the required Leaflet JavaScript and CSS files
+
+The plugin is hosted by [cdnjs](http://cdnjs.com/libraries/leaflet-geocoder-mapzen)!
 
 ```html
 <!-- Load Leaflet from CDN -->
@@ -27,8 +29,8 @@ Supports [Leaflet](https://github.com/Leaflet/Leaflet) **v0.7.3** (and higher) a
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>
 
 <!-- Load geocoding plugin after Leaflet -->
-<link rel="stylesheet" href="leaflet-geocoder-mapzen.css">
-<script src="leaflet-geocoder-mapzen.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-geocoder-mapzen/1.3.0/leaflet-geocoder-mapzen.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-geocoder-mapzen/1.3.0/leaflet-geocoder-mapzen.js"></script>
 ```
 
 **Step 2:** Initialize your Leaflet map
@@ -254,6 +256,19 @@ var element = geocoder.getContainer();
 geocoder.removeFrom(map); // or geocoder.remove() in Leaflet v1
 ```
 
+### Methods
+
+There are additional methods on the geocoder that you can use.
+
+```js
+// Expand the geocoder.
+geocoder.expand();
+
+// Collapse the geocoder.
+// This works even if the option `expanded` is set to true!
+geocoder.collapse();
+```
+
 ### Events
 
 The geocoder includes all of Leaflet's [events methods](http://leafletjs.com/reference.html#events) and adds additional events that you can subscribe to, so that you can customize what happens when users interact with the geocoder. When you instantiate a new geocoder, assign it to variable, as above, and then you can use the event methods to listen for the events that it's firing. For example:
@@ -316,7 +331,7 @@ This plugin supports all Leaflet-supported browsers _except_ for Internet Explor
 
 ### Using a Pelias-compatible endpoint
 
-This project was renamed as of v1.3.0 to be more closely associated with [Mapzen Search](https://mapzen.com/projects/search), the hosted geocoding service provided by Mapzen that requires an API key. You can still point the geocoder at a different service running [Pelias](https://github.com/pelias/pelias), Mapzen's open-source geocoder, by changing the `url` option (see [Query behavior,](https://github.com/mapzen/leaflet-geocoder#query-behavior) above) to the desired endpoint. If an API key is not required, then the API key value to instantiate the geocoder can be set to `undefined` or `null`.
+This project was renamed as of v1.3.0 to be more closely associated with [Mapzen Search](https://mapzen.com/projects/search), the hosted geocoding service provided by Mapzen that requires an API key. You can still point the geocoder at a different service running [Pelias](https://github.com/pelias/pelias), Mapzen's open-source geocoder, by changing the `url` option (see [Query behavior,](https://github.com/mapzen/leaflet-geocoder#query-behavior) above) to the desired endpoint. If an API key is not required, the parameter may be omitted or be set to `undefined` or `null`.
 
 ### Accessing other plugin internals
 
