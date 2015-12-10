@@ -79,7 +79,7 @@ describe('Interface', function () {
   });
 
   describe('Actions that toggle expanded state', function () {
-    it('does not collapse if: map is clicked, and geocoder contains input', function () {
+    it.skip('does not collapse if: map is clicked, and geocoder contains input', function () {
       var geocoder = new L.Control.Geocoder();
       var onCollapse = sinon.spy();
 
@@ -91,9 +91,25 @@ describe('Interface', function () {
       geocoder._input.value = 'a';
 
       // Click the map
-      happen.click(map);
+      // TODO: This is not actually clicking the map :(
+      // happen.click(map);
       expect(onCollapse.called).to.be(false);
       expect(geocoder.getContainer().classList.contains('leaflet-pelias-expanded')).to.be(true);
+    });
+
+    it.skip('collapses if: map is clicked, and geocoder is blank', function () {
+      var geocoder = new L.Control.Geocoder();
+      var onCollapse = sinon.spy();
+
+      geocoder.addTo(map);
+      geocoder.on('collapse', onCollapse);
+      geocoder.expand();
+
+      // Click the map
+      // TODO: This is not actually clicking the map :(
+      // happen.click(map);
+      expect(onCollapse.called).to.be(true);
+      expect(geocoder.getContainer().classList.contains('leaflet-pelias-expanded')).to.be(false);
     });
 
     it('collapses if: map is panned, and a result is highlighted');
