@@ -133,25 +133,21 @@ describe('Interface', function () {
     });
 
     it('selects the currently highlighted result when I press enter', function () {
-      var selectedFeature;
-      geocoder.on('select', function (event) {
-        selectedFeature = event.feature;
-      });
+      var onSelect = sinon.spy();
+      geocoder.on('select', onSelect);
       happen.keydown(geocoder._input, { keyCode: 40 });
       happen.keydown(geocoder._input, { keyCode: 40 });
       var selectedEl = document.querySelector('.leaflet-pelias-selected');
       happen.keydown(geocoder._input, { keyCode: 13 });
-      expect(selectedEl.feature).to.eql(selectedFeature);
+      expect(selectedEl.feature).to.eql(onSelect.args[0][0].feature);
     });
 
     it('selects a result when I click it', function () {
-      var selectedFeature;
-      geocoder.on('select', function (event) {
-        selectedFeature = event.feature;
-      });
+      var onSelect = sinon.spy();
+      geocoder.on('select', onSelect);
       var selectedEl = document.querySelectorAll('.leaflet-pelias-result')[5];
       happen.click(selectedEl);
-      expect(selectedEl.feature).to.eql(selectedFeature);
+      expect(selectedEl.feature).to.eql(onSelect.args[0][0].feature);
     });
 
     it('pans the map when a result is highlighted');
