@@ -1,6 +1,10 @@
 /*
- * This adds a geocoder powered by pelias to a leaflet map
- * TODO: Better comments
+ * leaflet-geocoder-mapzen
+ * Leaflet plugin to search (geocode) using Mapzen Search or your
+ * own hosted version of the Pelias Geocoder API.
+ *
+ * License: MIT
+ * (c) Mapzen
  */
 ;(function (factory) { // eslint-disable-line no-extra-semi
   var L;
@@ -365,7 +369,7 @@
         latlng: latlng,
         feature: selected.feature
       });
-      this.clear();
+      this.blur();
     },
 
     resetInput: function () {
@@ -376,10 +380,9 @@
       this.fire('reset');
     },
 
-    // TODO: Rename?
-    clear: function () {
+    // Removes focus from geocoder control
+    blur: function () {
       this.clearResults();
-      this._input.blur();
       if (this._input.value === '' && this._results.style.display !== 'none') {
         L.DomUtil.addClass(this._close, 'leaflet-pelias-hidden');
         if (!this.options.expanded) {
@@ -409,6 +412,7 @@
       // So it's now possible for a script to force-collapse a geocoder
       // that otherwise defaults to the always-expanded state
       L.DomUtil.removeClass(this._container, 'leaflet-pelias-expanded');
+      this._input.blur();
       this.clearFullWidth();
       this.clearResults();
       this.fire('collapse');
@@ -484,7 +488,7 @@
           // Does what you might expect a _input.blur() listener might do,
           // but since that would fire for any reason (e.g. clicking a result)
           // what you really want is to blur from the control by listening to clicks on the map
-          this.clear();
+          this.blur();
         }, this)
         .on(this._search, 'click', function (e) {
           L.DomEvent.stopPropagation(e);
@@ -498,10 +502,7 @@
             } else {
               // Otherwise, toggle to hidden state
               L.DomUtil.addClass(this._close, 'leaflet-pelias-hidden');
-              if (!this.options.expanded) {
-                this.collapse();
-              }
-              this._input.blur();
+              this.collapse();
             }
           } else {
             // If not currently expanded, clicking here always expands it
