@@ -339,7 +339,7 @@ Properties and methods used internally by the geocoder are also available on the
 
 ## Projects using this plugin
 
-- [GeoTracer](http://geotracer.herokuapp.com/)
+- [Map My Story](http://www.mapmystory.xyz/)
 - [Greenpoint-Williamsburg ToxiCity Map](http://clhenrick.github.io/greenpoint_williamsburg_toxicity_map/)
 - [what3emojis](http://what3emojis.com/map/)
 - [NYC Community Boards](http://louhuang.com/nyc-community-boards)
