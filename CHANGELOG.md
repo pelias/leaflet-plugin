@@ -1,6 +1,7 @@
 ## v1.4.0 (next)
 
 - **Now hosted by cdnjs!** [Link to project page](https://cdnjs.com/libraries/leaflet-geocoder-mapzen)
+- `pointIcon` and `polygonIcon` options now explicitly accept boolean `true` or `false` values, with `true` being the default. Setting this to `true` will now use the same image path as previous versions, but with one important difference: it's relative to the stylesheet, rather than the script that instantiated the geocoder. This will be more in line with expected behavior for most use cases. To customize the location or filename, you can still pass in a path for the desired image.
 - Added the ability to omit the first API key parameter when instantiating the geocoder, for custom API endpoints (running Pelias) that do not require an API key.
 - Improved and documented the geocoder's internal `.collapse()` and `.expand()` methods.
 - Fixed a bug where clicking on the map when the geocoder is already collapsed will continue to fire collapse events. [#83](https://github.com/mapzen/leaflet-geocoder/issues/83)

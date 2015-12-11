@@ -109,12 +109,22 @@ describe('Options', function () {
   describe('layer icons', function () {
     it('sets the point icon', function () {
       var geocoder = new L.Control.Geocoder({ pointIcon: 'foo' });
+      var geocoder2 = new L.Control.Geocoder({ pointIcon: true });
+      var geocoder3 = new L.Control.Geocoder({ pointIcon: false });
+
       expect(geocoder.options.pointIcon).to.be('foo');
+      expect(geocoder2.options.pointIcon).to.be(true);
+      expect(geocoder3.options.pointIcon).to.be(false);
     });
 
     it('sets the polygon icon', function () {
       var geocoder = new L.Control.Geocoder({ polygonIcon: 'bar' });
+      var geocoder2 = new L.Control.Geocoder({ polygonIcon: true });
+      var geocoder3 = new L.Control.Geocoder({ polygonIcon: false });
+
       expect(geocoder.options.polygonIcon).to.be('bar');
+      expect(geocoder2.options.polygonIcon).to.be(true);
+      expect(geocoder3.options.polygonIcon).to.be(false);
     });
   });
 

@@ -45,8 +45,8 @@
       latlng: null,
       layers: null,
       panToPoint: true,
-      pointIcon: 'images/point_icon.png',
-      polygonIcon: 'images/polygon_icon.png',
+      pointIcon: true, // 'images/point_icon.png',
+      polygonIcon: true, // 'images/polygon_icon.png',
       fullWidth: 650,
       markers: true,
       expanded: false,
@@ -274,11 +274,36 @@
     getIconType: function (layer) {
       var pointIcon = this.options.pointIcon;
       var polygonIcon = this.options.polygonIcon;
+      var classPrefix = 'leaflet-pelias-layer-icon-';
 
       if (layer.match('venue') || layer.match('address')) {
-        return pointIcon;
+        if (pointIcon === true) {
+          return {
+            type: 'class',
+            value: classPrefix + 'point'
+          };
+        } else if (pointIcon === false) {
+          return false;
+        } else {
+          return {
+            type: 'image',
+            value: pointIcon
+          };
+        }
       } else {
-        return polygonIcon;
+        if (polygonIcon === true) {
+          return {
+            type: 'class',
+            value: classPrefix + 'polygon'
+          };
+        } else if (polygonIcon === false) {
+          return false;
+        } else {
+          return {
+            type: 'image',
+            value: polygonIcon
+          };
+        }
       }
     },
 
@@ -311,12 +336,20 @@
         // This returns a L.LatLng object that can be used throughout Leaflet
         resultItem.coords = feature.geometry.coordinates;
 
-        var iconSrc = this.getIconType(feature.properties.layer);
-        if (iconSrc) {
+        var icon = this.getIconType(feature.properties.layer);
+        if (icon) {
           // Point or polygon icon
+          // May be a class or an image path
           var layerIconContainer = L.DomUtil.create('span', 'leaflet-pelias-layer-icon-container', resultItem);
-          var layerIcon = L.DomUtil.create('img', 'leaflet-pelias-layer-icon', layerIconContainer);
-          layerIcon.src = iconSrc;
+          var layerIcon;
+
+          if (icon.type === 'class') {
+            layerIcon = L.DomUtil.create('div', 'leaflet-pelias-layer-icon ' + icon.value, layerIconContainer);
+          } else {
+            layerIcon = L.DomUtil.create('img', 'leaflet-pelias-layer-icon', layerIconContainer);
+            layerIcon.src = icon.value;
+          }
+
           layerIcon.title = 'layer: ' + feature.properties.layer;
         }
 

@@ -115,8 +115,8 @@ option      | description                               | default value
 **placeholder** | _String_. Placeholder text to display in the search input box. Set to blank or `null` to disable. | `'Search'`
 **title** | _String_. Tooltip text to display on the search icon. Set to blank or `null` to disable. | `'Search'`
 **panToPoint** | _Boolean_. If `true`, highlighting a search result pans the map to that location. | `true`
-**pointIcon** | _String_. Path to the image used to indicate a point result. Set to a falsy value to disable. | `'images/point_icon.png'`
-**polygonIcon** | _String_. Path to the image used to indicate a polygon result. Set to a falsy value to disable. | `'images/polygon_icon.png'`
+**pointIcon** | _Boolean_ or _String_. If `true`, an icon is used to indicate a point result, matching the "venue" or "address" [layer types]((https://mapzen.com/documentation/search/search/#filter-by-data-type)). If `false`, no icon is displayed. For custom icons, pass a string containing a path to the image. | `true`
+**polygonIcon** | _Boolean_ or _String_. If `true`, an icon is used to indicate a polygonal result, matching any non-"venue" or non-"address" [layer type]((https://mapzen.com/documentation/search/search/#filter-by-data-type)). If `false`, no icon is displayed. For custom icons, pass a string containing a path to the image. | `true`
 **markers** | _[Leaflet Marker options object](http://leafletjs.com/reference.html#marker-options)_ or _Boolean_. If `true`, search results drops Leaflet's default blue markers onto the map. You may customize this marker's appearance and behavior using Leaflet [marker options](http://leafletjs.com/reference.html#marker-options). | `true`
 **fullWidth** | _Integer_ or _Boolean_. If `true`, the input box will expand to take up the full width of the map container. If an integer breakpoint is provided, the full width applies only if the map container width is below this breakpoint. | `650`
 **expanded** | _Boolean_. If `true`, the search input is always expanded. It does not collapse into a button-only state. | `false`
@@ -182,10 +182,16 @@ L.control.geocoder('<your-api-key>', {
   placeholder: 'Street Geocoder'
 }).addTo(map);
 
-// Customizing icons
+// Customizing layer icons
 L.control.geocoder('<your-api-key>', {
   pointIcon: 'http://www.somewhereontheweb.com/download/img/point.png',
   polygonIcon: 'https://cloud.com/polygon-icon.svg'
+}).addTo(map);
+
+// Disabling layer icons
+L.control.geocoder('<your-api-key>', {
+  pointIcon: false,
+  polygonIcon: false
 }).addTo(map);
 
 // Configure if you want to zoom/pan to a point while browsing the results (up/down arrows)

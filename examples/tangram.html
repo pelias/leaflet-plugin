@@ -31,11 +31,7 @@
     var hash = new L.Hash(map);
 
     // Add Pelias geocoding plugin
-    var options = {
-      pointIcon: '../dist/images/point_icon.png',
-      polygonIcon: '../dist/images/polygon_icon.png',
-    }
-    var geocoder = L.control.geocoder('search-MKZrG6M', options).addTo(map);
+    var geocoder = L.control.geocoder('search-MKZrG6M').addTo(map);
 
     // Add Tangram scene layer
     // (Note: Tangram can also be initialized before the Pelias geocoder, if you choose.)

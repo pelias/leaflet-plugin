@@ -66,18 +66,39 @@
 
 img.leaflet-pelias-layer-icon {
   width: 15px;
-  vertical-align: middle;
 }
 
 /* This layer icon has different margins */
 /* In popup */
 span.leaflet-pelias-layer-icon-container {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
   margin-right: 5px;
+  vertical-align: text-bottom;
 }
 
 /* in results list */
 .leaflet-pelias-results span.leaflet-pelias-layer-icon-container {
   margin-right: 9px;
+}
+
+.leaflet-pelias-layer-icon-point,
+.leaflet-pelias-layer-icon-polygon {
+  width: 100%;
+  height: 100%;
+  display: inline-block;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: contain;
+}
+
+.leaflet-pelias-layer-icon-point {
+  background-image: url('images/point_icon.png');
+}
+
+.leaflet-pelias-layer-icon-polygon {
+  background-image: url('images/polygon_icon.png');
 }
 
 .leaflet-pelias-close {

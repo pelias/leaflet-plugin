@@ -84,42 +84,76 @@ describe('Results', function () {
     describe('layer icons', function () {
       it('gets the correct layer icon for layer `venue`', function () {
         var icon = geocoder.getIconType('venue');
-        expect(icon).to.equal(geocoder.options.pointIcon);
+        expect(icon.type).to.be('class');
+        expect(icon.value).to.contain('point');
       });
 
       it('gets the correct layer icon for layer `address`', function () {
         var icon = geocoder.getIconType('address');
-        expect(icon).to.equal(geocoder.options.pointIcon);
+        expect(icon.type).to.be('class');
+        expect(icon.value).to.contain('point');
       });
 
       it('gets the correct layer icon for layer `country`', function () {
         var icon = geocoder.getIconType('country');
-        expect(icon).to.equal(geocoder.options.polygonIcon);
+        expect(icon.type).to.be('class');
+        expect(icon.value).to.contain('polygon');
       });
 
       it('gets the correct layer icon for layer `region`', function () {
         var icon = geocoder.getIconType('region');
-        expect(icon).to.equal(geocoder.options.polygonIcon);
+        expect(icon.type).to.be('class');
+        expect(icon.value).to.contain('polygon');
       });
 
       it('gets the correct layer icon for layer `county`', function () {
         var icon = geocoder.getIconType('county');
-        expect(icon).to.equal(geocoder.options.polygonIcon);
+        expect(icon.type).to.be('class');
+        expect(icon.value).to.contain('polygon');
       });
 
       it('gets the correct layer icon for layer `locality`', function () {
         var icon = geocoder.getIconType('locality');
-        expect(icon).to.equal(geocoder.options.polygonIcon);
+        expect(icon.type).to.be('class');
+        expect(icon.value).to.contain('polygon');
       });
 
       it('gets the correct layer icon for layer `localadmin`', function () {
         var icon = geocoder.getIconType('localadmin');
-        expect(icon).to.equal(geocoder.options.polygonIcon);
+        expect(icon.type).to.be('class');
+        expect(icon.value).to.contain('polygon');
       });
 
       it('gets the correct layer icon for layer `neighbourhood`', function () {
         var icon = geocoder.getIconType('neighbourhood');
-        expect(icon).to.equal(geocoder.options.polygonIcon);
+        expect(icon.type).to.be('class');
+        expect(icon.value).to.contain('polygon');
+      });
+
+      it('returns false if point icon option is false', function () {
+        geocoder.options.pointIcon = false;
+        var icon = geocoder.getIconType('address');
+        expect(icon).to.not.be.ok();
+      });
+
+      it('returns false if polygon icon option is false', function () {
+        geocoder.options.polygonIcon = false;
+        var icon = geocoder.getIconType('neighbourhood');
+        expect(icon).to.not.be.ok();
+      });
+
+      it('returns a path if point icon option is set to a string', function () {
+        geocoder.options.pointIcon = 'images/point_icon.png';
+        var icon = geocoder.getIconType('venue');
+        expect(icon.type).to.be('image');
+        expect(icon.value).to.be(geocoder.options.pointIcon);
+      });
+
+      it('returns a path if polygon icon option is set to a string', function () {
+        geocoder.options.polygonIcon = 'images/polygon_icon.png';
+        var icon = geocoder.getIconType('locality');
+        expect(icon.type).to.be('image');
+        expect(icon.value).to.be(geocoder.options.polygonIcon);
       });
     });
   });
