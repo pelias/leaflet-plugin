@@ -1,4 +1,4 @@
-## v1.4.0 (next)
+## v1.4.0 (December 11, 2015)
 
 - **Now hosted by cdnjs!** [Link to project page](https://cdnjs.com/libraries/leaflet-geocoder-mapzen)
 - `pointIcon` and `polygonIcon` options now explicitly accept boolean `true` or `false` values, with `true` being the default. Setting this to `true` will now use the same image path as previous versions, but with one important difference: it's relative to the stylesheet, rather than the script that instantiated the geocoder. This will be more in line with expected behavior for most use cases. To customize the location or filename, you can still pass in a path for the desired image.
