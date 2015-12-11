@@ -7,6 +7,9 @@
     "example": "examples"
   },
   "scripts": {
+    "prepublish": "npm run minify-js && npm run minify-css",
+    "minify-js": "uglifyjs dist/leaflet-geocoder-mapzen.js -o dist/leaflet-geocoder-mapzen.min.js",
+    "minify-css": "cleancss -o dist/leaflet-geocoder-mapzen.min.css dist/leaflet-geocoder-mapzen.css",
     "test": "node_modules/.bin/jake"
   },
   "repository": {
@@ -34,6 +37,7 @@
     "leaflet": "^0.7.x || >=1.0.0-beta.1"
   },
   "devDependencies": {
+    "clean-css": "^3.4.8",
     "eslint": "^1.6.0",
     "eslint-config-semistandard": "^5.0.0",
     "eslint-config-standard": "^4.4.0",
@@ -52,7 +56,8 @@
     "karma-safari-launcher": "~0.1.1",
     "mocha": "~2.3.3",
     "phantomjs": "^1.9.18",
-    "sinon": "^1.17.1"
+    "sinon": "^1.17.1",
+    "uglify-js": "^2.6.1"
   },
   "semistandard": {
     "globals": [
