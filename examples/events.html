@@ -29,6 +29,11 @@
       box-sizing: border-box;
       box-shadow: 0 1px 5px rgba(0,0,0,0.35);
       border-radius: 4px;
+      z-index: 1000;
+    }
+    #events-log.oldie {
+      background-color: white;
+      border: 1px solid #999;
     }
     h1 {
       margin-top: 0;
@@ -75,6 +80,26 @@
     <h1>Events log</h1>
     <p>Events will be logged here! Also, open the console to see a log of the event objects that are created.</p>
   </div>
+  <script>
+    // Console-polyfill. MIT license.
+    // https://github.com/paulmillr/console-polyfill
+    // Make it safe to do console.log() always.
+    (function(global) {
+      'use strict';
+      global.console = global.console || {};
+      var con = global.console;
+      var prop, method;
+      var empty = {};
+      var dummy = function() {};
+      var properties = 'memory'.split(',');
+      var methods = ('assert,clear,count,debug,dir,dirxml,error,exception,group,' +
+         'groupCollapsed,groupEnd,info,log,markTimeline,profile,profiles,profileEnd,' +
+         'show,table,time,timeEnd,timeline,timelineEnd,timeStamp,trace,warn').split(',');
+      while (prop = properties.pop()) if (!con[prop]) con[prop] = empty;
+      while (method = methods.pop()) if (typeof con[method] !== 'function') con[method] = dummy;
+      // Using `this` for web workers & supports Browserify / Webpack.
+    })(typeof window === 'undefined' ? this : window);
+  </script>
   <script>
     // Create a basic Leaflet map
     var map = L.map('map').setView([40.7259, -73.9805], 12);
@@ -126,6 +151,11 @@
     function addLog (html) {
       log.innerHTML += html;
       log.scrollTop = log.scrollHeight;
+    }
+
+    // Old IE setup
+    if (L.Browser.ielt9 === true) {
+      log.className = 'oldie';
     }
   </script>
 </body>
