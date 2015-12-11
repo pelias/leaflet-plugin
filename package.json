@@ -10,7 +10,7 @@
     "prepublish": "npm run minify-js && npm run minify-css",
     "minify-js": "uglifyjs dist/leaflet-geocoder-mapzen.js -o dist/leaflet-geocoder-mapzen.min.js",
     "minify-css": "cleancss -o dist/leaflet-geocoder-mapzen.min.css dist/leaflet-geocoder-mapzen.css",
-    "test": "node_modules/.bin/jake"
+    "test": "jake"
   },
   "repository": {
     "type": "git",
