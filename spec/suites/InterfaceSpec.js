@@ -82,7 +82,16 @@ describe('Interface', function () {
     });
   });
 
-  describe('Interacting with results list', function () {
+  describe('Input element', function () {
+    it('performs a search when I press enter');
+    it('does not perform a search when the input is blank');
+    it('does not perform a search when an element is highlighted');
+    it('performs autocomplete when enabled');
+    it('does not perform autocomplete when disabled');
+    it('clears current input and results when I press enter');
+  });
+
+  describe('Results list', function () {
     var results;
     var geocoder;
 
@@ -150,8 +159,50 @@ describe('Interface', function () {
       expect(selectedEl.feature).to.eql(onSelect.args[0][0].feature);
     });
 
-    it('pans the map when a result is highlighted');
-    it('does not pan the map when a result is highlighted');
+    it('pans the map when a result is highlighted', function () {
+      var selectedEl, mapCenter, coords;
+      var onSelect = sinon.spy();
+      geocoder.on('select', onSelect);
+      map.setView([20, 20], 10);
+
+      // First pan
+      happen.keydown(geocoder._input, { keyCode: 40 });
+      selectedEl = document.querySelector('.leaflet-pelias-selected');
+      mapCenter = map.getCenter();
+      coords = selectedEl.feature.geometry.coordinates;
+      expect(mapCenter.lat).to.be(coords[1]);
+      expect(mapCenter.lng).to.be(coords[0]);
+
+      // Second pan
+      happen.keydown(geocoder._input, { keyCode: 40 });
+      selectedEl = document.querySelector('.leaflet-pelias-selected');
+      mapCenter = map.getCenter();
+      coords = selectedEl.feature.geometry.coordinates;
+      expect(mapCenter.lat).to.be(coords[1]);
+      expect(mapCenter.lng).to.be(coords[0]);
+    });
+
+    it('does not pan the map when a result is highlighted', function () {
+      var selectedEl, mapCenter, coords;
+      geocoder.options.panToPoint = false;
+      map.setView([20, 20], 10);
+
+      // First pan
+      happen.keydown(geocoder._input, { keyCode: 40 });
+      selectedEl = document.querySelector('.leaflet-pelias-selected');
+      mapCenter = map.getCenter();
+      coords = selectedEl.feature.geometry.coordinates;
+      expect(mapCenter.lat).to.not.be(coords[1]);
+      expect(mapCenter.lng).to.not.be(coords[0]);
+
+      // Second pan
+      happen.keydown(geocoder._input, { keyCode: 40 });
+      selectedEl = document.querySelector('.leaflet-pelias-selected');
+      mapCenter = map.getCenter();
+      coords = selectedEl.feature.geometry.coordinates;
+      expect(mapCenter.lat).to.not.be(coords[1]);
+      expect(mapCenter.lng).to.not.be(coords[0]);
+    });
 
     it('fires `highlight` event', function () {
       // Also checks that `select` is not fired
@@ -207,6 +258,6 @@ describe('Interface', function () {
       expect(geocoder.getContainer().classList.contains('leaflet-pelias-expanded')).to.be(false);
     });
 
-    it('collapses if: map is panned, and a result is highlighted');
+    it('collapses if: map is dragged, and a result is highlighted');
   });
 });
