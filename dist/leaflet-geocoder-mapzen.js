@@ -924,6 +924,9 @@
       var httpRequest = this.http_request(callback, context);
 
       httpRequest.open('GET', url + '?' + paramString);
+      if (httpRequest.constructor.name === 'XMLHttpRequest') {
+        httpRequest.setRequestHeader('Accept', 'application/json');
+      }
 
       setTimeout(function () {
         httpRequest.send(null);
