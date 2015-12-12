@@ -9,25 +9,15 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.5/leaflet.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.5/leaflet.js"></script>
 
-  <!-- Load Pelias geocoding plugin after Leaflet -->
+  <!-- Load geocoding plugin after Leaflet -->
   <link rel="stylesheet" href="../dist/leaflet-geocoder-mapzen.css">
   <script src="../dist/leaflet-geocoder-mapzen.js"></script>
 
-  <link rel="stylesheet" href="examples.css">
+  <link rel="stylesheet" href="assets/examples.css">
   <style>
     /* Swap out the image for search icon when the control is expanded */
     .leaflet-pelias-control.leaflet-pelias-expanded .leaflet-pelias-search-icon {
-      background-image: url('images/search_blue.png');
-    }
-
-    /* Use a Retina-friendly version on hi-dpi screens via a media query */
-    @media only screen and (min--moz-device-pixel-ratio: 2),
-    only screen and (-o-min-device-pixel-ratio: 2/1),
-    only screen and (-webkit-min-device-pixel-ratio: 2),
-    only screen and (min-device-pixel-ratio: 2) {
-      .leaflet-pelias-control.leaflet-pelias-expanded .leaflet-pelias-search-icon {
-        background-image: url('images/search_blue@2x.png');
-      }
+      background-image: url('assets/search_blue.png');
     }
   </style>
 </head>
@@ -38,7 +28,7 @@
     var map = L.map('map').setView([40.7259, -73.9805], 12);
     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(map);
 
-    // Add Pelias geocoding plugin
+    // Add geocoding plugin
     var geocoder = L.control.geocoder('search-MKZrG6M').addTo(map);
   </script>
 </body>

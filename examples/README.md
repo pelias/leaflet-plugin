@@ -1,6 +1,62 @@
-# Examples
+Examples
+========
 
-## Put the geocoder control above the zoom control
+## Demos
+
+- **Basic usage**.
+  [[demo](https://mapzen.github.io/leaflet-geocoder/examples/index.html)]
+  [[code](https://github.com/mapzen/leaflet-geocoder/blob/master/examples/index.html)]
+  The minimum amount of code needed to get started. There is also a beginner-friendly [tutorial](https://mapzen.com/documentation/search/add-search-to-a-map/) that walks through how this is put together.
+
+- **Basic usage with Leaflet v1 beta.**
+  [[demo](https://mapzen.github.io/leaflet-geocoder/examples/leaflet-v1.html)]
+  [[code](https://github.com/mapzen/leaflet-geocoder/blob/master/examples/leaflet-v1.html)]
+
+### Customizing the geocoder
+
+- **Restricting the search boundary to the current viewport.**
+  [[demo](https://mapzen.github.io/leaflet-geocoder/examples/bounds.html)]
+  [[code](https://github.com/mapzen/leaflet-geocoder/blob/master/examples/bounds.html)]
+
+- **Changing what corner the geocoder is positioned in.**
+  [[demo](https://mapzen.github.io/leaflet-geocoder/examples/position.html)]
+  [[code](https://github.com/mapzen/leaflet-geocoder/blob/master/examples/position.html)]
+
+- **Events.**
+  [[demo](https://mapzen.github.io/leaflet-geocoder/examples/events.html)]
+  [[code](https://github.com/mapzen/leaflet-geocoder/blob/master/examples/events.html)]
+  This demo shows when the geocoder fires events. Look at the code to see examples of how you can write scripts that react to these events.
+
+### Use with other libraries
+
+- **Using the geocoder with [Tangram](https://mapzen.com/projects/tangram/).**
+  [[demo](https://mapzen.github.io/leaflet-geocoder/examples/tangram.html)]
+  [[code](https://github.com/mapzen/leaflet-geocoder/blob/master/examples/tangram.html)]
+
+- **Using the geocoder with [Mapbox.js](https://www.mapbox.com/mapbox.js/api/v2.2.3/).**
+  [[demo](https://mapzen.github.io/leaflet-geocoder/examples/mapboxjs.html)]
+  [[code](https://github.com/mapzen/leaflet-geocoder/blob/master/examples/mapboxjs.html)]
+  Includes a snippet of CSS to make the geocoder look like mapbox.js styles!
+
+### Advanced customization
+
+These demos show how you can extend the geocoder with functionality not built into the library.
+
+- **Changing the search icon image.**
+  [[demo](https://mapzen.github.io/leaflet-geocoder/examples/search-icon-active-state.html)]
+  [[code](https://github.com/mapzen/leaflet-geocoder/blob/master/examples/search-icon-active-state.html)]
+  You can override the CSS to replace the search icon image. This demo changes the magnifying glass to a blue version when the geocoder is expanded.
+
+- **Placing two geocoders on a map at the same time.**
+  [[demo](https://mapzen.github.io/leaflet-geocoder/examples/two-geocoders.html)]
+  [[code](https://github.com/mapzen/leaflet-geocoder/blob/master/examples/two-geocoders.html)]
+  You can place any number of geocoders on a map. One use case for having two geocoders is to be able to route between two points. This demo shows how some code is needed to make the results list on the first geocoder show up correctly on top of the second geocoder.
+
+## Code snippets
+
+Examples that can be expressed with code snippets or need more explanation are placed here.
+
+### Put the geocoder control above the zoom control
 
 You might want the geocoder control to be placed above the zoom control, especially if you have a geocoder control that is permanently expanded.
 
@@ -32,17 +88,3 @@ var geocoder = new L.Control.Geocoder('<your-api-key>').addTo(map);
 // geocoder._container is a reference to the geocoder's DOM element.
 geocoder._container.parentNode.insertBefore(geocoder._container, geocoder._container.parentNode.childNodes[0]);
 ```
-
-## Using geocoder plugin with mapbox.js
-
-You may choose to use the Pelias plugin with [Mapbox.js](https://www.mapbox.com/mapbox.js/). It is based on Leaflet, so the plugin works well with it too. The only difference is that Mapbox.js provides slightly different styling. By adding this custom CSS snippet you can make the Pelias plugin match Mapbox.js styling.
-
-```css
-.leaflet-pelias-control:not(.leaflet-pelias-expanded),
-.leaflet-touch .leaflet-pelias-control:not(.leaflet-pelias-expanded) {
-  width: 28px;
-  height: 28px;
-}
-```
-
-This was tested on Mapbox.js v2.2.2.

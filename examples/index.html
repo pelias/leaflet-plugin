@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Adding Pelias geocoding to a basic Leaflet map.</title>
+  <title>Adding Mapzen Search geocoding to a basic Leaflet map.</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
 
@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="../dist/leaflet-geocoder-mapzen.css">
   <script src="../dist/leaflet-geocoder-mapzen.js"></script>
 
-  <link rel="stylesheet" href="examples.css">
+  <link rel="stylesheet" href="assets/examples.css">
 </head>
 <body>
   <div id="map"></div>
@@ -24,7 +24,7 @@
       attribution: '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
     }).addTo(map);
 
-    // Add Pelias geocoding plugin
+    // Add geocoding plugin
     var geocoder = L.control.geocoder('search-MKZrG6M').addTo(map);
   </script>
 </body>

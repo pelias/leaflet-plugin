@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Adding Pelias geocoding to a basic Leaflet map.</title>
+  <title>Restrict search boundary to current viewport.</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
 
@@ -9,11 +9,11 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.5/leaflet.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.5/leaflet.js"></script>
 
-  <!-- Load Pelias geocoding plugin after Leaflet -->
+  <!-- Load geocoding plugin after Leaflet -->
   <link rel="stylesheet" href="../dist/leaflet-geocoder-mapzen.css">
   <script src="../dist/leaflet-geocoder-mapzen.js"></script>
 
-  <link rel="stylesheet" href="examples.css">
+  <link rel="stylesheet" href="assets/examples.css">
 </head>
 <body>
   <div id="map"></div>
@@ -22,7 +22,7 @@
     var map = L.map('map').setView([40.7259, -73.9805], 12);
     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(map);
 
-    // Add Pelias geocoding plugin
+    // Add geocoding plugin
     var options = {
       bounds: true
     }

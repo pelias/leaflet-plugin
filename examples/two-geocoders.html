@@ -9,11 +9,11 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.5/leaflet.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.5/leaflet.js"></script>
 
-  <!-- Load Pelias geocoding plugin after Leaflet -->
+  <!-- Load geocoding plugin after Leaflet -->
   <link rel="stylesheet" href="../dist/leaflet-geocoder-mapzen.css">
   <script src="../dist/leaflet-geocoder-mapzen.js"></script>
 
-  <link rel="stylesheet" href="examples.css">
+  <link rel="stylesheet" href="assets/examples.css">
 </head>
 <body>
   <div id="map"></div>
@@ -24,7 +24,7 @@
       attribution: '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
     }).addTo(map);
 
-    // Add Pelias geocoding plugin
+    // Add geocoding plugin
     var options = {
       expanded: true
     }

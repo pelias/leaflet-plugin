@@ -194,31 +194,25 @@ L.control.geocoder('<your-api-key>', {
   polygonIcon: false
 }).addTo(map);
 
-// Configure if you want to zoom/pan to a point while browsing the results (up/down arrows)
-// panToPoint set to true (by default)
-// as per https://github.com/mapzen/leaflet-geocoder/issues/6
+// Disable zoom/pan to a point while browsing the results (up/down arrows)
 L.control.geocoder('<your-api-key>', {
-  panToPoint: true
+  panToPoint: false
 }).addTo(map);
 
-// Setting full width on the search text box
-// by default: 650 (pixels)
+// Set the geocoder to always be the full width of the map
+// By default, the geocoder is only full width when the screen is less than 650 pixels wide
 L.control.geocoder('<your-api-key>', {
   fullWidth: true
 }).addTo(map);
 
-// Configure if you want to drop a pin for a search results or not
-// by default - this is set to true
-// as per https://github.com/mapzen/leaflet-geocoder/issues/7
+// Disable markers for search results
 L.control.geocoder('<your-api-key>', {
   markers: false
 }).addTo(map);
 
-// Ability to collapse to a button instead of a expanded text box
-// by default - this is set to false
-// as per https://github.com/mapzen/leaflet-geocoder/issues/7
+// Force the geocoder to always be in the expanded state
 L.control.geocoder('<your-api-key>', {
-  expanded: false
+  expanded: true
 }).addTo(map);
 
 // Changing attribution
@@ -228,6 +222,8 @@ L.control.geocoder('<your-api-key>', {
   attribution: null
 }).addTo(map);
 ```
+
+Examples with running code can be found in the [examples](https://github.com/mapzen/leaflet-geocoder/tree/master/examples) directory.
 
 ## Advanced usage
 
@@ -303,33 +299,33 @@ Here is [a demo of the events](http://mapzen.github.io/leaflet-geocoder/examples
 
 #### Getting data
 
-You can use events to provide additional functionality when certain things occur. Events are also the best way to get Mapzen Search result data out of the plugin so that your application can do other things with it.
+Certain events will pass data as the first argument to the event listener's callback function.
 
-##### on `results` or `error`
+#### on `results` or `error`
 
 In addition to the [base event object](http://leafletjs.com/reference.html#event-objects) from Leaflet, the event object will contain these other useful properties:
 
-property      | description
-------------- | ---------------------------------------------------------------
-**endpoint**  | A string of the Mapzen Search API endpoint that was called.
+property        | description
+--------------- | -------------------------------------------------------------
+**endpoint**    | A string of the Mapzen Search API endpoint that was called.
 **requestType** | A string, either `autocomplete` or `search`, depending on the request made.
-**params**    | An object containing the parameters that have been passed to the Mapzen Search request.
-**results**   | The [original response object](https://mapzen.com/documentation/search/response/) returned from Mapzen Search, including all feature geometries and properties.
+**params**      | An object containing the parameters that have been passed to the Mapzen Search request.
+**results**     | The [original response object](https://mapzen.com/documentation/search/response/) returned from Mapzen Search, including all feature geometries and properties.
 
 If there was an error with the request, the event object will contain the additional properties:
 
-property      | description
-------------- | ---------------------------------------------------------------
-**errorCode** | The HTTP status code received. [More information](https://mapzen.com/documentation/search/http-status-codes/).
+property         | description
+---------------- | ------------------------------------------------------------
+**errorCode**    | The HTTP status code received. [More information](https://mapzen.com/documentation/search/http-status-codes/).
 **errorMessage** | The error message string that the geocoder will display.
 
-##### on `select` and `highlight`
+#### on `select` and `highlight`
 
-property      | description
-------------- | ---------------------------------------------------------------
+property          | description
+----------------- | -----------------------------------------------------------
 **originalEvent** | The original event (mouse or keyboard) reported by the browser.
-**latlng**    | A [Leaflet LatLng](http://leafletjs.com/reference.html#latlng) object representing the coordinates of the result.
-**feature**   | The [GeoJSON feature object](https://mapzen.com/documentation/search/response/#list-of-features-returned) from Mapzen Search, including feature geometry and properties.
+**latlng**        | A [Leaflet LatLng](http://leafletjs.com/reference.html#latlng) object representing the coordinates of the result.
+**feature**       | The [GeoJSON feature object](https://mapzen.com/documentation/search/response/#list-of-features-returned) from Mapzen Search, including feature geometry and properties.
 
 ### Browser support
 

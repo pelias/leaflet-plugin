@@ -1,26 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Adding Pelias geocoding to a Tangram map.</title>
+  <title>Using geocoding plugin with Tangram.</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
-  <script src="modernizr.js"></script>
+  <script src="assets/modernizr.js"></script>
 
   <!-- Load Leaflet from CDN -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.0-beta.2/leaflet.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.0-beta.2/leaflet.js"></script>
 
-  <!-- With leaflet-hash -->
+  <!-- Load leaflet-hash -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-hash/0.2.1/leaflet-hash.min.js"></script>
 
-  <!-- Load Pelias geocoding plugin after Leaflet -->
+  <!-- Load geocoding plugin after Leaflet -->
   <link rel="stylesheet" href="../dist/leaflet-geocoder-mapzen.css">
   <script src="../dist/leaflet-geocoder-mapzen.js"></script>
 
   <!-- Load Tangram -->
   <script src="https://mapzen.com/tangram/tangram.min.js"></script>
 
-  <link rel="stylesheet" href="examples.css">
+  <link rel="stylesheet" href="assets/examples.css">
 </head>
 <body>
   <div id="message" class="no-webgl-message">Your browser cannot display the map on this page. <a href="index.html">Try this one instead.</a></div>
@@ -30,11 +30,11 @@
     var map = L.map('map').setView([43.0809, -89.3747], 13);
     var hash = new L.Hash(map);
 
-    // Add Pelias geocoding plugin
+    // Add geocoding plugin
     var geocoder = L.control.geocoder('search-MKZrG6M').addTo(map);
 
     // Add Tangram scene layer
-    // (Note: Tangram can also be initialized before the Pelias geocoder, if you choose.)
+    // (Note: Tangram can also be initialized before the geocoder, if you choose.)
     var layer = Tangram.leafletLayer({
       scene: 'https://cdn.rawgit.com/tangrams/refill-style/ef1259dbbcd5f47ad3e8bed1a27c4fcab9676b3c/refill-style.yaml',
       attribution: 'Rendering by <a href="https://mapzen.com/tangram">Tangram</a> | &copy; OSM contributors | <a href="https://mapzen.com/">Mapzen</a>'
