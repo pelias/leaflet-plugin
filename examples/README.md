@@ -32,6 +32,7 @@ Examples
 - **Using the geocoder with [Tangram](https://mapzen.com/projects/tangram/).**
   [[demo](https://mapzen.github.io/leaflet-geocoder/examples/tangram.html)]
   [[code](https://github.com/mapzen/leaflet-geocoder/blob/master/examples/tangram.html)]
+  This demo uses the [Cinnabar (more labels) style](https://github.com/tangrams/cinnabar-style-more-labels).
 
 - **Using the geocoder with [Mapbox.js](https://www.mapbox.com/mapbox.js/api/v2.2.3/).**
   [[demo](https://mapzen.github.io/leaflet-geocoder/examples/mapboxjs.html)]
