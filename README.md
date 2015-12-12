@@ -11,17 +11,20 @@ A plugin that adds the ability to search (geocode) a Leaflet-powered map using [
 
 ## Demo
 
-[Click here](https://mapzen.github.io/leaflet-geocoder/)
+[See it in action!](https://mapzen.github.io/leaflet-geocoder/)
 
 ## Requirements
 
-Supports [Leaflet](https://github.com/Leaflet/Leaflet) **v0.7.3** (and higher) and **v1.0.0-beta.1** (and higher). (Previous Leaflet versions may work, but these are not targeted.) Browser support is IE8+, and for [more details, see below](https://github.com/mapzen/leaflet-geocoder#browser-support).
+Requires the **[Leaflet](https://github.com/Leaflet/Leaflet)** mapping library. Supports Leaflet **v0.7.3** (and higher) and **v1.0.0-beta.1** (and higher). (Previous Leaflet versions have not been tested.)
+
+**Browser support** is IE8+ [(more details below)](https://github.com/mapzen/leaflet-geocoder#browser-support).
+
+To use the Mapzen Search service, **you need a Mapzen Search API key**.
+Get one from the [Mapzen developers portal](http://mapzen.com/developers/). It's free!
 
 ## Basic usage
 
-**Step 1:** Import the required Leaflet JavaScript and CSS files
-
-The plugin is hosted by [cdnjs](http://cdnjs.com/libraries/leaflet-geocoder-mapzen)!
+**Step 1:** In HTML, import the required Leaflet JavaScript and CSS files. Start quickly with hosted libraries on [cdnjs](http://cdnjs.com/libraries/leaflet-geocoder-mapzen)!
 
 ```html
 <!-- Load Leaflet from CDN -->
@@ -33,7 +36,7 @@ The plugin is hosted by [cdnjs](http://cdnjs.com/libraries/leaflet-geocoder-mapz
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-geocoder-mapzen/1.4.0/leaflet-geocoder-mapzen.js"></script>
 ```
 
-**Step 2:** Initialize your Leaflet map
+**Step 2:** In JavaScript, initialize your Leaflet map.
 
 ```javascript
 // This is an example of Leaflet usage; you should modify this for your needs.
@@ -41,9 +44,7 @@ var map = L.map('map').setView([40.7259, -73.9805], 12);
 L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 ```
 
-**Step 3:** Add a custom geocoder
-
-Get a Mapzen Search API key from the [Mapzen developers portal](http://mapzen.com/developers/). It's free!
+**Step 3:** In JavaScript, add your geocoder with your [Mapzen Search API key]((http://mapzen.com/developers/)).
 
 ```javascript
 L.control.geocoder('<your-api-key>').addTo(map);
@@ -53,17 +54,17 @@ L.control.geocoder('<your-api-key>').addTo(map);
 
 ### There is also a tutorial
 
-It has much more detailed instructions and is very friendly for beginners. [Check it out here](https://mapzen.com/documentation/search/add-search-to-a-map/).
+It has much more detailed walkthrough instructions and is very friendly for beginners. No coding experience is necessary! [Check it out here](https://mapzen.com/documentation/search/add-search-to-a-map/).
 
 ### Want this as a module?
 
-You can install with [npm](https://www.npmjs.com/):
+Experienced developers can install with [npm](https://www.npmjs.com/):
 
 ```sh
 npm install leaflet-geocoder-mapzen
 ```
 
-And then import it in your module system. For instance, in [Browserify's node.js-like syntax](http://browserify.org/):
+And then import it in your module system. For instance, with [Browserify](http://browserify.org/):
 
 ```javascript
 // Require Leaflet first
