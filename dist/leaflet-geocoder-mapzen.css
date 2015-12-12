@@ -64,10 +64,6 @@
   line-height: 32px;
 }
 
-img.leaflet-pelias-layer-icon {
-  width: 15px;
-}
-
 /* This layer icon has different margins */
 /* In popup */
 span.leaflet-pelias-layer-icon-container {
@@ -81,6 +77,14 @@ span.leaflet-pelias-layer-icon-container {
 /* in results list */
 .leaflet-pelias-results span.leaflet-pelias-layer-icon-container {
   margin-right: 9px;
+}
+
+img.leaflet-pelias-layer-icon {
+  width: 15px;
+}
+
+.leaflet-pelias-layer-icon {
+  vertical-align: top;
 }
 
 .leaflet-pelias-layer-icon-point,
