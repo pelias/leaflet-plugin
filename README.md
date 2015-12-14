@@ -17,7 +17,7 @@ A plugin that adds the ability to search (geocode) a Leaflet-powered map using [
 
 Requires the **[Leaflet](https://github.com/Leaflet/Leaflet)** mapping library. Supports Leaflet **v0.7.3** (and higher) and **v1.0.0-beta.1** (and higher). (Previous Leaflet versions have not been tested.)
 
-**Browser support** is IE8+ [(more details below)](https://github.com/mapzen/leaflet-geocoder#browser-support).
+**Browser support** is IE8+ [(more details below)](#browser-support).
 
 To use the Mapzen Search service, **you need a Mapzen Search API key**.
 Get one from the [Mapzen developers portal](http://mapzen.com/developers/). It's free!
@@ -334,7 +334,7 @@ This plugin supports all Leaflet-supported browsers _except_ for Internet Explor
 
 ### Using a Pelias-compatible endpoint
 
-This project was renamed as of v1.3.0 to be more closely associated with [Mapzen Search](https://mapzen.com/projects/search), the hosted geocoding service provided by Mapzen that requires an API key. You can still point the geocoder at a different service running [Pelias](https://github.com/pelias/pelias), Mapzen's open-source geocoder, by changing the `url` option (see [Query behavior,](https://github.com/mapzen/leaflet-geocoder#query-behavior) above) to the desired endpoint. If an API key is not required, the parameter may be omitted or be set to `undefined` or `null`.
+This project was renamed as of v1.3.0 to be more closely associated with [Mapzen Search](https://mapzen.com/projects/search), the hosted geocoding service provided by Mapzen that requires an API key. You can still point the geocoder at a different service running [Pelias](https://github.com/pelias/pelias), Mapzen's open-source geocoder, by changing the `url` option (see [Query behavior,](#query-behavior) above) to the desired endpoint. If an API key is not required, the parameter may be omitted or be set to `undefined` or `null`.
 
 ### Accessing other plugin internals
 
