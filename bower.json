@@ -6,7 +6,7 @@
     "Harish Krishna",
     "Lou Huang <lou@mapzen.com>"
   ],
-  "description": "Leaflet plugin that adds ability to search (geocode) using the Pelias Geocoder API.",
+  "description": "Add Mapzen Search geocoding to your Leaflet map.",
   "main": "dist/leaflet-geocoder-mapzen.js",
   "moduleType": [
     "amd",
