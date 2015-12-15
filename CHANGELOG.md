@@ -1,3 +1,8 @@
+## v1.4.1 (December 15, 2015)
+
+- Added a request header to require JSON responses, to handle custom endpoints that do not serve JSON by default. (by [@alculquicondor](https://github.com/alculquicondor)) [#90](https://github.com/mapzen/leaflet-geocoder/pull/90)
+- Fixed a regression where layer icons are not aligned correctly when the line-height is taller than normal (e.g. on mobile).
+
 ## v1.4.0 (December 11, 2015)
 
 - **Now hosted by cdnjs!** [Link to project page](https://cdnjs.com/libraries/leaflet-geocoder-mapzen)
