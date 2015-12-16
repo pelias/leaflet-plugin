@@ -258,6 +258,14 @@
           // been successfully rendered on to the UI.
           if (this.maxReqTimestampRendered < reqStartedAt) {
             this.maxReqTimestampRendered = reqStartedAt;
+
+            // Filter the unfiltered requests from the autocompletor
+            // This modifies the original response
+            if (type === 'autocomplete' && params.layers) {
+              results.features = this.filterFeaturesByLayers(results.features, params.layers);
+            }
+
+            // Show results
             this.showResults(results.features, params.text);
             this.fire('results', {
               results: results,
@@ -269,6 +277,28 @@
           // Else ignore the request, it is stale.
         }
       }, this);
+    },
+
+    // Filters a Pelias response (likely from autocomplete)
+    // with the layer parameter given to it
+    // @param features - a FeatureCollection
+    // @param layers - string or array of layers queried
+    filterFeaturesByLayers: function (features, layers) {
+      var newFeatures = [];
+      for (var i = 0; i < features.length; i++) {
+        var feature = features[i];
+        if (feature.properties.layer === layers) {
+          newFeatures.push(feature);
+        } else if (L.Util.isArray(layers)) {
+          for (var j = 0; j < layers.length; j++) {
+            if (feature.properties.layer === layers[j]) {
+              newFeatures.push(feature);
+              break;
+            }
+          }
+        }
+      }
+      return newFeatures;
     },
 
     highlight: function (text, focus) {
