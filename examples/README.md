@@ -18,6 +18,11 @@ Examples
   [[demo](https://mapzen.github.io/leaflet-geocoder/examples/bounds.html)]
   [[code](https://github.com/mapzen/leaflet-geocoder/blob/master/examples/bounds.html)]
 
+- **Only coarse geocoding.**
+  [[demo](https://mapzen.github.io/leaflet-geocoder/examples/coarse.html)]
+  [[code](https://github.com/mapzen/leaflet-geocoder/blob/master/examples/coarse.html)]
+  [[documentation](https://mapzen.com/documentation/search/search/#filter-by-data-type)]
+
 - **Changing what corner the geocoder is positioned in.**
   [[demo](https://mapzen.github.io/leaflet-geocoder/examples/position.html)]
   [[code](https://github.com/mapzen/leaflet-geocoder/blob/master/examples/position.html)]
