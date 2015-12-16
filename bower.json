@@ -1,12 +1,12 @@
 {
   "name": "leaflet-geocoder-mapzen",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "homepage": "https://github.com/mapzen/leaflet-geocoder",
   "authors": [
     "Harish Krishna",
     "Lou Huang <lou@mapzen.com>"
   ],
-  "description": "Leaflet plugin that adds ability to search (geocode) using the Pelias Geocoder API.",
+  "description": "Add Mapzen Search geocoding to your Leaflet map.",
   "main": "dist/leaflet-geocoder-mapzen.js",
   "moduleType": [
     "amd",
