@@ -498,7 +498,7 @@
       this._search = L.DomUtil.create('a', 'leaflet-pelias-search-icon', this._container);
       this._close = L.DomUtil.create('div', 'leaflet-pelias-close leaflet-pelias-hidden', this._container);
       this._close.innerHTML = '×';
-      this._close.title = 'Close';
+      this._close.title = 'Reset';
 
       this._results = L.DomUtil.create('div', 'leaflet-pelias-results leaflet-bar', this._container);
 
