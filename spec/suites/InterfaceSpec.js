@@ -106,7 +106,7 @@ describe('Interface', function () {
       geocoder = new L.Control.Geocoder();
       geocoder.addTo(map);
       geocoder.expand();
-      geocoder.showResults(results.features);
+      geocoder.showResults(results.features, 'foo');
     });
 
     it('has no highlighted result at first', function () {
