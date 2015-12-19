@@ -508,8 +508,9 @@
 
       L.DomEvent
         .on(this._container, 'click', function (e) {
-          // Other listeners should call stopProgation() to
-          // prevent this from firing too greedily
+          // Child elements with 'click' listeners should call
+          // stopPropagation() to prevent that event from bubbling to
+          // the container & causing it to fire too greedily
           this._input.focus();
         }, this)
         .on(this._input, 'focus', function (e) {
@@ -654,7 +655,7 @@
           var key = e.which || e.keyCode;
           var text = (e.target || e.srcElement).value;
 
-          if (this._input.value.length > 0) {
+          if (text.length > 0) {
             L.DomUtil.removeClass(this._close, 'leaflet-pelias-hidden');
           } else {
             L.DomUtil.addClass(this._close, 'leaflet-pelias-hidden');
@@ -688,8 +689,8 @@
             return;
           }
 
-          if (this._input.value !== this._lastValue) {
-            this._lastValue = this._input.value;
+          if (text !== this._lastValue) {
+            this._lastValue = text;
 
             if (text.length >= MINIMUM_INPUT_LENGTH_FOR_AUTOCOMPLETE && this.options.autocomplete === true) {
               this.autocomplete(text);
