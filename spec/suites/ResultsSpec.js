@@ -48,13 +48,13 @@ describe('Results', function () {
   describe('#showResults', function () {
     it('displays a message if there are no results', function () {
       // Empty features array. (is response guaranteed to be an array?)
-      geocoder.showResults([]);
+      geocoder.showResults([], 'foo');
 
       expect(el.querySelector('.leaflet-pelias-message').textContent).to.be.a('string');
     });
 
     it('displays results', function () {
-      geocoder.showResults(results.features);
+      geocoder.showResults(results.features, 'foo');
 
       // No message should be shown
       expect(el.querySelector('.leaflet-pelias-message')).to.not.be.ok();
@@ -67,7 +67,6 @@ describe('Results', function () {
 
     it('highlights snippets of the text label with the query text', function () {
       // Test case insensitive matching
-      geocoder._input.value = 'foo';
       geocoder.showResults([{
         'properties': {
           'layer': 'region',
@@ -76,7 +75,7 @@ describe('Results', function () {
         'geometry': {
           'coordinates': [0, 0]
         }
-      }]);
+      }], 'foo');
 
       expect(el.querySelector('.leaflet-pelias-result').innerHTML).to.contain('<strong>Foo</strong>');
     });

@@ -249,11 +249,16 @@
         }
 
         if (results && results.features) {
+          // Ignore requests if input is currently blank, it is stale
+          if (this._input.value === '') {
+            return;
+          }
+
           // Ignore requests that started before a request which has already
           // been successfully rendered on to the UI.
           if (this.maxReqTimestampRendered < reqStartedAt) {
             this.maxReqTimestampRendered = reqStartedAt;
-            this.showResults(results.features);
+            this.showResults(results.features, params.text);
             this.fire('results', {
               results: results,
               endpoint: endpoint,
@@ -307,7 +312,7 @@
       }
     },
 
-    showResults: function (features) {
+    showResults: function (features, input) {
       // Exit function if there are no features
       if (features.length === 0) {
         this.showMessage('No results were found.');
@@ -353,9 +358,7 @@
           layerIcon.title = 'layer: ' + feature.properties.layer;
         }
 
-        if (this._input.value.length > 0) {
-          resultItem.innerHTML += this.highlight(feature.properties.label, this._input.value);
-        }
+        resultItem.innerHTML += this.highlight(feature.properties.label, input);
       }
     },
 
