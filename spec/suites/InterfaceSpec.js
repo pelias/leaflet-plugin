@@ -29,7 +29,7 @@ describe('Interface', function () {
     it('should not be visible when control is first added', function () {
       var geocoder = new L.Control.Geocoder();
       geocoder.addTo(map);
-      expect(geocoder._close.classList.contains('leaflet-pelias-hidden')).to.be(true);
+      expect(geocoder._reset.classList.contains('leaflet-pelias-hidden')).to.be(true);
     });
 
     it('should be visible when input has 1 character', function () {
@@ -39,7 +39,7 @@ describe('Interface', function () {
       geocoder._input.focus();
       geocoder._input.value = 'a';
       happen.keyup(geocoder._input);
-      expect(geocoder._close.classList.contains('leaflet-pelias-hidden')).to.be(false);
+      expect(geocoder._reset.classList.contains('leaflet-pelias-hidden')).to.be(false);
     });
 
     it('should be visible when input has 2 characters', function () {
@@ -49,7 +49,7 @@ describe('Interface', function () {
       geocoder._input.focus();
       geocoder._input.value = 'bb';
       happen.keyup(geocoder._input);
-      expect(geocoder._close.classList.contains('leaflet-pelias-hidden')).to.be(false);
+      expect(geocoder._reset.classList.contains('leaflet-pelias-hidden')).to.be(false);
     });
 
     it('should reset input when clicked', function () {
@@ -59,10 +59,10 @@ describe('Interface', function () {
       // Simulates input action
       geocoder._input.focus();
       geocoder._input.value = 'sometext';
-      happen.click(geocoder._close);
+      happen.click(geocoder._reset);
 
       expect(geocoder._input.value.length).to.be(0);
-      expect(geocoder._close.classList.contains('leaflet-pelias-hidden')).to.be(true);
+      expect(geocoder._reset.classList.contains('leaflet-pelias-hidden')).to.be(true);
       expect(geocoder.markers).to.be.empty();
       expect(geocoder._results.style.display).to.be('none');
       expect(geocoder._results.innerHTML.length).to.be(0);
@@ -75,7 +75,7 @@ describe('Interface', function () {
       geocoder.addTo(map);
       geocoder.on('reset', onReset);
 
-      happen.click(geocoder._close);
+      happen.click(geocoder._reset);
 
       expect(onReset.called).to.be(true);
       expect(onReset.callCount).to.be.lessThan(2);

@@ -410,7 +410,7 @@
 
     resetInput: function () {
       this._input.value = '';
-      L.DomUtil.addClass(this._close, 'leaflet-pelias-hidden');
+      L.DomUtil.addClass(this._reset, 'leaflet-pelias-hidden');
       this.removeMarkers();
       this._input.focus();
       this.fire('reset');
@@ -420,7 +420,7 @@
     blur: function () {
       this.clearResults();
       if (this._input.value === '' && this._results.style.display !== 'none') {
-        L.DomUtil.addClass(this._close, 'leaflet-pelias-hidden');
+        L.DomUtil.addClass(this._reset, 'leaflet-pelias-hidden');
         if (!this.options.expanded) {
           this.collapse();
         }
@@ -499,9 +499,9 @@
       }
 
       this._search = L.DomUtil.create('a', 'leaflet-pelias-search-icon', this._container);
-      this._close = L.DomUtil.create('div', 'leaflet-pelias-close leaflet-pelias-hidden', this._container);
-      this._close.innerHTML = '×';
-      this._close.title = 'Reset';
+      this._reset = L.DomUtil.create('div', 'leaflet-pelias-close leaflet-pelias-hidden', this._container);
+      this._reset.innerHTML = '×';
+      this._reset.title = 'Reset';
 
       this._results = L.DomUtil.create('div', 'leaflet-pelias-results leaflet-bar', this._container);
 
@@ -538,19 +538,19 @@
               return;
             } else {
               // Otherwise, toggle to hidden state
-              L.DomUtil.addClass(this._close, 'leaflet-pelias-hidden');
+              L.DomUtil.addClass(this._reset, 'leaflet-pelias-hidden');
               this.collapse();
             }
           } else {
             // If not currently expanded, clicking here always expands it
             if (this._input.value.length > 0) {
-              L.DomUtil.removeClass(this._close, 'leaflet-pelias-hidden');
+              L.DomUtil.removeClass(this._reset, 'leaflet-pelias-hidden');
             }
             this.expand();
             this._input.focus();
           }
         }, this)
-        .on(this._close, 'click', function (e) {
+        .on(this._reset, 'click', function (e) {
           this.resetInput();
           this.clearResults();
           L.DomEvent.stopPropagation(e);
@@ -659,9 +659,9 @@
           var text = (e.target || e.srcElement).value;
 
           if (text.length > 0) {
-            L.DomUtil.removeClass(this._close, 'leaflet-pelias-hidden');
+            L.DomUtil.removeClass(this._reset, 'leaflet-pelias-hidden');
           } else {
-            L.DomUtil.addClass(this._close, 'leaflet-pelias-hidden');
+            L.DomUtil.addClass(this._reset, 'leaflet-pelias-hidden');
           }
 
           // Ignore all further action if the keycode matches an arrow
