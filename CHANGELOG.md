@@ -1,3 +1,8 @@
+## v1.5.0 (future)
+
+- Autocomplete responses are now filtered by the layers requested.
+- If the geocoding service returns an error, these are now displayed.
+
 ## v1.4.1 (December 15, 2015)
 
 - Added a request header to require JSON responses, to handle custom endpoints that do not serve JSON by default. (by [@alculquicondor](https://github.com/alculquicondor)) [#90](https://github.com/mapzen/leaflet-geocoder/pull/90)
