@@ -204,7 +204,8 @@ only screen and (min-device-pixel-ratio: 2) {
   width: 100%;
   position: absolute;
   left: 0;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
   display: none;
 }
 
@@ -264,6 +265,7 @@ only screen and (min-device-pixel-ratio: 2) {
   font-size: 13px;
   padding: 7px;
   background-color: white;
+  overflow-x: auto;
 }
 
 /* styles when positioned on right */
