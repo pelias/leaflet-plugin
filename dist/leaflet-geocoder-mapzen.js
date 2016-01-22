@@ -248,6 +248,21 @@
           });
         }
 
+        // There might be an error message from the geocoding service itself
+        if (results && results.geocoding && results.geocoding.errors) {
+          errorMessage = results.geocoding.errors[0];
+          this.showMessage(errorMessage);
+          this.fire('error', {
+            results: results,
+            endpoint: endpoint,
+            requestType: type,
+            params: params,
+            errorCode: err.code,
+            errorMessage: errorMessage
+          });
+          return;
+        }
+
         if (results && results.features) {
           // Ignore requests if input is currently blank, it is stale
           if (this._input.value === '') {
@@ -258,6 +273,14 @@
           // been successfully rendered on to the UI.
           if (this.maxReqTimestampRendered < reqStartedAt) {
             this.maxReqTimestampRendered = reqStartedAt;
+
+            // Filter the unfiltered requests from the autocompletor
+            // This modifies the original response
+            if (type === 'autocomplete' && params.layers) {
+              results.features = this.filterFeaturesByLayers(results.features, params.layers);
+            }
+
+            // Show results
             this.showResults(results.features, params.text);
             this.fire('results', {
               results: results,
@@ -269,6 +292,36 @@
           // Else ignore the request, it is stale.
         }
       }, this);
+    },
+
+    // Filters a Pelias response (likely from autocomplete)
+    // with the layer parameter given to it
+    // @param features - a FeatureCollection
+    // @param layers - string or array of layers queried
+    filterFeaturesByLayers: function (features, layers) {
+      var newFeatures = [];
+
+      // Handle if layers = 'coarse'
+      // It is defined in the service as an alias for these layers
+      if (layers === 'coarse') {
+        layers = ['country', 'region', 'county', 'locality', 'localadmin', 'neighbourhood'];
+      }
+      // TODO: Handle if 'coarse' is in array of layers
+
+      for (var i = 0; i < features.length; i++) {
+        var feature = features[i];
+        if (feature.properties.layer === layers) {
+          newFeatures.push(feature);
+        } else if (L.Util.isArray(layers)) {
+          for (var j = 0; j < layers.length; j++) {
+            if (feature.properties.layer === layers[j]) {
+              newFeatures.push(feature);
+              break;
+            }
+          }
+        }
+      }
+      return newFeatures;
     },
 
     highlight: function (text, focus) {
@@ -850,6 +903,16 @@
         var response;
         var error;
 
+        try {
+          response = JSON.parse(xhr.responseText);
+        } catch (e) {
+          response = null;
+          error = {
+            code: 500,
+            message: 'Parse Error'
+          };
+        }
+
         if (xhr.readyState === 4) {
           // Handle all non-200 responses first
           if (xhr.status !== 200) {
@@ -857,21 +920,10 @@
               code: xhr.status,
               message: xhr.statusText
             };
-            callback.call(context, error, null);
+            callback.call(context, error, response);
           } else {
-            try {
-              response = JSON.parse(xhr.responseText);
-            } catch (e) {
-              response = null;
-              error = {
-                code: 500,
-                message: 'Parse Error'
-              };
-            }
-
             if (!error && response.error) {
               error = response.error;
-              response = null;
             }
 
             xhr.onerror = L.Util.falseFn;

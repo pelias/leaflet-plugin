@@ -103,7 +103,7 @@ option      | description                               | default value
 **url** | _String._ Host endpoint for a Pelias-compatible search API. | `'https://search.mapzen.com/v1'`
 **bounds** | _[Leaflet LatLngBounds object](http://leafletjs.com/reference.html#latlngbounds)_ or _Boolean_. If `true`, search is bounded by the current map view. You may also provide a custom bounding box in form of a LatLngBounds object. | `false`
 **latlng** | _[Leaflet LatLng object](http://leafletjs.com/reference.html#latlng)_ or _Boolean_. If `true`, search is biased to prioritize results near the center of the current view. You may also provide a custom LatLng value (in any of the [accepted Leaflet formats](http://leafletjs.com/reference.html#latlng)) to act as the center bias. | `false`
-**layers** | _String_ or _Array_. Filters results by layers ([documentation](https://mapzen.com/documentation/search/search/#filter-by-data-type)). If left blank, results will come from all available layers. **NOTE:** layers is not available for the autocomplete query. | `null`
+**layers** | _String_ or _Array_. Filters results by layers ([documentation](https://mapzen.com/documentation/search/search/#filter-by-data-type)). If left blank, results will come from all available layers. | `null`
 
 ### Interaction behavior
 
