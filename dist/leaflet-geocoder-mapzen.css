@@ -68,8 +68,8 @@
 /* In popup */
 span.leaflet-pelias-layer-icon-container {
   display: inline-block;
-  width: 15px;
-  height: 15px;
+  width: 16px;
+  height: 16px;
   margin-right: 5px;
   vertical-align: text-bottom;
 }
@@ -80,7 +80,7 @@ span.leaflet-pelias-layer-icon-container {
 }
 
 img.leaflet-pelias-layer-icon {
-  width: 15px;
+  width: 16px;
 }
 
 .leaflet-pelias-layer-icon {
@@ -103,6 +103,19 @@ img.leaflet-pelias-layer-icon {
 
 .leaflet-pelias-layer-icon-polygon {
   background-image: url('images/polygon_icon.png');
+}
+
+@media only screen and (min--moz-device-pixel-ratio: 2),
+only screen and (-o-min-device-pixel-ratio: 2/1),
+only screen and (-webkit-min-device-pixel-ratio: 2),
+only screen and (min-device-pixel-ratio: 2) {
+  .leaflet-pelias-layer-icon-point {
+    background-image: url('images/point_icon@2x.png');
+  }
+
+  .leaflet-pelias-layer-icon-polygon {
+    background-image: url('images/polygon_icon@2x.png');
+  }
 }
 
 .leaflet-pelias-close {

@@ -2,6 +2,9 @@
 
 - Autocomplete responses are now filtered by the layers requested.
 - If the geocoding service returns an error, these are now displayed.
+- Add media query support for point and polygon icons for high-pixel-density displays.
+- Use exact pixel size point and polygon icons (also fixes icons not displaying properly in IE8)
+- Fix a bug where error messages were not being displayed in IE8.
 
 ## v1.4.1 (December 15, 2015)
 
