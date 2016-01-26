@@ -159,6 +159,16 @@ describe('Interface', function () {
       expect(selectedEl.feature).to.eql(onSelect.args[0][0].feature);
     });
 
+    it('replaces the input with the result label after being selected', function () {
+      geocoder._input.value = 'foo';
+      var onSelect = sinon.spy();
+      geocoder.on('select', onSelect);
+      var selectedEl = document.querySelectorAll('.leaflet-pelias-result')[4];
+      happen.click(selectedEl);
+      expect(geocoder._input.value).to.not.be('foo');
+      expect(geocoder._input.value).to.be(onSelect.args[0][0].feature.properties.label);
+    });
+
     it('pans the map when a result is highlighted', function () {
       var selectedEl, mapCenter, coords;
       var onSelect = sinon.spy();
