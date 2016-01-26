@@ -423,7 +423,13 @@
       resultsContainer.style.display = 'block';
 
       var messageEl = L.DomUtil.create('div', 'leaflet-pelias-message', resultsContainer);
-      messageEl.textContent = text;
+
+      // Set text, with IE8 compatibility
+      if (messageEl.textContent) {
+        messageEl.textContent = text;
+      } else {
+        messageEl.innerText = text;
+      }
     },
 
     removeMarkers: function () {
