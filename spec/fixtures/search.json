@@ -89,7 +89,7 @@
     "properties": {
       "id": "5128594",
       "gid": "gn:county:5128594",
-      "layer": "county",
+      "layer": "venue",
       "source": "gn",
       "name": "New York County",
       "country_a": "USA",
