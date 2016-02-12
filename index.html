@@ -92,6 +92,9 @@
       var geocoderEl = geocoder._container;
       geocoderEl.parentNode.insertBefore(geocoderEl, geocoderEl.parentNode.childNodes[0]);
 
+      // Focus to geocoder input
+      geocoder.focus();
+
       // Add Tangram scene layer
       var layer = Tangram.leafletLayer({
         scene: 'https://cdn.rawgit.com/tangrams/refill-style/ef1259dbbcd5f47ad3e8bed1a27c4fcab9676b3c/refill-style.yaml',

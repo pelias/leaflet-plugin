@@ -270,6 +270,14 @@ geocoder.expand();
 // Collapse the geocoder.
 // This works even if the option `expanded` is set to true!
 geocoder.collapse();
+
+// Focus on the geocoder input.
+// This will also expand the geocoder if it's collapsed.
+geocoder.focus();
+
+// Removes focus from the geocoder input.
+// This also clears results and collapses the geocoder (if enabled).
+geocoder.blur();
 ```
 
 ### Events

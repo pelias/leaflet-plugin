@@ -475,6 +475,16 @@
       this.fire('reset');
     },
 
+    // Convenience function for focusing on the input
+    // This is meant for external use.
+    focus: function () {
+      // If not expanded, expand this first
+      if (!L.DomUtil.hasClass(this._container, 'leaflet-pelias-expanded')) {
+        this.expand();
+      }
+      this._input.focus();
+    },
+
     // Removes focus from geocoder control
     blur: function () {
       this.clearResults();
