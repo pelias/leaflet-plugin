@@ -8,21 +8,8 @@
     <meta name="mobile-web-app-capable" content="yes">
     <script src="examples/assets/modernizr.js"></script>
     <script src="https://geoiplookup.wikimedia.org/"></script>
-
-    <!-- Load Leaflet from CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.5/leaflet.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.5/leaflet.js"></script>
-
-    <!-- With leaflet-hash -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-hash/0.2.1/leaflet-hash.min.js"></script>
-
-    <!-- Load Tangram -->
-    <script src="https://mapzen.com/tangram/tangram.min.js"></script>
-
-    <!-- Load Pelias geocoding plugin after Leaflet -->
     <link rel="stylesheet" href="./dist/leaflet-geocoder-mapzen.css">
-    <script src="./dist/leaflet-geocoder-mapzen.js"></script>
-
     <style>
       html, body {
         overflow: hidden;
@@ -73,6 +60,10 @@
     <div id="message" class="no-webgl-message">Your browser cannot display the map on this page. <a href="./examples/">Try this one instead.</a></div>
     <div id="map"></div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.5/leaflet.js"></script>
+    <script src="https://mapzen.com/tangram/tangram.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-hash/0.2.1/leaflet-hash.min.js"></script>
+    <script src="./dist/leaflet-geocoder-mapzen.js"></script>
     <script type="text/javascript">
       // Initial map view
       var INITIAL_LNG = -73.9805;
