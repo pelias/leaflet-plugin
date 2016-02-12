@@ -7,6 +7,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
     <script src="examples/assets/modernizr.js"></script>
+    <script src="https://geoiplookup.wikimedia.org/"></script>
 
     <!-- Load Leaflet from CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.5/leaflet.css">
@@ -73,11 +74,21 @@
     <div id="map"></div>
 
     <script type="text/javascript">
+      // Initial map view
+      var INITIAL_LNG = -73.9805;
+      var INITIAL_LAT = 40.7259;
+
+      // Change the initial view if there is a GeoIP lookup
+      if (typeof Geo === 'object') {
+        INITIAL_LNG = Geo.lon;
+        INITIAL_LAT = Geo.lat;
+      }
+
       var map = L.map('map', {
         scrollWheelZoom: (window.self === window.top) ? true : false,
         dragging: (window.self !== window.top && L.Browser.touch) ? false : true,
         tap: (window.self !== window.top && L.Browser.touch) ? false : true,
-      }).setView([40.7259, -73.9805], 12);
+      }).setView({ lng: INITIAL_LNG, lat: INITIAL_LAT }, 12);
       var hash = new L.Hash(map);
 
       // Add geocoder
