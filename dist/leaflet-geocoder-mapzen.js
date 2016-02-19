@@ -294,33 +294,59 @@
       }, this);
     },
 
-    // Filters a Pelias response (likely from autocomplete)
-    // with the layer parameter given to it
-    // @param features - a FeatureCollection
-    // @param layers - string or array of layers queried
+    /**
+     * Filters a Pelias response (likely from autocomplete)
+     * with the layer parameter given to it
+     * @param features - a FeatureCollection
+     * @param layers - string or array of layers queried
+     */
     filterFeaturesByLayers: function (features, layers) {
       var newFeatures = [];
+      // The 'coarse' alias is defined as these layers by the Pelias service.
+      // See documentation: https://mapzen.com/documentation/search/search/#filter-by-data-type
+      var coarseLayers = ['country', 'region', 'county', 'locality', 'localadmin', 'neighbourhood'];
 
-      // Handle if layers = 'coarse'
-      // It is defined in the service as an alias for these layers
-      if (layers === 'coarse') {
-        layers = ['country', 'region', 'county', 'locality', 'localadmin', 'neighbourhood'];
+      // If layers parameter is an array, make a copy of it so that
+      // it does not modify the original options object.
+      if (L.Util.isArray(layers)) {
+        layers = layers.slice();
       }
-      // TODO: Handle if 'coarse' is in array of layers
 
-      for (var i = 0; i < features.length; i++) {
-        var feature = features[i];
+      // The 'coarse' alias will be expanded to its defined layers.
+      // Handle if layers parameter is a string
+      if (layers === 'coarse') {
+        layers = coarseLayers;
+      } else if (L.Util.isArray(layers)) {
+        // And, handle if 'coarse' is in an array of layers
+        for (var i = 0; i < layers.length; i++) {
+          if (layers[i] === 'coarse') {
+            // Uses Array.splice() in an exotic way to splice one array into another array.
+            var args = [i, 1].concat(coarseLayers);
+            Array.prototype.splice.apply(layers, args);
+            // We will only do this once. If the layers provided is an array
+            // containing more than one instance of 'coarse', do not handle it.
+            // The filtering process below will ignore extra 'coarse' values, since
+            // no results will ever contain 'coarse' as a layer value.
+            break;
+          }
+        }
+      }
+
+      // Filtering the original features is done here.
+      for (var j = 0; j < features.length; j++) {
+        var feature = features[j];
         if (feature.properties.layer === layers) {
           newFeatures.push(feature);
         } else if (L.Util.isArray(layers)) {
-          for (var j = 0; j < layers.length; j++) {
-            if (feature.properties.layer === layers[j]) {
+          for (var k = 0; k < layers.length; k++) {
+            if (feature.properties.layer === layers[k]) {
               newFeatures.push(feature);
               break;
             }
           }
         }
       }
+
       return newFeatures;
     },
 

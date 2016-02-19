@@ -195,26 +195,25 @@
   }, {
     "type": "Feature",
     "properties": {
-      "id": "5106296",
-      "gid": "gn:neighbourhood:5106296",
-      "layer": "neighbourhood",
-      "source": "gn",
-      "name": "Town of West New York",
+      "id": "cb5add8f72ca4a82b61dfacde485fcbb",
+      "gid": "oa:address:cb5add8f72ca4a82b61dfacde485fcbb",
+      "layer": "address",
+      "source": "oa",
+      "name": "30 West 26th Street",
+      "housenumber": "30",
+      "street": "West 26th Street",
       "country_a": "USA",
       "country": "United States",
-      "region": "New Jersey",
-      "region_a": "NJ",
-      "county": "Hudson County",
-      "localadmin": "West New York",
-      "locality": "West New York",
-      "neighbourhood": "Ansonia",
-      "confidence": 0.65,
-      "distance": 7.059,
-      "label": "Town of West New York, West New York, NJ"
+      "region": "California",
+      "region_a": "CA",
+      "county": "Merced County",
+      "locality": "Merced",
+      "confidence": 0.67,
+      "label": "30 West 26th Street, Merced, CA"
     },
     "geometry": {
       "type": "Point",
-      "coordinates": [-74.00931, 40.78566]
+      "coordinates": [-120.471512, 37.307614]
     }
   }, {
     "type": "Feature",
