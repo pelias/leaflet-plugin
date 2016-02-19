@@ -175,21 +175,26 @@ describe('Interface', function () {
       geocoder.on('select', onSelect);
       map.setView([20, 20], 10);
 
+      // The test expectations round numbers down in order to
+      // to prevent the tests from throwing errors such as
+      // "Error: expected 43.000629854450025 to equal 43.00035"
+      // see: https://circleci.com/gh/mapzen/leaflet-geocoder/194
+
       // First pan
       happen.keydown(geocoder._input, { keyCode: 40 });
       selectedEl = document.querySelector('.leaflet-pelias-selected');
       mapCenter = map.getCenter();
       coords = selectedEl.feature.geometry.coordinates;
-      expect(mapCenter.lat).to.be(coords[1]);
-      expect(mapCenter.lng).to.be(coords[0]);
+      expect(Math.floor(mapCenter.lat)).to.be(Math.floor(coords[1]));
+      expect(Math.floor(mapCenter.lng)).to.be(Math.floor(coords[0]));
 
       // Second pan
       happen.keydown(geocoder._input, { keyCode: 40 });
       selectedEl = document.querySelector('.leaflet-pelias-selected');
       mapCenter = map.getCenter();
       coords = selectedEl.feature.geometry.coordinates;
-      expect(mapCenter.lat).to.be(coords[1]);
-      expect(mapCenter.lng).to.be(coords[0]);
+      expect(Math.floor(mapCenter.lat)).to.be(Math.floor(coords[1]));
+      expect(Math.floor(mapCenter.lng)).to.be(Math.floor(coords[0]));
     });
 
     it('does not pan the map when a result is highlighted', function () {
