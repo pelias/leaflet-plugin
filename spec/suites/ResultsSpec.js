@@ -196,23 +196,5 @@ describe('Results', function () {
     });
   });
 
-  describe('#filterFeaturesByLayers', function () {
-    it('filters results given a string for layer', function () {
-      var filtered = geocoder.filterFeaturesByLayers(results.features, 'neighbourhood');
-      expect(filtered.length).to.be(3);
-    });
-    it('filters results given an array of layers', function () {
-      var filtered = geocoder.filterFeaturesByLayers(results.features, ['region', 'locality']);
-      expect(filtered.length).to.be(5);
-    });
-    it('filters results if given "coarse" for layer', function () {
-      var filtered = geocoder.filterFeaturesByLayers(results.features, 'coarse');
-      expect(filtered.length).to.be(9);
-    });
-
-    // TODO
-    it('filters results given an array including "coarse"');
-  });
-
   it('throws away stale results');
 });

@@ -296,15 +296,6 @@ describe('Interface', function () {
   });
 
   describe('Edge cases', function () {
-    var results;
-
-    before('load the dummy results', function (done) {
-      loadJSON('fixtures/search.json', function (response) {
-        results = JSON.parse(response);
-        done();
-      });
-    });
-
     it('should do consecutive searches when autocomplete is off', function () {
       var geocoder = new L.Control.Geocoder({
         autocomplete: false
@@ -314,9 +305,6 @@ describe('Interface', function () {
 
       geocoder._input.value = 'foo';
       happen.keydown(geocoder._input, { keyCode: 13 });
-      geocoder.showResults(results.features, 'foo');
-      happen.keydown(geocoder._input, { keyCode: 38 });
-      happen.keydown(geocoder._input, { keyCode: 38 });
       expect(stub.called).to.be(true);
 
       geocoder._input.value = 'bar';
