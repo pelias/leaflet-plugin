@@ -4,8 +4,9 @@
 - If the geocoding service returns an error, these are now displayed.
 - Add media query support for point and polygon icons for high-pixel-density displays.
 - Use exact pixel size point and polygon icons (also fixes icons not displaying properly in IE8)
-- Fix a bug where an empty results dropdown can be displayed when input is deleted faster than the rate at which autocomplete responses are received [#94](https://github.com/mapzen/leaflet-geocoder/pull/94)
 - Fix a bug where error messages were not being displayed in IE8.
+- Fix a bug where an empty results dropdown can be displayed when input is deleted faster than the rate at which autocomplete responses are received [#94](https://github.com/mapzen/leaflet-geocoder/pull/94)
+- Fix a bug where if autocomplete is turned off, subsequent searches will not work. [#104](https://github.com/mapzen/leaflet-geocoder/issues/104)
 - Add a `.focus()` convenience method to focus on the geocoder input. Document the `.blur()` method.
 
 ## v1.4.1 (December 15, 2015)
