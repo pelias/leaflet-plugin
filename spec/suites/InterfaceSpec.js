@@ -83,8 +83,27 @@ describe('Interface', function () {
   });
 
   describe('Input element', function () {
-    it('performs a search when I press enter');
-    it('does not perform a search when the input is blank');
+    it('performs a search when I press enter', function () {
+      var geocoder = new L.Control.Geocoder();
+      var stub = sinon.stub(geocoder, 'callPelias');
+
+      geocoder.addTo(map);
+      geocoder._input.value = 'foo';
+      happen.keydown(geocoder._input, { keyCode: 13 });
+
+      expect(stub.called).to.be(true);
+    });
+
+    it('does not perform a search when the input is blank', function () {
+      var geocoder = new L.Control.Geocoder();
+      var stub = sinon.stub(geocoder, 'callPelias');
+
+      geocoder.addTo(map);
+      happen.keydown(geocoder._input, { keyCode: 13 });
+
+      expect(stub.called).to.be(false);
+    });
+
     it('does not perform a search when an element is highlighted');
     it('performs autocomplete when enabled');
     it('does not perform autocomplete when disabled');
@@ -274,5 +293,23 @@ describe('Interface', function () {
     });
 
     it('collapses if: map is dragged, and a result is highlighted');
+  });
+
+  describe('Edge cases', function () {
+    it('should do consecutive searches when autocomplete is off', function () {
+      var geocoder = new L.Control.Geocoder({
+        autocomplete: false
+      });
+      var stub = sinon.stub(geocoder, 'callPelias');
+      geocoder.addTo(map);
+
+      geocoder._input.value = 'foo';
+      happen.keydown(geocoder._input, { keyCode: 13 });
+      expect(stub.called).to.be(true);
+
+      geocoder._input.value = 'bar';
+      happen.keydown(geocoder._input, { keyCode: 13 });
+      expect(stub.calledTwice).to.be(true);
+    });
   });
 });

@@ -522,12 +522,13 @@
       }
     },
 
-    clearResults: function () {
+    clearResults: function (force) {
       // Hide results from view
       this._results.style.display = 'none';
 
       // Destroy contents if input has also cleared
-      if (this._input.value === '') {
+      // OR if force is true
+      if (this._input.value === '' || force === true) {
         this._results.innerHTML = '';
       }
     },
@@ -773,16 +774,13 @@
             if (text.length === 0 || this._results.style.display === 'none') {
               this._input.blur();
 
-              if (L.DomUtil.hasClass(this._container, 'leaflet-pelias-expanded')) {
-                if (!this.options.expanded) {
-                  this.collapse();
-                }
-                this.clearResults();
+              if (!this.options.expanded && L.DomUtil.hasClass(this._container, 'leaflet-pelias-expanded')) {
+                this.collapse();
               }
             }
+
             // Clears results
-            this._results.innerHTML = '';
-            this._results.style.display = 'none';
+            this.clearResults(true);
             L.DomUtil.removeClass(this._search, 'leaflet-pelias-loading');
             return;
           }
@@ -793,7 +791,7 @@
             if (text.length >= MINIMUM_INPUT_LENGTH_FOR_AUTOCOMPLETE && this.options.autocomplete === true) {
               this.autocomplete(text);
             } else {
-              this.clearResults();
+              this.clearResults(true);
             }
           }
         }, this)
