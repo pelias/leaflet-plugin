@@ -851,12 +851,8 @@
         }, this);
       }
 
-      // Collapse an empty input bar when user interacts with the map
-      // Disabled if expanded is set to true
-      if (!this.options.expanded) {
-        L.DomEvent.on(this._map, 'mousedown', this._onMapInteraction, this);
-        L.DomEvent.on(this._map, 'touchstart', this._onMapInteraction, this);
-      }
+      L.DomEvent.on(this._map, 'mousedown', this._onMapInteraction, this);
+      L.DomEvent.on(this._map, 'touchstart', this._onMapInteraction, this);
 
       L.DomEvent.disableClickPropagation(this._container);
       if (map.attributionControl) {
@@ -866,9 +862,14 @@
     },
 
     _onMapInteraction: function (event) {
+      this.blur();
+
       // Only collapse if the input is clear, and is currently expanded.
-      if (!this._input.value && L.DomUtil.hasClass(this._container, 'leaflet-pelias-expanded')) {
-        this.collapse();
+      // Disabled if expanded is set to true
+      if (!this.options.expanded) {
+        if (!this._input.value && L.DomUtil.hasClass(this._container, 'leaflet-pelias-expanded')) {
+          this.collapse();
+        }
       }
     },
 
