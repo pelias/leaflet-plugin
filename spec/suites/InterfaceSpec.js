@@ -295,6 +295,15 @@ describe('Interface', function () {
     it('collapses if: map is dragged, and a result is highlighted');
   });
 
+  // TODO
+  describe.skip('#focus', function () {
+    it('focuses on input when .focus() method is called');
+  });
+
+  describe.skip('#blur', function () {
+    it('blurs from input when .blur() method is called');
+  });
+
   describe('Edge cases', function () {
     it('should do consecutive searches when autocomplete is off', function () {
       var geocoder = new L.Control.Geocoder({
