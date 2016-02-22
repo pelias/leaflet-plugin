@@ -546,6 +546,7 @@
 
     // Removes focus from geocoder control
     blur: function () {
+      this._input.blur();
       this.clearResults();
       if (this._input.value === '' && this._results.style.display !== 'none') {
         L.DomUtil.addClass(this._reset, 'leaflet-pelias-hidden');
