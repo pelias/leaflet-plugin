@@ -281,39 +281,39 @@
         }
 
         // Autocomplete and search responses
-        if (results && results.features && (type === 'autocomplete' || type === 'search')) {
-          // Ignore requests if input is currently blank, it is stale
-          if (this._input.value === '') {
-            return;
-          }
-
+        if (results && results.features) {
+          // Check if request is stale:
+          // Only for autocomplete or search endpoints
+          // Ignore requests if input is currently blank
           // Ignore requests that started before a request which has already
           // been successfully rendered on to the UI.
-          if (this.maxReqTimestampRendered < reqStartedAt) {
-            this.maxReqTimestampRendered = reqStartedAt;
-
-            // Filter the unfiltered requests from the autocompletor
-            // This modifies the original response
-            if (type === 'autocomplete' && params.layers) {
-              results.features = this.filterFeaturesByLayers(results.features, params.layers);
+          if (type === 'autocomplete' || type === 'search') {
+            if (this._input.value === '' || this.maxReqTimestampRendered >= reqStartedAt) {
+              return;
+            } else {
+              // Record the timestamp of the request.
+              this.maxReqTimestampRendered = reqStartedAt;
             }
-
-            // Show results
-            this.showResults(results.features, params.text);
-            this.fire('results', {
-              results: results,
-              endpoint: endpoint,
-              requestType: type,
-              params: params
-            });
           }
-          // Else ignore the request, it is stale.
-        }
 
-        // Place response
-        if (results && type === 'place') {
-          this.handlePlaceResponse(results);
-          this.fire('place', {
+          // Filter the unfiltered requests from the autocompletor
+          // This modifies the original response
+          if (type === 'autocomplete' && params.layers) {
+            results.features = this.filterFeaturesByLayers(results.features, params.layers);
+          }
+
+          // Placeholder: handle place response
+          if (type === 'place') {
+            this.handlePlaceResponse(results);
+          }
+
+          // Show results
+          if (type === 'autocomplete' || type == 'search') {
+            this.showResults(results.features, params.text);
+          }
+
+          // Fire event
+          this.fire('results', {
             results: results,
             endpoint: endpoint,
             requestType: type,
