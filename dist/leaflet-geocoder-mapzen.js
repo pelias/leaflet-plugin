@@ -479,12 +479,10 @@
 
       var messageEl = L.DomUtil.create('div', 'leaflet-pelias-message', resultsContainer);
 
-      // Set text, with IE8 compatibility
-      if (messageEl.textContent) {
-        messageEl.textContent = text;
-      } else {
-        messageEl.innerText = text;
-      }
+      // Set text. This is the most cross-browser compatible method
+      // and avoids the issues we have detecting either innerText vs textContent
+      // (e.g. Firefox cannot detect textContent property on elements, but it's there)
+      messageEl.appendChild(document.createTextNode(text));
     },
 
     removeMarkers: function () {
