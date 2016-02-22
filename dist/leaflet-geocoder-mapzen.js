@@ -50,7 +50,8 @@
       fullWidth: 650,
       markers: true,
       expanded: false,
-      autocomplete: true
+      autocomplete: true,
+      place: false
     },
 
     initialize: function (apiKey, options) {
@@ -187,6 +188,22 @@
       this.callPelias(url, params, 'autocomplete');
     }, API_RATE_LIMIT),
 
+    place: function (id) {
+      // Prevent lack of input from sending a malformed query to Pelias
+      if (!id) return;
+
+      var url = this.options.url + '/place';
+      var params = {
+        ids: id
+      };
+
+      this.callPelias(url, params, 'place');
+    },
+
+    handlePlaceResponse: function (response) {
+      // Placeholder for handling place response
+    },
+
     // Timestamp of the last response which was successfully rendered to the UI.
     // The time represents when the request was *sent*, not when it was recieved.
     maxReqTimestampRendered: new Date().getTime(),
@@ -263,7 +280,8 @@
           return;
         }
 
-        if (results && results.features) {
+        // Autocomplete and search responses
+        if (results && results.features && (type === 'autocomplete' || type === 'search')) {
           // Ignore requests if input is currently blank, it is stale
           if (this._input.value === '') {
             return;
@@ -290,6 +308,17 @@
             });
           }
           // Else ignore the request, it is stale.
+        }
+
+        // Place response
+        if (results && type === 'place') {
+          this.handlePlaceResponse(results);
+          this.fire('place', {
+            results: results,
+            endpoint: endpoint,
+            requestType: type,
+            params: params
+          });
         }
       }, this);
     },
@@ -491,6 +520,10 @@
         feature: selected.feature
       });
       this.blur();
+
+      if (this.options.place) {
+        this.place(selected.feature.properties.gid);
+      }
     },
 
     resetInput: function () {

@@ -72,6 +72,10 @@
       background-color: whitesmoke;
       color: darkred;
     }
+    code.place {
+      background-color: #058dc1;
+      color: white;
+    }
   </style>
 </head>
 <body>
@@ -105,7 +109,7 @@
     var map = L.map('map').setView([40.7259, -73.9805], 12);
     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(map);
 
-    var geocoder = L.control.geocoder('search-MKZrG6M').addTo(map);
+    var geocoder = L.control.geocoder('search-MKZrG6M', { place: true }).addTo(map);
     var log = document.getElementById('events-log');
 
     geocoder.on('select', function (e) {
@@ -141,6 +145,11 @@
     geocoder.on('collapse', function (e) {
       console.log('collapse', e);
       addLog('<p><code class="collapse">collapse</code> Geocoder collapsed!</p>');
+    });
+
+    geocoder.on('place', function (e) {
+      console.log('place', e);
+      addLog('<p><code class="place">place</code> Place received! ' + e.results.features[0].properties.label + '</p>');
     });
 
     function addLog (html) {

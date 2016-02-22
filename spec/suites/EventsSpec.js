@@ -66,6 +66,17 @@ describe('Events', function () {
     });
   });
 
+  // TODO
+  describe.skip('on `place`', function () {
+    it('fires `place` after receiving a response from /place', function () {
+      // TODO
+      // Test for properties on the event object
+    });
+    it('does not fire `place` if request has errored', function () {
+      // TODO
+    });
+  });
+
   // 'select', 'highlight', 'reset' are in InterfaceSpec
 
   describe('on `expand` and `collapse`', function () {
