@@ -8,7 +8,7 @@
     <meta name="mobile-web-app-capable" content="yes">
     <script src="examples/assets/modernizr.js"></script>
     <script src="https://geoiplookup.wikimedia.org/"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.5/leaflet.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.0-beta.2/leaflet.css">
     <link rel="stylesheet" href="./dist/leaflet-geocoder-mapzen.css">
     <style>
       html, body {
@@ -60,7 +60,7 @@
     <div id="message" class="no-webgl-message">Your browser cannot display the map on this page. <a href="./examples/">Try this one instead.</a></div>
     <div id="map"></div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.5/leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.0-beta.2/leaflet.js"></script>
     <script src="https://mapzen.com/tangram/tangram.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-hash/0.2.1/leaflet-hash.min.js"></script>
     <script src="./dist/leaflet-geocoder-mapzen.js"></script>
@@ -99,7 +99,7 @@
 
       // Add Tangram scene layer
       var layer = Tangram.leafletLayer({
-        scene: 'https://cdn.rawgit.com/tangrams/refill-style/ef1259dbbcd5f47ad3e8bed1a27c4fcab9676b3c/refill-style.yaml',
+        scene: 'https://cdn.rawgit.com/tangrams/refill-style/6785c8c8d87edfde9e9b2e63b7a9807882b20076/refill-style.yaml',
         attribution: 'Rendering by <a href="https://mapzen.com/tangram">Tangram</a> | &copy; OSM contributors'
       }).addTo(map);
 
