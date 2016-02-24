@@ -1,4 +1,4 @@
-## v1.5.0 (February 22, 2016)
+## v1.5.0 (February 24, 2016)
 
 - Autocomplete responses are now filtered by the layers requested.
 - If the geocoding service returns an error, these are now displayed.
