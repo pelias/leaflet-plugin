@@ -308,7 +308,7 @@
           }
 
           // Show results
-          if (type === 'autocomplete' || type == 'search') {
+          if (type === 'autocomplete' || type === 'search') {
             this.showResults(results.features, params.text);
           }
 

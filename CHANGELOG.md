@@ -5,7 +5,7 @@
 - Add media query support for point and polygon icons for high-pixel-density displays.
 - Use exact pixel size point and polygon icons (also fixes icons not displaying properly in IE8)
 - Results list should now hide when users interact with the map.
-- **Experimental: Added basic support for the `/place` endpoint.** When a place result is selected, it will then query the [`/place` endpoint](https://mapzen.com/documentation/search/place/). Responses from the `/place` endpoint are not currently handled by the geocoder UI, but users can handle it themselves by listening for the `place` event. Currently, this behavior is disabled but can be enabled by setting `place: true` in options.
+- **Experimental: Added basic support for the `/place` endpoint.** When a place result is selected, it will then query the [`/place` endpoint](https://mapzen.com/documentation/search/place/). Responses from the `/place` endpoint are not currently handled by the geocoder UI, but users can handle it themselves by listening for the `results` event, and the event object passed to the callback function will have its `requestType` property set to `place`. Currently, this behavior is disabled but can be enabled by setting `place: true` in options.
 - Fix a bug where error messages were not being displayed in IE8 and Firefox.
 - Fix a bug where an empty results dropdown can be displayed when input is deleted faster than the rate at which autocomplete responses are received [#94](https://github.com/mapzen/leaflet-geocoder/pull/94)
 - Fix a bug where if autocomplete is turned off, subsequent searches will not work. [#104](https://github.com/mapzen/leaflet-geocoder/issues/104)

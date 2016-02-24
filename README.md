@@ -122,7 +122,7 @@ option      | description                               | default value
 **fullWidth** | _Integer_ or _Boolean_. If `true`, the input box will expand to take up the full width of the map container. If an integer breakpoint is provided, the full width applies only if the map container width is below this breakpoint. | `650`
 **expanded** | _Boolean_. If `true`, the search input is always expanded. It does not collapse into a button-only state. | `false`
 **autocomplete** | _Boolean_. If `true`, suggested results are fetched on each keystroke. If `false`, this is disabled and users must obtain results by pressing the Enter key after typing in their query. | `true`
-**place** | _Boolean_. If `true`, selected results will make a request to the service [`/place` endpoint](https://mapzen.com/documentation/search/place/). If `false`, this is disabled. | `false`
+**place** | _Boolean_. If `true`, selected results will make a request to the service [`/place` endpoint](https://mapzen.com/documentation/search/place/). If `false`, this is disabled. The geocoder does not handle responses to `/place`, you will need to do handle it yourself in the `results` event listener (see below). | `false`
 
 ### Examples
 
@@ -304,7 +304,6 @@ event         | description
 **expand**    | Fired when the geocoder is expanded.
 **collapse**  | Fired when the geocoder is collapsed.
 **reset**     | Fired when the geocoder is reset ("x" button is clicked).
-**place**     | Fired after receiving a response from the `/place/` endpoint (if enabled).
 
 Here is [a demo of the events](http://mapzen.github.io/leaflet-geocoder/examples/events.html).
 
@@ -312,7 +311,7 @@ Here is [a demo of the events](http://mapzen.github.io/leaflet-geocoder/examples
 
 Certain events will pass data as the first argument to the event listener's callback function.
 
-#### on `results`, `error`, or `place`
+#### on `results` or `error`
 
 In addition to the [base event object](http://leafletjs.com/reference.html#event-objects) from Leaflet, the event object will contain these other useful properties:
 
