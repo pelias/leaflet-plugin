@@ -645,7 +645,7 @@
           this._input.focus();
         }, this)
         .on(this._input, 'focus', function (e) {
-          if (this._input.value) {
+          if (this._input.value && this._results.children.length) {
             this._results.style.display = 'block';
           }
         }, this)
