@@ -1,3 +1,7 @@
+## v1.5.1 (February 25, 2016)
+
+- Fix a bug where the results box is displayed when there is nothing in it. The effect was only noticeable when the results box is styled in a way that gives it dimension (e.g. a border or a minimum height).
+
 ## v1.5.0 (February 24, 2016)
 
 - Autocomplete responses are now filtered by the layers requested.
