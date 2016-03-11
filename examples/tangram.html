@@ -18,7 +18,7 @@
   <script src="../dist/leaflet-geocoder-mapzen.js"></script>
 
   <!-- Load Tangram -->
-  <script src="https://mapzen.com/tangram/0.4/tangram.min.js"></script>
+  <script src="https://mapzen.com/tangram/0.6/tangram.min.js"></script>
 
   <link rel="stylesheet" href="assets/examples.css">
 </head>
@@ -36,8 +36,8 @@
     // Add Tangram scene layer
     // (Note: Tangram can also be initialized before the geocoder, if you choose.)
     var layer = Tangram.leafletLayer({
-      scene: 'https://cdn.rawgit.com/tangrams/cinnabar-style-more-labels/561b18408038edfd664f5fc772eb9037b7966d21/cinnabar-style-more-labels.yaml',
-      attribution: 'Rendering by <a href="https://mapzen.com/tangram">Tangram</a> | &copy; OSM contributors | <a href="https://mapzen.com/">Mapzen</a>'
+      scene: 'https://mapzen.com/carto/cinnabar-style-more-labels/2.0/cinnabar-style-more-labels.yaml',
+      attribution: 'Rendering by <a href="https://mapzen.com/tangram">Tangram</a> | &copy; OSM contributors'
     }).addTo(map);
   </script>
   <script type="text/javascript">
