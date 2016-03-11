@@ -24,6 +24,7 @@
   -o-transition: width .1s, height .1s;
   transition: width .1s, height .1s;
   z-index: 810; /* place above .leaflet-control; z-index is 7 in Leaflet v0.7, 800 in v1 */
+  box-sizing: content-box;
 }
 
 /* For old IE, match other leaflet controls' appearance */
@@ -180,6 +181,13 @@ only screen and (min-device-pixel-ratio: 2) {
   border-radius: 4px;
   border-bottom: 0;
   height: 100%;
+}
+
+/* Overrides to .leaflet-bar a, which provides a white background
+   By making it transparent (unless hovered) it prevents situations
+   where the background color overlaps a parent element unexpectedly */
+.leaflet-bar a.leaflet-pelias-search-icon:not(:hover) {
+  background-color: transparent;
 }
 
 /* When expanded, search icon doesn't need right-side radii */
