@@ -433,7 +433,6 @@
     },
 
     showMarker: function (text, latlng) {
-      this.removeMarkers();
       this._map.setView(latlng, this._map.getZoom() || 8);
 
       var markerOptions = (typeof this.options.markers === 'object') ? this.options.markers : {};
@@ -446,10 +445,39 @@
       }
     },
 
+    /**
+     * Fits the map view to a given bounding box.
+     * Mapzen Search / Pelias returns the 'bbox' property on 'feature'. It is
+     * as an array of four numbers:
+     *   [
+     *     0: southwest longitude,
+     *     1: southwest latitude,
+     *     2: northeast longitude,
+     *     3: northeast latitude
+     *   ]
+     * This method expects the array to be passed directly and it will be converted
+     * to a boundary parameter for Leaflet's fitBounds().
+     */
+    fitBoundingBox: function (bbox) {
+      this._map.fitBounds([
+        [ bbox[1], bbox[0] ],
+        [ bbox[3], bbox[2] ]
+      ], {
+        animate: true,
+        maxZoom: 16
+      });
+    },
+
     setSelectedResult: function (selected, originalEvent) {
       var latlng = L.GeoJSON.coordsToLatLng(selected.feature.geometry.coordinates);
       this._input.value = selected.innerText || selected.textContent;
-      this.showMarker(selected.innerHTML, latlng);
+      if (selected.feature.bbox) {
+        this.removeMarkers();
+        this.fitBoundingBox(selected.feature.bbox);
+      } else {
+        this.removeMarkers();
+        this.showMarker(selected.innerHTML, latlng);
+      }
       this.fire('select', {
         originalEvent: originalEvent,
         latlng: latlng,
@@ -629,7 +657,13 @@
           var panToPoint = function (shouldPan) {
             var _selected = self._results.querySelectorAll('.leaflet-pelias-selected')[0];
             if (_selected && shouldPan) {
-              self.showMarker(_selected.innerHTML, L.GeoJSON.coordsToLatLng(_selected.feature.geometry.coordinates));
+              if (_selected.feature.bbox) {
+                self.removeMarkers();
+                self.fitBoundingBox(_selected.feature.bbox);
+              } else {
+                self.removeMarkers();
+                self.showMarker(_selected.innerHTML, L.GeoJSON.coordsToLatLng(_selected.feature.geometry.coordinates));
+              }
             }
           };
 
