@@ -1,3 +1,7 @@
+## v1.5.2 (April 18, 2016)
+
+- Mapzen Search API supports the `layers` parameter natively for autocomplete queries now! For more information, see this issue: https://github.com/pelias/api/issues/449. We removed all the code from this plugin that did the filtering on the client side, which was no longer needed.
+
 ## v1.5.1 (February 25, 2016)
 
 - Fix a bug where the results box is displayed when there is nothing in it. The effect was only noticeable when the results box is styled in a way that gives it dimension (e.g. a border or a minimum height).
