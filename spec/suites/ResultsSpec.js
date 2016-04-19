@@ -157,44 +157,5 @@ describe('Results', function () {
     });
   });
 
-  describe('#filterFeaturesByLayers', function () {
-    it('filters results by a layer', function () {
-      var filtered = geocoder.filterFeaturesByLayers(results.features, 'county');
-      expect(filtered[0].properties.layer).to.be('county');
-      expect(filtered[filtered.length - 1].properties.layer).to.be('county');
-    });
-
-    it('filters results by the layer "coarse"', function () {
-      var filtered = geocoder.filterFeaturesByLayers(results.features, 'coarse');
-      for (var i = 0; i < filtered.length; i++) {
-        expect(filtered[i].properties.layer).to.not.be('address');
-        expect(filtered[i].properties.layer).to.not.be('venue');
-      }
-    });
-
-    it('filters results by an array of layers', function () {
-      var filtered = geocoder.filterFeaturesByLayers(results.features, ['county', 'locality', 'neighbourhood']);
-      // How do you do a test for value A OR value B or value C?
-      // I'm just going to do this thing where if it fits, increment a counter, and expect
-      // it to match the length of the result.
-      var counter = 0;
-      for (var i = 0; i < filtered.length; i++) {
-        var layer = filtered[i].properties.layer;
-        if (layer === 'county' || layer === 'locality' || layer === 'neighbourhood') {
-          counter++;
-        }
-      }
-      expect(counter).to.be(filtered.length);
-    });
-
-    it('filters results by an array of layers that contains "coarse" as a value', function () {
-      var filtered = geocoder.filterFeaturesByLayers(results.features, ['neighbourhood', 'coarse']);
-      for (var i = 0; i < filtered.length; i++) {
-        expect(filtered[i].properties.layer).to.not.be('address');
-        expect(filtered[i].properties.layer).to.not.be('venue');
-      }
-    });
-  });
-
   it('throws away stale results');
 });
