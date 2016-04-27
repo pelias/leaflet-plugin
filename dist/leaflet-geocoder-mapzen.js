@@ -44,6 +44,7 @@
       bounds: false,
       latlng: null,
       layers: null,
+      country: null, // sets param boundary.country (ie 'FRA' or 'GBR')
       panToPoint: true,
       pointIcon: true, // 'images/point_icon.png',
       polygonIcon: true, // 'images/polygon_icon.png',
@@ -75,6 +76,17 @@
       L.Util.setOptions(this, options);
       this.marker;
       this.markers = [];
+    },
+
+    getCountryCode: function (params) {
+      var country = this.options.country; // 'FRA'
+
+      if (!country) {
+        return params;
+      }
+
+      params['boundary.country'] = country;
+      return params;
     },
 
     getLayers: function (params) {
@@ -212,6 +224,7 @@
       params = this.getBoundingBoxParam(params);
       params = this.getLatlngParam(params);
       params = this.getLayers(params);
+      params = this.getCountryCode(params);
 
       // Search API key
       if (this.apiKey) {
