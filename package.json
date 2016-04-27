@@ -34,7 +34,7 @@
   },
   "homepage": "https://github.com/mapzen/leaflet-geocoder",
   "peerDependencies": {
-    "leaflet": "^0.7.x || >=1.0.0-beta.1"
+    "leaflet": "^0.7.x || 1.0.0-rc.1"
   },
   "devDependencies": {
     "clean-css": "^3.4.8",
