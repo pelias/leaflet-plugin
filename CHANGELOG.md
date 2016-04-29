@@ -1,3 +1,8 @@
+## v1.6.0 (Future)
+
+- The geocoder now has a `.version` property. Sometimes you just need to know.
+- The `latlng` option has been renamed to `focus` to be closer to the syntax for [Mapzen Search](https://mapzen.com/documentation/search/search/). Also, the behavior has changed to automatically prioritize results closer to the current view by default. You can turn this off by explicitly setting `focus: false`. The `latlng` property will still work but we will display a deprecation warning and remove it in the next major version.
+
 ## v1.5.2 (April 18, 2016)
 
 - Mapzen Search API supports the `layers` parameter natively for autocomplete queries now! For more information, see this issue: https://github.com/pelias/api/issues/449. We removed all the code from this plugin that did the filtering on the client side, which was no longer needed.
