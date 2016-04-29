@@ -102,7 +102,7 @@ option      | description                               | default value
 ----------- | ----------------------------------------- | ---------------------
 **url** | _String._ Host endpoint for a Pelias-compatible search API. | `'https://search.mapzen.com/v1'`
 **bounds** | _[Leaflet LatLngBounds object](http://leafletjs.com/reference.html#latlngbounds)_ or _Boolean_. If `true`, search is bounded by the current map view. You may also provide a custom bounding box in form of a LatLngBounds object. | `false`
-**latlng** | _[Leaflet LatLng object](http://leafletjs.com/reference.html#latlng)_ or _Boolean_. If `true`, search is biased to prioritize results near the center of the current view. You may also provide a custom LatLng value (in any of the [accepted Leaflet formats](http://leafletjs.com/reference.html#latlng)) to act as the center bias. | `false`
+**focus** | _[Leaflet LatLng object](http://leafletjs.com/reference.html#latlng)_ or _Boolean_. If `true`, search prioritizes results near the center of the current view. You may also provide a custom LatLng value (in any of the [accepted Leaflet formats](http://leafletjs.com/reference.html#latlng)) to act as the center bias. **This option was formerly called `latlng`.** | `true`
 **layers** | _String_ or _Array_. Filters results by layers ([documentation](https://mapzen.com/documentation/search/search/#filter-by-data-type)). If left blank, results will come from all available layers. | `null`
 
 ### Interaction behavior
@@ -134,13 +134,13 @@ L.control.geocoder('<your-api-key>', {
 
 // Searching nearby [50.5, 30.5]
 L.control.geocoder('<your-api-key>', {
-  latlng: [50.5, 30.5], // this can also written as {lat: 50.5, lon: 30.5} or L.latLng(50.5, 30.5)
+  focus: [50.5, 30.5], // this can also written as {lat: 50.5, lon: 30.5} or L.latLng(50.5, 30.5)
   placeholder: 'Search nearby [50.5, 30.5]'
 }).addTo(map);
 
 // Taking just the center of the map (lat/lon) into account
 L.control.geocoder('<your-api-key>', {
-  latlng: true,
+  focus: true,
   placeholder: 'Search nearby'
 }).addTo(map);
 
