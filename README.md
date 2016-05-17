@@ -270,6 +270,14 @@ var element = geocoder.getContainer();
 geocoder.removeFrom(map); // or geocoder.remove() in Leaflet v1
 ```
 
+### Properties
+
+You can retrieve the current version of the geocoder.
+
+```javascript
+console.log(geocoder.version);
+```
+
 ### Methods
 
 There are additional methods on the geocoder that you can use.
