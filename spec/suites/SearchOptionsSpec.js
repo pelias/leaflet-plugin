@@ -260,4 +260,99 @@ describe('Search options', function () {
       expect(geocoder.getLayers(params)['layers']).to.eql(['venue', 'address']);
     });
   });
+
+  // Pass-through query parameters
+  describe('query parameters', function () {
+    it('should return original parameters if option is not set', function () {
+      var geocoder = new L.Control.Geocoder({
+        layers: 'coarse', // Convenience option for parameter
+        focus: false      // This just prevents geocoder from looking for the map
+      });
+      var params = geocoder.getParams();
+      var testParams = {
+        layers: 'coarse'
+      };
+
+      expect(params).to.eql(testParams);
+    });
+
+    it('should return original parameters if option is a falsy value', function () {
+      // Test `params: false`
+      var geocoder1 = new L.Control.Geocoder({
+        layers: 'coarse', // Convenience option for parameter
+        focus: false,     // This prevents geocoder from requiring that Leaflet is initialized
+        params: false
+      });
+      var params1 = geocoder1.getParams();
+
+      // Test `params: null`
+      var geocoder2 = new L.Control.Geocoder({
+        layers: 'coarse', // Convenience option for parameter
+        focus: false,     // This prevents geocoder from requiring that Leaflet is initialized
+        params: null
+      });
+      var params2 = geocoder2.getParams();
+
+      var testParams = {
+        layers: 'coarse'
+      };
+
+      expect(params1).to.eql(testParams);
+      expect(params2).to.eql(testParams);
+    });
+
+    it('should return combined parameters if option is set', function () {
+      var geocoder = new L.Control.Geocoder({
+        layers: 'coarse', // Convenience option for parameter
+        focus: false,     // This prevents geocoder from requiring that Leaflet is initialized
+        params: {
+          'boundary.rect.min_lat': -10,
+          'boundary.country': 'AUS',
+          'sources': 'oa'
+        }
+      });
+      var params = geocoder.getParams();
+      var testParams = {
+        'layers': 'coarse',
+        'boundary.rect.min_lat': -10,
+        'boundary.country': 'AUS',
+        'sources': 'oa'
+      };
+
+      expect(params).to.eql(testParams);
+    });
+
+    it('should overwrite parameters set by convenience options', function () {
+      var geocoder = new L.Control.Geocoder({
+        layers: ['venue', 'address'], // Convenience option for parameter
+        focus: false,     // This prevents geocoder from requiring that Leaflet is initialized
+        params: {
+          layers: 'coarse'
+        }
+      });
+      var params = geocoder.getParams();
+      var testParams = {
+        'layers': 'coarse'
+      };
+
+      expect(params).to.eql(testParams);
+    });
+
+    it('should not remove unknown parameters', function () {
+      var geocoder = new L.Control.Geocoder({
+        layers: 'coarse', // Convenience option for parameter
+        focus: false,     // This prevents geocoder from requiring that Leaflet is initialized
+        params: {
+          unknownParam: false
+        }
+      });
+      var params = geocoder.getParams();
+      var testParams = {
+        'layers': 'coarse',
+        'unknownParam': false
+      };
+
+      expect(params).to.eql(testParams);
+    });
+  });
 });

@@ -2,6 +2,7 @@
 
 - The geocoder now has a `.version` property. Sometimes you just need to know.
 - The `latlng` option has been renamed to `focus` to be closer to the syntax for [Mapzen Search](https://mapzen.com/documentation/search/search/). Also, the behavior has changed to automatically prioritize results closer to the current view by default. You can turn this off by explicitly setting `focus: false`. The `latlng` property will still work but we will display a deprecation warning and remove it in the next major version.
+- Mapzen Search API accepts many query parameters (such as for filtering, bounding results, and so on) that don't have a corresponding convenience option in this plugin. Rather than support each option individually, we now provide a **params** option which allows developers to pass through any parameter they wish to the API. Valid parameters will be anything that is covered in the [Mapzen Search documentation](https://mapzen.com/documentation/search/) (so please read it carefully), but the plugin will not throw away invalid parameters in case new parameters are supported in the future.
 
 ## v1.5.2 (April 18, 2016)
 

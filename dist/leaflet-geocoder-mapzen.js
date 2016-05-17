@@ -178,6 +178,34 @@
       return params;
     },
 
+    // @method getParams(params: Object)
+    // Collects all the parameters in a single object from various options
+    getParams: function (params) {
+      params = params || {};
+      params = this.getBoundingBoxParam(params);
+      params = this.getFocusParam(params);
+      params = this.getLayers(params);
+
+      // Search API key
+      if (this.apiKey) {
+        params.api_key = this.apiKey;
+      }
+
+      var newParams = this.options.params;
+
+      if (!newParams) {
+        return params;
+      }
+
+      if (typeof newParams === 'object') {
+        for (var prop in newParams) {
+          params[prop] = newParams[prop];
+        }
+      }
+
+      return params;
+    },
+
     search: function (input) {
       // Prevent lack of input from sending a malformed query to Pelias
       if (!input) return;
@@ -223,14 +251,7 @@
     maxReqTimestampRendered: new Date().getTime(),
 
     callPelias: function (endpoint, params, type) {
-      params = this.getBoundingBoxParam(params);
-      params = this.getFocusParam(params);
-      params = this.getLayers(params);
-
-      // Search API key
-      if (this.apiKey) {
-        params.api_key = this.apiKey;
-      }
+      params = this.getParams(params);
 
       L.DomUtil.addClass(this._search, 'leaflet-pelias-loading');
 
