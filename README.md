@@ -68,10 +68,10 @@ And then import it in your module system. For instance, with [Browserify](http:/
 
 ```javascript
 // Require Leaflet first
-var L = require('leaflet')
+var L = require('leaflet');
 
 // Requiring the geocoder extends Leaflet automatically
-require('leaflet-geocoder-mapzen')
+require('leaflet-geocoder-mapzen');
 
 // Now you can do step 2 and 3 from "Basic usage" instructions, above
 ```
@@ -83,8 +83,8 @@ This plugin implements the [Universal Module Definition](https://github.com/umdj
 To import this plugin in ES2015 environments, the `import` syntax is supported:
 
 ```javascript
-import L from 'leaflet'
-import 'leaflet-geocoder-mapzen'
+import L from 'leaflet';
+import 'leaflet-geocoder-mapzen';
 ```
 
 ## Customizing the plugin
@@ -96,7 +96,7 @@ var options = {
   bounds: true,
   position: 'topright',
   expanded: true
-}
+};
 
 L.control.geocoder('<your-api-key>', options).addTo(map);
 ```
