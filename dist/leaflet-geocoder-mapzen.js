@@ -33,6 +33,8 @@
 
   L.Control.Geocoder = L.Control.extend({
 
+    version: '1.6.0',
+
     includes: L.Mixin.Events,
 
     options: {
@@ -42,7 +44,7 @@
       placeholder: 'Search',
       title: 'Search',
       bounds: false,
-      latlng: null,
+      focus: true,
       layers: null,
       panToPoint: true,
       pointIcon: true, // 'images/point_icon.png',
@@ -69,6 +71,17 @@
         options = apiKey;
       } else {
         this.apiKey = apiKey;
+      }
+
+      // Deprecation warnings
+      // If options.latlng is defined, warn. (Do not check for falsy values, because it can be set to false.)
+      if (options && typeof options.latlng !== 'undefined') {
+        // Set user-specified latlng to focus option, but don't overwrite if it's already there
+        if (typeof options.focus === 'undefined') {
+          options.focus = options.latlng;
+        }
+        console.log('[leaflet-geocoder-mapzen] DEPRECATION WARNING:',
+          'As of v1.6.0, the `latlng` option is deprecated. It has been renamed to `focus`. `latlng` will be removed in a future version.');
       }
 
       // Now merge user-specified options
@@ -129,36 +142,37 @@
       return params;
     },
 
-    getLatlngParam: function (params) {
-      /*
-       * this.options.latlng can be one of the following
-       * [50, 30] //Array
-       * {lon: 30, lat: 50} //Object
-       * {lat: 50, lng: 30} //Object
-       * L.latLng(50, 30) //Object
-       * true //Boolean - take the map center
-       * false //Boolean - No latlng to be considered
-      */
-      var latlng = this.options.latlng;
+    getFocusParam: function (params) {
+      /**
+       * this.options.focus can be one of the following
+       * [50, 30]           // Array
+       * {lon: 30, lat: 50} // Object
+       * {lat: 50, lng: 30} // Object
+       * L.latLng(50, 30)   // Object
+       * true               // Boolean - take the map center
+       * false              // Boolean - No latlng to be considered
+       */
+      var focus = this.options.focus;
 
-      if (!latlng) {
+      if (!focus) {
         return params;
       }
 
-      if (latlng.constructor === Array) {
-        // TODO Check for array size, throw errors if invalid lat/lon
-        params['focus.point.lat'] = latlng[0];
-        params['focus.point.lon'] = latlng[1];
-      } else if (typeof latlng !== 'object') {
-        // fallback to the map's center L.latLng()
-        latlng = this._map.getCenter();
+      if (focus === true) {
+        // If focus option is Boolean true, use current map center
+        var mapCenter = this._map.getCenter();
+        params['focus.point.lat'] = mapCenter.lat;
+        params['focus.point.lon'] = mapCenter.lng;
+      } else if (typeof focus === 'object') {
+        // Accepts array, object and L.latLng form
+        // Constructs the latlng object using Leaflet's L.latLng()
+        // [50, 30]
+        // {lon: 30, lat: 50}
+        // {lat: 50, lng: 30}
+        // L.latLng(50, 30)
+        var latlng = L.latLng(focus);
         params['focus.point.lat'] = latlng.lat;
         params['focus.point.lon'] = latlng.lng;
-      } else {
-        // TODO Check for valid L.LatLng Object or Object thats in the form of {lat:..,lon:..}
-        // TODO Check for valid lat/lon values, Error handling
-        params['focus.point.lat'] = latlng.lat;
-        params['focus.point.lon'] = latlng.lng ? latlng.lng : latlng.lon;
       }
 
       return params;
@@ -210,7 +224,7 @@
 
     callPelias: function (endpoint, params, type) {
       params = this.getBoundingBoxParam(params);
-      params = this.getLatlngParam(params);
+      params = this.getFocusParam(params);
       params = this.getLayers(params);
 
       // Search API key

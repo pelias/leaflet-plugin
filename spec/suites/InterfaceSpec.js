@@ -26,15 +26,21 @@ describe('Interface', function () {
   });
 
   describe('The × button (reset)', function () {
-    it('should not be visible when control is first added', function () {
-      var geocoder = new L.Control.Geocoder();
+    var geocoder;
+
+    beforeEach('initialize geocoder', function () {
+      geocoder = new L.Control.Geocoder();
       geocoder.addTo(map);
+
+      // Prevent geocoder.callPelias() from getting called during these tests, so stub it
+      sinon.stub(geocoder, 'callPelias');
+    });
+
+    it('should not be visible when control is first added', function () {
       expect(geocoder._reset.classList.contains('leaflet-pelias-hidden')).to.be(true);
     });
 
     it('should be visible when input has 1 character', function () {
-      var geocoder = new L.Control.Geocoder();
-      geocoder.addTo(map);
       // Simulates input action
       geocoder._input.focus();
       geocoder._input.value = 'a';
@@ -43,8 +49,6 @@ describe('Interface', function () {
     });
 
     it('should be visible when input has 2 characters', function () {
-      var geocoder = new L.Control.Geocoder();
-      geocoder.addTo(map);
       // Simulates input action
       geocoder._input.focus();
       geocoder._input.value = 'bb';
@@ -53,9 +57,6 @@ describe('Interface', function () {
     });
 
     it('should reset input when clicked', function () {
-      var geocoder = new L.Control.Geocoder();
-      geocoder.addTo(map);
-
       // Simulates input action
       geocoder._input.focus();
       geocoder._input.value = 'sometext';
@@ -69,10 +70,7 @@ describe('Interface', function () {
     });
 
     it('fires `reset` event', function () {
-      var geocoder = new L.Control.Geocoder();
       var onReset = sinon.spy();
-
-      geocoder.addTo(map);
       geocoder.on('reset', onReset);
 
       happen.click(geocoder._reset);
