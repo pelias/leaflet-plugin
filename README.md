@@ -78,6 +78,15 @@ require('leaflet-geocoder-mapzen')
 
 This plugin implements the [Universal Module Definition](https://github.com/umdjs/umd) so you can also use it in AMD and CommonJS environments.
 
+#### ES2015 (ECMAScript 6)
+
+To import this plugin in ES2015 environments, the `import` syntax is supported:
+
+```javascript
+import L from 'leaflet'
+import 'leaflet-geocoder-mapzen'
+```
+
 ## Customizing the plugin
 
 You can optionally specify additional settings to the plugin by passing in an object as a second argument to the `geocoder()` method, like so:
