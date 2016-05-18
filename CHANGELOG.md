@@ -1,4 +1,4 @@
-## v1.6.0 (Future)
+## v1.6.0 (May 18, 2016)
 
 - The geocoder now has a `.version` property. Sometimes you just need to know.
 - The `latlng` option has been renamed to `focus` to be closer to the syntax for [Mapzen Search](https://mapzen.com/documentation/search/search/). Also, the behavior has changed to automatically prioritize results closer to the current view by default. You can turn this off by explicitly setting `focus: false`. The `latlng` property will still work but we will display a deprecation warning and remove it in the next major version.
