@@ -13,6 +13,8 @@ To check the code & run tests:
 */
 /* global jake, desc, task, complete */
 
+var path = require('path');
+
 function hint (msg, path) {
   return function () {
     var command = 'node node_modules/.bin/eslint ' + path;
@@ -29,7 +31,7 @@ function hint (msg, path) {
 function test (complete, fail) {
   var karma = require('karma');
   var testConfig = {
-    configFile: __dirname + '/spec/karma.conf.js'
+    configFile: path.join(__dirname, '/spec/karma.conf.js')
   };
 
   testConfig.browsers = ['PhantomJS'];
