@@ -31,6 +31,24 @@
   var RESULTS_HEIGHT_MARGIN = 20; // in pixels
   var API_RATE_LIMIT = 250; // in ms, throttled time between subsequent requests to API
 
+  // Text strings in this geocoder.
+  var TEXT_STRINGS = {
+    'NO_RESULTS': 'No results were found.',
+    'RESET_TOOLTIP': 'Reset',
+    'INPUT_TOOLTIP': 'Search',
+    'INPUT_PLACEHOLDER': 'Search',
+    // Error codes.
+    // https://mapzen.com/documentation/search/http-status-codes/
+    'ERROR_403': 'A valid API key is needed for this search feature.',
+    'ERROR_404': 'The search service cannot be found. :-(',
+    'ERROR_408': 'The search service took too long to respond. Try again in a second.',
+    'ERROR_429': 'There were too many requests. Try again in a second.',
+    'ERROR_500': 'The search service is not working right now. Please try again later.',
+    'ERROR_502': 'Connection lost. Please try again later.',
+    // Unhandled error code
+    'ERROR_DEFAULT': 'The search service is having problems :-('
+  };
+
   L.Control.Geocoder = L.Control.extend({
 
     version: '1.7.1',
@@ -44,8 +62,8 @@
       position: 'topleft',
       attribution: 'Geocoding by <a href="https://mapzen.com/projects/search/">Mapzen</a>',
       url: 'https://search.mapzen.com/v1',
-      placeholder: 'Search',
-      title: 'Search',
+      placeholder: null,
+      title: null,
       bounds: false,
       focus: true,
       layers: null,
@@ -56,7 +74,8 @@
       markers: true,
       expanded: false,
       autocomplete: true,
-      place: false
+      place: false,
+      textStrings: TEXT_STRINGS // TODO: Merge text strings
     },
 
     initialize: function (apiKey, options) {
@@ -285,26 +304,26 @@
             // Error codes.
             // https://mapzen.com/documentation/search/http-status-codes/
             case 403:
-              errorMessage = 'A valid API key is needed for this search feature.';
+              errorMessage = this.options.textStrings['ERROR_403'];
               break;
             case 404:
-              errorMessage = 'The search service cannot be found. :-(';
+              errorMessage = this.options.textStrings['ERROR_404'];
               break;
             case 408:
-              errorMessage = 'The search service took too long to respond. Try again in a second.';
+              errorMessage = this.options.textStrings['ERROR_408'];
               break;
             case 429:
-              errorMessage = 'There were too many requests. Try again in a second.';
+              errorMessage = this.options.textStrings['ERROR_429'];
               break;
             case 500:
-              errorMessage = 'The search service is not working right now. Please try again later.';
+              errorMessage = this.options.textStrings['ERROR_500'];
               break;
             case 502:
-              errorMessage = 'Connection lost. Please try again later.';
+              errorMessage = this.options.textStrings['ERROR_502'];
               break;
             // Note the status code is 0 if CORS is not enabled on the error response
             default:
-              errorMessage = 'The search service is having problems :-(';
+              errorMessage = this.options.textStrings['ERROR_DEFAULT'];
               break;
           }
           this.showMessage(errorMessage);
@@ -414,7 +433,7 @@
     showResults: function (features, input) {
       // Exit function if there are no features
       if (features.length === 0) {
-        this.showMessage('No results were found.');
+        this.showMessage(this.options.textStrings['NO_RESULTS']);
         return;
       }
 
@@ -650,17 +669,21 @@
       // Only set if title option is not null or falsy
       if (this.options.title) {
         this._input.title = this.options.title;
+      } else {
+        this._input.title = this.options.textStrings['INPUT_TOOLTIP'];
       }
 
       // Only set if placeholder option is not null or falsy
       if (this.options.placeholder) {
         this._input.placeholder = this.options.placeholder;
+      } else {
+        this._input.placeholder = this.options.textStrings['INPUT_PLACEHOLDER'];
       }
 
       this._search = L.DomUtil.create('a', 'leaflet-pelias-search-icon', this._container);
       this._reset = L.DomUtil.create('div', 'leaflet-pelias-close leaflet-pelias-hidden', this._container);
       this._reset.innerHTML = '×';
-      this._reset.title = 'Reset';
+      this._reset.title = this.options.textStrings['RESET_TOOLTIP'];
 
       this._results = L.DomUtil.create('div', 'leaflet-pelias-results leaflet-bar', this._container);
 
