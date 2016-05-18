@@ -195,6 +195,20 @@ L.control.geocoder('<your-api-key>', {
   placeholder: 'Street Geocoder'
 }).addTo(map);
 
+// Custom filtering and bounding parameters
+// For valid parameters, see Mapzen Search documentation for
+// search (https://mapzen.com/documentation/search/search/)
+// and autocomplete (https://mapzen.com/documentation/search/autocomplete/)
+// Note that some parameters use dot notation and so must be quoted
+// in JavaScript otherwise it will result in a syntax error
+L.control.geocoder('<your-api-key>', {
+  params: {
+    sources: 'whosonfirst',
+    'boundary.country': 'AUS'
+  },
+  placeholder: 'Results via Who’s on First in Australia'
+}).addTo(map);
+
 // Customizing layer icons
 L.control.geocoder('<your-api-key>', {
   pointIcon: 'http://www.somewhereontheweb.com/download/img/point.png',
