@@ -179,7 +179,10 @@
     },
 
     // @method getParams(params: Object)
-    // Collects all the parameters in a single object from various options
+    // Collects all the parameters in a single object from various options,
+    // including options.bounds, options.focus, options.layers, the api key,
+    // and any params that are provided as a argument to this function.
+    // Note that options.params will overwrite any of these
     getParams: function (params) {
       params = params || {};
       params = this.getBoundingBoxParam(params);
