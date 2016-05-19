@@ -120,7 +120,7 @@ only screen and (min-device-pixel-ratio: 2) {
 }
 
 .leaflet-pelias-close {
-  display: table-cell;
+  display: none; /* Do not show by default */
   position: absolute;
   right: 0;
   width: 26px;
@@ -138,9 +138,17 @@ only screen and (min-device-pixel-ratio: 2) {
 }
 
 .leaflet-pelias-expanded .leaflet-pelias-close {
+  display: table-cell; /* Show when expanded by default */
   background-color: inherit; /* Masks input on IE8 */
   border-top-right-radius: 4px; /* Need to match input border radius if this has a solid background, overflow:hidden is not available; */
   border-bottom-right-radius: 4px;
+}
+
+/* Plugin logic dictates when the reset button is hidden
+   while the search bar is expanded. This hidden helper class
+   is only ever used on the reset button */
+.leaflet-pelias-expanded .leaflet-pelias-close.leaflet-pelias-hidden {
+  display: none;
 }
 
 /* Vertical centering ghost element - IE8+ */
@@ -149,10 +157,6 @@ only screen and (min-device-pixel-ratio: 2) {
   display: inline-block;
   height: 100%;
   vertical-align: middle;
-}
-
-.leaflet-pelias-hidden {
-  display: none;
 }
 
 .leaflet-touch .leaflet-pelias-input.leaflet-bar {

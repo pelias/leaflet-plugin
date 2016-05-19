@@ -1,3 +1,7 @@
+## v1.6.1 (May 19, 2016)
+
+- Fix a bug where the reset button (the `×`) remained visible if the `.collapse()` method was called while there was still something in the input box.
+
 ## v1.6.0 (May 18, 2016)
 
 - The geocoder now has a `.version` property. Sometimes you just need to know.
