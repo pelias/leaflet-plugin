@@ -43,7 +43,7 @@
 .leaflet-touch .leaflet-pelias-control.leaflet-pelias-expanded {
   width: 280px;
   height: 44px;
-  line-height: 44px;
+  line-height: 32px; /* The height will be expanded with additional padding */
 }
 
 .leaflet-touch .leaflet-pelias-input {
