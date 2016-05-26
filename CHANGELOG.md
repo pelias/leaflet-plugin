@@ -1,3 +1,7 @@
+## v1.6.2 (May 25, 2016)
+
+- Small tweak: the height of each result on touch devices was too large, so nudge it down a bit.
+
 ## v1.6.1 (May 19, 2016)
 
 - Fix a bug where the reset button (the `×`) remained visible if the `.collapse()` method was called while there was still something in the input box.
