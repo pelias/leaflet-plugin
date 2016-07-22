@@ -8,7 +8,7 @@ Examples
   [[code](https://github.com/mapzen/leaflet-geocoder/blob/master/examples/index.html)]
   The minimum amount of code needed to get started. There is also a beginner-friendly [tutorial](https://mapzen.com/documentation/search/add-search-to-a-map/) that walks through how this is put together.
 
-- **Basic usage with Leaflet v1 beta.**
+- **Basic usage with Leaflet v1.**
   [[demo](https://mapzen.github.io/leaflet-geocoder/examples/leaflet-v1.html)]
   [[code](https://github.com/mapzen/leaflet-geocoder/blob/master/examples/leaflet-v1.html)]
 

@@ -15,7 +15,7 @@ A plugin that adds the ability to search (geocode) a Leaflet-powered map using [
 
 ## Requirements
 
-Requires the **[Leaflet](https://github.com/Leaflet/Leaflet)** mapping library. Supports Leaflet **v0.7.3** (and higher) and **v1.0.0-beta.1** (and higher). (Previous Leaflet versions have not been tested.)
+Requires the **[Leaflet](https://github.com/Leaflet/Leaflet)** mapping library. Supports Leaflet **v0.7.3** (and higher) and **v1.0.0** (currently targeting [Release Candidate 2](https://github.com/Leaflet/Leaflet/releases/tag/v1.0.0-rc.2)). (Previous Leaflet versions may work, but are not actively tested or supported.)
 
 **Browser support** is IE8+ [(more details below)](#browser-support).
 
