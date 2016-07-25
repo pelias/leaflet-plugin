@@ -86,7 +86,6 @@
 
       // Now merge user-specified options
       L.Util.setOptions(this, options);
-      this.marker;
       this.markers = [];
     },
 
@@ -476,10 +475,10 @@
       var markerOptions = (typeof this.options.markers === 'object') ? this.options.markers : {};
 
       if (this.options.markers) {
-        this.marker = new L.marker(latlng, markerOptions).bindPopup(text); // eslint-disable-line new-cap
-        this._map.addLayer(this.marker);
-        this.markers.push(this.marker);
-        this.marker.openPopup();
+        var marker = new L.marker(latlng, markerOptions).bindPopup(text); // eslint-disable-line new-cap
+        this._map.addLayer(marker);
+        this.markers.push(marker);
+        marker.openPopup();
       }
     },
 
