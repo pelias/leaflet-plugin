@@ -1,6 +1,6 @@
 {
   "name": "leaflet-geocoder-mapzen",
-  "version": "1.6.2",
+  "version": "1.6.3",
   "description": "Add Mapzen Search geocoding to your Leaflet map.",
   "main": "dist/leaflet-geocoder-mapzen.js",
   "directories": {
