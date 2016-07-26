@@ -1,7 +1,7 @@
 ## v1.6.3 (July 26, 2016)
 
 - This is a dependency maintainance release. All dependencies have been updated and fixed to a specific version.
-- The `peerDependency` range has been relaxed to allow any version of the Leaflet v1 release candidate. You can now use this plugin in a project with the recently released `leaflet@1.0.0-rc.2` or an older @leaflet@1.0.0-beta.1` without seeing a peer dependency error.
+- The `peerDependency` range has been relaxed to allow any version of the Leaflet v1 release candidate. You can now use this plugin in a project with the recently released `leaflet@1.0.0-rc.2` or an older `leaflet@1.0.0-beta.1` without seeing a peer dependency error.
 
 ## v1.6.2 (May 25, 2016)
 
