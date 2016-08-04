@@ -312,6 +312,10 @@ geocoder.focus();
 // Removes focus from the geocoder input.
 // This also clears results and collapses the geocoder (if enabled).
 geocoder.blur();
+
+// Empties the geocoder input.
+// This also clears results, removes focus and collapses the geocoder (if enabled).
+geocoder.resetInput();
 ```
 
 ### Events
