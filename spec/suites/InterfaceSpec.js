@@ -293,13 +293,82 @@ describe('Interface', function () {
     it('collapses if: map is dragged, and a result is highlighted');
   });
 
-  // TODO
-  describe.skip('#focus', function () {
-    it('focuses on input when .focus() method is called');
+  describe('#focus', function () {
+    var geocoder;
+
+    beforeEach('initialize geocoder', function () {
+      geocoder = new L.Control.Geocoder();
+      geocoder.addTo(map);
+    });
+
+    it('focuses on input when .focus() method is called', function () {
+      geocoder.focus();
+
+      expect(document.activeElement).to.be(geocoder._input);
+    });
   });
 
-  describe.skip('#blur', function () {
-    it('blurs from input when .blur() method is called');
+  describe('#blur', function () {
+    var geocoder;
+
+    beforeEach('initialize geocoder', function () {
+      geocoder = new L.Control.Geocoder();
+      geocoder.addTo(map);
+    });
+
+    it('blurs from input when .blur() method is called', function () {
+      geocoder._input.focus();
+      expect(document.activeElement).to.be(geocoder._input);
+
+      geocoder.blur();
+
+      expect(document.activeElement).to.not.be(geocoder._input);
+    });
+  });
+
+  describe('#reset', function () {
+    var geocoder;
+
+    beforeEach('initialize geocoder', function () {
+      geocoder = new L.Control.Geocoder();
+      geocoder.addTo(map);
+    });
+
+    it('clears inputs and results', function () {
+      geocoder._input.value = 'foo';
+      geocoder.reset();
+
+      expect(geocoder._input.value).to.be('');
+      expect(geocoder._results.children.length).to.be(0);
+    });
+
+    it('does not collapse the geocoder if expanded', function () {
+      var onCollapse = sinon.spy();
+      geocoder.on('collapse', onCollapse);
+
+      geocoder.expand();
+      geocoder.reset();
+
+      expect(onCollapse.callCount).to.be.lessThan(2);
+      expect(geocoder._container.className.indexOf('leaflet-pelias-expanded')).to.be.greaterThan(-1);
+    });
+
+    it('does not remove focus if present', function () {
+      geocoder._input.focus();
+      geocoder.reset();
+
+      expect(document.activeElement).to.be(geocoder._input);
+    });
+
+    it('fires `reset` event', function () {
+      var onReset = sinon.spy();
+      geocoder.on('reset', onReset);
+
+      geocoder.reset();
+
+      expect(onReset.called).to.be(true);
+      expect(onReset.callCount).to.be.lessThan(2);
+    });
   });
 
   describe('Edge cases', function () {
