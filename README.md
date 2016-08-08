@@ -299,10 +299,12 @@ There are additional methods on the geocoder that you can use.
 
 ```js
 // Expand the geocoder.
+// Fires the `expand` event.
 geocoder.expand();
 
 // Collapse the geocoder.
 // This works even if the option `expanded` is set to true!
+// Fires the `collapse` event.
 geocoder.collapse();
 
 // Focus on the geocoder input.
@@ -312,6 +314,11 @@ geocoder.focus();
 // Removes focus from the geocoder input.
 // This also clears results and collapses the geocoder (if enabled).
 geocoder.blur();
+
+// Clears inputs and results from the geocoder control.
+// This does not affect collapse or expanded state, and does not remove focus.
+// Fires the `reset` event.
+geocoder.reset();
 ```
 
 ### Events
