@@ -3,5 +3,5 @@ npm-debug.log
 .DS_Store
 coverage/
 .coveralls.yml
-dist/*.min.js
-dist/*.min.css
+dist/*.js
+dist/*.css
