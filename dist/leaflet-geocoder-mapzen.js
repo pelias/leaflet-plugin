@@ -89,6 +89,19 @@
       this.markers = [];
     },
 
+    /**
+     * Resets the geocoder control to an empty state.
+     *
+     * @public
+     */
+    reset: function () {
+      this._input.value = '';
+      L.DomUtil.addClass(this._reset, 'leaflet-pelias-hidden');
+      this.removeMarkers();
+      this.clearResults();
+      this.fire('reset');
+    },
+
     getLayers: function (params) {
       var layers = this.options.layers;
 
@@ -527,14 +540,6 @@
       }
     },
 
-    resetInput: function () {
-      this._input.value = '';
-      L.DomUtil.addClass(this._reset, 'leaflet-pelias-hidden');
-      this.removeMarkers();
-      this._input.focus();
-      this.fire('reset');
-    },
-
     // Convenience function for focusing on the input
     // This is meant for external use.
     focus: function () {
@@ -682,8 +687,8 @@
           }
         }, this)
         .on(this._reset, 'click', function (e) {
-          this.resetInput();
-          this.clearResults();
+          this.reset();
+          this._input.focus();
           L.DomEvent.stopPropagation(e);
         }, this)
         .on(this._input, 'keydown', function (e) {
