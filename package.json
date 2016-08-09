@@ -7,10 +7,12 @@
     "example": "examples"
   },
   "scripts": {
-    "prepublish": "cp src/*.css src/*.js dist/; npm run minify-js && npm run minify-css",
+    "prepublish": "npm run copy-source-files; npm run minify-js && npm run minify-css",
     "minify-js": "uglifyjs dist/leaflet-geocoder-mapzen.js -o dist/leaflet-geocoder-mapzen.min.js",
     "minify-css": "cleancss -o dist/leaflet-geocoder-mapzen.min.css dist/leaflet-geocoder-mapzen.css",
-    "test": "jake"
+    "pretest": "npm run copy-source-files",
+    "test": "jake",
+    "copy-source-files": "cp src/*.css src/*.js dist/"
   },
   "repository": {
     "type": "git",
