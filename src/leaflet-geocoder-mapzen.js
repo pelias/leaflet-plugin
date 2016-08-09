@@ -540,8 +540,13 @@
       }
     },
 
-    // Convenience function for focusing on the input
-    // This is meant for external use.
+    /**
+     * Convenience function for focusing on the input
+     * A `focus` event is fired, but it is not fired here. An event listener
+     * was added to the _input element to forward the native `focus` event.
+     *
+     * @public
+     */
     focus: function () {
       // If not expanded, expand this first
       if (!L.DomUtil.hasClass(this._container, 'leaflet-pelias-expanded')) {
@@ -550,7 +555,13 @@
       this._input.focus();
     },
 
-    // Removes focus from geocoder control
+    /**
+     * Removes focus from geocoder control
+     * A `blur` event is fired, but it is not fired here. An event listener
+     * was added on the _input element to forward the native `blur` event.
+     *
+     * @public
+     */
     blur: function () {
       this._input.blur();
       this.clearResults();
@@ -623,6 +634,15 @@
       this._container = container;
       this._input = L.DomUtil.create('input', 'leaflet-pelias-input', this._container);
       this._input.spellcheck = false;
+
+      // Forwards focus and blur events from input to geocoder
+      L.DomEvent.addListener(this._input, 'focus', function (e) {
+        this.fire('focus');
+      }, this);
+
+      L.DomEvent.addListener(this._input, 'blur', function (e) {
+        this.fire('blur');
+      }, this);
 
       // Only set if title option is not null or falsy
       if (this.options.title) {

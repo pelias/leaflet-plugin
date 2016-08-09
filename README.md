@@ -344,6 +344,8 @@ event         | description
 **expand**    | Fired when the geocoder is expanded.
 **collapse**  | Fired when the geocoder is collapsed.
 **reset**     | Fired when the geocoder is reset ("x" button is clicked).
+**focus**     | Fired when the geocoder is focused on the input.
+**blur**      | Fired when the geocoder loses focus on the input.
 
 Here is [a demo of the events](http://mapzen.github.io/leaflet-geocoder/examples/events.html).
 

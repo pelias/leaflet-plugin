@@ -76,6 +76,11 @@
       background-color: #058dc1;
       color: white;
     }
+    code.focus,
+    code.blur {
+      background-color: whitesmoke;
+      color: rebeccapurple;
+    }
   </style>
 </head>
 <body>
@@ -150,6 +155,16 @@
     geocoder.on('place', function (e) {
       console.log('place', e);
       addLog('<p><code class="place">place</code> Place received! ' + e.results.features[0].properties.label + '</p>');
+    });
+
+    geocoder.on('focus', function (e) {
+      console.log('focus', e);
+      addLog('<p><code class="focus">focus</code> Input focused!</p>');
+    });
+
+    geocoder.on('blur', function (e) {
+      console.log('blur', e);
+      addLog('<p><code class="blur">blur</code> Input blurred!</p>');
     });
 
     function addLog (html) {

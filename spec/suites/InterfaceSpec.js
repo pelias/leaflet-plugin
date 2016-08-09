@@ -306,6 +306,16 @@ describe('Interface', function () {
 
       expect(document.activeElement).to.be(geocoder._input);
     });
+
+    it('fires `focus` event', function () {
+      var onFocus = sinon.spy();
+      geocoder.on('focus', onFocus);
+
+      geocoder.focus();
+
+      expect(onFocus.called).to.be(true);
+      expect(onFocus.callCount).to.be.lessThan(2);
+    });
   });
 
   describe('#blur', function () {
@@ -323,6 +333,18 @@ describe('Interface', function () {
       geocoder.blur();
 
       expect(document.activeElement).to.not.be(geocoder._input);
+    });
+
+    it('fires `blur` event', function () {
+      var onBlur = sinon.spy();
+      geocoder.on('blur', onBlur);
+
+      // Focus first, then blur
+      geocoder._input.focus();
+      geocoder.blur();
+
+      expect(onBlur.called).to.be(true);
+      expect(onBlur.callCount).to.be.lessThan(2);
     });
   });
 
