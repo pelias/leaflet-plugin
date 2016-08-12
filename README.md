@@ -375,9 +375,15 @@ property         | description
 
 property          | description
 ----------------- | -----------------------------------------------------------
-**originalEvent** | The original event (mouse or keyboard) reported by the browser.
+**originalEvent** | The original event object ([`MouseEvent`](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent) or [`KeyboardEvent`](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent)) reported by the browser.
 **latlng**        | A [Leaflet LatLng](http://leafletjs.com/reference.html#latlng) object representing the coordinates of the result.
 **feature**       | The [GeoJSON feature object](https://mapzen.com/documentation/search/response/#list-of-features-returned) from Mapzen Search, including feature geometry and properties.
+
+#### on `focus` and `blur`
+
+property          | description
+----------------- | -----------------------------------------------------------
+**originalEvent** | The original [`FocusEvent`](https://developer.mozilla.org/en-US/docs/Web/API/FocusEvent) event object reported by the browser.
 
 ### Browser support
 
