@@ -637,11 +637,11 @@
 
       // Forwards focus and blur events from input to geocoder
       L.DomEvent.addListener(this._input, 'focus', function (e) {
-        this.fire('focus');
+        this.fire('focus', { originalEvent: e });
       }, this);
 
       L.DomEvent.addListener(this._input, 'blur', function (e) {
-        this.fire('blur');
+        this.fire('blur', { originalEvent: e });
       }, this);
 
       // Only set if title option is not null or falsy
