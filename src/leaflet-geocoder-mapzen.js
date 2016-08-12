@@ -33,7 +33,7 @@
 
   L.Control.Geocoder = L.Control.extend({
 
-    version: '1.6.3',
+    version: '1.7.0',
 
     includes: L.Mixin.Events,
 
