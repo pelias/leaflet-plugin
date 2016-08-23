@@ -1,6 +1,6 @@
 {
   "name": "leaflet-geocoder-mapzen",
-  "version": "1.7.0",
+  "version": "1.7.1",
   "homepage": "https://github.com/mapzen/leaflet-geocoder",
   "authors": [
     "Harish Krishna",

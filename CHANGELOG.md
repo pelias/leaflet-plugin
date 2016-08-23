@@ -1,5 +1,10 @@
+## v1.7.1 (August 23, 2016)
+
+- The previous release changed our publishing process, so v1.7.0 was released without any CSS or minified files. 😞 It's now deprecated. Please update your packages to v1.7.1 to get those files back! [#140](https://github.com/mapzen/leaflet-geocoder/issues/140)
+
 ## v1.7.0 (August 12, 2016)
 
+- **Deprecated!** Because of a bug in changing publishing process (the last bullet point in this section). Please use v1.7.1 instead.
 - **Added a `.reset()` method.** For developers that need to interact with the geocoder programatically, a single method that resets the input and results is pretty handy. This breaks an undocumented internal method, but you weren't using that anyway, right? 😉 (with [@Abbe98](https://github.com/Abbe98), see [#133](https://github.com/mapzen/leaflet-geocoder/pull/133))
 - **Added support for `focus` and `blur` event listeners.** You can now attach handlers for those events directly to the geocoder instance. It forwards the same DOM events from the input element, so developers have a more convenient way of tapping into them. [#117](https://github.com/mapzen/leaflet-geocoder/issues/133)
 - We've implemented an internal process change: the code is now stored in the `src` directory, and only copied to `dist` when we publish the package. [#137](https://github.com/mapzen/leaflet-geocoder/issues/137)
