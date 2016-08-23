@@ -403,5 +403,6 @@ Properties and methods used internally by the geocoder are also available on the
 - [Greenpoint-Williamsburg ToxiCity Map](http://clhenrick.github.io/greenpoint_williamsburg_toxicity_map/)
 - [what3emojis](http://what3emojis.com/map/)
 - [NYC Community Boards](http://louhuang.com/nyc-community-boards)
+- [Wantoid](https://wantoid.com/search/map)
 
 Let us know if you have a project you'd like to share!
