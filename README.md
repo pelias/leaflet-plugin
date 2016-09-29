@@ -3,6 +3,7 @@
 [![David devDependencies](https://img.shields.io/david/dev/mapzen/leaflet-geocoder.svg?style=flat-square)](https://david-dm.org/mapzen/leaflet-geocoder/#info=devDependencies)
 [![Coverage Status](https://img.shields.io/coveralls/mapzen/leaflet-geocoder.svg?style=flat-square)](https://coveralls.io/github/mapzen/leaflet-geocoder?branch=master)
 [![Gitter chat](https://img.shields.io/gitter/room/pelias/pelias.svg?style=flat-square)](https://gitter.im/pelias/pelias)
+[![Leaflet 1.0.0 ready](https://img.shields.io/badge/Leaflet%201.0.0-%E2%9C%93-brightgreen.svg?style=flat-square)](http://leafletjs.com/)
 
 Leaflet + Mapzen Search geocoding plugin
 ========================================
@@ -15,7 +16,7 @@ A plugin that adds the ability to search (geocode) a Leaflet-powered map using [
 
 ## Requirements
 
-Requires the **[Leaflet](https://github.com/Leaflet/Leaflet)** mapping library. Supports Leaflet **v0.7.3** (and higher) and **v1.0.0** (currently targeting [Release Candidate 2](https://github.com/Leaflet/Leaflet/releases/tag/v1.0.0-rc.2)). (Previous Leaflet versions may work, but are not actively tested or supported.)
+Requires the **[Leaflet](https://github.com/Leaflet/Leaflet)** mapping library. Supports Leaflet **v0.7.3** (and higher) and **v1.0.0**. (Previous Leaflet versions may work, but are not actively tested or supported.)
 
 **Browser support** is IE8+ [(more details below)](#browser-support).
 
@@ -28,8 +29,8 @@ Get one from the [Mapzen developers portal](http://mapzen.com/developers/). It's
 
 ```html
 <!-- Load Leaflet from CDN -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.0/leaflet.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.0/leaflet.js"></script>
 
 <!-- Load geocoding plugin after Leaflet -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-geocoder-mapzen/1.4.1/leaflet-geocoder-mapzen.css">
