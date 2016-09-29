@@ -20,7 +20,7 @@ Requires the **[Leaflet](https://github.com/Leaflet/Leaflet)** mapping library. 
 
 **Browser support** is IE8+ [(more details below)](#browser-support).
 
-To use the Mapzen Search service, **you need a Mapzen Search API key**.
+To use the Mapzen Search service, **you need a Mapzen API key**.
 Get one from the [Mapzen developers portal](http://mapzen.com/developers/). It's free!
 
 ## Basic usage
@@ -45,7 +45,7 @@ var map = L.map('map').setView([40.7259, -73.9805], 12);
 L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 ```
 
-**Step 3:** In JavaScript, add your geocoder with your [Mapzen Search API key]((http://mapzen.com/developers/)).
+**Step 3:** In JavaScript, add your geocoder with your [Mapzen API key]((http://mapzen.com/developers/)).
 
 ```javascript
 L.control.geocoder('<your-api-key>').addTo(map);
@@ -360,7 +360,7 @@ In addition to the [base event object](http://leafletjs.com/reference.html#event
 
 property        | description
 --------------- | -------------------------------------------------------------
-**endpoint**    | A string of the Mapzen Search API endpoint that was called.
+**endpoint**    | A string of the Mapzen API endpoint that was called.
 **requestType** | A string, either `autocomplete`, `search`, or `place`, depending on the request made.
 **params**      | An object containing the parameters that have been passed to the Mapzen Search request.
 **results**     | The [original response object](https://mapzen.com/documentation/search/response/) returned from Mapzen Search, including all feature geometries and properties.
