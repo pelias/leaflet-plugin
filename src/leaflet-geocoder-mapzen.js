@@ -50,7 +50,7 @@
   };
 
   // Polyfill console and its methods, if missing.
-  (function() {
+  (function () {
     var noop = function () {};
     var console = (window.console = window.console || {});
 
@@ -88,7 +88,7 @@
       expanded: false,
       autocomplete: true,
       place: false,
-      textStrings: TEXT_STRINGS // TODO: Merge text strings
+      textStrings: TEXT_STRINGS
     },
 
     initialize: function (apiKey, options) {

@@ -54,7 +54,8 @@ describe('Options', function () {
     });
   });
 
-  describe('placeholder', function () {
+  // Deprecated, but tests remain until fully removed.
+  describe('placeholder [DEPRECATED]', function () {
     it('should display custom placeholder text', function () {
       var geocoder = new L.Control.Geocoder(null, { placeholder: 'a' });
       geocoder.addTo(map);
@@ -73,14 +74,16 @@ describe('Options', function () {
       expect(geocoder._input.placeholder).to.be('');
     });
 
-    it('should have no placeholder text if `undefined` is assigned to it', function () {
+    // This was never documented, and will no longer work after textStrings implementation.
+    it.skip('should have no placeholder text if `undefined` is assigned to it [REMOVED]', function () {
       var geocoder = new L.Control.Geocoder(null, { placeholder: undefined });
       geocoder.addTo(map);
       expect(geocoder._input.placeholder).to.be('');
     });
   });
 
-  describe('title', function () {
+  // Deprecated, but tests remain until fully removed.
+  describe('title [DEPRECATED]', function () {
     it('should display custom title text', function () {
       var geocoder = new L.Control.Geocoder(null, { title: 'a' });
       geocoder.addTo(map);
@@ -99,11 +102,16 @@ describe('Options', function () {
       expect(geocoder._input.title).to.be('');
     });
 
-    it('should have no title text if `undefined` is assigned to it', function () {
+    // This was never documented, and will no longer work after textStrings implementation.
+    it.skip('should have no title text if `undefined` is assigned to it [REMOVED]', function () {
       var geocoder = new L.Control.Geocoder(null, { title: undefined });
       geocoder.addTo(map);
       expect(geocoder._input.title).to.be('');
     });
+  });
+
+  // TODO
+  describe.skip('text strings', function () {
   });
 
   describe('layer icons', function () {
