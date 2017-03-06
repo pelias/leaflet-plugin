@@ -127,6 +127,8 @@ describe('Interface', function () {
     });
 
     it('has no highlighted result at first', function () {
+      // This is proper syntax for expect.js
+      // eslint-disable-next-line no-unused-expressions
       expect(document.querySelector('.leaflet-pelias-selected')).to.be.null;
     });
 

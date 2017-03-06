@@ -691,7 +691,6 @@
             // If expanded option is true, just focus the input
             if (this.options.expanded === true) {
               this._input.focus();
-              return;
             } else {
               // Otherwise, toggle to hidden state
               L.DomUtil.addClass(this._reset, 'leaflet-pelias-hidden');
@@ -1137,6 +1136,6 @@
    * from https://stackoverflow.com/questions/3446170/escape-string-for-use-in-javascript-regex
    */
   function escapeRegExp (str) {
-    return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&');
+    return str.replace(/[-[\]/{}()*+?.\\^$|]/g, '\\$&');
   }
 }));
