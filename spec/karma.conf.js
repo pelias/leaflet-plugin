@@ -38,7 +38,7 @@ module.exports = function (config) {
       'karma-chrome-launcher',
       'karma-safari-launcher',
       'karma-firefox-launcher',
-      'karma-nyan-reporter',
+      'karma-spec-reporter'
     ],
 
     // frameworks to use
@@ -56,7 +56,7 @@ module.exports = function (config) {
 
     // test results reporter to use
     // possible values: 'dots', 'progress', 'junit', 'growl', 'coverage'
-    reporters: ['nyan', 'coverage', 'coveralls'],
+    reporters: ['spec', 'coverage', 'coveralls'],
 
     preprocessors: {
       // source files, that you wanna generate coverage for
