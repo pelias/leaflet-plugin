@@ -35,7 +35,10 @@
 
     version: '1.7.1',
 
-    includes: L.Mixin.Events,
+    // L.Evented is present in Leaflet v1+
+    // L.Mixin.Events is legacy; was deprecated in Leaflet v1 and will start
+    // logging deprecation warnings in console after v1.0.3
+    includes: L.Evented ? L.Evented.prototype : L.Mixin.Events,
 
     options: {
       position: 'topleft',
