@@ -78,7 +78,7 @@ function test (complete, fail) {
 }
 
 desc('Check plugin JavaScript for errors with Semistandard');
-task('lint', { async: true }, hint('Checking for JS errors...', 'dist/*.js'));
+task('lint', { async: true }, hint('Checking for JS errors...', 'src/*.js'));
 
 desc('Check specs & support JavaScript for errors with Semistandard');
 task('lintspec', { async: true }, hint('Checking for specs & support JS errors...', 'spec/suites/*.js *.js'));
