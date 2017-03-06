@@ -33,10 +33,10 @@
 
   // Text strings in this geocoder.
   var TEXT_STRINGS = {
-    'NO_RESULTS': 'No results were found.',
-    'RESET_TOOLTIP': 'Reset',
-    'INPUT_TOOLTIP': 'Search',
     'INPUT_PLACEHOLDER': 'Search',
+    'INPUT_TOOLTIP': 'Search',
+    'RESET_TOOLTIP': 'Reset',
+    'NO_RESULTS': 'No results were found.',
     // Error codes.
     // https://mapzen.com/documentation/search/http-status-codes/
     'ERROR_403': 'A valid API key is needed for this search feature.',
@@ -48,6 +48,19 @@
     // Unhandled error code
     'ERROR_DEFAULT': 'The search service is having problems :-('
   };
+
+  // Polyfill console and its methods, if missing.
+  (function() {
+    var noop = function () {};
+    var console = (window.console = window.console || {});
+
+    if (!('log' in console)) {
+      console.log = noop;
+    }
+    if (!('warn' in console)) {
+      console.warn = console.log;
+    }
+  }());
 
   L.Control.Geocoder = L.Control.extend({
 
@@ -102,8 +115,31 @@
         if (typeof options.focus === 'undefined') {
           options.focus = options.latlng;
         }
-        console.log('[leaflet-geocoder-mapzen] DEPRECATION WARNING:',
+        console.warn('[leaflet-geocoder-mapzen] DEPRECATION WARNING:',
           'As of v1.6.0, the `latlng` option is deprecated. It has been renamed to `focus`. `latlng` will be removed in a future version.');
+      }
+
+      // Deprecate `placeholder` and `title` options
+      if (options && typeof options.placeholder !== 'undefined') {
+        options.textStrings = options.textStrings || {};
+        options.textStrings.INPUT_PLACEHOLDER = options.placeholder;
+        console.warn('[leaflet-geocoder-mapzen] DEPRECATION WARNING:',
+          'As of v1.8.0, the `placeholder` option is deprecated. Please set the property `INPUT_PLACEHOLDER` on the `textStrings` option instead. `placeholder` will be removed in a future version.');
+      }
+      if (options && typeof options.title !== 'undefined') {
+        options.textStrings = options.textStrings || {};
+        options.textStrings.INPUT_TOOLTIP = options.title;
+        console.warn('[leaflet-geocoder-mapzen] DEPRECATION WARNING:',
+          'As of v1.8.0, the `title` option is deprecated. Please set the property `INPUT_TOOLTIP` on the `textStrings` option instead. `title` will be removed in a future version.');
+      }
+
+      // Merge any strings that are not customized
+      if (options && typeof options.textStrings === 'object') {
+        for (var prop in this.options.textStrings) {
+          if (typeof options.textStrings[prop] === 'undefined') {
+            options.textStrings[prop] = this.options.textStrings[prop];
+          }
+        }
       }
 
       // Now merge user-specified options
@@ -667,16 +703,12 @@
       }, this);
 
       // Only set if title option is not null or falsy
-      if (this.options.title) {
-        this._input.title = this.options.title;
-      } else {
+      if (this.options.textStrings['INPUT_TOOLTIP']) {
         this._input.title = this.options.textStrings['INPUT_TOOLTIP'];
       }
 
       // Only set if placeholder option is not null or falsy
-      if (this.options.placeholder) {
-        this._input.placeholder = this.options.placeholder;
-      } else {
+      if (this.options.textStrings['INPUT_PLACEHOLDER']) {
         this._input.placeholder = this.options.textStrings['INPUT_PLACEHOLDER'];
       }
 

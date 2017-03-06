@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Customized text strings (e.g. for localization)</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
+
+  <!-- Load Leaflet from CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.3/leaflet.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.3/leaflet.js"></script>
+
+  <!-- Load Pelias geocoding plugin after Leaflet -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-geocoder-mapzen/1.7.1/leaflet-geocoder-mapzen.css">
+  <script src="/dist/leaflet-geocoder-mapzen.js"></script>
+
+  <link rel="stylesheet" href="assets/examples.css">
+</head>
+<body>
+  <div id="map"></div>
+  <script>
+    // Create a basic Leaflet map
+    var map = L.map('map').setView([40.7259, -73.9805], 12);
+    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
+    }).addTo(map);
+
+    // Add geocoding plugin
+    var geocoder = L.control.geocoder('search-MKZrG6M', {
+      textStrings: {
+        INPUT_PLACEHOLDER: false,
+        INPUT_TOOLTIP: false,
+        RESET_TOOLTIP: 'Reset',
+        NO_RESULTS: 'No results were found!',
+        // Error codes.
+        // https://mapzen.com/documentation/search/http-status-codes/
+        ERROR_403: 'A valid API key is needed for this search feature.',
+        ERROR_404: 'The search service cannot be found. :-(',
+        ERROR_408: 'The search service took too long to respond. Try again in a second.',
+        ERROR_429: 'There were too many requests. Try again in a second.',
+        ERROR_500: 'The search service is not working right now. Please try again later.',
+        ERROR_502: 'Connection lost. Please try again later.',
+        // Unhandled error code
+        ERROR_DEFAULT: 'The search service is having problems :-('
+      }
+    }).addTo(map);
+  </script>
+</body>
+</html>
