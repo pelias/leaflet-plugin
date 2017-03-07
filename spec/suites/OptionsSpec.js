@@ -154,8 +154,28 @@ describe('Options', function () {
       expect(geocoder._input.title).to.be('foobar');
     });
 
-    it.skip('uses custom RESET_TOOLTIP if defined');
-    it.skip('uses custom NO_RESULTS if defined');
+    it('uses custom RESET_TOOLTIP if defined', function () {
+      var geocoder = new L.Control.Geocoder(null, {
+        textStrings: {
+          RESET_TOOLTIP: 'barbaz'
+        }
+      });
+      geocoder.addTo(map);
+      expect(geocoder._reset.title).to.be('barbaz');
+    });
+
+    it('uses custom NO_RESULTS if defined', function () {
+      var geocoder = new L.Control.Geocoder(null, {
+        textStrings: {
+          NO_RESULTS: 'nussin here'
+        }
+      });
+      geocoder.addTo(map);
+      geocoder.showResults([], 'foo');
+      expect(el.querySelector('.leaflet-pelias-message').textContent).to.be('nussin here');
+    });
+
+    // Need to hook into AJAX for these
     it.skip('uses custom ERROR_403 if defined');
     it.skip('uses custom ERROR_404 if defined');
     it.skip('uses custom ERROR_408 if defined');
