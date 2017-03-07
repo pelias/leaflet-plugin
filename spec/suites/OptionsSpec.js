@@ -133,7 +133,36 @@ describe('Options', function () {
   });
 
   // TODO
-  describe.skip('text strings', function () {
+  describe('text strings', function () {
+    it('uses custom INPUT_PLACEHOLDER if defined', function () {
+      var geocoder = new L.Control.Geocoder(null, {
+        textStrings: {
+          INPUT_PLACEHOLDER: 'foobar'
+        }
+      });
+      geocoder.addTo(map);
+      expect(geocoder._input.placeholder).to.be('foobar');
+    });
+
+    it('uses custom INPUT_TOOLTIP if defined', function () {
+      var geocoder = new L.Control.Geocoder(null, {
+        textStrings: {
+          INPUT_TOOLTIP: 'foobar'
+        }
+      });
+      geocoder.addTo(map);
+      expect(geocoder._input.title).to.be('foobar');
+    });
+
+    it.skip('uses custom RESET_TOOLTIP if defined');
+    it.skip('uses custom NO_RESULTS if defined');
+    it.skip('uses custom ERROR_403 if defined');
+    it.skip('uses custom ERROR_404 if defined');
+    it.skip('uses custom ERROR_408 if defined');
+    it.skip('uses custom ERROR_429 if defined');
+    it.skip('uses custom ERROR_500 if defined');
+    it.skip('uses custom ERROR_502 if defined');
+    it.skip('uses custom ERROR_DEFAULT if defined');
   });
 
   describe('layer icons', function () {

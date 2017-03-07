@@ -272,7 +272,7 @@ string name         | default value
 
 #### HTTP status code errors
 
-Learn more about possible error messages in [Mapzen Search documentation](https://mapzen.com/documentation/search/http-status-codes/). `ERROR_DEFAULT` is a catch-all error that displays when a request returns an error with an unexpected HTTP status code (or none at all) -- this can happen in the case of some kinds of security-related issues, such as the lack of CORS headers on the search endpoint.
+Learn more about possible error messages in [Mapzen Search documentation](https://mapzen.com/documentation/search/http-status-codes/). `ERROR_DEFAULT` is a catch-all error that displays when a request returns an error with an unexpected HTTP status code (or none at all) — one example where this can happen is when a browser is prevented from making a request due to a security concern, such as the lack of CORS headers on the search endpoint.
 
 string name      | default value
 ---------------- | ----------------------------------------------------------------
