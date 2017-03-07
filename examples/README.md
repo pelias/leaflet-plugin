@@ -32,6 +32,11 @@ Examples
   [[code](https://github.com/mapzen/leaflet-geocoder/blob/master/examples/events.html)]
   This demo shows when the geocoder fires events. Look at the code to see examples of how you can write scripts that react to these events.
 
+- **Using custom text strings to localize the control.**
+  [[demo](https://mapzen.github.io/leaflet-geocoder/examples/custom-strings.html)]
+  [[code](https://github.com/mapzen/leaflet-geocoder/blob/master/examples/custom-strings.html)]
+  This demo replaces text in the control with Korean.
+
 ### Use with other libraries
 
 - **Using the geocoder with [Tangram](https://mapzen.com/projects/tangram/).**
