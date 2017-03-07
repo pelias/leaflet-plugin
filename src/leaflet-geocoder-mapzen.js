@@ -31,6 +31,38 @@
   var RESULTS_HEIGHT_MARGIN = 20; // in pixels
   var API_RATE_LIMIT = 250; // in ms, throttled time between subsequent requests to API
 
+  // Text strings in this geocoder.
+  var TEXT_STRINGS = {
+    'INPUT_PLACEHOLDER': 'Search',
+    'INPUT_TOOLTIP': 'Search',
+    'RESET_TOOLTIP': 'Reset',
+    'NO_RESULTS': 'No results were found.',
+    // Error codes.
+    // https://mapzen.com/documentation/search/http-status-codes/
+    'ERROR_403': 'A valid API key is needed for this search feature.',
+    'ERROR_404': 'The search service cannot be found. :-(',
+    'ERROR_408': 'The search service took too long to respond. Try again in a second.',
+    'ERROR_429': 'There were too many requests. Try again in a second.',
+    'ERROR_500': 'The search service is not working right now. Please try again later.',
+    'ERROR_502': 'Connection lost. Please try again later.',
+    // Unhandled error code
+    'ERROR_DEFAULT': 'The search service is having problems :-('
+  };
+
+  // Polyfill console and its methods, if missing. (As it tends to be on IE8 (or lower))
+  // when the developer console is not open.
+  (function () {
+    var noop = function () {};
+    var console = (window.console = window.console || {});
+
+    if (!('log' in console)) {
+      console.log = noop;
+    }
+    if (!('warn' in console)) {
+      console.warn = console.log;
+    }
+  }());
+
   L.Control.Geocoder = L.Control.extend({
 
     version: '1.7.1',
@@ -44,8 +76,7 @@
       position: 'topleft',
       attribution: 'Geocoding by <a href="https://mapzen.com/projects/search/">Mapzen</a>',
       url: 'https://search.mapzen.com/v1',
-      placeholder: 'Search',
-      title: 'Search',
+      placeholder: null, // Note: this is now just an alias for textStrings.INPUT_PLACEHOLDER
       bounds: false,
       focus: true,
       layers: null,
@@ -56,7 +87,8 @@
       markers: true,
       expanded: false,
       autocomplete: true,
-      place: false
+      place: false,
+      textStrings: TEXT_STRINGS
     },
 
     initialize: function (apiKey, options) {
@@ -83,8 +115,34 @@
         if (typeof options.focus === 'undefined') {
           options.focus = options.latlng;
         }
-        console.log('[leaflet-geocoder-mapzen] DEPRECATION WARNING:',
+        console.warn('[leaflet-geocoder-mapzen] DEPRECATION WARNING:',
           'As of v1.6.0, the `latlng` option is deprecated. It has been renamed to `focus`. `latlng` will be removed in a future version.');
+      }
+
+      // Deprecate `title` option
+      if (options && typeof options.title !== 'undefined') {
+        options.textStrings = options.textStrings || {};
+        options.textStrings.INPUT_TOOLTIP = options.title;
+        console.warn('[leaflet-geocoder-mapzen] DEPRECATION WARNING:',
+          'As of v1.8.0, the `title` option is deprecated. Please set the property `INPUT_TOOLTIP` on the `textStrings` option instead. `title` will be removed in a future version.');
+      }
+
+      // `placeholder` is not deprecated, but it is an alias for textStrings.INPUT_PLACEHOLDER
+      if (options && typeof options.placeholder !== 'undefined') {
+        // textStrings.INPUT_PLACEHOLDER has priority, if defined.
+        if (!(options.textStrings && typeof options.textStrings.INPUT_PLACEHOLDER !== 'undefined')) {
+          options.textStrings = options.textStrings || {};
+          options.textStrings.INPUT_PLACEHOLDER = options.placeholder;
+        }
+      }
+
+      // Merge any strings that are not customized
+      if (options && typeof options.textStrings === 'object') {
+        for (var prop in this.options.textStrings) {
+          if (typeof options.textStrings[prop] === 'undefined') {
+            options.textStrings[prop] = this.options.textStrings[prop];
+          }
+        }
       }
 
       // Now merge user-specified options
@@ -285,26 +343,26 @@
             // Error codes.
             // https://mapzen.com/documentation/search/http-status-codes/
             case 403:
-              errorMessage = 'A valid API key is needed for this search feature.';
+              errorMessage = this.options.textStrings['ERROR_403'];
               break;
             case 404:
-              errorMessage = 'The search service cannot be found. :-(';
+              errorMessage = this.options.textStrings['ERROR_404'];
               break;
             case 408:
-              errorMessage = 'The search service took too long to respond. Try again in a second.';
+              errorMessage = this.options.textStrings['ERROR_408'];
               break;
             case 429:
-              errorMessage = 'There were too many requests. Try again in a second.';
+              errorMessage = this.options.textStrings['ERROR_429'];
               break;
             case 500:
-              errorMessage = 'The search service is not working right now. Please try again later.';
+              errorMessage = this.options.textStrings['ERROR_500'];
               break;
             case 502:
-              errorMessage = 'Connection lost. Please try again later.';
+              errorMessage = this.options.textStrings['ERROR_502'];
               break;
             // Note the status code is 0 if CORS is not enabled on the error response
             default:
-              errorMessage = 'The search service is having problems :-(';
+              errorMessage = this.options.textStrings['ERROR_DEFAULT'];
               break;
           }
           this.showMessage(errorMessage);
@@ -414,7 +472,7 @@
     showResults: function (features, input) {
       // Exit function if there are no features
       if (features.length === 0) {
-        this.showMessage('No results were found.');
+        this.showMessage(this.options.textStrings['NO_RESULTS']);
         return;
       }
 
@@ -648,19 +706,19 @@
       }, this);
 
       // Only set if title option is not null or falsy
-      if (this.options.title) {
-        this._input.title = this.options.title;
+      if (this.options.textStrings['INPUT_TOOLTIP']) {
+        this._input.title = this.options.textStrings['INPUT_TOOLTIP'];
       }
 
       // Only set if placeholder option is not null or falsy
-      if (this.options.placeholder) {
-        this._input.placeholder = this.options.placeholder;
+      if (this.options.textStrings['INPUT_PLACEHOLDER']) {
+        this._input.placeholder = this.options.textStrings['INPUT_PLACEHOLDER'];
       }
 
       this._search = L.DomUtil.create('a', 'leaflet-pelias-search-icon', this._container);
       this._reset = L.DomUtil.create('div', 'leaflet-pelias-close leaflet-pelias-hidden', this._container);
       this._reset.innerHTML = '×';
-      this._reset.title = 'Reset';
+      this._reset.title = this.options.textStrings['RESET_TOOLTIP'];
 
       this._results = L.DomUtil.create('div', 'leaflet-pelias-results leaflet-bar', this._container);
 

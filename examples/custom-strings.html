@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Customized text strings (e.g. for localization)</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
+
+  <!-- Load Leaflet from CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.3/leaflet.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.3/leaflet.js"></script>
+
+  <!-- Load Pelias geocoding plugin after Leaflet -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-geocoder-mapzen/1.7.1/leaflet-geocoder-mapzen.css">
+  <script src="/dist/leaflet-geocoder-mapzen.js"></script>
+
+  <link rel="stylesheet" href="assets/examples.css">
+</head>
+<body>
+  <div id="map"></div>
+  <script>
+    // Create a basic Leaflet map
+    var map = L.map('map').setView([37.5326, 127.0246], 12);
+    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
+    }).addTo(map);
+
+    // Add geocoding plugin
+    var geocoder = L.control.geocoder('search-MKZrG6M', {
+      expanded: true,
+      focus: true,
+      textStrings: {
+        INPUT_PLACEHOLDER: '검색',
+        INPUT_TOOLTIP: '검색',
+        RESET_TOOLTIP: '재검색',
+        NO_RESULTS: '해당 결과가 없습니다.',
+        // Error codes.
+        // https://mapzen.com/documentation/search/http-status-codes/
+        ERROR_403: '해당 서비스를 사용하기 위해서는 API KEY가 필요합니다.',
+        ERROR_404: '검색 서비스를 찾을 수 없습니다. :-(',
+        ERROR_408: '검색에 예상보다 긴 시간이 소요되고 있습니다. 조금 있다가 다시 시도해보는 건 어떨까요?',
+        ERROR_429: '지나치게 많은 리퀘스트가 발생했습니다. 조금 있다가 다시 시도해보는 건 어떨까요?',
+        ERROR_500: '검색 서비스가 현재 작동하지 않고있습니다. 조금 있다가 다시 시도해보는 건 어떨까요?',
+        ERROR_502: '네트워크 상태가 불안정합니다. 조금 있다가 다시 시도해보는 건 어떨까요?',
+        // Unhandled error code
+        ERROR_DEFAULT: '검색 서비스에 문제가 있는 것으로 보입니다. :-('
+      }
+    }).addTo(map);
+  </script>
+</body>
+</html>

@@ -117,33 +117,9 @@ option      | description                               | default value
 **layers** | _String_ or _Array_. Filters results by layers ([documentation](https://mapzen.com/documentation/search/search/#filter-by-data-type)). If left blank, results will come from all available layers. | `null`
 **params** | _Object_. An object of key-value pairs which will be serialized into query parameters that will be passed to the API. This allows custom queries that are not already supported by the convenience options listed above. For a full list of supported parameters, please read the [Mapzen Search documentation](https://mapzen.com/documentation/search/). **IMPORTANT: some parameters only work with the `/search` endpoint, and do not apply to `/autocomplete` requests! All supplied parameters are passed through; this library doesn't know which are valid parameters and which are not.** In the event that other options conflict with parameters passed passed through `params`, the `params` option takes precedence. | `null`
 
-### Interaction behavior
-
-These options affect the plugin's appearance and interaction behavior.
-
-option      | description                               | default value
------------ | ----------------------------------------- | ---------------------
-**position** | _String_. Corner in which to place the geocoder control. Values correspond to Leaflet [control positions](http://leafletjs.com/reference.html#control-positions). | `'topleft'`
-**attribution** | _String_. Attribution text to include. Set to blank or `null` to disable. | `'Geocoding by <a href="https://mapzen.com/projects/search/">Mapzen</a>'`
-**placeholder** | _String_. Placeholder text to display in the search input box. Set to blank or `null` to disable. | `'Search'`
-**title** | _String_. Tooltip text to display on the search icon. Set to blank or `null` to disable. | `'Search'`
-**panToPoint** | _Boolean_. If `true`, highlighting a search result pans the map to that location. | `true`
-**pointIcon** | _Boolean_ or _String_. If `true`, an icon is used to indicate a point result, matching the "venue" or "address" [layer types]((https://mapzen.com/documentation/search/search/#filter-by-data-type)). If `false`, no icon is displayed. For custom icons, pass a string containing a path to the image. | `true`
-**polygonIcon** | _Boolean_ or _String_. If `true`, an icon is used to indicate a polygonal result, matching any non-"venue" or non-"address" [layer type]((https://mapzen.com/documentation/search/search/#filter-by-data-type)). If `false`, no icon is displayed. For custom icons, pass a string containing a path to the image. | `true`
-**markers** | _[Leaflet Marker options object](http://leafletjs.com/reference.html#marker-options)_ or _Boolean_. If `true`, search results drops Leaflet's default blue markers onto the map. You may customize this marker's appearance and behavior using Leaflet [marker options](http://leafletjs.com/reference.html#marker-options). | `true`
-**fullWidth** | _Integer_ or _Boolean_. If `true`, the input box will expand to take up the full width of the map container. If an integer breakpoint is provided, the full width applies only if the map container width is below this breakpoint. | `650`
-**expanded** | _Boolean_. If `true`, the search input is always expanded. It does not collapse into a button-only state. | `false`
-**autocomplete** | _Boolean_. If `true`, suggested results are fetched on each keystroke. If `false`, this is disabled and users must obtain results by pressing the Enter key after typing in their query. | `true`
-**place** | _Boolean_. If `true`, selected results will make a request to the service [`/place` endpoint](https://mapzen.com/documentation/search/place/). If `false`, this is disabled. The geocoder does not handle responses to `/place`, you will need to do handle it yourself in the `results` event listener (see below). | `false`
-
-### Examples
+#### Examples
 
 ```javascript
-// Different position
-L.control.geocoder('<your-api-key>', {
-  position: 'topright'
-}).addTo(map);
-
 // Searching nearby [50.5, 30.5]
 L.control.geocoder('<your-api-key>', {
   focus: [50.5, 30.5], // this can also written as {lat: 50.5, lon: 30.5} or L.latLng(50.5, 30.5)
@@ -193,7 +169,7 @@ L.control.geocoder('<your-api-key>', {
 // Street level Geocoder: search only venue and street addresses
 L.control.geocoder('<your-api-key>', {
   layers: ['venue', 'address'],
-  placeholder: 'Street Geocoder'
+  placeholder: 'Street geocoder'
 }).addTo(map);
 
 // Custom filtering and bounding parameters
@@ -208,6 +184,35 @@ L.control.geocoder('<your-api-key>', {
     'boundary.country': 'AUS'
   },
   placeholder: 'Results via Who’s on First in Australia'
+}).addTo(map);
+```
+
+### Interaction behavior
+
+These options affect the plugin's appearance and interaction behavior.
+
+option      | description                               | default value
+----------- | ----------------------------------------- | ---------------------
+**position** | _String_. Corner in which to place the geocoder control. Values correspond to Leaflet [control positions](http://leafletjs.com/reference.html#control-positions). | `'topleft'`
+**attribution** | _String_. Attribution text that will be appended to Leaflet’s [attribution control](http://leafletjs.com/reference-1.0.3.html#control-attribution). Set to a blank string or `null` to disable adding the plugin’s default attribution. | `'Geocoding by <a href="https://mapzen.com/projects/search/">Mapzen</a>'`
+**textStrings** | _Object_. An object of string values that replace text strings in the geocoder control, so you can provide your own custom messages or localization. | See “Custom text strings” section below.
+**placeholder** | _String_. Placeholder text to display in the search input box. This is an alias for **`textStrings.INPUT_PLACEHOLDER`**. Set to a blank string or `null` to disable. | `'Search'`
+**title** | _Deprecated._ Please use **`textStrings.INPUT_TOOLTIP** instead. |
+**panToPoint** | _Boolean_. If `true`, highlighting a search result pans the map to that location. | `true`
+**pointIcon** | _Boolean_ or _String_. If `true`, an icon is used to indicate a point result, matching the "venue" or "address" [layer types]((https://mapzen.com/documentation/search/search/#filter-by-data-type)). If `false`, no icon is displayed. For custom icons, pass a string containing a path to the image. | `true`
+**polygonIcon** | _Boolean_ or _String_. If `true`, an icon is used to indicate a polygonal result, matching any non-"venue" or non-"address" [layer type]((https://mapzen.com/documentation/search/search/#filter-by-data-type)). If `false`, no icon is displayed. For custom icons, pass a string containing a path to the image. | `true`
+**markers** | _[Leaflet Marker options object](http://leafletjs.com/reference.html#marker-options)_ or _Boolean_. If `true`, search results drops Leaflet's default blue markers onto the map. You may customize this marker's appearance and behavior using Leaflet [marker options](http://leafletjs.com/reference.html#marker-options). | `true`
+**fullWidth** | _Integer_ or _Boolean_. If `true`, the input box will expand to take up the full width of the map container. If an integer breakpoint is provided, the full width applies only if the map container width is below this breakpoint. | `650`
+**expanded** | _Boolean_. If `true`, the search input is always expanded. It does not collapse into a button-only state. | `false`
+**autocomplete** | _Boolean_. If `true`, suggested results are fetched on each keystroke. If `false`, this is disabled and users must obtain results by pressing the Enter key after typing in their query. | `true`
+**place** | _Boolean_. If `true`, selected results will make a request to the service [`/place` endpoint](https://mapzen.com/documentation/search/place/). If `false`, this is disabled. The geocoder does not handle responses to `/place`, you will need to do handle it yourself in the `results` event listener (see below). | `false`
+
+#### Examples
+
+```javascript
+// Different position
+L.control.geocoder('<your-api-key>', {
+  position: 'topright'
 }).addTo(map);
 
 // Customizing layer icons
@@ -251,9 +256,60 @@ L.control.geocoder('<your-api-key>', {
 }).addTo(map);
 ```
 
-Examples with running code can be found in the [examples](https://github.com/mapzen/leaflet-geocoder/tree/master/examples) directory.
+### Custom text strings
+
+These are the text strings that are used by the geocoder control. You can override these strings by passing in a `textStrings` options object containing the names of the string(s) you want to customize. You can use this method to localize the controls for a different language, for instance.
+
+#### UI text
+
+string name         | default value
+------------------- | ----------------------------------------------------------------
+`INPUT_PLACEHOLDER` | 'Search'
+`INPUT_TOOLTIP`     | 'Search'
+`RESET_TOOLTIP`     | 'Reset'
+`NO_RESULTS`        | 'No results were found.'
+
+
+#### HTTP status code errors
+
+Learn more about possible error messages in [Mapzen Search documentation](https://mapzen.com/documentation/search/http-status-codes/). `ERROR_DEFAULT` is a catch-all error that displays when a request returns an error with an unexpected HTTP status code (or none at all) — one example where this can happen is when a browser is prevented from making a request due to a security concern, such as the lack of CORS headers on the search endpoint.
+
+string name      | default value
+---------------- | ----------------------------------------------------------------
+`ERROR_403`      | 'A valid API key is needed for this search feature.'
+`ERROR_404`      | 'The search service cannot be found. :-('
+`ERROR_408`      | 'The search service took too long to respond. Try again in a second.'
+`ERROR_429`      | 'There were too many requests. Try again in a second.'
+`ERROR_500`      | 'The search service is not working right now. Please try again later.'
+`ERROR_502`      | 'Connection lost. Please try again later.'
+`ERROR_DEFAULT`  | 'The search service is having problems :-('
+
+#### Examples
+
+```javascript
+// Uses custom text strings to localise the geocoder control.
+L.control.geocoder('<your-api-key>', {
+  textStrings: {
+    INPUT_PLACEHOLDER: '검색',
+    INPUT_TOOLTIP: '검색',
+    RESET_TOOLTIP: '재검색',
+    NO_RESULTS: '해당 결과가 없습니다.',
+    ERROR_403: '해당 서비스를 사용하기 위해서는 API KEY가 필요합니다.',
+    ERROR_404: '검색 서비스를 찾을 수 없습니다. :-(',
+    ERROR_408: '검색에 예상보다 긴 시간이 소요되고 있습니다. 조금 있다가 다시 시도해보는 건 어떨까요?',
+    ERROR_429: '지나치게 많은 리퀘스트가 발생했습니다. 조금 있다가 다시 시도해보는 건 어떨까요?',
+    ERROR_500: '검색 서비스가 현재 작동하지 않고있습니다. 조금 있다가 다시 시도해보는 건 어떨까요?',
+    ERROR_502: '네트워크 상태가 불안정합니다. 조금 있다가 다시 시도해보는 건 어떨까요?',
+    ERROR_DEFAULT: '검색 서비스에 문제가 있는 것으로 보입니다. :-('
+  }
+}).addTo(map);
+```
+
+[See this in action!](https://mapzen.github.io/leaflet-geocoder/examples/custom-strings.html)
 
 ## Advanced usage
+
+Examples with running code can be found in the [examples](https://github.com/mapzen/leaflet-geocoder/tree/master/examples) directory.
 
 ### Alternate syntax
 
