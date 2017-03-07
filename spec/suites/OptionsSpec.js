@@ -55,7 +55,7 @@ describe('Options', function () {
   });
 
   // Deprecated, but tests remain until fully removed.
-  describe('placeholder [DEPRECATED]', function () {
+  describe('placeholder', function () {
     it('should display custom placeholder text', function () {
       var geocoder = new L.Control.Geocoder(null, { placeholder: 'a' });
       geocoder.addTo(map);
@@ -77,6 +77,28 @@ describe('Options', function () {
     // This was never documented, and will no longer work after textStrings implementation.
     it.skip('should have no placeholder text if `undefined` is assigned to it [REMOVED]', function () {
       var geocoder = new L.Control.Geocoder(null, { placeholder: undefined });
+      geocoder.addTo(map);
+      expect(geocoder._input.placeholder).to.be('');
+    });
+
+    it('should not override textStrings.INPUT_PLACEHOLDER if both are defined', function () {
+      var geocoder = new L.Control.Geocoder(null, {
+        placeholder: 'placeholder search',
+        textStrings: {
+          INPUT_PLACEHOLDER: 'textstrings search'
+        }
+      });
+      geocoder.addTo(map);
+      expect(geocoder._input.placeholder).to.be('textstrings search');
+    });
+
+    it('should not override textStrings.INPUT_PLACEHOLDER even if INPUT_PLACEHOLDER is falsy', function () {
+      var geocoder = new L.Control.Geocoder(null, {
+        placeholder: 'placeholder search',
+        textStrings: {
+          INPUT_PLACEHOLDER: null
+        }
+      });
       geocoder.addTo(map);
       expect(geocoder._input.placeholder).to.be('');
     });

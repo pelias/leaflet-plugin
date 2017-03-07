@@ -49,7 +49,8 @@
     'ERROR_DEFAULT': 'The search service is having problems :-('
   };
 
-  // Polyfill console and its methods, if missing.
+  // Polyfill console and its methods, if missing. (As it tends to be on IE8 (or lower))
+  // when the developer console is not open.
   (function () {
     var noop = function () {};
     var console = (window.console = window.console || {});
@@ -75,8 +76,7 @@
       position: 'topleft',
       attribution: 'Geocoding by <a href="https://mapzen.com/projects/search/">Mapzen</a>',
       url: 'https://search.mapzen.com/v1',
-      placeholder: null,
-      title: null,
+      placeholder: null, // Note: this is now just an alias for textStrings.INPUT_PLACEHOLDER
       bounds: false,
       focus: true,
       layers: null,
@@ -119,18 +119,21 @@
           'As of v1.6.0, the `latlng` option is deprecated. It has been renamed to `focus`. `latlng` will be removed in a future version.');
       }
 
-      // Deprecate `placeholder` and `title` options
-      if (options && typeof options.placeholder !== 'undefined') {
-        options.textStrings = options.textStrings || {};
-        options.textStrings.INPUT_PLACEHOLDER = options.placeholder;
-        console.warn('[leaflet-geocoder-mapzen] DEPRECATION WARNING:',
-          'As of v1.8.0, the `placeholder` option is deprecated. Please set the property `INPUT_PLACEHOLDER` on the `textStrings` option instead. `placeholder` will be removed in a future version.');
-      }
+      // Deprecate `title` option
       if (options && typeof options.title !== 'undefined') {
         options.textStrings = options.textStrings || {};
         options.textStrings.INPUT_TOOLTIP = options.title;
         console.warn('[leaflet-geocoder-mapzen] DEPRECATION WARNING:',
           'As of v1.8.0, the `title` option is deprecated. Please set the property `INPUT_TOOLTIP` on the `textStrings` option instead. `title` will be removed in a future version.');
+      }
+
+      // `placeholder` is not deprecated, but it is an alias for textStrings.INPUT_PLACEHOLDER
+      if (options && typeof options.placeholder !== 'undefined') {
+        // textStrings.INPUT_PLACEHOLDER has priority, if defined.
+        if (!(options.textStrings && typeof options.textStrings.INPUT_PLACEHOLDER !== 'undefined')) {
+          options.textStrings = options.textStrings || {};
+          options.textStrings.INPUT_PLACEHOLDER = options.placeholder;
+        }
       }
 
       // Merge any strings that are not customized
