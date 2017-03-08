@@ -85,6 +85,7 @@
       polygonIcon: true, // 'images/polygon_icon.png',
       fullWidth: 650,
       markers: true,
+      forcePointMarkers: false,
       expanded: false,
       autocomplete: true,
       place: false,
@@ -582,7 +583,7 @@
     setSelectedResult: function (selected, originalEvent) {
       var latlng = L.GeoJSON.coordsToLatLng(selected.feature.geometry.coordinates);
       this._input.value = selected.innerText || selected.textContent;
-      if (selected.feature.bbox) {
+      if (selected.feature.bbox && !this.options.forcePointMarkers) {
         this.removeMarkers();
         this.fitBoundingBox(selected.feature.bbox);
       } else {
@@ -779,7 +780,7 @@
           var panToPoint = function (shouldPan) {
             var _selected = self._results.querySelectorAll('.leaflet-pelias-selected')[0];
             if (_selected && shouldPan) {
-              if (_selected.feature.bbox) {
+              if (_selected.feature.bbox && !this.options.forcePointMarkers) {
                 self.removeMarkers();
                 self.fitBoundingBox(_selected.feature.bbox);
               } else {
