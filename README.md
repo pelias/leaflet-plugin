@@ -269,7 +269,6 @@ string name         | default value
 `RESET_TOOLTIP`     | 'Reset'
 `NO_RESULTS`        | 'No results were found.'
 
-
 #### HTTP status code errors
 
 Learn more about possible error messages in [Mapzen Search documentation](https://mapzen.com/documentation/search/http-status-codes/). `ERROR_DEFAULT` is a catch-all error that displays when a request returns an error with an unexpected HTTP status code (or none at all) — one example where this can happen is when a browser is prevented from making a request due to a security concern, such as the lack of CORS headers on the search endpoint.

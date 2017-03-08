@@ -99,3 +99,20 @@ var geocoder = new L.Control.Geocoder('<your-api-key>').addTo(map);
 // geocoder._container is a reference to the geocoder's DOM element.
 geocoder._container.parentNode.insertBefore(geocoder._container, geocoder._container.parentNode.childNodes[0]);
 ```
+
+### Customize map view when a result is selected
+
+The geocoder has some sensible default behavior to set the map view when a result is selected. You can control this yourself if you need different behavior. First, set the `panToPoint` option to false (this prevents the geocoder from adjusting the view when a result is selected). Then, add an event listener for the `select` event, and in the handler function, add your own logic to set the map’s view.
+
+This example below forces a selected result to zoom to a specific zoom level. (The default behavior is to preserve the existing zoom level in most cases.)
+
+```javascript
+var MY_ZOOM_LEVEL = 16;
+var geocoder = L.control.geocoder('search-MKZrG6M', {
+  panToPoint: false
+}).addTo(map);
+
+geocoder.on('select', function (e) {
+  map.setView([e.latlng.lat, e.latlng.lng], MY_ZOOM_LEVEL);
+});
+```
