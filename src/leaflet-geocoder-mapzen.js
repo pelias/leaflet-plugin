@@ -34,8 +34,8 @@
   // Text strings in this geocoder.
   var TEXT_STRINGS = {
     'INPUT_PLACEHOLDER': 'Search',
-    'INPUT_TOOLTIP': 'Search',
-    'RESET_TOOLTIP': 'Reset',
+    'INPUT_TITLE_ATTRIBUTE': 'Search',
+    'RESET_TITLE_ATTRIBUTE': 'Reset',
     'NO_RESULTS': 'No results were found.',
     // Error codes.
     // https://mapzen.com/documentation/search/http-status-codes/
@@ -69,7 +69,7 @@
 
     // L.Evented is present in Leaflet v1+
     // L.Mixin.Events is legacy; was deprecated in Leaflet v1 and will start
-    // logging deprecation warnings in console after v1.0.3
+    // logging deprecation warnings in console in v1.1
     includes: L.Evented ? L.Evented.prototype : L.Mixin.Events,
 
     options: {
@@ -122,9 +122,9 @@
       // Deprecate `title` option
       if (options && typeof options.title !== 'undefined') {
         options.textStrings = options.textStrings || {};
-        options.textStrings.INPUT_TOOLTIP = options.title;
+        options.textStrings.INPUT_TITLE_ATTRIBUTE = options.title;
         console.warn('[leaflet-geocoder-mapzen] DEPRECATION WARNING:',
-          'As of v1.8.0, the `title` option is deprecated. Please set the property `INPUT_TOOLTIP` on the `textStrings` option instead. `title` will be removed in a future version.');
+          'As of v1.8.0, the `title` option is deprecated. Please set the property `INPUT_TITLE_ATTRIBUTE` on the `textStrings` option instead. `title` will be removed in a future version.');
       }
 
       // `placeholder` is not deprecated, but it is an alias for textStrings.INPUT_PLACEHOLDER
@@ -706,8 +706,8 @@
       }, this);
 
       // Only set if title option is not null or falsy
-      if (this.options.textStrings['INPUT_TOOLTIP']) {
-        this._input.title = this.options.textStrings['INPUT_TOOLTIP'];
+      if (this.options.textStrings['INPUT_TITLE_ATTRIBUTE']) {
+        this._input.title = this.options.textStrings['INPUT_TITLE_ATTRIBUTE'];
       }
 
       // Only set if placeholder option is not null or falsy
@@ -718,7 +718,7 @@
       this._search = L.DomUtil.create('a', 'leaflet-pelias-search-icon', this._container);
       this._reset = L.DomUtil.create('div', 'leaflet-pelias-close leaflet-pelias-hidden', this._container);
       this._reset.innerHTML = '×';
-      this._reset.title = this.options.textStrings['RESET_TOOLTIP'];
+      this._reset.title = this.options.textStrings['RESET_TITLE_ATTRIBUTE'];
 
       this._results = L.DomUtil.create('div', 'leaflet-pelias-results leaflet-bar', this._container);
 

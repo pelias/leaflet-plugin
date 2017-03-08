@@ -144,20 +144,20 @@ describe('Options', function () {
       expect(geocoder._input.placeholder).to.be('foobar');
     });
 
-    it('uses custom INPUT_TOOLTIP if defined', function () {
+    it('uses custom INPUT_TITLE_ATTRIBUTE if defined', function () {
       var geocoder = new L.Control.Geocoder(null, {
         textStrings: {
-          INPUT_TOOLTIP: 'foobar'
+          INPUT_TITLE_ATTRIBUTE: 'foobar'
         }
       });
       geocoder.addTo(map);
       expect(geocoder._input.title).to.be('foobar');
     });
 
-    it('uses custom RESET_TOOLTIP if defined', function () {
+    it('uses custom RESET_TITLE_ATTRIBUTE if defined', function () {
       var geocoder = new L.Control.Geocoder(null, {
         textStrings: {
-          RESET_TOOLTIP: 'barbaz'
+          RESET_TITLE_ATTRIBUTE: 'barbaz'
         }
       });
       geocoder.addTo(map);

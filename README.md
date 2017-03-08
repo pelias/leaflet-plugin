@@ -197,7 +197,7 @@ option      | description                               | default value
 **attribution** | _String_. Attribution text that will be appended to Leaflet’s [attribution control](http://leafletjs.com/reference-1.0.3.html#control-attribution). Set to a blank string or `null` to disable adding the plugin’s default attribution. | `'Geocoding by <a href="https://mapzen.com/projects/search/">Mapzen</a>'`
 **textStrings** | _Object_. An object of string values that replace text strings in the geocoder control, so you can provide your own custom messages or localization. | See “Custom text strings” section below.
 **placeholder** | _String_. Placeholder text to display in the search input box. This is an alias for **`textStrings.INPUT_PLACEHOLDER`**. Set to a blank string or `null` to disable. | `'Search'`
-**title** | _Deprecated._ Please use **`textStrings.INPUT_TOOLTIP** instead. |
+**title** | _Deprecated._ Please use **`textStrings.INPUT_TITLE_ATTRIBUTE** instead. |
 **panToPoint** | _Boolean_. If `true`, highlighting a search result pans the map to that location. | `true`
 **pointIcon** | _Boolean_ or _String_. If `true`, an icon is used to indicate a point result, matching the "venue" or "address" [layer types]((https://mapzen.com/documentation/search/search/#filter-by-data-type)). If `false`, no icon is displayed. For custom icons, pass a string containing a path to the image. | `true`
 **polygonIcon** | _Boolean_ or _String_. If `true`, an icon is used to indicate a polygonal result, matching any non-"venue" or non-"address" [layer type]((https://mapzen.com/documentation/search/search/#filter-by-data-type)). If `false`, no icon is displayed. For custom icons, pass a string containing a path to the image. | `true`
@@ -265,8 +265,8 @@ These are the text strings that are used by the geocoder control. You can overri
 string name         | default value
 ------------------- | ----------------------------------------------------------------
 `INPUT_PLACEHOLDER` | 'Search'
-`INPUT_TOOLTIP`     | 'Search'
-`RESET_TOOLTIP`     | 'Reset'
+`INPUT_TITLE_ATTRIBUTE`     | 'Search'
+`RESET_TITLE_ATTRIBUTE`     | 'Reset'
 `NO_RESULTS`        | 'No results were found.'
 
 #### HTTP status code errors
@@ -289,9 +289,9 @@ string name      | default value
 // Uses custom text strings to localise the geocoder control.
 L.control.geocoder('<your-api-key>', {
   textStrings: {
-    INPUT_PLACEHOLDER: '검색',
-    INPUT_TOOLTIP: '검색',
-    RESET_TOOLTIP: '재검색',
+    INPUT_PLACEHOLDER: '도시, 지명 등을 검색해보세요.',
+    INPUT_TITLE_ATTRIBUTE: '도시, 지명 등을 검색해보세요.',
+    RESET_TITLE_ATTRIBUTE: '다시 검색하기',
     NO_RESULTS: '해당 결과가 없습니다.',
     ERROR_403: '해당 서비스를 사용하기 위해서는 API KEY가 필요합니다.',
     ERROR_404: '검색 서비스를 찾을 수 없습니다. :-(',
