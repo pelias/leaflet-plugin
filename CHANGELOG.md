@@ -1,8 +1,9 @@
 ## v1.8.0 (tbd)
 
-- **Added customizable text strings!** By popular request, text strings used in the geocoder control can now be customized to your liking. This also enables localisation of the plugin to a different language. For example, [check out the geocoder in Korean](https://mapzen.github.io/leaflet-geocoder/examples/custom-strings.html). (with @hanbyul-here, [#120](https://github.com/mapzen/leaflet-geocoder/issues/150))
+- **Added customizable text strings!** By popular request, text strings used in the geocoder control can now be customized to your liking. This also enables localisation of the plugin to a different language. For example, [check out this geocoder in Korean](https://mapzen.github.io/leaflet-geocoder/examples/custom-strings.html). (with @hanbyul-here, [#120](https://github.com/mapzen/leaflet-geocoder/issues/120))
 - **Deprecated!** Now that `textStrings` option is here, the `title` option is deprecated. It will still work as an alias to `textStrings.RESET_TITLE_ATTRIBUTE`, but logs a warning to the console if you use it. The preferred way is to set the `textStrings.RESET_TITLE_ATTRIBUTE` property directly. (Note: the `placeholder` option will not be deprecated, since it is used more often. Similarly, it now aliases to `textStrings.INPUT_PLACEHOLDER`.)
-- [#62](https://github.com/mapzen/leaflet-geocoder/issues/62) (and thanks to @skorasaurus for the help)
+- Added an example to show how you can control the map’s zoom level when a result is selected. [#62](https://github.com/mapzen/leaflet-geocoder/issues/62) (and thanks to @skorasaurus for the help)
+- Added an example to show how you can show region boundary geometry with a secondary request to [Who’s on First](https://whosonfirst.mapzen.com) [#86](https://github.com/mapzen/leaflet-geocoder/issues/86).
 - Improved compatibility with Leaflet v1's `Evented` object. [#150](https://github.com/mapzen/leaflet-geocoder/issues/150)
 
 ## v1.7.1 (August 23, 2016)

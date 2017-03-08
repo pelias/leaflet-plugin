@@ -262,19 +262,19 @@ These are the text strings that are used by the geocoder control. You can overri
 
 #### UI text
 
-string name         | default value
-------------------- | ----------------------------------------------------------------
-`INPUT_PLACEHOLDER` | 'Search'
-`INPUT_TITLE_ATTRIBUTE`     | 'Search'
-`RESET_TITLE_ATTRIBUTE`     | 'Reset'
-`NO_RESULTS`        | 'No results were found.'
+string name             | default value
+----------------------- | ------------------------------------------------------
+`INPUT_PLACEHOLDER`     | 'Search'
+`INPUT_TITLE_ATTRIBUTE` | 'Search'
+`RESET_TITLE_ATTRIBUTE` | 'Reset'
+`NO_RESULTS`            | 'No results were found.'
 
 #### HTTP status code errors
 
 Learn more about possible error messages in [Mapzen Search documentation](https://mapzen.com/documentation/search/http-status-codes/). `ERROR_DEFAULT` is a catch-all error that displays when a request returns an error with an unexpected HTTP status code (or none at all) — one example where this can happen is when a browser is prevented from making a request due to a security concern, such as the lack of CORS headers on the search endpoint.
 
 string name      | default value
----------------- | ----------------------------------------------------------------
+---------------- | -------------------------------------------------------------
 `ERROR_403`      | 'A valid API key is needed for this search feature.'
 `ERROR_404`      | 'The search service cannot be found. :-('
 `ERROR_408`      | 'The search service took too long to respond. Try again in a second.'

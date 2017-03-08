@@ -63,6 +63,11 @@ These demos show how you can extend the geocoder with functionality not built in
   [[code](https://github.com/mapzen/leaflet-geocoder/blob/master/examples/two-geocoders.html)]
   You can place any number of geocoders on a map. One use case for having two geocoders is to be able to route between two points. This demo shows how some code is needed to make the results list on the first geocoder show up correctly on top of the second geocoder.
 
+- **Displaying region boundaries with Who’s on First.**
+  [[demo](https://mapzen.github.io/leaflet-geocoder/examples/show-boundaries.html)]
+  [[code](https://github.com/mapzen/leaflet-geocoder/blob/master/examples/show-boundaries.html)]
+  [Who’s on First](https://whosonfirst.mapzen.com) (WOF) is a gazetteer of places and one of Mapzen Search’s data sources. However, Mapzen Search does not include the boundary geometries from WOF. With the data obtained from the geocoder, one can make a secondary request to WOF for the boundary. This demo shows how this can be done.
+
 ## Code snippets
 
 Examples that can be expressed with code snippets or need more explanation are placed here.
