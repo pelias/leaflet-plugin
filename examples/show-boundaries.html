@@ -20,18 +20,18 @@
   <script>
     // Create a basic Leaflet map
     var map = L.map('map').setView([40.7259, -73.9805], 12);
-    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+    L.tileLayer('//{s}.tile.osm.org/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
     }).addTo(map);
 
     // Add geocoding plugin
     var geocoder = L.control.geocoder('search-MKZrG6M', {
-      expanded: true,
-      markers: false,
+      expanded: true, // Shows "instructions" in input placeholder
+      markers: false, // We'll add GeoJSON from WOF manually
       placeholder: 'Region boundary example',
       params: {
-        layers: 'coarse',
-        sources: 'whosonfirst'
+        layers: 'coarse', // Limit to sources most likely to have boundaries
+        sources: 'whosonfirst' // Limit to WOF so we have an ID for it
       }
     }).addTo(map);
 
@@ -67,6 +67,8 @@
       boundaries = [];
     }
 
+    // Converts a Pelias `gid`, like `whosonfirst:locality:101714287`
+    // into a WOF url e.g. `https://whosonfirst.mapzen.com/data/101/714/287/101714287.geojson`
     function getWOFDataEndpointFromPeliasGid (gid) {
       var parts = gid.split(':');
       var source = parts[2];
