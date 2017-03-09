@@ -48,8 +48,10 @@
       clearBoundaries();
 
       // Convert gid to wof path
-      var gid = event.feature.properties.gid;
-      var path = getWOFDataEndpointFromPeliasGid(gid);
+      // Assumes properties.source === `whosonfirst` because we have limited
+      // the source in the search request.
+      var wofId = event.feature.properties.source_id;
+      var path = getWOFDataEndpoint(wofId);
 
       // Make an XMLHttpRequest request to the WOF endpoint
       XHRGet(path, function (data) {
@@ -69,20 +71,10 @@
 
     // Converts a Pelias `gid`, like `whosonfirst:locality:101714287`
     // into a WOF url e.g. `https://whosonfirst.mapzen.com/data/101/714/287/101714287.geojson`
-    function getWOFDataEndpointFromPeliasGid (gid) {
-      var parts = gid.split(':');
-      var source = parts[2];
-      var stack = [];
-
-      while (source.length) {
-        var part = source.substr(0, 3);
-        stack.push(part);
-        source = source.substr(3);
-      }
-
-      var path = stack.join('/');
-      var id = stack.join('');
-      return 'https://whosonfirst.mapzen.com/data/' + path + '/' + id + '.geojson';
+    function getWOFDataEndpoint (wofId) {
+      var wofEndpointRoot = 'https://whosonfirst.mapzen.com/data/';
+      return wofEndpointRoot + wofId.substr(0, 3) + '/' +
+        wofId.substr(3, 3) + '/' + wofId.substr(6) + '/' + wofId + '.geojson';
     }
 
     // Very basic XMLHttpRequest 'GET'. No error handling.

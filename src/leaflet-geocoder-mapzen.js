@@ -85,7 +85,7 @@
       polygonIcon: true, // 'images/polygon_icon.png',
       fullWidth: 650,
       markers: true,
-      forcePointMarkers: false,
+      overrideBbox: false,
       expanded: false,
       autocomplete: true,
       place: false,
@@ -583,7 +583,9 @@
     setSelectedResult: function (selected, originalEvent) {
       var latlng = L.GeoJSON.coordsToLatLng(selected.feature.geometry.coordinates);
       this._input.value = selected.innerText || selected.textContent;
-      if (selected.feature.bbox && !this.options.forcePointMarkers) {
+      var layer = selected.feature.properties.layer;
+      // "point" layers (venue and address in Pelias) must always display markers
+      if ((layer !== 'venue' && layer !== 'address') && selected.feature.bbox && !this.options.overrideBbox) {
         this.removeMarkers();
         this.fitBoundingBox(selected.feature.bbox);
       } else {
@@ -780,7 +782,9 @@
 
           var panToPoint = function (selected, options) {
             if (selected && options.panToPoint) {
-              if (selected.feature.bbox && !options.forcePointMarkers) {
+              var layer = selected.feature.properties.layer;
+              // "point" layers (venue and address in Pelias) must always display markers
+              if ((layer !== 'venue' && layer !== 'address') && selected.feature.bbox && !options.overrideBbox) {
                 self.removeMarkers();
                 self.fitBoundingBox(selected.feature.bbox);
               } else {
