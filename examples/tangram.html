@@ -36,7 +36,10 @@
     // Add Tangram scene layer
     // (Note: Tangram can also be initialized before the geocoder, if you choose.)
     var layer = Tangram.leafletLayer({
-      scene: 'https://mapzen.com/carto/cinnabar-style-more-labels/cinnabar-style-more-labels.yaml',
+      scene: {
+        import: 'https://mapzen.com/carto/cinnabar-style-more-labels/cinnabar-style-more-labels.yaml',
+        global: { sdk_mapzen_api_key: 'search-MKZrG6M' }
+      },
       attribution: 'Rendering by <a href="https://mapzen.com/tangram">Tangram</a> | &copy; OSM contributors'
     }).addTo(map);
   </script>

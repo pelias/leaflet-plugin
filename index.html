@@ -96,7 +96,10 @@
 
       // Add Tangram scene layer
       var layer = Tangram.leafletLayer({
-        scene: 'https://mapzen.com/carto/bubble-wrap-style/bubble-wrap.yaml',
+        scene: {
+          import: 'https://mapzen.com/carto/bubble-wrap-style/bubble-wrap.yaml',
+          global: { sdk_mapzen_api_key: 'search-MKZrG6M' }
+        },
         attribution: 'Rendering by <a href="https://mapzen.com/products/tangram/">Tangram</a> | &copy; OSM contributors'
       }).addTo(map);
 
