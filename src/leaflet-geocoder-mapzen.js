@@ -777,28 +777,27 @@
           var selected = this._results.querySelectorAll('.leaflet-pelias-selected')[0];
           var selectedPosition;
           var self = this;
-          var panToPoint = function (shouldPan) {
-            var _selected = self._results.querySelectorAll('.leaflet-pelias-selected')[0];
-            if (_selected && shouldPan) {
-              if (_selected.feature.bbox && !this.options.forcePointMarkers) {
+
+          var panToPoint = function (selected, options) {
+            if (selected && options.panToPoint) {
+              if (selected.feature.bbox && !options.forcePointMarkers) {
                 self.removeMarkers();
-                self.fitBoundingBox(_selected.feature.bbox);
+                self.fitBoundingBox(selected.feature.bbox);
               } else {
                 self.removeMarkers();
-                self.showMarker(_selected.innerHTML, L.GeoJSON.coordsToLatLng(_selected.feature.geometry.coordinates));
+                self.showMarker(selected.innerHTML, L.GeoJSON.coordsToLatLng(selected.feature.geometry.coordinates));
               }
             }
           };
 
-          var scrollSelectedResultIntoView = function () {
-            var _selected = self._results.querySelectorAll('.leaflet-pelias-selected')[0];
-            var _selectedRect = _selected.getBoundingClientRect();
-            var _resultsRect = self._results.getBoundingClientRect();
+          var scrollSelectedResultIntoView = function (selected) {
+            var selectedRect = selected.getBoundingClientRect();
+            var resultsRect = self._results.getBoundingClientRect();
             // Is the selected element not visible?
-            if (_selectedRect.bottom > _resultsRect.bottom) {
-              self._results.scrollTop = _selected.offsetTop + _selected.offsetHeight - self._results.offsetHeight;
-            } else if (_selectedRect.top < _resultsRect.top) {
-              self._results.scrollTop = _selected.offsetTop;
+            if (selectedRect.bottom > resultsRect.bottom) {
+              self._results.scrollTop = selected.offsetTop + selected.offsetHeight - self._results.offsetHeight;
+            } else if (selectedRect.top < resultsRect.top) {
+              self._results.scrollTop = selected.offsetTop;
             }
           };
 
@@ -837,8 +836,9 @@
               var highlighted = (selected && previousItem) ? previousItem : list[list.length - 1]; // eslint-disable-line no-redeclare
 
               L.DomUtil.addClass(highlighted, 'leaflet-pelias-selected');
-              scrollSelectedResultIntoView();
-              panToPoint(this.options.panToPoint);
+              scrollSelectedResultIntoView(highlighted);
+              panToPoint(highlighted, this.options);
+              this._input.value = highlighted.textContent;
               this.fire('highlight', {
                 originalEvent: e,
                 latlng: L.GeoJSON.coordsToLatLng(highlighted.feature.geometry.coordinates),
@@ -862,8 +862,9 @@
               var highlighted = (selected && nextItem) ? nextItem : list[0]; // eslint-disable-line no-redeclare
 
               L.DomUtil.addClass(highlighted, 'leaflet-pelias-selected');
-              scrollSelectedResultIntoView();
-              panToPoint(this.options.panToPoint);
+              scrollSelectedResultIntoView(highlighted);
+              panToPoint(highlighted, this.options);
+              this._input.value = highlighted.textContent;
               this.fire('highlight', {
                 originalEvent: e,
                 latlng: L.GeoJSON.coordsToLatLng(highlighted.feature.geometry.coordinates),

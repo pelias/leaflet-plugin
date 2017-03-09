@@ -148,6 +148,11 @@ describe('Interface', function () {
       expect(document.querySelector('.leaflet-pelias-selected')).to.be(document.querySelectorAll('.leaflet-pelias-result')[1]);
     });
 
+    it('puts the feature label in the input when the item is highlighted', function () {
+      happen.keydown(geocoder._input, { keyCode: 40 });
+      expect(document.querySelector('.leaflet-pelias-selected').textContent).to.be(geocoder._input.value);
+    });
+
     it('highlights the correct result after a bunch of up/down presses', function () {
       happen.keydown(geocoder._input, { keyCode: 38 });
       happen.keydown(geocoder._input, { keyCode: 38 });
