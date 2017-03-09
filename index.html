@@ -62,7 +62,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.3/leaflet.js"></script>
     <script src="https://mapzen.com/tangram/tangram.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-hash/0.2.1/leaflet-hash.min.js"></script>
-    <script src="/dist/leaflet-geocoder-mapzen.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-geocoder-mapzen/1.7.1/leaflet-geocoder-mapzen.min.js"></script>
     <script type="text/javascript">
       // Initial map view
       var INITIAL_LNG = -73.9805;
@@ -84,9 +84,7 @@
       // Add geocoder
       var geocoder = L.control.geocoder('search-MKZrG6M', {
         fullWidth: 650,
-        expanded: true,
-        markers: false,
-        overrideBbox: true,
+        expanded: true
       }).addTo(map);
 
       // Re-sort control order so that geocoder is on top
