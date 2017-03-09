@@ -65,7 +65,7 @@
 
   L.Control.Geocoder = L.Control.extend({
 
-    version: '1.7.1',
+    version: '1.8.0',
 
     // L.Evented is present in Leaflet v1+
     // L.Mixin.Events is legacy; was deprecated in Leaflet v1 and will start
