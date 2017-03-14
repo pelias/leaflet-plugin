@@ -6,23 +6,25 @@
  * License: MIT
  * (c) Mapzen
  */
-;(function (factory) { // eslint-disable-line no-extra-semi
+;(function (root, factory) { // eslint-disable-line no-extra-semi
   var L;
   if (typeof define === 'function' && define.amd) {
-    // AMD
+    // AMD. Register as an anonymous module.
     define(['leaflet'], factory);
-  } else if (typeof module !== 'undefined') {
-    // Node/CommonJS
+  } else if (typeof module === 'object' && module.exports) {
+    // Node. Does not work with strict CommonJS, but
+    // only CommonJS-like environments that support module.exports,
+    // like Node.
     L = require('leaflet');
     module.exports = factory(L);
   } else {
-    // Browser globals
-    if (typeof window.L === 'undefined') {
+    // Browser globals (root is window)
+    if (typeof root.L === 'undefined') {
       throw new Error('Leaflet must be loaded first');
     }
-    factory(window.L);
+    root.Geocoder = factory(root.L);
   }
-}(function (L) {
+}(this, function (L) {
   'use strict';
 
   var Geocoder = require('./core');
@@ -34,6 +36,6 @@
     return new L.Control.Geocoder(apiKey, options);
   };
 
-  // Also, can be exported as a variable.
-  module.exports = Geocoder;
+  // Return value defines this module's export value.
+  return Geocoder;
 }));
