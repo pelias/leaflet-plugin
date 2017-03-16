@@ -842,7 +842,7 @@
               L.DomUtil.addClass(highlighted, 'leaflet-pelias-selected');
               scrollSelectedResultIntoView(highlighted);
               panToPoint(highlighted, this.options);
-              this._input.value = highlighted.textContent;
+              this._input.value = highlighted.innerText || highlighted.textContent;
               this.fire('highlight', {
                 originalEvent: e,
                 latlng: L.GeoJSON.coordsToLatLng(highlighted.feature.geometry.coordinates),
@@ -868,7 +868,7 @@
               L.DomUtil.addClass(highlighted, 'leaflet-pelias-selected');
               scrollSelectedResultIntoView(highlighted);
               panToPoint(highlighted, this.options);
-              this._input.value = highlighted.textContent;
+              this._input.value = highlighted.innerText || highlighted.textContent;
               this.fire('highlight', {
                 originalEvent: e,
                 latlng: L.GeoJSON.coordsToLatLng(highlighted.feature.geometry.coordinates),
