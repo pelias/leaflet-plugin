@@ -14,8 +14,10 @@ require('console-polyfill');
 
 var L = require('leaflet');
 var AJAX = require('./ajax');
-var throttle = require('lodash/throttle');
-var escapeRegExp = require('lodash/escapeRegExp');
+
+// Import utility functions. TODO: switch to Lodash (no IE8 support) in v2
+var throttle = require('./utils/throttle');
+var escapeRegExp = require('./utils/escapeRegExp');
 
 var VERSION = '1.9.0';
 var MINIMUM_INPUT_LENGTH_FOR_AUTOCOMPLETE = 1;
