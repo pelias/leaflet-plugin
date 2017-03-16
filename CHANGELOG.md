@@ -1,3 +1,7 @@
+## v1.8.1 (March 16, 2017)
+
+- Fix a bug where the input would display "undefined" instead of the actual text when navigating through a result dropdown with arrow keys in IE8.
+
 ## v1.8.0 (March 9, 2017)
 
 - **Added customizable text strings!** By popular request, text strings used in the geocoder control can now be customized to your liking. This also enables localisation of the plugin to a different language. For example, [check out this geocoder in Korean](https://mapzen.github.io/leaflet-geocoder/examples/custom-strings.html). (with @hanbyul-here, [#120](https://github.com/mapzen/leaflet-geocoder/issues/120))
