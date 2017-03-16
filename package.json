@@ -43,7 +43,8 @@
     "leaflet": "^0.7.x || ^1.0.0 || >=1.0.0-beta.1 || >=1.0.0-rc.1"
   },
   "dependencies": {
-    "console-polyfill": "0.2.3"
+    "console-polyfill": "0.2.3",
+    "corslite": "0.0.7"
   },
   "devDependencies": {
     "browserify": "14.1.0",

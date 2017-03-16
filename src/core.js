@@ -13,7 +13,7 @@
 require('console-polyfill');
 
 var L = require('leaflet');
-var AJAX = require('./ajax');
+var corslite = require('corslite');
 
 // Import utility functions. TODO: switch to Lodash (no IE8 support) in v2
 var throttle = require('./utils/throttle');
@@ -316,8 +316,56 @@ var Geocoder = L.Control.extend({
     // Track when the request began
     var reqStartedAt = new Date().getTime();
 
-    AJAX.request(endpoint, params, function (err, results) {
-      L.DomUtil.removeClass(this._search, 'leaflet-pelias-loading');
+    function serialize (params) {
+      var data = '';
+
+      for (var key in params) {
+        if (params.hasOwnProperty(key)) {
+          var param = params[key];
+          var type = param.toString();
+          var value;
+
+          if (data.length) {
+            data += '&';
+          }
+
+          switch (type) {
+            case '[object Array]':
+              value = (param[0].toString() === '[object Object]') ? JSON.stringify(param) : param.join(',');
+              break;
+            case '[object Object]':
+              value = JSON.stringify(param);
+              break;
+            case '[object Date]':
+              value = param.valueOf();
+              break;
+            default:
+              value = param;
+              break;
+          }
+
+          data += encodeURIComponent(key) + '=' + encodeURIComponent(value);
+        }
+      }
+
+      return data;
+    }
+
+    var paramString = serialize(params);
+    var url = endpoint + '?' + paramString;
+    var self = this; // IE8 cannot .bind(this) without a polyfill.
+    function handleResponse (err, response) {
+      L.DomUtil.removeClass(self._search, 'leaflet-pelias-loading');
+      var results;
+
+      try {
+        results = JSON.parse(response.responseText);
+      } catch (e) {
+        err = {
+          code: 500,
+          message: 'Parse Error' // TODO: string
+        };
+      }
 
       if (err) {
         var errorMessage;
@@ -325,30 +373,30 @@ var Geocoder = L.Control.extend({
           // Error codes.
           // https://mapzen.com/documentation/search/http-status-codes/
           case 403:
-            errorMessage = this.options.textStrings['ERROR_403'];
+            errorMessage = self.options.textStrings['ERROR_403'];
             break;
           case 404:
-            errorMessage = this.options.textStrings['ERROR_404'];
+            errorMessage = self.options.textStrings['ERROR_404'];
             break;
           case 408:
-            errorMessage = this.options.textStrings['ERROR_408'];
+            errorMessage = self.options.textStrings['ERROR_408'];
             break;
           case 429:
-            errorMessage = this.options.textStrings['ERROR_429'];
+            errorMessage = self.options.textStrings['ERROR_429'];
             break;
           case 500:
-            errorMessage = this.options.textStrings['ERROR_500'];
+            errorMessage = self.options.textStrings['ERROR_500'];
             break;
           case 502:
-            errorMessage = this.options.textStrings['ERROR_502'];
+            errorMessage = self.options.textStrings['ERROR_502'];
             break;
           // Note the status code is 0 if CORS is not enabled on the error response
           default:
-            errorMessage = this.options.textStrings['ERROR_DEFAULT'];
+            errorMessage = self.options.textStrings['ERROR_DEFAULT'];
             break;
         }
-        this.showMessage(errorMessage);
-        this.fire('error', {
+        self.showMessage(errorMessage);
+        self.fire('error', {
           results: results,
           endpoint: endpoint,
           requestType: type,
@@ -361,8 +409,8 @@ var Geocoder = L.Control.extend({
       // There might be an error message from the geocoding service itself
       if (results && results.geocoding && results.geocoding.errors) {
         errorMessage = results.geocoding.errors[0];
-        this.showMessage(errorMessage);
-        this.fire('error', {
+        self.showMessage(errorMessage);
+        self.fire('error', {
           results: results,
           endpoint: endpoint,
           requestType: type,
@@ -381,33 +429,35 @@ var Geocoder = L.Control.extend({
         // Ignore requests that started before a request which has already
         // been successfully rendered on to the UI.
         if (type === 'autocomplete' || type === 'search') {
-          if (this._input.value === '' || this.maxReqTimestampRendered >= reqStartedAt) {
+          if (self._input.value === '' || self.maxReqTimestampRendered >= reqStartedAt) {
             return;
           } else {
             // Record the timestamp of the request.
-            this.maxReqTimestampRendered = reqStartedAt;
+            self.maxReqTimestampRendered = reqStartedAt;
           }
         }
 
         // Placeholder: handle place response
         if (type === 'place') {
-          this.handlePlaceResponse(results);
+          self.handlePlaceResponse(results);
         }
 
         // Show results
         if (type === 'autocomplete' || type === 'search') {
-          this.showResults(results.features, params.text);
+          self.showResults(results.features, params.text);
         }
 
         // Fire event
-        this.fire('results', {
+        self.fire('results', {
           results: results,
           endpoint: endpoint,
           requestType: type,
           params: params
         });
       }
-    }, this);
+    }
+
+    corslite(url, handleResponse, true);
   },
 
   highlight: function (text, focus) {
@@ -830,7 +880,7 @@ var Geocoder = L.Control.extend({
             L.DomUtil.addClass(highlighted, 'leaflet-pelias-selected');
             scrollSelectedResultIntoView(highlighted);
             panToPoint(highlighted, this.options);
-            this._input.value = highlighted.textContent;
+            this._input.value = highlighted.innerText || highlighted.textContent;
             this.fire('highlight', {
               originalEvent: e,
               latlng: L.GeoJSON.coordsToLatLng(highlighted.feature.geometry.coordinates),
@@ -856,7 +906,7 @@ var Geocoder = L.Control.extend({
             L.DomUtil.addClass(highlighted, 'leaflet-pelias-selected');
             scrollSelectedResultIntoView(highlighted);
             panToPoint(highlighted, this.options);
-            this._input.value = highlighted.textContent;
+            this._input.value = highlighted.innerText || highlighted.textContent;
             this.fire('highlight', {
               originalEvent: e,
               latlng: L.GeoJSON.coordsToLatLng(highlighted.feature.geometry.coordinates),
