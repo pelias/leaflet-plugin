@@ -613,7 +613,7 @@ var Geocoder = L.Control.extend({
 
   setSelectedResult: function (selected, originalEvent) {
     var latlng = L.GeoJSON.coordsToLatLng(selected.feature.geometry.coordinates);
-    this._input.value = selected.innerText || selected.textContent;
+    this._input.value = selected.textContent || selected.innerText;
     var layer = selected.feature.properties.layer;
     // "point" layers (venue and address in Pelias) must always display markers
     if ((layer !== 'venue' && layer !== 'address') && selected.feature.bbox && !this.options.overrideBbox) {
@@ -880,7 +880,7 @@ var Geocoder = L.Control.extend({
             L.DomUtil.addClass(highlighted, 'leaflet-pelias-selected');
             scrollSelectedResultIntoView(highlighted);
             panToPoint(highlighted, this.options);
-            this._input.value = highlighted.innerText || highlighted.textContent;
+            this._input.value = highlighted.textContent || highlighted.innerText;
             this.fire('highlight', {
               originalEvent: e,
               latlng: L.GeoJSON.coordsToLatLng(highlighted.feature.geometry.coordinates),
@@ -906,7 +906,7 @@ var Geocoder = L.Control.extend({
             L.DomUtil.addClass(highlighted, 'leaflet-pelias-selected');
             scrollSelectedResultIntoView(highlighted);
             panToPoint(highlighted, this.options);
-            this._input.value = highlighted.innerText || highlighted.textContent;
+            this._input.value = highlighted.textContent || highlighted.innerText;
             this.fire('highlight', {
               originalEvent: e,
               latlng: L.GeoJSON.coordsToLatLng(highlighted.feature.geometry.coordinates),
