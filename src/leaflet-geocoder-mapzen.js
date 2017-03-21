@@ -646,6 +646,10 @@
       if (this._input.value === '' || force === true) {
         this._results.innerHTML = '';
       }
+
+      // Turn on scrollWheelZoom, if disabled. (`mouseout` does not fire on
+      // the results list when it's closed in this way.)
+      this._enableMapScrollWheelZoom();
     },
 
     expand: function () {
@@ -958,20 +962,6 @@
             L.DomUtil.addClass(selected, 'leaflet-pelias-selected');
             this.setSelectedResult(selected, e);
           }
-        }, this)
-        .on(this._results, 'mouseover', function (e) {
-          // Prevent scrolling over results list from zooming the map, if enabled
-          this._scrollWheelZoomEnabled = map.scrollWheelZoom.enabled();
-          if (this._scrollWheelZoomEnabled) {
-            map.scrollWheelZoom.disable();
-          }
-        }, this)
-        .on(this._results, 'mouseout', function (e) {
-          // Re-enable scroll wheel zoom (if previously enabled) after
-          // leaving the results box
-          if (this._scrollWheelZoomEnabled) {
-            map.scrollWheelZoom.enable();
-          }
         }, this);
 
       // Recalculate width of the input bar when window resizes
@@ -983,6 +973,8 @@
         }, this);
       }
 
+      L.DomEvent.on(this._results, 'mouseover', this._disableMapScrollWheelZoom, this);
+      L.DomEvent.on(this._results, 'mouseout', this._enableMapScrollWheelZoom, this);
       L.DomEvent.on(this._map, 'mousedown', this._onMapInteraction, this);
       L.DomEvent.on(this._map, 'touchstart', this._onMapInteraction, this);
 
@@ -1002,6 +994,22 @@
         if (!this._input.value && L.DomUtil.hasClass(this._container, 'leaflet-pelias-expanded')) {
           this.collapse();
         }
+      }
+    },
+
+    _disableMapScrollWheelZoom: function (event) {
+      // Prevent scrolling over results list from zooming the map, if enabled
+      this._scrollWheelZoomEnabled = this._map.scrollWheelZoom.enabled();
+      if (this._scrollWheelZoomEnabled) {
+        this._map.scrollWheelZoom.disable();
+      }
+    },
+
+    _enableMapScrollWheelZoom: function (event) {
+      // Re-enable scroll wheel zoom (if previously enabled) after
+      // leaving the results box
+      if (this._scrollWheelZoomEnabled) {
+        this._map.scrollWheelZoom.enable();
       }
     },
 
