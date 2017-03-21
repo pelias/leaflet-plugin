@@ -599,7 +599,10 @@
       });
       this.blur();
 
-      if (this.options.place) {
+      // Not all features will be guaranteed to have `gid` property - interpolated
+      // addresses, for example, cannot be retrieved with `/place` and so the `gid`
+      // property for them may be dropped in the future.
+      if (this.options.place && selected.feature.properties.gid) {
         this.place(selected.feature.properties.gid);
       }
     },
