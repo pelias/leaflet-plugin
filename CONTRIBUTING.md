@@ -56,6 +56,24 @@ npm test
 
 To run the tests in a browser manually, open `spec/index.html`.
 
+## Versioning and publishing
+
+This plugin uses [Semantic Versioning](http://semver.org/).
+
+Before publishing a package, follow each of these steps:
+
+- [ ] Increment the version number
+    - [ ] Update `bower.json`
+    - [ ] Update the `.version` property in `src/leaflet-geocoder-mapzen.js`
+- [ ] Update `CHANGELOG.md` with the correct version number and release date
+- [ ] Update all demos and documentation with the latest version number
+- [ ] Run tests and ensure that they are passing
+- [ ] Run `npm version <major|minor|patch>` to update the version in `package.json`. This also automatically creates a version commit and tag.
+- [ ] Run `git push` and `git push --tags` to push everything upstream.
+- [ ] In GitHub, go to [releases](https://github.com/mapzen/leaflet-geocoder/releases) and make sure that the latest release contains the version number, date, and change log. You should be able to duplicate this from `CHANGELOG.md`.
+- [ ] Run `npm publish` to make sure that the package is correctly compiled for npm.
+- [ ] It can take up to 24 hours for the package to be hosted on [cdnjs](https://cdnjs.com/libraries/leaflet-geocoder-mapzen).
+
 ## Documentation and examples
 
 Currently, documentation is in the form of short, simple examples in [README.md](README.md). If there is a something that would benefit from a real world example, please drop a one-file example page into the `examples` folder.

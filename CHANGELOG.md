@@ -1,6 +1,11 @@
+## v1.8.2 (April 3, 2017)
+
+- Small tweak in how we call the `/place` endpoint on Mapzen Search: we will no longer make these requests when a feature does not have a `gid` property.
+- Fixed a bug in a rare situation where the map would suddenly stop responding to a scroll wheel interaction.
+
 ## v1.8.1 (March 16, 2017)
 
-- Fix a bug where the input would display "undefined" instead of the actual text when navigating through a result dropdown with arrow keys in IE8.
+- Fixed a bug where the input would display "undefined" instead of the actual text when navigating through a result dropdown with arrow keys in IE8.
 
 ## v1.8.0 (March 9, 2017)
 
@@ -35,7 +40,7 @@
 
 ## v1.6.1 (May 19, 2016)
 
-- Fix a bug where the reset button (the `×`) remained visible if the `.collapse()` method was called while there was still something in the input box.
+- Fixed a bug where the reset button (the `×`) remained visible if the `.collapse()` method was called while there was still something in the input box.
 
 ## v1.6.0 (May 18, 2016)
 
@@ -49,7 +54,7 @@
 
 ## v1.5.1 (February 25, 2016)
 
-- Fix a bug where the results box is displayed when there is nothing in it. The effect was only noticeable when the results box is styled in a way that gives it dimension (e.g. a border or a minimum height).
+- Fixed a bug where the results box is displayed when there is nothing in it. The effect was only noticeable when the results box is styled in a way that gives it dimension (e.g. a border or a minimum height).
 
 ## v1.5.0 (February 24, 2016)
 
