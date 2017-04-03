@@ -70,7 +70,7 @@ Before publishing a package, follow each of these steps:
 - [ ] Run tests and ensure that they are passing
 - [ ] Run `npm version <major|minor|patch>` to update the version in `package.json`. This also automatically creates a version commit and tag.
 - [ ] Run `git push` and `git push --tags` to push everything upstream.
-- [ ] In GitHub, go to [releases](https://github.com/mapzen/leaflet-geocoder/releases) and make sure that the latest release contains the version number, date, and change log. You should be able to duplicate this from `CHANGELOG.md`.
+- [ ] In GitHub, go to [tags](https://github.com/mapzen/leaflet-geocoder/tags) and add release notes with the version number, date, and change log. You should be able to duplicate this from `CHANGELOG.md`. Then publish this as the latest release.
 - [ ] Run `npm publish` to make sure that the package is correctly compiled for npm.
 - [ ] It can take up to 24 hours for the package to be hosted on [cdnjs](https://cdnjs.com/libraries/leaflet-geocoder-mapzen).
 
