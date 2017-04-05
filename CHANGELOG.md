@@ -1,3 +1,29 @@
+## v1.9.0 (April 5, 2017)
+
+- **It is now possible to set the return value of `require()` or `import` to a variable.** You can now do this:
+
+```javascript
+var MyGeocoder = require('leaflet-geocoder-mapzen')
+var geocoder = new MyGeocoder()
+```
+
+This sets the `require('leaflet-geocoder-mapzen')` to `MyGeocoder`, which you can then instantiate with the `new` keyword at a later time. Previously, setting the return value of the `require()` or `import` did nothing. In order not to break existing functionality, the side-effect of attaching to `L.Control.Geocoder` still happens automatically when the module is imported. [#154](https://github.com/mapzen/leaflet-geocoder/issues/154)
+
+- If you want to prevent the side-effect of attaching to `L`, you can import the `core` module directly:
+
+```javascript
+// Requiring only the base container (no L namespace)
+var Geocoder = require('leaflet-geocoder-mapzen/src/core')
+// or in ES2015
+import Geocoder from 'leaflet-geocoder-mapzen/src/core'
+// ...
+const geocoder = new Geocoder()
+
+const nope = new L.Control.Geocoder() // will be undefined
+```
+
+- Under the hood, the plugin's implementation of AJAX requests have been swapped out in favor of Mapbox’s [`corslite`](https://www.npmjs.com/package/corslite) module.
+
 ## v1.8.2 (April 3, 2017)
 
 - Small tweak in how we call the `/place` endpoint on Mapzen Search: we will no longer make these requests when a feature does not have a `gid` property.
