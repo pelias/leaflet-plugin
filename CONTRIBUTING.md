@@ -67,6 +67,7 @@ Before publishing a package, follow each of these steps:
     - [ ] Update the `VERSION` variable in `src/core.js`
 - [ ] Update `CHANGELOG.md` with the correct version number and release date
 - [ ] Update all demos and documentation with the latest version number
+- [ ] Double check dependencies and update those that need updating
 - [ ] Run tests and ensure that they are passing
 - [ ] Run `npm version <major|minor|patch>` to update the version in `package.json`. This also automatically creates a version commit and tag.
 - [ ] Run `git push` and `git push --tags` to push everything upstream.
