@@ -64,7 +64,7 @@ Before publishing a package, follow each of these steps:
 
 - [ ] Increment the version number
     - [ ] Update `bower.json`
-    - [ ] Update the `.version` property in `src/leaflet-geocoder-mapzen.js`
+    - [ ] Update the `VERSION` variable in `src/core.js`
 - [ ] Update `CHANGELOG.md` with the correct version number and release date
 - [ ] Update all demos and documentation with the latest version number
 - [ ] Run tests and ensure that they are passing

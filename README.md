@@ -33,8 +33,8 @@ Get one from the [Mapzen developers portal](http://mapzen.com/developers/). It's
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.3/leaflet.js"></script>
 
 <!-- Load geocoding plugin after Leaflet -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-geocoder-mapzen/1.8.2/leaflet-geocoder-mapzen.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-geocoder-mapzen/1.8.2/leaflet-geocoder-mapzen.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-geocoder-mapzen/1.9.0/leaflet-geocoder-mapzen.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-geocoder-mapzen/1.9.0/leaflet-geocoder-mapzen.js"></script>
 ```
 
 **Step 2:** In JavaScript, initialize your Leaflet map.
@@ -71,8 +71,11 @@ And then import it in your module system. For instance, with [Browserify](http:/
 // Require Leaflet first
 var L = require('leaflet');
 
-// Requiring the geocoder extends Leaflet automatically
+// Requiring the plugin extends Leaflet automatically
 require('leaflet-geocoder-mapzen');
+
+// You can also store a reference to the geocoder constructor in the require()
+var MyGeocoderPlugin = require('leaflet-geocoder-mapzen');
 
 // Now you can do step 2 and 3 from "Basic usage" instructions, above
 ```
@@ -86,6 +89,9 @@ To import this plugin in ES2015 environments, the `import` syntax is supported:
 ```javascript
 import L from 'leaflet';
 import 'leaflet-geocoder-mapzen';
+
+// Alternatively
+import MyGeocoderPlugin from 'leaflet-geocoder-mapzen';
 ```
 
 ## Customizing the plugin
@@ -340,6 +346,20 @@ The plugin extends Leaflet's [Control](http://leafletjs.com/reference.html#contr
 geocoder.setPosition('topright');
 var element = geocoder.getContainer();
 geocoder.removeFrom(map); // or geocoder.remove() in Leaflet v1
+```
+
+### With alternate `require()` or `import` syntax
+
+If you `require()` or `import` and set it to a variable, you can also use `new` with that variable.
+
+```javascript
+var MyGeocoderPlugin = require('leaflet-geocoder-mapzen');
+
+// Alternatively
+import MyGeocoderPlugin from 'leaflet-geocoder-mapzen';
+
+// Then
+var geocoder = new MyGeocoderPlugin('<your-api-key>');
 ```
 
 ### Properties

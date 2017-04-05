@@ -2,17 +2,21 @@
   "name": "leaflet-geocoder-mapzen",
   "version": "1.8.2",
   "description": "Add Mapzen Search geocoding to your Leaflet map.",
-  "main": "dist/leaflet-geocoder-mapzen.js",
+  "main": "src/index.js",
   "directories": {
     "example": "examples"
   },
   "scripts": {
-    "prepublish": "npm run copy-source-files && npm run minify-js && npm run minify-css",
+    "build": "npm run build-js && npm run build-css",
+    "build-js": "npm run bundle-js && npm run minify-js",
+    "build-css": "npm run bundle-css && npm run minify-css",
+    "bundle-js": "browserify -t browserify-shim -p browserify-derequire -o dist/leaflet-geocoder-mapzen.js src/index.js",
+    "bundle-css": "cp src/*.css dist/",
     "minify-js": "uglifyjs dist/leaflet-geocoder-mapzen.js -o dist/leaflet-geocoder-mapzen.min.js",
     "minify-css": "cleancss -o dist/leaflet-geocoder-mapzen.min.css dist/leaflet-geocoder-mapzen.css",
-    "pretest": "npm run copy-source-files",
-    "test": "jake",
-    "copy-source-files": "cp src/*.css src/*.js dist/"
+    "prepublish": "npm run build",
+    "pretest": "npm run bundle-js && npm run bundle-css",
+    "test": "jake"
   },
   "repository": {
     "type": "git",
@@ -38,7 +42,14 @@
   "peerDependencies": {
     "leaflet": "^0.7.x || ^1.0.0 || >=1.0.0-beta.1 || >=1.0.0-rc.1"
   },
+  "dependencies": {
+    "console-polyfill": "0.2.3",
+    "corslite": "0.0.7"
+  },
   "devDependencies": {
+    "browserify": "14.1.0",
+    "browserify-derequire": "0.9.4",
+    "browserify-shim": "3.8.13",
     "clean-css-cli": "4.0.8",
     "eslint": "3.17.1",
     "eslint-config-semistandard": "8.0.0",
@@ -67,5 +78,8 @@
       "define",
       "XMLHttpRequest"
     ]
+  },
+  "browserify-shim": {
+    "leaflet": "global:L"
   }
 }
