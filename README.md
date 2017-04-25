@@ -33,8 +33,8 @@ Get one from the [Mapzen developers portal](http://mapzen.com/developers/). It's
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.3/leaflet.js"></script>
 
 <!-- Load geocoding plugin after Leaflet -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-geocoder-mapzen/1.9.1/leaflet-geocoder-mapzen.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-geocoder-mapzen/1.9.1/leaflet-geocoder-mapzen.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-geocoder-mapzen/1.9.2/leaflet-geocoder-mapzen.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-geocoder-mapzen/1.9.2/leaflet-geocoder-mapzen.js"></script>
 ```
 
 **Step 2:** In JavaScript, initialize your Leaflet map.

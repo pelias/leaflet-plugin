@@ -1,6 +1,9 @@
-## v1.9.1 (April 25, 2017)
+## v1.9.2 (April 25, 2017)
 
 - Real small tweak: higher-resolution images now show up on devices that support it, but don't quite have the resolution of Apple Retina devices.
+- **Bug fix:** Fixed a reference to the [`@mapbox/corslite`](https://www.npmjs.com/package/corslite) library under the hood. A wrong reference broke the v1.9.1 build.
+
+**The v1.9.1 build is broken; do not use it!**
 
 ## v1.9.0 (April 5, 2017)
 
