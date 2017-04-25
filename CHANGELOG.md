@@ -1,3 +1,7 @@
+## v1.9.1 (April 25, 2017)
+
+- Real small tweak: higher-resolution images now show up on devices that support it, but don't quite have the resolution of Apple Retina devices.
+
 ## v1.9.0 (April 5, 2017)
 
 - **It is now possible to set the return value of `require()` or `import` to a variable.** You can now do this:
