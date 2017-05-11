@@ -8,6 +8,8 @@
 Leaflet + Mapzen Search geocoding plugin
 ========================================
 
+[![Join the chat at https://gitter.im/pelias/leaflet-geocoder](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/pelias/leaflet-geocoder?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 A plugin that adds the ability to search (geocode) a Leaflet-powered map using [Mapzen Search](https://mapzen.com/projects/search) or your own hosted version of the [Pelias Geocoder API](https://github.com/pelias/api).
 
 ## Demo
