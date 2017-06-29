@@ -474,6 +474,10 @@ This project was renamed as of v1.3.0 to be more closely associated with [Mapzen
 
 Properties and methods used internally by the geocoder are also available on the returned object. These are purposefully not private or obscured, but they are also not publicly documented right now, since functionality may fluctuate without notice. Depending on usage and demand we will lock down and document internal properties and methods for general use. [Please let us know in the issues tracker](https://github.com/mapzen/leaflet-geocoder/issues) if you have feedback.
 
+### Do you support TypeScript?
+
+Not officially. There are [community-supplied type definitions at DefinitelyTyped](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/leaflet-geocoder-mapzen).
+
 ## Projects using this plugin
 
 - [Map My Story](http://www.mapmystory.xyz/)
