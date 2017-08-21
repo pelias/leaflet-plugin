@@ -1048,7 +1048,9 @@ var Geocoder = L.Control.extend({
   },
 
   onRemove: function (map) {
-    map.attributionControl.removeAttribution(this.options.attribution);
+    if (map.attributionControl) {
+      map.attributionControl.removeAttribution(this.options.attribution);
+    }
   }
 });
 
