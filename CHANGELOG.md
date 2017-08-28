@@ -1,3 +1,7 @@
+## v1.9.3 (August 28, 2017)
+
+- **Bug fix:** Fixed an exception when attempting to remove attribution when no attribution object existed. Thanks @JoaoMosmann for your [PR](https://github.com/mapzen/leaflet-geocoder/commit/2b9ba8c334c5530172fb30e866b2c873c40de56f)
+
 ## v1.9.2 (April 25, 2017)
 
 - Real small tweak: higher-resolution images now show up on devices that support it, but don't quite have the resolution of Apple Retina devices.
