@@ -19,7 +19,7 @@ var corslite = require('@mapbox/corslite');
 var throttle = require('./utils/throttle');
 var escapeRegExp = require('./utils/escapeRegExp');
 
-var VERSION = '1.9.3';
+var VERSION = '1.9.4';
 var MINIMUM_INPUT_LENGTH_FOR_AUTOCOMPLETE = 1;
 var FULL_WIDTH_MARGIN = 20; // in pixels
 var FULL_WIDTH_TOUCH_ADJUSTED_MARGIN = 4; // in pixels

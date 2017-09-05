@@ -1,3 +1,7 @@
+## v1.9.4 (September 5, 2017)
+
+- Minor under-the-hood tweaks to improve compatibility upstream in [mapzen.js](https://github.com/mapzen/mapzen.js).
+
 ## v1.9.3 (August 28, 2017)
 
 - **Bug fix:** Fixed an exception when attempting to remove attribution when no attribution object existed. Thanks @JoaoMosmann for your [PR](https://github.com/mapzen/leaflet-geocoder/commit/2b9ba8c334c5530172fb30e866b2c873c40de56f)
