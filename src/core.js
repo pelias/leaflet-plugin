@@ -174,7 +174,7 @@ var Geocoder = L.Control.extend({
     // If set to true, use map bounds
     // If it is a valid L.LatLngBounds object, get its values
     // If it is an array, try running it through L.LatLngBounds
-    if (bounds === true) {
+    if (bounds === true && this._map) {
       bounds = this._map.getBounds();
       params = makeParamsFromLeaflet(params, bounds);
     } else if (typeof bounds === 'object' && bounds.isValid && bounds.isValid()) {
@@ -213,7 +213,7 @@ var Geocoder = L.Control.extend({
       return params;
     }
 
-    if (focus === true) {
+    if (focus === true && this._map) {
       // If focus option is Boolean true, use current map center
       var mapCenter = this._map.getCenter();
       params['focus.point.lat'] = mapCenter.lat;
