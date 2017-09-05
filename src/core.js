@@ -264,6 +264,41 @@ var Geocoder = L.Control.extend({
     return params;
   },
 
+  serialize: function (params) {
+    var data = '';
+
+    for (var key in params) {
+      if (params.hasOwnProperty(key)) {
+        var param = params[key];
+        var type = param.toString();
+        var value;
+
+        if (data.length) {
+          data += '&';
+        }
+
+        switch (type) {
+          case '[object Array]':
+            value = (param[0].toString() === '[object Object]') ? JSON.stringify(param) : param.join(',');
+            break;
+          case '[object Object]':
+            value = JSON.stringify(param);
+            break;
+          case '[object Date]':
+            value = param.valueOf();
+            break;
+          default:
+            value = param;
+            break;
+        }
+
+        data += encodeURIComponent(key) + '=' + encodeURIComponent(value);
+      }
+    }
+
+    return data;
+  },
+
   search: function (input) {
     // Prevent lack of input from sending a malformed query to Pelias
     if (!input) return;
@@ -316,42 +351,7 @@ var Geocoder = L.Control.extend({
     // Track when the request began
     var reqStartedAt = new Date().getTime();
 
-    function serialize (params) {
-      var data = '';
-
-      for (var key in params) {
-        if (params.hasOwnProperty(key)) {
-          var param = params[key];
-          var type = param.toString();
-          var value;
-
-          if (data.length) {
-            data += '&';
-          }
-
-          switch (type) {
-            case '[object Array]':
-              value = (param[0].toString() === '[object Object]') ? JSON.stringify(param) : param.join(',');
-              break;
-            case '[object Object]':
-              value = JSON.stringify(param);
-              break;
-            case '[object Date]':
-              value = param.valueOf();
-              break;
-            default:
-              value = param;
-              break;
-          }
-
-          data += encodeURIComponent(key) + '=' + encodeURIComponent(value);
-        }
-      }
-
-      return data;
-    }
-
-    var paramString = serialize(params);
+    var paramString = this.serialize(params);
     var url = endpoint + '?' + paramString;
     var self = this; // IE8 cannot .bind(this) without a polyfill.
     function handleResponse (err, response) {
