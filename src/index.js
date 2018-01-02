@@ -27,6 +27,8 @@
 }(this, function (L) {
   'use strict';
 
+  console.warn('Mapzen is shutting down its services including Search. Read more at https://mapzen.com/blog/shutdown');
+
   var Geocoder = require('./core');
 
   // Automatically attach to Leaflet's `L` namespace.
