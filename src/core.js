@@ -101,6 +101,14 @@ var Geocoder = L.Control.extend({
         'As of v1.6.0, the `latlng` option is deprecated. It has been renamed to `focus`. `latlng` will be removed in a future version.');
     }
 
+    // Deprecation warnings for Mapzen hosted service.
+    // Make sure people aware of Mapzen hosted services are going down.
+    var mapzenHostedServiceUrl = 'https://search.mapzen.com';
+
+    if (options.url.indexOf(mapzenHostedServiceUrl)) {
+      console.warn('Mapzen is shutting down its services including Search. Read more at https://mapzen.com/blog/shutdown Check out http://pelias.io for Pelias (Geocoder powers Mapzen Search) team\'s plan for future.');
+    }
+
     // Deprecate `title` option
     if (options && typeof options.title !== 'undefined') {
       options.textStrings = options.textStrings || {};
