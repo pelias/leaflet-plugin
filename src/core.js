@@ -136,7 +136,7 @@ var Geocoder = L.Control.extend({
     var mapzenHostedServiceUrl = '//search.mapzen.com';
 
     if (this.options.url.indexOf(mapzenHostedServiceUrl) > -1) {
-      console.warn('Mapzen is shutting down its services including Search. Read more at https://mapzen.com/blog/shutdown Check out http://pelias.io for Pelias (Geocoder powers Mapzen Search) team\'s plan for future.');
+      console.warn('Mapzen is shutting down its services including Search. Read more at https://mapzen.com/blog/shutdown. To learn more about Pelias, the open-source geocoder that powers Mapzen Search, and the Pelias team’s plan for the future, please visit http://pelias.io.');
     }
   },
 
