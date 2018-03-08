@@ -12,7 +12,7 @@ A plugin that adds the ability to search (geocode) a Leaflet-powered map using [
 
 ## Demo
 
-[See it in action!](https://mapzen.github.io/leaflet-geocoder/)
+[See it in action!](https://nextzen.github.io/leaflet-geocoder)
 
 ## Requirements
 
