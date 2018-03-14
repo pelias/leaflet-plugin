@@ -1041,6 +1041,12 @@ var Geocoder = L.Control.extend({
 
   _disableMapScrollWheelZoom: function (event) {
     // Prevent scrolling over results list from zooming the map, if enabled
+    // Skip if it's already disabled. This prevents overriding the original
+    // map.scrollWheelZoom setting.
+    if (!this._map.scrollWheelZoom.enabled()) {
+        return;
+    }
+
     this._scrollWheelZoomEnabled = this._map.scrollWheelZoom.enabled();
     if (this._scrollWheelZoomEnabled) {
       this._map.scrollWheelZoom.disable();
