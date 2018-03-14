@@ -1044,7 +1044,7 @@ var Geocoder = L.Control.extend({
     // Skip if it's already disabled. This prevents overriding the original
     // map.scrollWheelZoom setting.
     if (!this._map.scrollWheelZoom.enabled()) {
-        return;
+      return;
     }
 
     this._scrollWheelZoomEnabled = this._map.scrollWheelZoom.enabled();
