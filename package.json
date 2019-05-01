@@ -84,5 +84,9 @@
   },
   "browserify-shim": {
     "leaflet": "global:L"
+  },
+  "release": {
+    "branch": "master",
+    "success": []
   }
 }
