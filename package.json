@@ -1,7 +1,7 @@
 {
-  "name": "leaflet-geocoder-mapzen",
+  "name": "pelias-leaflet-plugin",
   "version": "1.9.4",
-  "description": "Add Mapzen Search geocoding to your Leaflet map.",
+  "description": "Add Pelias geocoding to your Leaflet map.",
   "main": "src/index.js",
   "directories": {
     "example": "examples"
@@ -16,6 +16,7 @@
     "minify-css": "cleancss -o dist/leaflet-geocoder-mapzen.min.css dist/leaflet-geocoder-mapzen.css",
     "prepublish": "npm run build",
     "pretest": "npm run bundle-js && npm run bundle-css",
+    "travis": "npm run test",
     "test": "jake"
   },
   "repository": {
@@ -36,9 +37,9 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/mapzen/leaflet-geocoder/issues"
+    "url": "https://github.com/pelias/leaflet-plugin/issues"
   },
-  "homepage": "https://github.com/mapzen/leaflet-geocoder",
+  "homepage": "https://github.com/pelias/leaflet-plugin",
   "peerDependencies": {
     "leaflet": "^0.7.x || ^1.0.0 || >=1.0.0-beta.1 || >=1.0.0-rc.1"
   },

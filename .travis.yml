@@ -1,0 +1,23 @@
+language: node_js
+dist: xenial
+notifications:
+  email: false
+node_js:
+  - 8
+  - 10
+matrix:
+  fast_finish: true
+script: npm run travis
+before_install:
+  - npm i -g npm
+before_script:
+  - npm i --no-save leaflet
+branches:
+  except:
+    - /^v\d+\.\d+\.\d+$/
+jobs:
+  include:
+    - stage: release
+      node_js: 10
+      script: curl "https://raw.githubusercontent.com/pelias/ci-tools/master/semantic-release.sh" | bash -
+      if: (branch = master) AND ( type = push )

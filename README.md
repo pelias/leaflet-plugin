@@ -5,23 +5,19 @@
 [![Gitter chat](https://img.shields.io/gitter/room/pelias/pelias.svg?style=flat-square)](https://gitter.im/pelias/pelias)
 [![Leaflet 1.0.0 ready](https://img.shields.io/badge/Leaflet%201.0.0-%E2%9C%93-brightgreen.svg?style=flat-square)](http://leafletjs.com/)
 
-Leaflet + Mapzen Search geocoding plugin
+
+Leaflet + Pelias geocoding plugin
 ========================================
 
-A plugin that adds the ability to search (geocode) a Leaflet-powered map using [Mapzen Search](https://mapzen.com/projects/search) or your own hosted version of the [Pelias Geocoder API](https://github.com/pelias/api).
+_Note:_ This project is currently in the process of being migrated from the [Nextzen](https://github.com/nextzen/) GitHub organization to the Pelias organization. Please report any broken links or other inaccuracies as issues here. Thanks!
 
-## Demo
-
-[See it in action!](https://nextzen.github.io/leaflet-geocoder)
+A plugin that adds the ability to search (geocode) a Leaflet-powered map using the [Pelias Geocoder](https://pelias.io).
 
 ## Requirements
 
 Requires the **[Leaflet](https://github.com/Leaflet/Leaflet)** mapping library. Supports Leaflet **v0.7.3** (and higher) and **v1.0.0**. (Previous Leaflet versions may work, but are not actively tested or supported.)
 
 **Browser support** is IE8+ [(more details below)](#browser-support).
-
-To use the Mapzen Search service, **you need a Mapzen API key**.
-Get one from the [Mapzen developers portal](http://mapzen.com/developers/). It's free!
 
 ## Basic usage
 
@@ -45,9 +41,12 @@ var map = L.map('map').setView([40.7259, -73.9805], 12);
 L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 ```
 
-**Step 3:** In JavaScript, add your geocoder with your [Mapzen API key]((http://mapzen.com/developers/)).
+**Step 3:** In JavaScript, add your geocoder configuratin with URL and API key (if needed).
 
 ```javascript
+var options = {
+  url: "http://your-pelias-geocoder"
+}
 L.control.geocoder('<your-api-key>').addTo(map);
 ```
 
@@ -55,14 +54,14 @@ L.control.geocoder('<your-api-key>').addTo(map);
 
 ### There is also a tutorial
 
-It has much more detailed walkthrough instructions and is very friendly for beginners. No coding experience is necessary! [Check it out here](https://mapzen.com/documentation/search/add-search-to-a-map/).
+It has much more detailed walkthrough instructions and is very friendly for beginners. No coding experience is necessary! [Check it out here](https://github.com/pelias/documentation/blob/master/add-search-to-a-map.md).
 
 ### Want this as a module?
 
 Experienced developers can install with [npm](https://www.npmjs.com/):
 
 ```sh
-npm install leaflet-geocoder-mapzen
+npm install pelias-leaflet-plugin
 ```
 
 And then import it in your module system. For instance, with [Browserify](http://browserify.org/):
@@ -72,10 +71,10 @@ And then import it in your module system. For instance, with [Browserify](http:/
 var L = require('leaflet');
 
 // Requiring the plugin extends Leaflet automatically
-require('leaflet-geocoder-mapzen');
+require('pelias-leaflet-plugin');
 
 // You can also store a reference to the geocoder constructor in the require()
-var MyGeocoderPlugin = require('leaflet-geocoder-mapzen');
+var MyGeocoderPlugin = require('pelias-leaflet-plugin');
 
 // Now you can do step 2 and 3 from "Basic usage" instructions, above
 ```
@@ -88,10 +87,10 @@ To import this plugin in ES2015 environments, the `import` syntax is supported:
 
 ```javascript
 import L from 'leaflet';
-import 'leaflet-geocoder-mapzen';
+import 'pelias-leaflet-plugin';
 
 // Alternatively
-import MyGeocoderPlugin from 'leaflet-geocoder-mapzen';
+import MyGeocoderPlugin from 'pelias-leaflet-plugin';
 ```
 
 ## Customizing the plugin
@@ -112,7 +111,7 @@ Here are a list all the settings and their default values.
 
 ### Query behavior
 
-Some options affect the Mapzen Search / Pelias query itself.
+Some options affect the Pelias query itself.
 
 option      | description                               | default value
 ----------- | ----------------------------------------- | ---------------------
@@ -120,8 +119,8 @@ option      | description                               | default value
 **bounds** | _[Leaflet LatLngBounds object](http://leafletjs.com/reference.html#latlngbounds)_ or _Boolean_. If `true`, search is bounded by the current map view. You may also provide a custom bounding box in form of a LatLngBounds object. _Note: `bounds` is not supported by autocomplete._ | `false`
 **focus** | _[Leaflet LatLng object](http://leafletjs.com/reference.html#latlng)_ or _Boolean_. If `true`, search and autocomplete prioritizes results near the center of the current view. You may also provide a custom LatLng value (in any of the [accepted Leaflet formats](http://leafletjs.com/reference.html#latlng)) to act as the center bias. | `true`
 **latlng** | _Deprecated._ Please use **focus** instead. |
-**layers** | _String_ or _Array_. Filters results by layers ([documentation](https://mapzen.com/documentation/search/search/#filter-by-data-type)). If left blank, results will come from all available layers. | `null`
-**params** | _Object_. An object of key-value pairs which will be serialized into query parameters that will be passed to the API. This allows custom queries that are not already supported by the convenience options listed above. For a full list of supported parameters, please read the [Mapzen Search documentation](https://mapzen.com/documentation/search/). **IMPORTANT: some parameters only work with the `/search` endpoint, and do not apply to `/autocomplete` requests! All supplied parameters are passed through; this library doesn't know which are valid parameters and which are not.** In the event that other options conflict with parameters passed passed through `params`, the `params` option takes precedence. | `null`
+**layers** | _String_ or _Array_. Filters results by layers ([documentation](https://github.com/pelias/documentation/blob/master/search.md#filter-by-data-type)). If left blank, results will come from all available layers. | `null`
+**params** | _Object_. An object of key-value pairs which will be serialized into query parameters that will be passed to the API. This allows custom queries that are not already supported by the convenience options listed above. For a full list of supported parameters, please read the [Pelias documentation](https://github.com/pelias/documentation/blob/master/search.md). **IMPORTANT: some parameters only work with the `/search` endpoint, and do not apply to `/autocomplete` requests! All supplied parameters are passed through; this library doesn't know which are valid parameters and which are not.** In the event that other options conflict with parameters passed passed through `params`, the `params` option takes precedence. | `null`
 
 #### Examples
 
@@ -179,9 +178,9 @@ L.control.geocoder('<your-api-key>', {
 }).addTo(map);
 
 // Custom filtering and bounding parameters
-// For valid parameters, see Mapzen Search documentation for
-// search (https://mapzen.com/documentation/search/search/)
-// and autocomplete (https://mapzen.com/documentation/search/autocomplete/)
+// For valid parameters, see Pelias documentation for
+// search (https://github.com/pelias/documentation/blob/master/search.md)
+// and autocomplete (https://github.com/pelias/documentation/blob/master/autocomplete.md)
 // Note that some parameters use dot notation and so must be quoted
 // in JavaScript otherwise it will result in a syntax error
 L.control.geocoder('<your-api-key>', {
@@ -212,7 +211,7 @@ option      | description                               | default value
 **fullWidth** | _Integer_ or _Boolean_. If `true`, the input box will expand to take up the full width of the map container. If an integer breakpoint is provided, the full width applies only if the map container width is below this breakpoint. | `650`
 **expanded** | _Boolean_. If `true`, the search input is always expanded. It does not collapse into a button-only state. | `false`
 **autocomplete** | _Boolean_. If `true`, suggested results are fetched on each keystroke. If `false`, this is disabled and users must obtain results by pressing the Enter key after typing in their query. | `true`
-**place** | _Boolean_. If `true`, selected results will make a request to the service [`/place` endpoint](https://mapzen.com/documentation/search/place/). If `false`, this is disabled. The geocoder does not handle responses to `/place`, you will need to do handle it yourself in the `results` event listener (see below). | `false`
+**place** | _Boolean_. If `true`, selected results will make a request to the service [`/place` endpoint](https://github.com/pelias/documentation/blob/master/place.md). If `false`, this is disabled. The geocoder does not handle responses to `/place`, you will need to do handle it yourself in the `results` event listener (see below). | `false`
 
 #### Examples
 
@@ -278,7 +277,7 @@ string name             | default value
 
 #### HTTP status code errors
 
-Learn more about possible error messages in [Mapzen Search documentation](https://mapzen.com/documentation/search/http-status-codes/). `ERROR_DEFAULT` is a catch-all error that displays when a request returns an error with an unexpected HTTP status code (or none at all) — one example where this can happen is when a browser is prevented from making a request due to a security concern, such as the lack of CORS headers on the search endpoint.
+Learn more about possible error messages in [Pelias HTTP status code documentation](https://github.com/pelias/documentation/blob/master/http-status-codes.md). `ERROR_DEFAULT` is a catch-all error that displays when a request returns an error with an unexpected HTTP status code (or none at all) — one example where this can happen is when a browser is prevented from making a request due to a security concern, such as the lack of CORS headers on the search endpoint.
 
 string name      | default value
 ---------------- | -------------------------------------------------------------
@@ -310,8 +309,6 @@ L.control.geocoder('<your-api-key>', {
   }
 }).addTo(map);
 ```
-
-[See this in action!](https://mapzen.github.io/leaflet-geocoder/examples/custom-strings.html)
 
 ## Advanced usage
 
@@ -436,10 +433,10 @@ In addition to the [base event object](http://leafletjs.com/reference.html#event
 
 property        | description
 --------------- | -------------------------------------------------------------
-**endpoint**    | A string of the Mapzen API endpoint that was called.
+**endpoint**    | A string of the Pelias API endpoint that was called.
 **requestType** | A string, either `autocomplete`, `search`, or `place`, depending on the request made.
-**params**      | An object containing the parameters that have been passed to the Mapzen Search request.
-**results**     | The [original response object](https://mapzen.com/documentation/search/response/) returned from Mapzen Search, including all feature geometries and properties.
+**params**      | An object containing the parameters that have been passed to the Pelias request.
+**results**     | The [original response object](https://mapzen.com/documentation/search/response/) returned from Pelias, including all feature geometries and properties.
 
 If there was an error with the request, the event object will contain the additional properties:
 
@@ -454,7 +451,7 @@ property          | description
 ----------------- | -----------------------------------------------------------
 **originalEvent** | The original event object ([`MouseEvent`](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent) or [`KeyboardEvent`](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent)) reported by the browser.
 **latlng**        | A [Leaflet LatLng](http://leafletjs.com/reference.html#latlng) object representing the coordinates of the result.
-**feature**       | The [GeoJSON feature object](https://mapzen.com/documentation/search/response/#list-of-features-returned) from Mapzen Search, including feature geometry and properties.
+**feature**       | The [GeoJSON feature object](https://mapzen.com/documentation/search/response/#list-of-features-returned) from Pelias, including feature geometry and properties.
 
 #### on `focus` and `blur`
 
@@ -464,11 +461,7 @@ property          | description
 
 ### Browser support
 
-This plugin supports all Leaflet-supported browsers _except_ for Internet Explorer 7. It makes a cross-domain request in Javascript to obtain search results, which is not supported in IE7 without JSONP. Mapzen Search [does not support API requests in JSONP](https://mapzen.com/documentation/search/use-cors/#why-not-jsonp).
-
-### Using a Pelias-compatible endpoint
-
-This project was renamed as of v1.3.0 to be more closely associated with [Mapzen Search](https://mapzen.com/projects/search), the hosted geocoding service provided by Mapzen that requires an API key. You can still point the geocoder at a different service running [Pelias](https://github.com/pelias/pelias), Mapzen's open-source geocoder, by changing the `url` option (see [Query behavior,](#query-behavior) above) to the desired endpoint. If an API key is not required, the parameter may be omitted or be set to `undefined` or `null`.
+This plugin supports all Leaflet-supported browsers _except_ for Internet Explorer 7. It makes a cross-domain request in Javascript to obtain search results, which is not supported in IE7 without JSONP. Pelias [does not support API requests in JSONP](https://mapzen.com/documentation/search/use-cors/#why-not-jsonp).
 
 ### Accessing other plugin internals
 
