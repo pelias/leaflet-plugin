@@ -1,7 +1,7 @@
 {
-  "name": "leaflet-geocoder-mapzen",
+  "name": "pelias-leaflet-plugin",
   "version": "1.9.4",
-  "homepage": "https://github.com/mapzen/leaflet-geocoder",
+  "homepage": "https://github.com/pelias/leaflet-plugin",
   "authors": [
     "Harish Krishna",
     "Lou Huang <lou@mapzen.com>"
