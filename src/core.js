@@ -55,8 +55,8 @@ var Geocoder = L.Control.extend({
 
   options: {
     position: 'topleft',
-    attribution: 'Geocoding by <a href="https://mapzen.com/projects/search/">Mapzen</a>',
-    url: 'https://search.mapzen.com/v1',
+    attribution: 'Geocoding by <a href="https://geocode.earth">Geocode.earth</a>',
+    url: 'https://api.geocode.earth/v1',
     placeholder: null, // Note: this is now just an alias for textStrings.INPUT_PLACEHOLDER
     bounds: false,
     focus: true,
@@ -79,7 +79,7 @@ var Geocoder = L.Control.extend({
     // version, because XDomainRequest does not allow http-to-https requests
     // This is set first so it can always be overridden by the user
     if (window.XDomainRequest) {
-      this.options.url = '//search.mapzen.com/v1';
+      this.options.url = '//api.geocode.earth/v1';
     }
 
     // If the apiKey is omitted entirely and the

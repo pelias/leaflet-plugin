@@ -115,7 +115,7 @@ Some options affect the Pelias query itself.
 
 option      | description                               | default value
 ----------- | ----------------------------------------- | ---------------------
-**url** | _String._ Host endpoint for a Pelias-compatible search API. | `'https://search.mapzen.com/v1'`
+**url** | _String._ Host endpoint for a Pelias-compatible search API. | `'https://api.geocode.earth/v1'`
 **bounds** | _[Leaflet LatLngBounds object](http://leafletjs.com/reference.html#latlngbounds)_ or _Boolean_. If `true`, search is bounded by the current map view. You may also provide a custom bounding box in form of a LatLngBounds object. _Note: `bounds` is not supported by autocomplete._ | `false`
 **focus** | _[Leaflet LatLng object](http://leafletjs.com/reference.html#latlng)_ or _Boolean_. If `true`, search and autocomplete prioritizes results near the center of the current view. You may also provide a custom LatLng value (in any of the [accepted Leaflet formats](http://leafletjs.com/reference.html#latlng)) to act as the center bias. | `true`
 **latlng** | _Deprecated._ Please use **focus** instead. |
@@ -199,7 +199,7 @@ These options affect the plugin's appearance and interaction behavior.
 option      | description                               | default value
 ----------- | ----------------------------------------- | ---------------------
 **position** | _String_. Corner in which to place the geocoder control. Values correspond to Leaflet [control positions](http://leafletjs.com/reference.html#control-positions). | `'topleft'`
-**attribution** | _String_. Attribution text that will be appended to Leaflet’s [attribution control](http://leafletjs.com/reference-1.0.3.html#control-attribution). Set to a blank string or `null` to disable adding the plugin’s default attribution. | `'Geocoding by <a href="https://mapzen.com/projects/search/">Mapzen</a>'`
+**attribution** | _String_. Attribution text that will be appended to Leaflet’s [attribution control](http://leafletjs.com/reference-1.0.3.html#control-attribution). Set to a blank string or `null` to disable adding the plugin’s default attribution. | `'Geocoding by <a href="https://geocode.earth">Geocode.earth</a>'`
 **textStrings** | _Object_. An object of string values that replace text strings in the geocoder control, so you can provide your own custom messages or localization. | See “Custom text strings” section below.
 **placeholder** | _String_. Placeholder text to display in the search input box. This is an alias for **`textStrings.INPUT_PLACEHOLDER`**. Set to a blank string or `null` to disable. | `'Search'`
 **title** | _Deprecated._ Please use **`textStrings.INPUT_TITLE_ATTRIBUTE** instead. |
