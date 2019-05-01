@@ -1,7 +1,5 @@
 [![npm version](https://img.shields.io/npm/v/pelias-leaflet-plugin.svg?style=flat-square)](https://www.npmjs.com/package/pelias-leaflet-plugin)
-[![CircleCI](https://img.shields.io/circleci/project/mapzen/leaflet-geocoder.svg?style=flat-square)](https://circleci.com/gh/mapzen/leaflet-geocoder/)
-[![David devDependencies](https://img.shields.io/david/dev/mapzen/leaflet-geocoder.svg?style=flat-square)](https://david-dm.org/mapzen/leaflet-geocoder/#info=devDependencies)
-[![Coverage Status](https://img.shields.io/coveralls/mapzen/leaflet-geocoder.svg?style=flat-square)](https://coveralls.io/github/mapzen/leaflet-geocoder?branch=master)
+[![Build Status](https://travis-ci.com/pelias/leaflet-geocoder.svg?branch=master)](https://travis-ci.com/pelias/leaflet-geocoder)
 [![Gitter chat](https://img.shields.io/gitter/room/pelias/pelias.svg?style=flat-square)](https://gitter.im/pelias/pelias)
 [![Leaflet 1.0.0 ready](https://img.shields.io/badge/Leaflet%201.0.0-%E2%9C%93-brightgreen.svg?style=flat-square)](http://leafletjs.com/)
 
