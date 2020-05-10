@@ -55,7 +55,7 @@ var Geocoder = L.Control.extend({
 
   options: {
     position: 'topleft',
-    attribution: 'Geocoding by <a href="https://geocode.earth">Geocode.earth</a>',
+    attribution: 'Geocoding by <a href="https://geocode.earth">Geocode Earth</a>',
     url: 'https://api.geocode.earth/v1',
     placeholder: null, // Note: this is now just an alias for textStrings.INPUT_PLACEHOLDER
     bounds: false,
